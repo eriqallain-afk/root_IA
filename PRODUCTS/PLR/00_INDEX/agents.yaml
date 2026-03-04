@@ -1,0 +1,31 @@
+agents:
+- actor_id: PLR-Orchestrator
+  team_id: TEAM__PLR
+  name: '@PLR-Orchestrator'
+  status: active
+  path: agents/PLR-Orchestrator
+- actor_id: PLR-RadioScripteur
+  team_id: TEAM__PLR
+  name: '@PLR - Radio Scripteur'
+  status: active
+  path: agents/PLR-RadioScripteur
+- actor_id: PLR-Scripteur
+  team_id: TEAM__PLR
+  name: '@PLR-Scripteur'
+  status: active
+  path: agents/PLR-Scripteur
+- actor_id: OPS-RouterIA
+  team_id: TEAM__OPS
+  name: '@OPS-RouterIA'
+  status: active
+  path: agents/OPS-RouterIA
+- actor_id: OPS-PlaybookRunner
+  team_id: TEAM__OPS
+  name: '@OPS-PlaybookRunner'
+  status: active
+  path: agents/OPS-PlaybookRunner
+- actor_id: OPS-DossierIA
+  team_id: TEAM__OPS
+  name: '@OPS-DossierIA'
+  status: active
+  path: agents/OPS-DossierIA

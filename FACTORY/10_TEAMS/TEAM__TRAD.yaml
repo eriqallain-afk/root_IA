@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__TRAD
+name: TRAD
+mission: "Veille & signaux : marchés/crypto/géo/social/cyber + corrélation."
+default_orchestrator: TRAD-CommandCore

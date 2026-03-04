@@ -1,0 +1,20 @@
+schema_version: "memory/index/v1"
+agent_id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+updated_at_utc: "2026-01-13T17:27:32Z"
+
+# Répertoire recommandé dans root_IA:
+# 20_AGENTS/EDU/EDU-Reflexions_CCQ/10_MEMORY/
+memory_files:
+  calibration_profile: "10_MEMORY/MEM__CalibrationProfile.yaml"
+  annie_guidelines: "10_MEMORY/MEM__AnnieGuidelines.yaml"
+  local_rules: "10_MEMORY/MEM__LocalRules.yaml"
+  rolling_stats: "10_MEMORY/MEM__RollingStats.yaml"
+
+retention_policy: "10_MEMORY/RETENTION_POLICY.md"
+update_protocol: "10_MEMORY/UPDATE_PROTOCOL.md"
+annie_quick_capture: "10_MEMORY/ANNIE_QUICK_CAPTURE.md"
+
+# Activation
+enabled: true
+apply_memory_patch: true

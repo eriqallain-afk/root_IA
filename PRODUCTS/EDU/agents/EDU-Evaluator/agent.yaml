@@ -1,0 +1,19 @@
+id: EDU-Evaluator
+display_name: '@EDU-Evaluator'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.0
+status: active
+description: Évalue les réflexions éthiques CCQ selon la grille officielle et le barème verrouillé
+intents:
+- edu
+- evalue
+output_format: json
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: json
+  contract_required: true
+  logs_required: true

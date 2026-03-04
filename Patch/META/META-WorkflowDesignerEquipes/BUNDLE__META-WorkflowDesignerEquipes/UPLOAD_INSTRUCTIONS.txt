@@ -1,0 +1,50 @@
+=============================================================
+INSTRUCTIONS D'UPLOAD — Knowledge GPT Custom
+=============================================================
+
+Agent: META-WorkflowDesignerEquipes
+Équipe: META
+Date: 2026-02-01
+
+=============================================================
+FICHIERS À UPLOADER (dans cet ordre)
+=============================================================
+
+1. CONTEXTE GLOBAL (5 fichiers) :
+   [ ] 00_CORE/CONTEXT__CORE.md
+   [ ] 00_CORE/POLICIES__INDEX.md
+   [ ] 00_CORE/teams_index.yaml
+   [ ] 00_CORE/playbooks.yaml
+   [ ] 00_CORE/hub_routing.yaml
+
+2. CONTEXTE ÉQUIPE META (3 fichiers) :
+   [ ] 10_TEAM/TEAM__META.yaml
+   [ ] 10_TEAM/agents_META_list.yaml
+   [ ] 10_TEAM/playbooks_META.yaml
+
+3. AGENT SPÉCIFIQUE (3 fichiers) :
+   [ ] 20_AGENT/agent.yaml
+   [ ] 20_AGENT/contract.yaml
+   [ ] 20_AGENT/README.md
+
+=============================================================
+TOTAL : 11 fichiers
+=============================================================
+
+NOTES :
+- Le prompt.md n'est PAS uploadé (déjà dans system prompt GPT)
+- L'ordre d'upload n'est pas critique
+- Tous les fichiers sont en texte (MD/YAML)
+- Taille totale : ~80 KB
+
+=============================================================
+UPLOAD DANS GPT CUSTOM
+=============================================================
+
+1. Aller sur platform.openai.com
+2. Sélectionner votre GPT custom "META-WorkflowDesignerEquipes"
+3. Section "Knowledge"
+4. Upload chaque fichier (ou ZIP complet)
+5. Sauvegarder
+
+=============================================================

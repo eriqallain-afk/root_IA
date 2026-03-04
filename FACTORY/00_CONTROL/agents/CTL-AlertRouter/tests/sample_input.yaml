@@ -1,0 +1,10 @@
+watchdog_report:
+  run_id: "WATCH__20260225__100000"
+  factory_status: "degraded"
+  issues:
+    - agent_id: "META-PromptMaster"
+      severity: "P1"
+      type: "drift_detected"
+      detail: "drift_score=0.62 — format de sortie ne respecte plus le contract.yaml"
+      evidence: "20_AGENTS/META/META-PromptMaster/contract.yaml"
+      action_required: "Revalider prompt vs contrat via META-GouvernanceQA"

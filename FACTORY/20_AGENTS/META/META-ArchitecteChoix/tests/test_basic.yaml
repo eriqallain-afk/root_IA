@@ -1,0 +1,18 @@
+test_name: "Test basique META-ArchitecteChoix"
+test_id: "test_meta_architectechoix_001"
+category: "basic"
+
+input:
+  request:
+    type: "basic"
+
+expected_behavior:
+  - "Réponse structurée"
+  - "Quality score >= 9.0"
+  - "Logs complets"
+
+validation_criteria:
+  - quality_score: ">= 9.0"
+  - output_format: "YAML_STRICT"
+
+status: "pending"

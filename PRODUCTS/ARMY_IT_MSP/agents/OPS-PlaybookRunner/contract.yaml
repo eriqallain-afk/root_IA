@@ -1,0 +1,38 @@
+schema_version: '1.0'
+actor_id: OPS-PlaybookRunner
+team_id: TEAM__IT_OPS
+product_id: IT
+standalone: true
+
+inputs:
+  playbook_id:
+    type: string
+    required: true
+  inputs:
+    type: object
+    required: true
+  state:
+    type: object
+    required: false
+
+outputs:
+  execution:
+    playbook_id: string
+    status: string           # completed | partial | failed
+    steps: list[object]
+    deliverable: object
+    product: 'IT'
+    executed_by: 'OPS-PlaybookRunner'
+    timestamp: string
+
+rules:
+  must_load_playbooks_file: playbooks/playbooks.yaml
+  must_chain_steps: true
+  forbidden_actors:
+    - HUB-AgentMO-MasterOrchestrator
+    - META-AgentProductFactory
+  step_validation: required
+
+error_handling:
+  on_step_failure: continue_with_error_log
+  on_missing_playbook: raise_error

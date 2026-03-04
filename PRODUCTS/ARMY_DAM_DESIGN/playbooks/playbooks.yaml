@@ -1,0 +1,27 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.407453'
+playbooks:
+  DAM_PROJECT_CONTROL:
+    description: 'Projet DAM : conformité/budget/planning/inspection + synthèse'
+    steps:
+    - step: conformite
+      actor_id: DAM-GPT2-Conformite
+    - step: budget
+      actor_id: DAM-GPT3-Budget
+    - step: planning
+      actor_id: DAM-GPT4-Planification
+    - step: vendors
+      actor_id: DAM-GPT5-SousTraitants
+    - step: inspection
+      actor_id: DAM-GPT6-Inspection
+    - step: synthese
+      actor_id: DAM-Orchestrator
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA

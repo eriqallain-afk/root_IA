@@ -1,0 +1,19 @@
+id: TRAD-MarketAnalyst
+display_name: '@TRAD-MarketAnalyst'
+team_id: TEAM__TRAD
+team_name: TRAD
+version: 1.0.0
+status: active
+description: 'Analyse marchés financiers : tendances, signaux, risques'
+intents:
+- trad
+- analyse
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

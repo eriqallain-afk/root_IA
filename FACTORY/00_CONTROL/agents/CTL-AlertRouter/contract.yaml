@@ -1,0 +1,69 @@
+contract_version: "1.0.0"
+id: CTL-AlertRouter
+team: CTL
+description: >
+  Reçoit les issues d'un rapport WatchdogIA et produit des tickets d'alerte
+  routés vers le bon destinataire selon la matrice d'escalade définie.
+
+input:
+  watchdog_report:
+    type: object
+    required: true
+    description: "Rapport complet ou partiel du CTL-WatchdogIA (watchdog_report YAML)."
+  override_severity:
+    type: "P0|P1|P2|P3|null"
+    required: false
+    description: "Forcer une sévérité minimale pour toutes les issues de ce run."
+  escalation_matrix:
+    type: object|string
+    required: false
+    description: "Chemin ou contenu de 00_CONTROL/policies/ESCALATION_MATRIX.yaml. Utilise le défaut si absent."
+  context:
+    type: object
+    required: false
+    description: "Contexte additionnel (run_id, session, notes)."
+
+output:
+  format: YAML_STRICT
+  result:
+    summary:
+      type: string
+      description: "Synthèse 1-3 lignes des alertes émises."
+    status:
+      type: "alerts_sent | no_alerts | partial"
+    alerts_emitted:
+      type: list[object]
+      description: >
+        Liste des tickets d'alerte produits. Chaque ticket contient :
+        alert_id, severity, agent_id, issue_type, routed_to (liste d'agents),
+        action_required, deadline, created_at.
+    suppressed_alerts:
+      type: list[object]
+      description: "Issues P2-P3 loggées mais non routées activement (pour rapport hebdo)."
+  artifacts:
+    - type: yaml
+      title: "Tickets d'alerte"
+      path: "00_CONTROL/artifacts/alerts_<date>_<run_id>.yaml"
+  log:
+    decisions: []
+    risks: []
+    assumptions: []
+    quality_score: 0-10
+
+success_criteria:
+  must_include:
+    - result.status
+    - result.alerts_emitted
+    - log.decisions
+  quality_score_target: 9
+
+guardrails:
+  - "Ne jamais supprimer une alerte P0. Toujours router, même si destinataire incertain."
+  - "Si matrice d'escalade absente : utiliser les défauts définis dans le prompt."
+  - "Un alert_id unique par issue (format: ALERT__<YYYYMMDD>__<severity>__<agent_id>)."
+  - "Ne pas dupliquer une alerte déjà émise dans les 24h pour le même agent_id + issue_type."
+
+escalation:
+  - when: "Impossible de router (destinataire introuvable)"
+    to: "HUB-AgentMO-MasterOrchestrator"
+    how: "Retourner status=partial + lister les alertes non routées."

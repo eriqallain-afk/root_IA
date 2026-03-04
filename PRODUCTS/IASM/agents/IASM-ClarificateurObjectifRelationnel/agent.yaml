@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-ClarificateurObjectifRelationnel
+display_name: "@IASM - Clarificateur d'objectif relationnel"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Situation floue -> objectif principal + secondaires."
+intents:
+  - iasm
+  - goal
+  - clarify
+aliases:
+  - "@IASM - Clarificateur d'objectif relationnel"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

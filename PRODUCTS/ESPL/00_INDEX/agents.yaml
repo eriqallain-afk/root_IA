@@ -1,0 +1,21 @@
+agents:
+- actor_id: ESPL-PaulLejeuneRadio
+  team_id: TEAM__ESPL
+  name: '@ESPL-PaulLejeuneRadio'
+  status: active
+  path: agents/ESPL-PaulLejeuneRadio
+- actor_id: OPS-RouterIA
+  team_id: TEAM__OPS
+  name: '@OPS-RouterIA'
+  status: active
+  path: agents/OPS-RouterIA
+- actor_id: OPS-PlaybookRunner
+  team_id: TEAM__OPS
+  name: '@OPS-PlaybookRunner'
+  status: active
+  path: agents/OPS-PlaybookRunner
+- actor_id: OPS-DossierIA
+  team_id: TEAM__OPS
+  name: '@OPS-DossierIA'
+  status: active
+  path: agents/OPS-DossierIA

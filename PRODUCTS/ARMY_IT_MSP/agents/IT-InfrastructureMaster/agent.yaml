@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-InfrastructureMaster
+display_name: "@IT-InfrastructureMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Serveurs/virtualisation/stockage : design, capacity planning."
+intents:
+  - it
+  - infrastructure
+  - servers
+aliases:
+  - "@IT-InfrastructureMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

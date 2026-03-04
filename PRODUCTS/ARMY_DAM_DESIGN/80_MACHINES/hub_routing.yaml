@@ -1,0 +1,36 @@
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+routing_table:
+- match_any_intents:
+  - analytics
+  - archive
+  - budget
+  - compliance
+  - dam
+  - dam_analytics
+  - dam_budget
+  - dam_compliance
+  - dam_docs
+  - dam_inspection
+  - dam_kpi
+  - dam_planning
+  - dam_procurement
+  - dam_products
+  - dam_archive
+  - dam_suppliers
+  - dam_vendors
+  - docs
+  - inspection
+  - kpi
+  - planning
+  - procurement
+  - products
+  - suppliers
+  - vendors
+  default_actor_id: DAM-Orchestrator
+  default_playbook_id: DAM_PROJECT_CONTROL
+- fallback: null
+  default_actor_id: DAM-Orchestrator
+  default_playbook_id: DAM_PROJECT_CONTROL
+  note: "Fallback interne produit DAM (standalone)"

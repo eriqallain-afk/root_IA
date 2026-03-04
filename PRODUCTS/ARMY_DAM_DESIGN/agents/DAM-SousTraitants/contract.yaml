@@ -1,0 +1,11 @@
+# Contract I/O — DAM-SousTraitants
+# Évalue et compare les soumissions de sous-traitants
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

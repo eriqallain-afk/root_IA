@@ -1,0 +1,19 @@
+id: PLR-Orchestrator
+display_name: '@PLR-Orchestrator'
+team_id: TEAM__PLR
+team_name: PLR
+version: 1.0.0
+status: active
+description: Planifie et coordonne la production d'épisodes radio/podcast
+intents:
+- plr
+- coordonne
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

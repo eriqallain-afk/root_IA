@@ -1,0 +1,14 @@
+{
+  "extraction_batch": {
+    "source": {
+      "filename": "",
+      "page_count": 0
+    },
+    "detected_students_total": 0,
+    "returned_students_count": 0,
+    "continuation_required": false,
+    "next_start_index": null,
+    "students": [],
+    "notes": []
+  }
+}

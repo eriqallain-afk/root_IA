@@ -1,0 +1,111 @@
+agents:
+- actor_id: DAM-Budget
+  team_id: TEAM__DAM
+  name: '@DAM-Budget'
+  status: active
+  path: agents/DAM-Budget
+- actor_id: DAM-Conformite
+  team_id: TEAM__DAM
+  name: '@DAM-Conformite'
+  status: active
+  path: agents/DAM-Conformite
+- actor_id: DAM-GPT10-Fournisseurs
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 10 — Fournisseurs'
+  status: active
+  path: agents/DAM-GPT10-Fournisseurs
+- actor_id: DAM-GPT11-Satisfaction
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 11 — Satisfaction'
+  status: active
+  path: agents/DAM-GPT11-Satisfaction
+- actor_id: DAM-GPT12-Legal
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 12 — Légal'
+  status: active
+  path: agents/DAM-GPT12-Legal
+- actor_id: DAM-GPT13-Analytics
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 13 — Analytics'
+  status: active
+  path: agents/DAM-GPT13-Analytics
+- actor_id: DAM-GPT2-Conformite
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 2 — Conformité'
+  status: active
+  path: agents/DAM-GPT2-Conformite
+- actor_id: DAM-GPT3-Budget
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 3 — Budget'
+  status: active
+  path: agents/DAM-GPT3-Budget
+- actor_id: DAM-GPT4-Planification
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 4 — Planification'
+  status: active
+  path: agents/DAM-GPT4-Planification
+- actor_id: DAM-GPT5-SousTraitants
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 5 — Sous-Traitants'
+  status: active
+  path: agents/DAM-GPT5-SousTraitants
+- actor_id: DAM-GPT6-Inspection
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 6 — Inspection'
+  status: active
+  path: agents/DAM-GPT6-Inspection
+- actor_id: DAM-GPT7-Archiviste
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 7 — Archiviste'
+  status: active
+  path: agents/DAM-GPT7-Archiviste
+- actor_id: DAM-GPT8-Communication
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 8 — Communication'
+  status: active
+  path: agents/DAM-GPT8-Communication
+- actor_id: DAM-GPT9-Produits
+  team_id: TEAM__DAM
+  name: '@DAM-GPT 9 — Produits'
+  status: active
+  path: agents/DAM-GPT9-Produits
+- actor_id: DAM-Inspection
+  team_id: TEAM__DAM
+  name: '@DAM-Inspection'
+  status: active
+  path: agents/DAM-Inspection
+- actor_id: DAM-Orchestrator
+  team_id: TEAM__DAM
+  name: '@DAM-Orchestrator'
+  status: active
+  path: agents/DAM-Orchestrator
+- actor_id: DAM-Planification
+  team_id: TEAM__DAM
+  name: '@DAM-Planification'
+  status: active
+  path: agents/DAM-Planification
+- actor_id: DAM-SousTraitants
+  team_id: TEAM__DAM
+  name: '@DAM-SousTraitants'
+  status: active
+  path: agents/DAM-SousTraitants
+- actor_id: DAM-Superviseur
+  team_id: TEAM__DAM
+  name: '@DAM - Superviseur'
+  status: active
+  path: agents/DAM-Superviseur
+- actor_id: OPS-RouterIA
+  team_id: TEAM__OPS
+  name: '@OPS-RouterIA'
+  status: active
+  path: agents/OPS-RouterIA
+- actor_id: OPS-PlaybookRunner
+  team_id: TEAM__OPS
+  name: '@OPS-PlaybookRunner'
+  status: active
+  path: agents/OPS-PlaybookRunner
+- actor_id: OPS-DossierIA
+  team_id: TEAM__OPS
+  name: '@OPS-DossierIA'
+  status: active
+  path: agents/OPS-DossierIA

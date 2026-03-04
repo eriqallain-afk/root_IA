@@ -1,0 +1,199 @@
+schema_version: "1.0.0"
+generated_at: '2026-01-05T00:44:17Z'
+teams:
+
+- team_id: TEAM__HUB
+  name: HUB
+  status: active
+  purpose: "Orchestration globale : intake, routing, coordination inter-équipes"
+  type: infra
+  agents:
+    - HUB-AgentMO-MasterOrchestrator
+    - HUB-AgentMO2-DeputyOrchestrator
+    - HUB-Router
+    - HUB-Concierge
+    - HUB-Orchestrator
+    - HUB-AvatarForge
+    - HUB-CoachIA360-Strategie-GPTTeams
+    - HUB-IA-ChatBotMaster
+    - HUB-ITCoachIA360
+    - HUB-OproEngine
+
+- team_id: TEAM__IAHQ
+  name: IAHQ
+  status: active
+  purpose: "Direction stratégique : business cases, architecture, offres IA"
+  type: infra
+  agents:
+    - IAHQ-OrchestreurEntrepriseIA
+    - IAHQ-AdminManagerIA
+    - IAHQ-DevFactoryIA
+    - IAHQ-Economist
+    - IAHQ-Extractor
+    - IAHQ-Strategist
+    - IAHQ-ProcessMapper
+    - IAHQ-QualityGate
+    - IAHQ-SolutionOrchestrator
+    - IAHQ-TechLeadIA
+
+- team_id: TEAM__META
+  name: META
+  status: active
+  purpose: "Factory IA : création agents, prompts, playbooks, QA, gouvernance"
+  type: infra
+  agents:
+    - META-OrchestrateurCentral
+    - META-AgentProductFactory
+    - META-AnalysteBesoinsEquipes
+    - META-ArchitecteChoix
+    - META-Concierge
+    - META-ConciergeUX
+    - META-Pedagogie
+    - META-Redaction
+    - META-PromptMaster
+    - META-AgentFactory
+    - META-CartographeRoles
+    - META-GouvernanceQA
+    - META-PlaybookBuilder
+    - META-VisionCreative
+    - META-WorkflowDesignerEquipes
+    - META-ReversePrompt
+
+- team_id: TEAM__OPS
+  name: OPS
+  status: active
+  purpose: "Runtime : exécution playbooks, mémoire projet, dossiers"
+  type: infra
+  agents:
+    - OPS-RouterIA
+    - OPS-PlaybookRunner
+    - OPS-DossierIA
+
+- team_id: TEAM__CTL
+  name: TEAM__CTL
+  status: active
+  purpose: "Monitoring: Surveillance continu, produit des rapport et lance des alertes"
+  type: infra
+  agents:
+    - CTL-AlertRouter
+    - CTL-HealthReporter
+    - CTL-WatchdogIA
+
+- team_id: TEAM__DAM
+  name: DAM
+  status: active
+  purpose: "Gestion projets domiciliaires : conformité RBQ, budget, planning, inspection"
+  type: produit
+  agents:
+    - DAM-Orchestrator
+    - DAM-Conformite
+    - DAM-Budget
+    - DAM-Planification
+    - DAM-SousTraitants
+    - DAM-Inspection
+
+- team_id: TEAM__EDU
+  name: EDU
+  status: active
+  purpose: "Éducation CCQ : évaluation réflexions éthiques, correction, batch"
+  type: produit
+  agents:
+    - EDU-Orchestrator
+    - EDU-Extractor
+    - EDU-Evaluator
+
+- team_id: TEAM__IT
+  name: IT
+  status: active
+  purpose: "Services MSP : NOC, support, infrastructure, sécurité, DevOps, interventions"
+  type: produit
+  agents:
+    - IT-OrchestratorMSP
+    - IT-CTOMaster
+    - IT-NOC
+    - IT-AssetMaster
+    - IT-BackupDRMaster
+    - IT-CloudMaster
+    - IT-Commandare-NOC
+    - IT-Commandare-OPR
+    - IT-Commandare-TECH
+    - IT-CommsMSP
+    - IT-DevOpsMaster
+    - IT-DirecteurGeneral
+    - IT-InfrastructureMaster
+    - IT-InterventionCopilot
+    - IT-InterventionLive
+    - IT-KnowledgeKeeper
+    - IT-MaintenanceMaster
+    - IT-MonitoringMaster
+    - IT-MSPLiveAssistant
+    - IT-NetworkMaster
+    - IT-NOCDispatcher
+    - IT-SecurityMaster
+    - IT-ScriptMaster
+    - IT-ReportMaster
+    - IT-SoftwMaster
+    - IT-SupportMaster
+    - IT-Technicien
+    - IT-TicketScribe
+    - IT-VoIPMaster
+
+- team_id: TEAM__IT_OPS
+  name: IT_OPS
+  status: active
+  purpose: "Routeur et archive produit IT : routage, dossierIA, PlaybookRunner"
+  type: infra
+  agents:
+  - IT-OPS-RouterIA
+  - IT-OPS-PlaybookRunner
+  - IT-OPS-DossierIA
+
+- team_id: TEAM__IASM
+  name: IASM
+  status: active
+  purpose: "Coaching IA santé mentale : support émotionnel, TCC, relations, sécurité"
+  type: produit
+  agents:
+    - IASM-Orchestrator
+    - IASM-SupportEmotionnel
+    - IASM-OutilsTCC
+    - IASM-Securite
+
+- team_id: TEAM__TRAD
+  name: TRAD
+  status: active
+  purpose: "Intelligence stratégique : marchés, crypto, cyber, géopolitique, signaux"
+  type: produit
+  agents:
+    - TRAD-CommandCore
+    - TRAD-MarketAnalyst
+    - TRAD-CryptoAnalyst
+    - TRAD-CyberWatch
+    - TRAD-GeoAnalyst
+
+- team_id: TEAM__NEA
+  name: NEA
+  status: active
+  purpose: "Publishing : rédaction recueils, illustrations, patterns narratifs"
+  type: produit
+  agents:
+    - NEA-Orchestrator
+    - NEA-Redacteur
+    - NEA-Imagier
+
+- team_id: TEAM__PLR
+  name: PLR
+  status: active
+  purpose: "Radio/Podcast : scripts, épisodes, show notes"
+  type: produit
+  agents:
+    - PLR-Orchestrator
+    - PLR-Scripteur
+
+- team_id: TEAM__ESPL
+  name: ESPL
+  status: active
+  purpose: "Projets spéciaux et expérimentaux"
+  type: produit
+  agents:
+    - ESPL-PaulLejeuneRadio

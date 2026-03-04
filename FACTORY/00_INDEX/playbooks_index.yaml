@@ -1,0 +1,126 @@
+generated_at: '2026-02-26'
+playbooks:
+  AGENT_LIFECYCLE_MANAGEMENT:
+    category: monitoring
+    display_name: Agent Lifecycle Management
+    duration_minutes: 20
+    file: 30_PLAYBOOKS/PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT.yaml
+    operations:
+    - activate
+    - degrade
+    - deprecate
+    - archive
+    - restore
+    team_owner: TEAM__CTL
+    trigger: on_demand | watchdog_recommendation
+  ARMY_AUDIT_COMPLETE:
+    category: optimisation
+    display_name: Army Audit Complete
+    duration_minutes: 120
+    file: 30_PLAYBOOKS/PB_OPT_02_ARMY_AUDIT_COMPLETE.yaml
+    maturity_model:
+    - L1
+    - L2
+    - L3
+    - L4
+    - L5
+    steps_count: 11
+    team_owner: TEAM__META
+    trigger: quarterly | pre_delivery | on_demand
+  BUILD_ARMY:
+    category: fabrication
+    display_name: Build Army GPT
+    duration_minutes: 180
+    file: 30_PLAYBOOKS/PB_FAB_05_BUILD_ARMY.yaml
+    team_owner: TEAM__META
+    trigger: creer_agent | nouveau_agent | factory | armee
+  BUILD_TEAM_FROM_SCRATCH:
+    category: fabrication
+    display_name: Build Team From Scratch
+    duration_minutes: 240
+    file: 30_PLAYBOOKS/PB_FAB_03_BUILD_TEAM_FROM_SCRATCH.yaml
+    steps_count: 12
+    team_owner: TEAM__META
+    trigger: manual | onboard_new_team
+  CLONE_AND_ADAPT_AGENT:
+    category: fabrication
+    display_name: Clone and Adapt Agent
+    duration_minutes: 45
+    file: 30_PLAYBOOKS/PB_FAB_04_CLONE_AND_ADAPT_AGENT.yaml
+    steps_count: 10
+    team_owner: TEAM__META
+    trigger: manual
+  DAM_PROJECT_ANALYSIS:
+    category: ops
+    display_name: DAM Project Analysis
+    duration_minutes: 60
+    file: 30_PLAYBOOKS/PB_DAM_01_PROJECT_ANALYSIS.yaml
+    team_owner: TEAM__DAM
+    trigger: dam | construction | renovation
+  EDU_CCQ_EVALUATE:
+    category: ops
+    display_name: EDU CCQ Evaluate
+    duration_minutes: 30
+    file: 30_PLAYBOOKS/PB_EDU_01_CCQ_EVALUATE.yaml
+    team_owner: TEAM__EDU
+    trigger: education | ccq | evaluation | correction
+  FACTORY_HEALTH_CHECK:
+    category: monitoring
+    display_name: Factory Health Check
+    duration_minutes: 15
+    file: 30_PLAYBOOKS/PB_CTL_01_FACTORY_HEALTH_CHECK.yaml
+    team_owner: TEAM__CTL
+    trigger: scheduled_weekly | on_demand
+  IASM_SESSION:
+    category: ops
+    display_name: IASM Session
+    duration_minutes: 45
+    file: 30_PLAYBOOKS/PB_IASM_01_SESSION.yaml
+    team_owner: TEAM__IASM
+    trigger: coaching | support_emotionnel | aide
+  IT_INCIDENT_TRIAGE:
+    category: ops
+    display_name: IT Incident Triage
+    duration_minutes: 20
+    file: 30_PLAYBOOKS/PB_IT_01_INCIDENT_TRIAGE.yaml
+    team_owner: TEAM__IT
+    trigger: it | ticket | incident | alerte | noc | support
+  IT_INTERVENTION_LIVE:
+    category: ops
+    display_name: IT Intervention Live
+    duration_minutes: 60
+    file: 30_PLAYBOOKS/PB_IT_02_INTERVENTION_LIVE.yaml
+    team_owner: TEAM__IT
+    trigger: intervention_live | suivi_intervention | technicien
+  ONBOARD_NEW_TEAM:
+    calls:
+    - BUILD_TEAM_FROM_SCRATCH
+    category: expansion
+    display_name: Onboard New Team
+    duration_minutes: 360
+    file: 30_PLAYBOOKS/PB_EXP_01_ONBOARD_NEW_TEAM.yaml
+    steps_count: 11
+    team_owner: TEAM__IAHQ
+    trigger: new_business_domain | client_project
+  POST_MORTEM_ANALYSIS:
+    category: monitoring
+    display_name: Post-Mortem Analysis
+    duration_minutes: 45
+    file: 30_PLAYBOOKS/PB_CTL_03_POST_MORTEM_ANALYSIS.yaml
+    team_owner: TEAM__CTL
+    trigger: post_incident | on_demand
+  PROMPT_OPTIMIZATION_CYCLE:
+    category: optimisation
+    display_name: Prompt Optimization Cycle
+    duration_minutes: 60
+    file: 30_PLAYBOOKS/PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE.yaml
+    team_owner: TEAM__META
+    trigger: drift_detected | performance_low | manual
+  TRAD_INTEL_BRIEF:
+    category: ops
+    display_name: TRAD Intel Brief
+    duration_minutes: 30
+    file: 30_PLAYBOOKS/PB_TRAD_01_INTEL_BRIEF.yaml
+    team_owner: TEAM__TRAD
+    trigger: intel | intelligence | marche | crypto | cyber | geopolitique
+schema_version: '1.0'

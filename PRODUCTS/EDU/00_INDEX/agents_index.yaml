@@ -1,0 +1,117 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.510312'
+agents:
+  EDU-Evaluator:
+    display_name: '@EDU-Evaluator'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: Évalue les réflexions éthiques CCQ selon la grille officielle et le barème verrouillé
+    intents:
+    - edu
+    - evalue
+  EDU-Extractor:
+    display_name: '@EDU-Extractor'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: Extrait le texte des copies CCQ (PDF natif + OCR pour scans)
+    intents:
+    - edu
+  EDU-Extractor_CCQ:
+    display_name: '@EDU-Extractor_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Extraction / transcription CCQ : PDF natif + scans/images -> transcription complète structurée par élève
+      (sans évaluation).'
+    intents:
+    - education
+    - ccq
+    - extract
+    - extraction
+    - transcription
+    - transcrire
+    - ocr
+    - scan
+    - pdf_scan
+    - batch_extract
+  EDU-OCR-Extractor_CCQ:
+    display_name: '@EDU-OCR-Extractor_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Extracteur OCR fidèle pour copies CCQ : transcrit images/PDF scannés sans reformuler, signale incertitudes,
+      sort YAML/JSON exploitable.'
+    intents:
+    - ocr
+    - transcription
+    - scan
+    - photo
+    - ccq
+    - education
+    - batch
+  EDU-Orchestrator:
+    display_name: '@EDU-Orchestrator'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Coordonne le pipeline d''évaluation CCQ : extraction → évaluation → rapport'
+    intents:
+    - edu
+    - coordonne
+  EDU-Orchestrator_CCQ:
+    display_name: '@EDU-Orchestrator_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Orchestrateur CCQ : pipeline Extraction→Évaluation→Supervision invisible→QA contrat→Rapport (single ou batch).'
+    intents:
+    - batch
+    - batch_eval
+    - ccq
+    - correction
+    - education
+    - evaluation
+    - extract
+    - extraction
+    - ocr
+    - orchestration
+    - transcription
+    - workflow
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: Évalue des réflexions éthiques CCQ (sec.4–5) selon cahier + grille + barème verrouillé; transcription PDF
+      scannés; mode batch multi-élèves; sortie JSON.
+    intents:
+    - education
+    - ccq
+    - culture
+    - citoyennete
+    - ethique
+    - evaluation
+    - correction
+    - batch
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

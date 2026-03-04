@@ -1,0 +1,135 @@
+# ============================================================
+# ADDITIONS À 00_INDEX/ POUR L'ÉQUIPE CTL
+# Ajouter ces entrées dans les fichiers d'index existants
+# ============================================================
+
+# -----------------------------------------------------------
+# 1. teams.manifest.yaml — Ajouter dans la liste "teams:"
+# -----------------------------------------------------------
+# - team_id: TEAM__CTL
+#   name: CTL
+#   status: active
+#   purpose: "Monitoring & contrôle de la FACTORY"
+#   file: 10_TEAMS/TEAM__CTL.yaml
+
+# -----------------------------------------------------------
+# 2. teams_index.yaml — Ajouter dans "teams:"
+# -----------------------------------------------------------
+# TEAM__CTL:
+#   name: CTL
+#   mission: "Monitoring & contrôle de la FACTORY : surveillance santé, alertes, reporting."
+
+# -----------------------------------------------------------
+# 3. agents.manifest.yaml — Ajouter dans la liste "agents:"
+# -----------------------------------------------------------
+# - actor_id: CTL-WatchdogIA
+#   team_id: TEAM__CTL
+#   name: Watchdog IA
+#   status: active
+#   path: 00_CONTROL/agents/CTL-WatchdogIA
+#
+# - actor_id: CTL-AlertRouter
+#   team_id: TEAM__CTL
+#   name: Alert Router
+#   status: active
+#   path: 00_CONTROL/agents/CTL-AlertRouter
+#
+# - actor_id: CTL-HealthReporter
+#   team_id: TEAM__CTL
+#   name: Health Reporter
+#   status: active
+#   path: 00_CONTROL/agents/CTL-HealthReporter
+
+# -----------------------------------------------------------
+# 4. agents_index.yaml — Ajouter dans "agents:"
+# -----------------------------------------------------------
+# CTL-WatchdogIA:
+#   team: CTL
+#   intents: [health_check, monitor, watchdog, drift_detect, factory_status, agent_scan, ctl]
+#   status: active
+#   path: 00_CONTROL/agents/CTL-WatchdogIA
+#
+# CTL-AlertRouter:
+#   team: CTL
+#   intents: [alert, escalate, route_alert, incident, notify, ctl]
+#   status: active
+#   path: 00_CONTROL/agents/CTL-AlertRouter
+#
+# CTL-HealthReporter:
+#   team: CTL
+#   intents: [report, health_report, digest, weekly_report, post_mortem, ctl]
+#   status: active
+#   path: 00_CONTROL/agents/CTL-HealthReporter
+
+# -----------------------------------------------------------
+# 5. capability_map.yaml — Ajouter dans "capabilities:"
+# -----------------------------------------------------------
+# CAP__CTL_MONITOR:
+#   description: Surveillance santé et alertes FACTORY
+#   team_id: TEAM__CTL
+#   default_actor_id: CTL-WatchdogIA
+# CAP__CTL_REPORT:
+#   description: Reporting santé (digest / weekly / post-mortem)
+#   team_id: TEAM__CTL
+#   default_actor_id: CTL-HealthReporter
+
+# -----------------------------------------------------------
+# 6. intents.yaml — Ajouter dans "intents:"
+# -----------------------------------------------------------
+# health_check: [CTL-WatchdogIA]
+# monitor: [CTL-WatchdogIA]
+# watchdog: [CTL-WatchdogIA]
+# drift_detect: [CTL-WatchdogIA]
+# factory_status: [CTL-WatchdogIA]
+# alert: [CTL-AlertRouter]
+# escalate: [CTL-AlertRouter]
+# route_alert: [CTL-AlertRouter]
+# health_report: [CTL-HealthReporter]
+# digest: [CTL-HealthReporter]
+# weekly_report: [CTL-HealthReporter]
+# post_mortem: [CTL-HealthReporter, IAHQ-TechLeadIA]
+# ctl: [CTL-WatchdogIA, CTL-AlertRouter, CTL-HealthReporter]
+
+# -----------------------------------------------------------
+# 7. gpt_catalog.yaml — Ajouter les 3 agents
+# -----------------------------------------------------------
+# CTL-WatchdogIA:
+#   display_name: "@CTL-WatchdogIA"
+#   team_id: TEAM__CTL
+#   status: active
+#   intents: [health_check, monitor, watchdog, drift_detect, factory_status, ctl]
+#   paths:
+#     agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
+#     contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
+#     prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
+#
+# CTL-AlertRouter:
+#   display_name: "@CTL-AlertRouter"
+#   team_id: TEAM__CTL
+#   status: active
+#   intents: [alert, escalate, route_alert, incident, notify, ctl]
+#   paths:
+#     agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
+#     contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
+#     prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
+#
+# CTL-HealthReporter:
+#   display_name: "@CTL-HealthReporter"
+#   team_id: TEAM__CTL
+#   status: active
+#   intents: [report, health_report, digest, weekly_report, post_mortem, ctl]
+#   paths:
+#     agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
+#     contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
+#     prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md
+
+# -----------------------------------------------------------
+# 8. 40_ROUTING/hub_routing.yaml — Ajouter les intents CTL
+# -----------------------------------------------------------
+# - intents: [health_check, monitor, watchdog, drift_detect, factory_status, agent_scan]
+#   agent: CTL-WatchdogIA
+#   playbook: FACTORY_HEALTH_CHECK
+# - intents: [alert, escalate, route_alert, incident_report]
+#   agent: CTL-AlertRouter
+# - intents: [health_report, digest, weekly_report, post_mortem, factory_report]
+#   agent: CTL-HealthReporter

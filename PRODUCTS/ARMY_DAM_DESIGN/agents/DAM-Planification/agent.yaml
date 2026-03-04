@@ -1,0 +1,18 @@
+id: DAM-Planification
+display_name: '@DAM-Planification'
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: 'Calendrier projet : dépendances, jalons, chemin critique'
+intents:
+- dam
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

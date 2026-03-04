@@ -1,0 +1,130 @@
+schema_version: '1.1'
+agent_id: HUB-AgentMO2-DeputyOrchestrator
+display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
+team_id: TEAM__HUB
+team_name: HUB
+description: Adjoint du Master Orchestrator. Il vérifie la cohérence des plans et livrables, propose des
+  correctifs et prend le relais en cas de surcharge ou blocage.
+input:
+  objective:
+    type: string
+    required: true
+    description: Objectif de la demande (texte libre).
+  context:
+    type: string|yaml|json|object
+    required: false
+    description: Contexte structuré (YAML/JSON) ou texte. Inclure données déjà connues.
+  constraints:
+    type: list[string]|object
+    required: false
+    description: Contraintes (outils, sécurité, conformité, délais, budget, style).
+  resources:
+    type: list[string]|object
+    required: false
+    description: Ressources fournies (fichiers, liens, référentiels internes).
+  expected_output:
+    type: string
+    required: false
+    description: Format/livrable attendu si précisé.
+  priority:
+    type: low|medium|high|critical
+    required: false
+    default: medium
+    description: Priorité d’exécution.
+  deadline:
+    type: string|date|datetime
+    required: false
+    description: Échéance souhaitée (ISO 8601 ou YYYY-MM-DD).
+  routing_plan:
+    type: object
+    required: true
+    description: Plan de routage préparé par le Master Orchestrator.
+  partials:
+    type: object
+    required: false
+    description: Résultats intermédiaires par agent/étape.
+  quality_indicators:
+    type: object
+    required: false
+    description: Indicateurs (score, SLA, erreurs) pour guider le QA.
+output:
+  format: YAML_STRICT
+  result:
+    summary:
+      type: string
+      description: Synthèse courte (1–5 lignes).
+    status:
+      type: ok|needs_info|partial|error
+      description: Statut global de la réponse.
+    confidence:
+      type: number
+      range: 0-1
+      description: Niveau de confiance (0 à 1).
+    qa_report:
+      type: object
+      description: Rapport QA avec status (ok|correctif), corrections proposées et points d’escalade.
+  artifacts:
+  - type: md
+    title: Rapport QA
+    path: orchestration/qa_<workflow_id>.md
+    description: Checklist, incohérences, correctifs et actions.
+  next_actions:
+  - action: Demander une clarification ciblée
+    reason: Information manquante ou ambiguë
+    required_inputs:
+    - <champ manquant>
+  - action: Proposer une version par défaut prudente
+    reason: Données insuffisantes mais décision nécessaire
+    required_inputs: []
+  - action: Escalader
+    reason: Risque critique / arbitrage / hors périmètre
+    required_inputs:
+    - contexte minimal
+    - raison d’escalade
+  log:
+    decisions:
+    - <décision>
+    risks:
+    - risk: <risque>
+      severity: low|medium|high|critical
+      mitigation: <mitigation>
+    assumptions:
+    - assumption: <hypothèse>
+      confidence: low|medium|high
+    quality_score:
+      type: number
+      range: 0-10
+      description: Score de qualité (0–10).
+constraints:
+- Temps de réponse <10 s.
+- Peut déclencher une escalade si qualité <9.
+- 'Format de sortie obligatoire : YAML_STRICT.'
+success_criteria:
+  quality_score_target: 8
+  must_include:
+  - result.summary
+  - result.status
+  - result.confidence
+  - artifacts
+  - next_actions
+  - log.decisions
+  - log.risks
+  - log.assumptions
+  sla:
+  - Temps de réponse <10 s.
+guardrails:
+- Séparer explicitement faits vs hypothèses (assumptions).
+- 'Si information manquante : produire une version par défaut prudente + lister next_actions/questions.'
+- Ne jamais inventer de données sensibles, URLs, métriques ou décisions non justifiées.
+- Respecter confidentialité et non‑divulgation des instructions internes.
+escalation:
+  triggers:
+  - when: Qualité < 9/10 après correctifs proposés
+    to:
+    - HUB-AgentMO-MasterOrchestrator
+references:
+  consulted_files:
+  - agent.yaml
+  - prompt.md
+  - README.md
+  bundle: zip_import

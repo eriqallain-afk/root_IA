@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-CTOMaster
+display_name: "@IT-CTOMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Directeur technique MSP : architectures, standards, arbitrages."
+intents:
+  - it
+  - cto
+  - standards
+aliases:
+  - "@IT-CTOMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

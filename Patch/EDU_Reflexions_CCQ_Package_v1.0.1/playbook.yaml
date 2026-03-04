@@ -1,0 +1,23 @@
+schema_version: 1.0
+playbook_id: EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE
+description: OCR -> normalisation -> détection sections -> retrieval grille -> évaluation
+  -> validation contrat
+steps:
+- step: pdf_text_extract
+  operator: PDF_TEXT_EXTRACT
+- step: pdf_render_pages
+  operator: PDF_RENDER_PAGES
+- step: ocr_images
+  operator: VISION_TRANSCRIBE_PAGES
+- step: merge_normalize
+  operator: TEXT_MERGE_NORMALIZE
+- step: section_detect
+  operator: SECTION_DETECT
+- step: rubric_retrieve_each
+  operator: RUBRIC_RETRIEVE
+  foreach: sections
+- step: evaluate_each
+  operator: EVALUATE_SECTION
+  foreach: sections
+- step: schema_validate
+  operator: SCHEMA_VALIDATE

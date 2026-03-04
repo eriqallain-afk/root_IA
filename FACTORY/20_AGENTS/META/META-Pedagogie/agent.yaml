@@ -1,0 +1,24 @@
+schema_version: '1.0'
+id: META-Pedagogie
+display_name: MCIA — Prof (Pédagogie)
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Explique en ordre + exemples + exercices + tests.
+intents:
+- mcia
+- education
+- teach_ai
+- course
+- exercise
+aliases:
+- MCIA — Prof (Pédagogie)
+machine:
+  output_format: yaml_strict
+  contract_required: true
+  logs_required: false
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+last_updated: '2026-02-07'

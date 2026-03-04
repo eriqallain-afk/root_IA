@@ -1,0 +1,71 @@
+schema_version: '1.0'
+rubric_name: CCQ Réflexion éthique – Barème verrouillé
+version: 2.1.0
+updated_at: '2026-01-19'
+source: PROMPT (19 janvier 2026).docx
+conversion:
+  A+: 20
+  A: 19
+  A-: 18
+  B+: 17
+  B: 16
+  B-: 15
+  C+: 14
+  C: 13
+  C-: 12
+  D+: 11
+  D: 10
+  D-: 9
+  E+: 8
+  E: 7
+  E-: 6
+  '0': 0
+sections:
+  introduction:
+    C_plus_allowed: false
+    anchors:
+      '12': 2 phrases + 1 thème
+      '13': 2 phrases + ≥2 thèmes
+      15-17: Ajout personnel pertinent
+      18-20: Dépassement exceptionnel
+      9-11: Hors exigences
+      6-8: Pas une introduction
+      '0': Absent
+  synopsis:
+    E_allowed: false
+    B_minus_allowed: false
+    anchors:
+      '16': 4 éléments présents
+      '17': Contexte expliqué
+      18-20: Exceptionnel
+      12-14: 1 élément manquant
+      9-11: Résumé
+      '0': Absent
+  tensions:
+    anchors:
+      '15': Valeur + point de vue
+      16-17: Ajout norme
+      18-20: Réflexion profonde
+      12-14: Descriptif
+      9-11: Confusion tensions/choix
+      6-8: Hors tensions
+      '0': Absent
+  choix:
+    anchors:
+      '15': Conséquences personnage
+      16-17: Bien commun
+      18-20: Réflexion profonde
+      12-14: Descriptif
+      9-11: Pas de conséquences
+      6-8: Hors choix
+      '0': Absent
+  conclusion:
+    E_allowed: false
+    film_reference_cap: 14
+    anchors:
+      '15': Valeur + conséquence
+      16-17: Valeurs + bien commun
+      18-20: Réflexion exceptionnelle
+      12-14: Minimaliste ou film
+      9-11: Généralités
+      '0': Absent

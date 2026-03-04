@@ -1,0 +1,90 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.791175'
+agents:
+  NEA-Archiviste:
+    display_name: '@NEA-Archiviste'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Archiviste : nettoie, reformule sans trahir, titre/tags/IDs, cohérence.'
+    intents:
+    - nea
+    - archive
+    - normalize
+  NEA-Cartographe:
+    display_name: '@NEA-Cartographe'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Cartographe conceptuel : analyses -> plans, cartes, structures.'
+    intents:
+    - nea
+    - mapping
+    - structure
+  NEA-ConseilPatterns:
+    display_name: '@NEA-ConseilPatterns'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: Repère patterns cosmos/terre/vivant/symboles/systèmes.
+    intents:
+    - nea
+    - patterns
+    - analysis
+  NEA-Imagier:
+    display_name: '@NEA-Imagier'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: Crée des briefs détaillés pour les illustrations du recueil
+    intents:
+    - nea
+    - cree
+  NEA-Orchestrator:
+    display_name: '@NEA-Orchestrator'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Coordonne la création d''un recueil : plan → rédaction → illustrations → révision'
+    intents:
+    - nea
+    - coordonne
+  NEA-Redacteur:
+    display_name: '@NEA-Redacteur'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: Rédige les textes du recueil selon le plan éditorial et le ton défini
+    intents:
+    - nea
+    - redige
+  NEA-RedacteurRecueil:
+    display_name: '@NEA-RedacteurRecueil'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Rédacteur : transforme notes/analyses en sections claires.'
+    intents:
+    - nea
+    - write
+    - edit
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

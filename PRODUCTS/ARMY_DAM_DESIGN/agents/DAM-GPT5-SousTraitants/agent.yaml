@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT5-SousTraitants
+display_name: "@DAM-GPT 5 — Sous-Traitants"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Sous-traitants : soumissions, comparatifs, conformité/disponibilités."
+intents:
+  - dam
+  - vendors
+  - procurement
+aliases:
+  - "@DAM-GPT 5 — Sous-Traitants"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

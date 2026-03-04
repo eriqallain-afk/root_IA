@@ -1,0 +1,43 @@
+schema_version: '1.0'
+actor_id: OPS-DossierIA
+team_id: TEAM__IT_OPS
+product_id: IT
+standalone: true
+
+inputs:
+  deliverable:
+    type: object
+    required: true
+    fields:
+      type: string              # cw_note | kb_entry | incident_report | maintenance_report
+      content: object
+      source_actor: string?
+      playbook_id: string?
+  metadata:
+    type: object
+    required: false
+    fields:
+      client_id: string?
+      ticket_id: string?
+      technician_id: string?
+      priority: string?
+      timestamp: string?
+
+outputs:
+  dossier:
+    type: markdown
+    template_used: string
+    sections: list[string]
+    product: 'IT'
+    archived_by: 'OPS-DossierIA'
+    timestamp: string
+
+rules:
+  format: markdown
+  template_selection: auto_by_deliverable_type
+  cw_notes_must_separate_discussion_internal: true
+  no_factory_references: true
+
+error_handling:
+  on_missing_type: use_generic_template
+  on_empty_content: produce_partial_with_flags

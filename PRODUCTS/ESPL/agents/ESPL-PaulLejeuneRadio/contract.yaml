@@ -1,0 +1,11 @@
+# Contract I/O — ESPL-PaulLejeuneRadio
+# Personnage radio Paul Lejeune : animation, recherche, scriptage
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

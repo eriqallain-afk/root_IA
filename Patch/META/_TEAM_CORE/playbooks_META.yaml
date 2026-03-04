@@ -1,0 +1,21 @@
+  BUILD_ARMY_FACTORY:
+    description: 'Usine armées : besoins -> rôles -> prompts -> audit -> packaging
+      -> archive'
+    steps:
+    - step: requirements
+      actor_id: META-AnalysteBesoinsEquipes
+    - step: roles
+      actor_id: META-CartographeRoles
+    - step: prompts
+      actor_id: META-PromptMaster
+    - step: audit
+      actor_id: META-GouvernanceQA
+    - step: package
+      actor_id: META-PlaybookBuilder
+    - step: archive
+      actor_id: OPS-DossierIA
+  DAM_PROJECT_CONTROL:
+    description: 'Projet DAM : conformité/budget/planning/inspection + synthèse'
+    steps:
+    - step: conformite
+      actor_id: DAM-GPT2-Conformite

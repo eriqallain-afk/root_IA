@@ -1,0 +1,35 @@
+schema_version: '1.0'
+id: EDU-Orchestrator_CCQ
+display_name: '@EDU-Orchestrator_CCQ'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.1
+status: active
+description: 'Orchestrateur CCQ : pipeline Extraction→Évaluation→Supervision invisible→QA
+  contrat→Rapport (single ou batch).'
+intents:
+- batch
+- batch_eval
+- ccq
+- correction
+- education
+- evaluation
+- extract
+- extraction
+- ocr
+- orchestration
+- transcription
+- workflow
+aliases:
+- '@EDU-CCQ-Pipeline'
+- '@EDU-Orchestrator'
+- '@EDU-Orchestrator_CCQ'
+- '@EDU-Orchestreur-CCQ'
+- '@EDU-Orchestreur_CCQ'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

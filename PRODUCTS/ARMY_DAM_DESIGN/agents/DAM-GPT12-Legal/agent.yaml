@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT12-Legal
+display_name: "@DAM-GPT 12 — Légal"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Revue non-juridique : ambiguïtés, clauses à clarifier, risques."
+intents:
+  - dam
+  - legal
+  - review
+aliases:
+  - "@DAM-GPT 12 — Légal"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

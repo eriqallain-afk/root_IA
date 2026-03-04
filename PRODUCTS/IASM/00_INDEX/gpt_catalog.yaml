@@ -1,0 +1,272 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.581230'
+catalog:
+  IASM-AddictionsCompulsions:
+    display_name: '@IASM - Addictions & comportements compulsifs'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - addiction
+    - compulsion
+    paths:
+      agent: agents/IASM-AddictionsCompulsions/agent.yaml
+      contract: agents/IASM-AddictionsCompulsions/contract.yaml
+      prompt: agents/IASM-AddictionsCompulsions/prompt.md
+  IASM-AnalysteDiscussion:
+    display_name: '@IASM - ANALYSTE DISCUSSION'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - conversation
+    - analysis
+    paths:
+      agent: agents/IASM-AnalysteDiscussion/agent.yaml
+      contract: agents/IASM-AnalysteDiscussion/contract.yaml
+      prompt: agents/IASM-AnalysteDiscussion/prompt.md
+  IASM-AnalysteSchemasRelationnels:
+    display_name: '@IASM - Analyste de schémas relationnels'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - relationships
+    - patterns
+    paths:
+      agent: agents/IASM-AnalysteSchemasRelationnels/agent.yaml
+      contract: agents/IASM-AnalysteSchemasRelationnels/contract.yaml
+      prompt: agents/IASM-AnalysteSchemasRelationnels/prompt.md
+  IASM-ClarificateurObjectifRelationnel:
+    display_name: '@IASM - Clarificateur d''objectif relationnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - goal
+    - clarify
+    paths:
+      agent: agents/IASM-ClarificateurObjectifRelationnel/agent.yaml
+      contract: agents/IASM-ClarificateurObjectifRelationnel/contract.yaml
+      prompt: agents/IASM-ClarificateurObjectifRelationnel/prompt.md
+  IASM-CoachDeVie:
+    display_name: '@IASM - Coach de vie'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - coaching
+    - actions
+    paths:
+      agent: agents/IASM-CoachDeVie/agent.yaml
+      contract: agents/IASM-CoachDeVie/contract.yaml
+      prompt: agents/IASM-CoachDeVie/prompt.md
+  IASM-DirecteurCabinetIA:
+    display_name: '@IASM - Directeur de cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - orchestrate
+    - qa
+    paths:
+      agent: agents/IASM-DirecteurCabinetIA/agent.yaml
+      contract: agents/IASM-DirecteurCabinetIA/contract.yaml
+      prompt: agents/IASM-DirecteurCabinetIA/prompt.md
+  IASM-GestionColere:
+    display_name: '@IASM - Module Gestion de la colère'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - anger
+    - regulation
+    paths:
+      agent: agents/IASM-GestionColere/agent.yaml
+      contract: agents/IASM-GestionColere/contract.yaml
+      prompt: agents/IASM-GestionColere/prompt.md
+  IASM-GestionEmotions:
+    display_name: '@IASM - Module Gestion des émotions'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - emotion
+    - regulation
+    paths:
+      agent: agents/IASM-GestionEmotions/agent.yaml
+      contract: agents/IASM-GestionEmotions/contract.yaml
+      prompt: agents/IASM-GestionEmotions/prompt.md
+  IASM-ModuleRelationsConjugalesFamiliales:
+    display_name: '@IASM - Module Relations conjugales & familiales'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - family
+    - systemic
+    paths:
+      agent: agents/IASM-ModuleRelationsConjugalesFamiliales/agent.yaml
+      contract: agents/IASM-ModuleRelationsConjugalesFamiliales/contract.yaml
+      prompt: agents/IASM-ModuleRelationsConjugalesFamiliales/prompt.md
+  IASM-Orchestrator:
+    display_name: '@IASM-Orchestrator'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - coordonne
+    paths:
+      agent: agents/IASM-Orchestrator/agent.yaml
+      contract: agents/IASM-Orchestrator/contract.yaml
+      prompt: agents/IASM-Orchestrator/prompt.md
+  IASM-OrchestreurCabinetIA:
+    display_name: '@IASM - Orchestreur — Cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - intake
+    - route
+    paths:
+      agent: agents/IASM-OrchestreurCabinetIA/agent.yaml
+      contract: agents/IASM-OrchestreurCabinetIA/contract.yaml
+      prompt: agents/IASM-OrchestreurCabinetIA/prompt.md
+  IASM-OutilsTCC:
+    display_name: '@IASM-OutilsTCC'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    paths:
+      agent: agents/IASM-OutilsTCC/agent.yaml
+      contract: agents/IASM-OutilsTCC/contract.yaml
+      prompt: agents/IASM-OutilsTCC/prompt.md
+  IASM-Psychoeducateur:
+    display_name: '@IASM - PSYCHOÉDUCATEUR'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - education
+    - explain
+    paths:
+      agent: agents/IASM-Psychoeducateur/agent.yaml
+      contract: agents/IASM-Psychoeducateur/contract.yaml
+      prompt: agents/IASM-Psychoeducateur/prompt.md
+  IASM-RessentiTonalite:
+    display_name: '@IASM - Analyse de ressenti & tonalité'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - sentiment
+    - tone
+    paths:
+      agent: agents/IASM-RessentiTonalite/agent.yaml
+      contract: agents/IASM-RessentiTonalite/contract.yaml
+      prompt: agents/IASM-RessentiTonalite/prompt.md
+  IASM-Securite:
+    display_name: '@IASM-Securite'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    paths:
+      agent: agents/IASM-Securite/agent.yaml
+      contract: agents/IASM-Securite/contract.yaml
+      prompt: agents/IASM-Securite/prompt.md
+  IASM-SecuriteRisques:
+    display_name: '@IASM - Sécurité / risques'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - safety
+    - risk
+    paths:
+      agent: agents/IASM-SecuriteRisques/agent.yaml
+      contract: agents/IASM-SecuriteRisques/contract.yaml
+      prompt: agents/IASM-SecuriteRisques/prompt.md
+  IASM-SpecialisteRelationsCouple:
+    display_name: '@IASM - Spécialiste Relations de couple'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - couple
+    - communication
+    paths:
+      agent: agents/IASM-SpecialisteRelationsCouple/agent.yaml
+      contract: agents/IASM-SpecialisteRelationsCouple/contract.yaml
+      prompt: agents/IASM-SpecialisteRelationsCouple/prompt.md
+  IASM-SuperviseurEthique:
+    display_name: '@IASM - Superviseur / éthique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - ethics
+    - review
+    paths:
+      agent: agents/IASM-SuperviseurEthique/agent.yaml
+      contract: agents/IASM-SuperviseurEthique/contract.yaml
+      prompt: agents/IASM-SuperviseurEthique/prompt.md
+  IASM-SupportEmotionnel:
+    display_name: '@IASM-SupportEmotionnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    paths:
+      agent: agents/IASM-SupportEmotionnel/agent.yaml
+      contract: agents/IASM-SupportEmotionnel/contract.yaml
+      prompt: agents/IASM-SupportEmotionnel/prompt.md
+  IASM-TherapiePsychodynamique:
+    display_name: '@IASM - Thérapie psychodynamique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - insight
+    - deep_patterns
+    paths:
+      agent: agents/IASM-TherapiePsychodynamique/agent.yaml
+      contract: agents/IASM-TherapiePsychodynamique/contract.yaml
+      prompt: agents/IASM-TherapiePsychodynamique/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

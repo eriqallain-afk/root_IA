@@ -1,0 +1,37 @@
+﻿schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-IntegrationPackagesGlobal
+type: registry_memory
+purpose: Index global des packages dâ€™intÃ©gration.
+source:
+  packages_dir:SHARED/70_INTEGRATION_PACKAGES/
+write_policy: regenerated
+index_fields:
+- package_id
+- file
+packages:
+- package_id: connectwise
+  files:
+  - 70_INTEGRATION_PACKAGES/connectwise/config.yaml
+  - 70_INTEGRATION_PACKAGES/connectwise/mapping.yaml
+  - 70_INTEGRATION_PACKAGES/connectwise/README.md
+- package_id: gdrive
+  files:
+  - 70_INTEGRATION_PACKAGES/gdrive/config.yaml
+  - 70_INTEGRATION_PACKAGES/gdrive/mapping.yaml
+  - 70_INTEGRATION_PACKAGES/gdrive/README.md
+- package_id: m365
+  files:
+  - 70_INTEGRATION_PACKAGES/m365/config.yaml
+  - 70_INTEGRATION_PACKAGES/m365/mapping.yaml
+  - 70_INTEGRATION_PACKAGES/m365/README.md
+- package_id: notion
+  files:
+  - 70_INTEGRATION_PACKAGES/notion/config.yaml
+  - 70_INTEGRATION_PACKAGES/notion/mapping.yaml
+  - 70_INTEGRATION_PACKAGES/notion/README.md
+- package_id: slack
+  files:
+  - 70_INTEGRATION_PACKAGES/slack/config.yaml
+  - 70_INTEGRATION_PACKAGES/slack/mapping.yaml
+  - 70_INTEGRATION_PACKAGES/slack/README.md

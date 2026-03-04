@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: NEA-ConseilPatterns
+display_name: "@NEA-ConseilPatterns"
+team_id: TEAM__NEA
+team_name: NEA
+version: 1.0.0
+status: active
+description: Repère patterns cosmos/terre/vivant/symboles/systèmes.
+intents:
+  - nea
+  - patterns
+  - analysis
+aliases:
+  - "@NEA-ConseilPatterns"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

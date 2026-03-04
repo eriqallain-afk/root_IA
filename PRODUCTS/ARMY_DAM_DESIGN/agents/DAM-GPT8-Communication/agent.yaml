@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT8-Communication
+display_name: "@DAM-GPT 8 — Communication"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Communication client : messages structurés, suivi."
+intents:
+  - dam
+  - comms
+  - client
+aliases:
+  - "@DAM-GPT 8 — Communication"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

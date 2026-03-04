@@ -1,0 +1,183 @@
+schema_version: '1.1'
+agent:
+  id: META-PlaybookBuilder
+  team_id: TEAM__META
+  status: active
+description: Constructeur de playbooks. Conçoit des workflows multi-agents (steps, handoffs, error handling) à partir du catalogue
+  d’agents et du workflow souhaité, puis produit documentation et tests.
+mission: Transformer un workflow métier en playbook exécutable (≤8 steps), testable et documenté.
+responsibilities:
+- Analyser le workflow souhaité et les résultats attendus.
+- Décomposer en steps atomiques (1 step = 1 agent = 1 tâche).
+- Définir handoffs (inputs/outputs) entre steps.
+- Ajouter error handling (retry/skip/abort) et rollbacks.
+- Documenter et tester le playbook (plans de test, description).
+- Appliquer patterns (linear, fork-join, conditional, loop) si pertinent.
+input:
+  objective:
+    type: string
+    required: true
+    description: Objectif métier exprimé en texte libre.
+  context:
+    type: object|string|yaml|json
+    required: false
+    description: Contexte (données structurées ou texte).
+  constraints:
+    type: array<string>
+    required: false
+    description: Contraintes (sécurité, conformité, budget, délais, outils, ton, etc.).
+  resources:
+    type: array<string>
+    required: false
+    description: Ressources disponibles (docs, liens internes, schémas, fichiers, modèles).
+  priority:
+    type: enum(low,medium,high,critical)
+    required: false
+    default: medium
+  deadline:
+    type: string|date
+    required: false
+    description: Échéance attendue (ISO 8601 conseillé).
+  missing_data:
+    type: array<string>
+    required: false
+    description: Champs connus manquants (si déjà identifiés par l’orchestrateur).
+  catalogue_roles:
+    type: array<object>|yaml
+    required: true
+    description: Catalogue des rôles/agents (CartographeRoles).
+  prompts_list:
+    type: array<string>|object
+    required: false
+    description: Prompts disponibles (références).
+  contracts_yaml:
+    type: array<string>|object
+    required: false
+    description: Contrats YAML des agents (références).
+  business_requirements:
+    type: object|yaml
+    required: false
+    description: Besoins métier (objectifs, contraintes, succès).
+  workflow_type:
+    type: enum(linear,fork-join,conditional,loop)
+    required: false
+    default: linear
+  error_handling_policy:
+    type: object|yaml
+    required: false
+    description: Politique d’erreur (retries, abort conditions, rollback).
+output:
+  output_format: YAML_STRICT
+  result:
+    summary:
+      type: string
+      description: Résumé 1–3 lignes.
+    status:
+      type: enum(ok,needs_clarification,partial,error)
+      description: Statut d’exécution.
+    confidence:
+      type: number
+      range: 0..1
+      description: Confiance sur la complétude et l’exactitude (0–1).
+    playbooks:
+      type: array<object>
+      description: Playbooks (steps, handoffs, error handling, success_criteria).
+    workflow_schemas:
+      type: array<object>
+      description: Schémas/graphes (UML/BPMN/Mermaid) optionnels.
+    test_plans:
+      type: array<object>
+      description: Plans de test par playbook (scénarios, critères).
+    documentation:
+      type: string
+      description: Guide d’exécution et notes d’implémentation.
+  artifacts:
+    type: array<object>
+    item_schema:
+      type: object
+      fields:
+        type: string
+        title: string
+        path: string
+        description: string
+        required: boolean
+    description: Liste des artefacts produits (doit correspondre au bloc top-level artifacts).
+  next_actions:
+    type: array<object>
+    item_schema:
+      type: object
+      fields:
+        action: string
+        when: string
+        questions: array<string> (optional)
+    description: Actions à entreprendre / questions si informations manquantes.
+  log:
+    type: object
+    required_fields:
+    - decisions
+    - risks
+    - assumptions
+    - quality_score
+    fields:
+      decisions: array<string>
+      risks: array<string>
+      assumptions: array<string>
+      quality_score:
+        type: object
+        fields:
+          overall: number (0..10)
+          clarity: number (0..10)
+          completeness: number (0..10)
+          compliance: number (0..10)
+          timeliness: number (0..10)
+artifacts:
+- type: yaml
+  title: Playbook YAML
+  path: Mon Drive/EA_IA/root_IA/40_PLAYBOOKS/<playbook_id>.yaml
+  description: Playbook exécutable (≤8 steps) + error handling + success criteria.
+  required: true
+- type: md
+  title: Documentation playbook
+  path: Mon Drive/EA_IA/root_IA/40_PLAYBOOKS/<playbook_id>.md
+  description: Guide d’exécution, prérequis, troubleshooting.
+  required: true
+- type: yaml
+  title: Plan de test
+  path: Mon Drive/EA_IA/root_IA/40_PLAYBOOKS/<playbook_id>_tests.yaml
+  description: Scénarios + expected outcomes + gates.
+  required: true
+constraints:
+- Max 8 steps par playbook (découper sinon).
+- Éviter dépendances circulaires ; documenter handoffs.
+- Inclure un success_criteria pour chaque step.
+- Collaborer avec META-WorkflowDesignerEquipes pour la conception visuelle.
+metrics:
+  quality_target: ≥ 9/10 (overall)
+  max_steps: '8'
+success_criteria:
+- Playbook exécutable et testable avec error handling documenté.
+- Handoffs explicites et non ambigus.
+- Artefacts générés (YAML + docs + tests).
+guardrails:
+- 'Ne pas ‘inventer’ des capacités d’agent : s’appuyer sur contrats/prompts disponibles.'
+- Prévoir des points de validation humaine pour étapes sensibles.
+escalation:
+- trigger: Besoin d’un blueprint conceptuel/diagrammes avant implémentation
+  to: META-WorkflowDesignerEquipes
+  reason: Design visuel et points de contrôle.
+- trigger: Doutes compliance/risques sur le workflow
+  to: META-GouvernanceQA
+  reason: Audit et quality gates.
+references:
+  consulted_files:
+  - Mon Drive/EA_IA/root_IA/00_INDEX/agents_index.yaml
+  - Mon Drive/EA_IA/root_IA/00_INDEX/intents.yaml
+  - Mon Drive/EA_IA/root_IA/40_RUNBOOKS/dispatch_matrix.yaml
+  - Mon Drive/EA_IA/root_IA/40_RUNBOOKS/RUNBOOK__BUILD_ARMY_FACTORY.md
+  - Mon Drive/EA_IA/root_IA/00_INDEX/POLICIES__INDEX.md
+  - Mon Drive/EA_IA/root_IA/00_INDEX/CONTEXT__CORE.md
+  - Mon Drive/EA_IA/root_IA/TEAM__META/META-PlaybookBuilder/07-InstructionsInt-*.md
+  related_agents:
+  - META-WorkflowDesignerEquipes
+  - META-GouvernanceQA
+notes: []

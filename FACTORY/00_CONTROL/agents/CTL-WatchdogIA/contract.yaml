@@ -1,0 +1,103 @@
+contract_version: "1.0.0"
+id: CTL-WatchdogIA
+team: CTL
+description: >
+  Contrat I/O du Watchdog. Il reçoit les manifests et fichiers d'agents,
+  exécute les checks de santé, et retourne un rapport structuré avec alertes priorisées.
+
+input:
+  operation:
+    type: "light_check | full_check | drift_check | lifecycle_check | custom"
+    required: true
+    description: "Type de scan à exécuter."
+  agents_manifest:
+    type: string|object
+    required: false
+    description: "Contenu ou chemin du 00_INDEX/agents.manifest.yaml. Si absent, le Watchdog le demande."
+  agents_index:
+    type: string|object
+    required: false
+    description: "Contenu ou chemin du 00_INDEX/agents_index.yaml."
+  scope:
+    type: "all | team_id | agent_id"
+    required: false
+    default: "all"
+    description: "Périmètre du scan. 'all' = toute la FACTORY."
+  agents_root_path:
+    type: string
+    required: false
+    default: "20_AGENTS/"
+    description: "Chemin racine des agents physiques."
+  thresholds:
+    type: object
+    required: false
+    description: "Surcharger les seuils de 00_CONTROL/policies/ALERT_THRESHOLDS.yaml."
+  context:
+    type: object
+    required: false
+    description: "Contexte additionnel (run_id précédent, notes de session)."
+
+output:
+  format: YAML_STRICT
+  result:
+    factory_status:
+      type: "healthy | degraded | critical"
+      description: "État global de la FACTORY."
+    summary:
+      total_agents: int
+      healthy: int
+      degraded: int
+      critical: int
+      orphaned: int
+      phantom: int
+    issues:
+      type: list[object]
+      description: "Liste d'issues détectées, chacune avec agent_id, severity (P0-P3), type, detail, action_required."
+    drift_report:
+      type: list[object]
+      description: "Agents avec drift détecté : agent_id, drift_score (0-1), evidence."
+    recommendations:
+      type: list[string]
+      description: "Recommandations priorisées pour corriger les issues."
+  artifacts:
+    - type: yaml
+      title: "Rapport de santé Watchdog"
+      path: "00_CONTROL/artifacts/watchdog_report_<date>_<run_id>.yaml"
+  next_actions:
+    - "Si issues P0 détectées : router immédiatement vers CTL-AlertRouter avec severity=critical."
+    - "Si issues P1 : router vers CTL-AlertRouter dans le même run."
+    - "Si issues P2-P3 : inclure dans le rapport CTL-HealthReporter."
+    - "Si aucune issue : retourner factory_status=healthy."
+  log:
+    decisions: []
+    risks: []
+    assumptions: []
+    quality_score: 0-10
+    scan_duration_ms: int
+
+success_criteria:
+  must_include:
+    - result.factory_status
+    - result.summary
+    - log.decisions
+  quality_score_target: 9
+
+guardrails:
+  - "Ne jamais inventer des agents manquants. Scanner uniquement les fichiers physiquement présents."
+  - "Séparer faits (fichier présent/absent) vs hypothèses (drift inféré)."
+  - "Ne pas modifier de fichiers — rôle lecture seule. Proposer uniquement, ne pas agir."
+  - "Si manifests manquants : demander les chemins avant de produire un rapport."
+  - "Ne pas logguer de secrets ou contenu de prompt.md dans les artifacts."
+
+escalation:
+  - when: "factory_status=critical (≥ 1 issue P0)"
+    to: ["HUB-AgentMO-MasterOrchestrator", "IAHQ-QualityGate"]
+    how: "Retourner result avec issues P0 + déclencher CTL-AlertRouter immédiatement."
+  - when: "Manifest introuvable ou corrompu"
+    to: "HUB-AgentMO-MasterOrchestrator"
+    how: "status=failed + missing_inputs listés."
+
+constraints:
+  read_only: true
+  no_secrets_in_artifacts: true
+  max_scan_agents: 500

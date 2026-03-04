@@ -1,0 +1,53 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-CapabilitiesGlobal
+type: registry_memory
+purpose: Catalogue des capacités (capability -> default actor/team).
+source:
+  capability_map: 00_INDEX/capability_map.yaml
+write_policy: regenerated
+index_fields:
+- capability_id
+- team_id
+- default_actor_id
+capabilities:
+  CAP__ROUTE_DISPATCH:
+    description: Classifie et route la demande
+    team_id: TEAM__OPS
+    default_actor_id: OPS-RouterIA
+  CAP__PLAYBOOK_EXECUTE:
+    description: Exécute playbooks et compile
+    team_id: TEAM__OPS
+    default_actor_id: OPS-PlaybookRunner
+  CAP__MEMORY_ARCHIVE:
+    description: Archive et indexe
+    team_id: TEAM__OPS
+    default_actor_id: OPS-DossierIA
+  CAP__ARMY_FACTORY:
+    description: Conçoit armées GPT
+    team_id: TEAM__META
+    default_actor_id: META-OrchestrateurCentral
+  CAP__IT_MSP:
+    description: Support MSP IT
+    team_id: TEAM__IT
+    default_actor_id: IT-OrchestratorMSP
+  CAP__TRAD_INTEL:
+    description: Veille & rapports TRAD
+    team_id: TEAM__TRAD
+    default_actor_id: TRAD-CommandCore
+  CAP__DAM_PROJECT:
+    description: Gestion projet DAM
+    team_id: TEAM__DAM
+    default_actor_id: DAM-Orchestrator
+  CAP__IASM_CABINET:
+    description: Cabinet IA
+    team_id: TEAM__IASM
+    default_actor_id: IASM-OrchestreurCabinetIA
+  CAP__NEA_BOOK:
+    description: Recueil NEA
+    team_id: TEAM__NEA
+    default_actor_id: NEA-Orchestrator
+  CAP__RADIO_SCRIPTS:
+    description: Scripts radio
+    team_id: TEAM__PLR
+    default_actor_id: PLR-RadioScripteur

@@ -1,0 +1,221 @@
+schema_version: '1.0'
+rubric_name: Réflexion éthique CCQ (sec4–sec5) — Barème verrouillé
+version: 1.1.0
+updated_at_utc: '2026-01-16T00:00:00Z'
+source_documents:
+- BAREME_VERROUILLE__POINTS_ET_REGLES.md
+grade_points_on_20:
+  A+: 20
+  A: 19
+  A-: 18
+  B+: 17
+  B: 16
+  B-: 15
+  C+: 14
+  C: 13
+  C-: 12
+  D+: 11
+  D: 10
+  D-: 9
+  E+: 8
+  E: 7
+  E-: 6
+  '0': 0
+global_rules:
+- id: R_TENSIONS_NEQ_CHOIX
+  text: Tensions ≠ Choix (tensions = conflits valeurs/normes/points de vue; choix
+    = décisions + conséquences).
+- id: R_NO_INVENTION
+  text: 'Ne jamais inventer: si illisible, utiliser [ILLISIBLE] et en tenir compte.'
+- id: R_CONSISTENCY
+  text: 'Constance: même sévérité pour tout le groupe.'
+- id: R_LOCKED_CAPS
+  text: Si une règle verrouillée s’applique, la section est plafonnée même si d’autres
+    éléments sont bons.
+sections:
+- id: intro
+  name: Introduction
+  max_points: 20
+  focus: La note porte presque uniquement sur le SUJET AMENÉ.
+  required_elements:
+  - ≥ 2 phrases complètes (sujet amené)
+  - Titre du film nommé
+  - Thème(s) pertinent(s) nommé(s)
+  - Lien clair avec la question
+  anchors:
+  - grade: C-
+    points: 12
+    desc: 2 phrases, film nommé, 1 thème pertinent nommé.
+  - grade: C
+    points: 13
+    desc: 2 phrases, film nommé, ≥2 thèmes pertinents nommés.
+  - grade_range: B-..B+
+    points_range: 15..17
+    desc: '>2 phrases, film nommé, ≥2 thèmes + ajout personnel pertinent lié à la
+      question (selon pertinence).'
+  - grade_range: A-..A+
+    points_range: 18..20
+    desc: Comme B, mais exceptionnel (dépassement = ajout pertinent non attendu +
+      réflexion personnelle articulée).
+  - grade_range: D-..D+
+    points_range: 9..11
+    desc: Exigences minimales non atteintes et/ou plan non suivi et/ou sujet amené
+      hors propos/hors contexte.
+  - grade_range: E-..E+
+    points_range: 6..8
+    desc: Paragraphe qui n’est pas une introduction.
+  - grade: '0'
+    points: 0
+    desc: Section absente/vide.
+  locked_caps:
+  - condition: Thèmes implicites (pas explicitement nommés)
+    cap_points: 17
+    cap_grade_hint: B+ max
+- id: synopsis
+  name: Synopsis
+  max_points: 20
+  grade_constraints:
+    E_allowed: false
+  required_elements:
+  - Qui fait quoi (personnage + action)
+  - Où (lieu)
+  - Quand (époque)
+  - Contexte socio-économique + clash de milieux (deux univers)
+  anchors:
+  - grade: B
+    points: 16
+    desc: Les 4 éléments obligatoires sont présents.
+  - grade: B+
+    points: 17
+    desc: 4 éléments + contexte socio-économique davantage expliqué.
+  - grade_range: A-..A+
+    points_range: 18..20
+    desc: Comme B+, avec détails non obligatoires mais très pertinents; A+ = exceptionnel.
+  - grade_range: C-..C+
+    points_range: 12..14
+    desc: Il manque 1 des 4 éléments et/ou beaucoup d’éléments inutiles (trop de résumé).
+  - grade_range: D-..D+
+    points_range: 9..11
+    desc: Ce n’est pas un synopsis, c’est un résumé.
+  - grade: '0'
+    points: 0
+    desc: Section absente/vide.
+  locked_caps:
+  - condition: Contexte socio-économique implicite ET clash de milieux peu clair
+    cap_points: 15
+    cap_grade_hint: B- max
+  - condition: Texte = résumé (suite d’événements/scènes) plutôt qu’un synopsis
+    cap_points: 11
+    cap_grade_hint: D+ max
+- id: tensions
+  name: Tensions éthiques
+  max_points: 20
+  required_elements:
+  - 2 tensions distinctes et significatives
+  - Valeurs (et/ou normes) nommées explicitement
+  - Points de vue opposés expliqués
+  anchors:
+  - grade: B-
+    points: 15
+    desc: 2 tensions; justification par valeur; point de vue brièvement expliqué.
+  - grade_range: B..B+
+    points_range: 16..17
+    desc: 2 tensions; justification par valeur; point de vue réfléchi; ajout d’une
+      norme.
+  - grade_range: A-..A+
+    points_range: 18..20
+    desc: Comme B/B+ + point de vue très réfléchi + réflexion; dépassement net; réflexion
+      profonde.
+  - grade_range: C-..C+
+    points_range: 12..14
+    desc: 2 tensions mais descriptif; peu/pas d’explication; valeurs implicites et/ou
+      1 tension incorrecte.
+  - grade_range: D-..D+
+    points_range: 9..11
+    desc: Mélange tensions/choix, mais quelques éléments récupérables.
+  - grade_range: E-..E+
+    points_range: 6..8
+    desc: Paragraphe ne traitant pas de tensions éthiques.
+  - grade: '0'
+    points: 0
+    desc: Section absente/vide.
+  locked_caps:
+  - condition: Décrit des choix/décisions au lieu de tensions
+    cap_points: 10
+    cap_grade_hint: D (D faible max)
+  notes:
+  - Valeurs doivent être nommées explicitement.
+- id: choix
+  name: Choix éthiques
+  max_points: 20
+  required_elements:
+  - 2 choix (décisions) distincts et significatifs
+  - Conséquences nommées
+  - 'Conséquences structurées: soi / autres / bien commun'
+  anchors:
+  - grade: B-
+    points: 15
+    desc: 2 choix; conséquences nommées (centrées surtout sur le personnage).
+  - grade_range: B..B+
+    points_range: 16..17
+    desc: 2 choix; conséquences +/−; entourage et/ou société; bien commun compris.
+  - grade_range: A-..A+
+    points_range: 18..20
+    desc: Comme B/B+ + réflexion profonde; dépassement net.
+  - grade_range: C-..C+
+    points_range: 12..14
+    desc: 2 choix, mais descriptif; conséquences minimalistes; pas de réflexion.
+  - grade_range: D-..D+
+    points_range: 9..11
+    desc: Mélange tensions/choix et/ou absence de conséquences.
+  - grade_range: E-..E+
+    points_range: 6..8
+    desc: Paragraphe ne traitant pas de choix éthiques.
+  - grade: '0'
+    points: 0
+    desc: Section absente/vide.
+  locked_caps:
+  - condition: Aucune conséquence formulée
+    cap_points: 10
+    cap_grade_hint: D (D faible max)
+  - condition: Mélange tensions/choix
+    cap_points: 11
+    cap_grade_hint: D+ max
+  notes:
+  - Une phrase générale sur « la société » ne suffit pas pour viser B.
+- id: conclusion
+  name: Conclusion
+  max_points: 20
+  grade_constraints:
+    E_allowed: false
+  required_elements:
+  - Répond à la question
+  - Prise de position personnelle
+  - ≥1 valeur explicitée
+  - ≥1 conséquence
+  anchors:
+  - grade: B-
+    points: 15
+    desc: Répond + valeurs (≥1) + ≥1 conséquence.
+  - grade_range: B..B+
+    points_range: 16..17
+    desc: Réponse personnelle (sans film); valeurs + point de vue + normes personnelles;
+      conséquences bien commun.
+  - grade_range: A-..A+
+    points_range: 18..20
+    desc: Comme B/B+ + réflexion profonde; dépassement net.
+  - grade_range: C-..C+
+    points_range: 12..14
+    desc: Répond, mais il manque valeurs ou conséquences; minimaliste.
+  - grade_range: D-..D+
+    points_range: 9..11
+    desc: Grandes généralités; pas de prise de position et/ou pas de réflexion personnelle.
+  - grade: '0'
+    points: 0
+    desc: Section absente/vide.
+  locked_caps:
+  - condition: Généralise/parle des autres et ne nomme aucune valeur ni conséquence
+    cap_points: 10
+    cap_grade_hint: D (D faible)
+  notes:
+  - La conclusion n’a pas à référer au film (exercice d’éthique).

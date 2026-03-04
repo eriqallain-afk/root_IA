@@ -1,0 +1,9 @@
+report_type: "daily_digest"
+period_end: "2026-02-25T23:59:59Z"
+watchdog_reports: []
+alert_tickets: []
+run_metrics:
+  - run_id: "RUN__001"
+    playbook_id: "BUILD_ARMY_FACTORY"
+    status: "success"
+    duration_seconds: 1112

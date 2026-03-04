@@ -1,0 +1,147 @@
+schema_version: "1.0"
+schema_id: alert
+description: >
+  Schéma standard d'un ticket d'alerte produit par CTL-AlertRouter.
+  Chaque ticket est immuable après création. Seul le champ status et
+  resolution sont modifiables.
+owner: TEAM__CTL
+created: "2026-02-25"
+
+root_object: alert_ticket
+
+fields:
+  alert_id:
+    type: string
+    format: "ALERT__<YYYYMMDD>__<HHmmss>__<severity>__<agent_id_short>"
+    example: "ALERT__20260225__143022__P1__META-PromptMaster"
+    required: true
+    unique: true
+    immutable: true
+
+  severity:
+    type: enum
+    values: ["P0", "P1", "P2", "P3"]
+    required: true
+    immutable: true
+
+  agent_id:
+    type: string
+    required: true
+    immutable: true
+
+  issue_type:
+    type: enum
+    values:
+      - "schema_missing"
+      - "drift_detected"
+      - "drift_critical"
+      - "orphaned_agent"
+      - "phantom_agent"
+      - "naming_violation"
+      - "no_tests"
+      - "deprecated_overdue"
+      - "team_no_orchestrator"
+      - "contract_mismatch"
+      - "playbook_failure_rate"
+      - "health_score_alert"
+      - "health_score_critical"
+      - "lifecycle_resolved"
+    required: true
+    immutable: true
+
+  detail:
+    type: string
+    required: true
+    immutable: true
+    description: "Description précise de l'issue. Sans données sensibles."
+
+  evidence:
+    type: string
+    required: true
+    immutable: true
+    description: "Fichier, chemin, ou champ YAML concerné"
+
+  source_watchdog_run_id:
+    type: string
+    required: true
+    immutable: true
+
+  routed_to:
+    type: list[routing_target]
+    required: true
+    routing_target_schema:
+      agent_id: {type: string, required: true}
+      role: {type: string, required: true}
+      action_required: {type: string, required: true}
+
+  blocking:
+    type: boolean
+    required: true
+    immutable: true
+    note: "true uniquement si severity=P0"
+
+  deadline:
+    type: datetime
+    format: ISO_8601
+    required: true
+    immutable: true
+    computation:
+      P0: "created_at + 30 minutes"
+      P1: "created_at + 24 hours"
+      P2: "created_at + 7 days"
+      P3: "created_at + 30 days"
+
+  created_at:
+    type: datetime
+    format: ISO_8601
+    required: true
+    immutable: true
+
+  status:
+    type: enum
+    values: ["open", "in_progress", "resolved", "superseded"]
+    required: true
+    default: "open"
+    mutable: true
+
+  resolution:
+    type: object
+    required: false
+    mutable: true
+    fields:
+      resolved_at: {type: datetime, required: true}
+      resolved_by: {type: string, description: "agent_id ou 'human'"}
+      resolution_note: {type: string}
+      playbook_used: {type: string, required: false}
+      version_after: {type: string, required: false, description: "agent.version après correction"}
+
+  deduplicated:
+    type: boolean
+    default: false
+    immutable: true
+
+  occurrences:
+    type: integer
+    default: 1
+    mutable: true
+    description: "Incrémenté si même alert_id détecté dans la fenêtre de 24h"
+
+deduplication_rules:
+  window: "24 hours"
+  key: "agent_id + issue_type"
+  behavior: "Si même clé dans la fenêtre → incrémenter occurrences, ne pas créer nouveau ticket"
+  exception: "P0 → toujours créer un nouveau ticket (pas de déduplication)"
+
+retention_rules:
+  P0: "365 jours minimum — immuable après résolution"
+  P1: "180 jours"
+  P2: "90 jours"
+  P3: "30 jours"
+
+validation_rules:
+  - "alert_id doit être unique dans toute la FACTORY"
+  - "blocking=true UNIQUEMENT si severity=P0"
+  - "routed_to ne doit pas être vide"
+  - "deadline calculé selon la sévérité (voir computation)"
+  - "Si status=resolved → resolution.resolved_at requis"
+  - "detail et evidence ne doivent jamais contenir de secrets"

@@ -1,0 +1,57 @@
+schema_version: "1.0"
+
+input:
+  required:
+    - task
+  optional:
+    - ticket_id
+    - customer
+    - user
+    - contact_channel          # phone|teams|email|chat|remote
+    - environment              # m365|windows|network|voip|backup|cloud|other
+    - symptoms
+    - error_messages
+    - recent_changes
+    - impact
+    - urgency
+    - logs
+    - constraints              # SLA, access, maintenance window, etc.
+
+output:
+  result:
+    type: object
+    required:
+      - summary
+      - triage
+      - diagnosis
+      - action_plan
+      - comms
+      - escalation
+      - kb_capture
+      - confidence
+
+  artifacts:
+    type: array
+    items:
+      type: object
+      required: [type, title, content]
+      properties:
+        type: { type: string }        # ticket_note|client_message|kb_draft|checklist|runbook
+        title: { type: string }
+        content: { type: string }
+
+  next_actions:
+    type: array
+    items:
+      type: object
+      required: [owner, action]
+      properties:
+        owner: { type: string }       # human|IT-SupportMaster|IT-CommsMSP|IT-Commandare-TECH|...
+        action: { type: string }
+
+  log:
+    type: object
+    required: [trace_id, notes]
+    properties:
+      trace_id: { type: string }
+      notes: { type: string }

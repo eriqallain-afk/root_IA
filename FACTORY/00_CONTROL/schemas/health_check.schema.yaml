@@ -1,0 +1,135 @@
+schema_version: "1.0"
+schema_id: health_check
+description: >
+  Schéma standard des rapports de santé produits par CTL-WatchdogIA.
+  Consommé par CTL-AlertRouter, CTL-HealthReporter, et OPS-DossierIA.
+owner: TEAM__CTL
+created: "2026-02-25"
+
+root_object: watchdog_report
+
+fields:
+  run_id:
+    type: string
+    format: "WATCH__<YYYYMMDD>__<HHmmss>"
+    required: true
+
+  operation:
+    type: enum
+    values: ["light_check", "full_check", "drift_check", "lifecycle_check", "custom"]
+    required: true
+
+  timestamp:
+    type: datetime
+    format: ISO_8601
+    required: true
+
+  scope:
+    type: string
+    values: ["all", "<team_id>", "<agent_id>"]
+    required: true
+
+  factory_status:
+    type: enum
+    values: ["healthy", "degraded", "critical"]
+    required: true
+    derivation_rules:
+      healthy: "0 issues P0 AND 0 issues P1"
+      degraded: "0 issues P0 AND >= 1 issue P1"
+      critical: ">= 1 issue P0"
+
+  summary:
+    type: object
+    required: true
+    fields:
+      total_agents_scanned: {type: integer, required: true}
+      healthy: {type: integer, required: true}
+      degraded: {type: integer, required: true}
+      critical: {type: integer, required: true}
+      orphaned: {type: integer, required: true}
+      phantom: {type: integer, required: true}
+      test_coverage_none: {type: integer, required: false, default: 0}
+      test_coverage_partial: {type: integer, required: false, default: 0}
+      test_coverage_full: {type: integer, required: false, default: 0}
+
+  issues:
+    type: list[issue]
+    required: true
+    default: []
+    issue_schema:
+      agent_id: {type: string, required: true}
+      severity:
+        type: enum
+        values: ["P0", "P1", "P2", "P3"]
+        required: true
+      type:
+        type: enum
+        values:
+          - "schema_missing"
+          - "drift_detected"
+          - "orphaned_agent"
+          - "phantom_agent"
+          - "naming_violation"
+          - "no_tests"
+          - "deprecated_overdue"
+          - "team_no_orchestrator"
+          - "contract_mismatch"
+          - "prompt_too_short"
+        required: true
+      detail: {type: string, required: true}
+      evidence: {type: string, required: true}
+      action_required: {type: string, required: true}
+      days_open: {type: integer, required: false, default: null}
+
+  drift_report:
+    type: list[drift_item]
+    required: false
+    default: []
+    drift_item_schema:
+      agent_id: {type: string, required: true}
+      drift_score:
+        type: float
+        range: [0.0, 1.0]
+        nullable: true
+        note: "null si données insuffisantes"
+      last_outputs_checked: {type: integer, required: false}
+      evidence: {type: string, required: true}
+      recommendation: {type: string, required: true}
+
+  lifecycle_report:
+    type: object
+    required: false
+    fields:
+      deprecated_ready_to_archive: {type: list[string], default: []}
+      draft_stale: {type: list[string], default: []}
+      teams_without_orchestrator: {type: list[string], default: []}
+
+  recommendations:
+    type: list[object]
+    required: false
+    default: []
+    item_schema:
+      priority: {type: enum, values: ["P0", "P1", "P2", "P3"]}
+      action: {type: string}
+      target: {type: string}
+
+  log:
+    type: object
+    required: true
+    fields:
+      decisions: {type: list[string], required: true}
+      risks: {type: list[object], required: true}
+      assumptions: {type: list[object], required: true}
+      quality_score:
+        type: integer
+        range: [0, 10]
+        required: true
+      scan_duration_ms: {type: integer, required: false}
+
+validation_rules:
+  - "factory_status doit être cohérent avec issues (voir derivation_rules)"
+  - "summary.total_agents_scanned == summary.healthy + summary.degraded + summary.critical"
+  - "Si issues contient P0 → factory_status DOIT être 'critical'"
+  - "Si aucune issue P0 mais >= 1 P1 → factory_status DOIT être 'degraded'"
+  - "log.decisions ne doit pas être vide"
+  - "drift_score null autorisé uniquement si last_outputs_checked == 0"

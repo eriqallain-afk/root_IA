@@ -1,0 +1,91 @@
+schema_version: '1.0'
+rubric_name: Réflexion éthique CCQ (sec4–sec5) — Barème verrouillé
+version: 1.0.6
+updated_at_utc: '2026-01-14T23:33:32Z'
+source_documents:
+- Docs/Barême verrouillé.pdf
+- Docs/BAREME_VERROUILLE__POINTS_ET_REGLES-2026-01.docx
+- Docs/BAREME_VERROUILLE__POINTS_ET_REGLES.md
+- Docs/Grille et critere evaluatif - REFLEXION Ethique.pdf
+- Docs/Cahier de consignes-RÉFLEXION ÉTHIQUE.pdf
+grade_points_on_20:
+  A+: 20
+  A: 19
+  A-: 18
+  B+: 17
+  B: 16
+  B-: 15
+  C+: 14
+  C: 13
+  C-: 12
+  D+: 11
+  D: 10
+  D-: 9
+  E+: 8
+  E: 7
+  E-: 6
+  '0': 0
+sections:
+- name: Introduction
+  max_points: 20
+  locked_caps:
+  - condition: Thèmes implicites (pas explicitement nommés)
+    cap_points: 17
+  required_elements:
+  - ≥ 2 phrases complètes
+  - Titre du film
+  - Thèmes principaux
+  - Amorce menant à la question
+  guidance:
+  - A = dépassement (amorce forte, personnelle/originale)
+  - Sujet amené minimaliste/scolaire → typiquement C+ / B-
+- name: Synopsis
+  max_points: 20
+  locked_caps:
+  - condition: Contexte socio-économique implicite ET clash de milieux peu clair
+    cap_points: 15
+  required_elements:
+  - Personnage + action
+  - Lieu + époque
+  - Contexte socio-économique + clash de milieux (deux univers)
+  guidance:
+  - 1–2 éléments manquants → C/D selon gravité; absent → 0
+- name: Tensions éthiques
+  max_points: 20
+  locked_caps:
+  - condition: La section décrit des choix/décisions au lieu de tensions
+    cap_points: 10
+  required_elements:
+  - 2 tensions distinctes
+  - Chaque tension justifiée par valeurs/normes/points de vue opposés
+  - Valeurs nommées explicitement
+  guidance:
+  - Si ça ressemble à une liste de décisions/choix → D faible max
+  - 'Exemples de valeurs : loyauté, honnêteté, réussite, liberté, respect, sécurité…'
+- name: Choix éthiques
+  max_points: 20
+  locked_caps:
+  - condition: Aucune conséquence formulée
+    cap_points: 10
+  required_elements:
+  - 2 choix distincts
+  - Conséquences sur soi / sur les autres / sur le bien commun
+  - Justification + posture éthique
+  guidance:
+  - Une phrase générale sur « la société » ne suffit pas pour viser B
+- name: Conclusion
+  max_points: 20
+  locked_caps:
+  - condition: Généralise / parle des autres et ne nomme aucune valeur ni conséquence
+    cap_points: 10
+  required_elements:
+  - Prise de position personnelle
+  - Au moins 1 valeur explicitée
+  - Conséquences sur les autres (et parfois sur la société)
+  guidance:
+  - La conclusion n’a pas à référer au film; exercice d’éthique (situation de vie)
+  - Conclusion vague/répétitive sans conséquences détaillées → typiquement C+
+notes:
+- Les plafonds 'D faible max' se traduisent en pratique par 10/20 maximum (ou 9/20
+  si très faible).
+- En cas d’incertitude de transcription (scan), flagger et éviter de pénaliser l’illisible.

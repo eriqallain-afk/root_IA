@@ -1,0 +1,16 @@
+result:
+  status: ok
+  summary: KB article generated
+artifacts:
+- type: kb_markdown
+  path: 03_artifacts/KB_outlook_sync.md
+next_actions:
+- Publish KB
+- Notify client
+log:
+  decisions:
+  - Chose standard KB template
+  risks:
+  - Incomplete environment data
+  assumptions:
+  - M365 tenant healthy

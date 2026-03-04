@@ -1,0 +1,65 @@
+schema_version: "memory/calibration_profile/v1"
+agent_id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+memory_version: "0.1.0"
+updated_at_utc: "2026-01-13T17:22:20Z"
+
+# Fenêtre glissante utilisée pour stabiliser la cohérence (recommandé: 30)
+window_size: 30
+
+# Hint global (ne remplace jamais la grille; sert à la cohérence)
+strictness_hint: "medium"   # low | medium | high
+
+# Ancrages par section et par niveau (à remplir avec Annie et l'enseignant)
+section_anchors:
+  "Introduction":
+    A: ""
+    B: ""
+    C: ""
+    D: ""
+    E: ""
+  "Synopsis":
+    A: ""
+    B: ""
+    C: ""
+    D: ""
+    E: ""
+  "Tensions éthiques":
+    A: ""
+    B: ""
+    C: ""
+    D: ""
+    E: ""
+  "Choix éthiques":
+    A: ""
+    B: ""
+    C: ""
+    D: ""
+    E: ""
+  "Conclusion":
+    A: ""
+    B: ""
+    C: ""
+    D: ""
+    E: ""
+
+# Règles "borderline" (décisions B- vs C+ etc.) — toujours compatibles avec la grille
+borderline_rules: []
+# Exemple:
+# - id: "BR001"
+#   status: "active"
+#   created_at_utc: "2026-01-13T00:00:00Z"
+#   applies_to: ["Tensions éthiques"]
+#   rule: "B- vs C+: donner B- seulement si ≥2 perspectives + impacts explicites."
+#   rationale: "Cohérence inter-copies (Annie)."
+
+# Politique OCR / transcription (équité)
+ocr_policy:
+  if_low_confidence: "flag_a_valider_and_do_not_penalize"
+  trigger_terms: ["[INCERTAIN]", "[ILLISIBLE]"]
+
+# Historique minimal (sans données élèves)
+history:
+  - version: "0.1.0"
+    updated_at_utc: "2026-01-13T17:22:20Z"
+    change: "Initialisation du profil de calibration (vide)."

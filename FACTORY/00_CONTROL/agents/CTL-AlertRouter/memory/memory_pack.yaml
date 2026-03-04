@@ -1,0 +1,14 @@
+version: "1.0.0"
+facts:
+  - "Fenêtre de déduplication : 24 heures"
+  - "P0 → toujours BLOQUANT"
+  - "Fallback destinataire inconnu → HUB-AgentMO-MasterOrchestrator"
+rules:
+  - "Trier P0 → P1 → P2 → P3 avant de router"
+  - "Jamais inventer un destinataire"
+  - "Toujours créer un alert_id unique par ticket"
+patterns:
+  - "P0 → HUB-AgentMO + IAHQ-QualityGate + CTL-HealthReporter"
+  - "P1 drift → META-GouvernanceQA + OPS-DossierIA"
+  - "P1 technique → IAHQ-TechLeadIA + OPS-DossierIA"
+  - "P2-P3 → CTL-HealthReporter (queue hebdo)"

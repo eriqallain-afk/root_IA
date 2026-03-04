@@ -1,0 +1,11 @@
+# Contract I/O — IASM-Orchestrator
+# Coordonne les modules de coaching : accueil, évaluation, orientation
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: markdown

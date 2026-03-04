@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "hub_routing.yaml",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "router_actor_id",
+    "routing_table",
+    "fallback"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "router_actor_id": {
+      "type": "string"
+    },
+    "routing_table": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "match_any_intents",
+          "default_actor_id",
+          "default_playbook_id"
+        ],
+        "properties": {
+          "match_any_intents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default_actor_id": {
+            "type": "string"
+          },
+          "default_playbook_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "required": [
+        "default_actor_id",
+        "default_playbook_id"
+      ],
+      "properties": {
+        "default_actor_id": {
+          "type": "string"
+        },
+        "default_playbook_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

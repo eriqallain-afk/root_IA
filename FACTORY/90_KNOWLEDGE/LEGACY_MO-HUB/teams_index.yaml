@@ -1,0 +1,28 @@
+teams:
+  - id: TEAM-NEA
+    slug: nea
+    file: REGISTRY/10_TEAMS/TEAM__nea.yaml
+
+  - id: TEAM-META
+    slug: meta
+    file: REGISTRY/10_TEAMS/TEAM__meta.yaml
+
+  - id: TEAM-IAHQ
+    slug: iahq
+    file: REGISTRY/10_TEAMS/TEAM__iahq.yaml
+
+  - id: TEAM-IT
+    slug: it
+    file: REGISTRY/10_TEAMS/TEAM__it.yaml
+
+  - id: TEAM-TRAD
+    slug: trad
+    file: REGISTRY/10_TEAMS/TEAM__trad.yaml
+
+  - id: TEAM-CAB-IA
+    slug: cabinet-ia
+    file: REGISTRY/10_TEAMS/TEAM__cabinet-ia.yaml
+
+  - id: TEAM-DES-AM
+    slug: design-annie-morneau
+    file: REGISTRY/10_TEAMS/TEAM__design-annie-morneau.yaml

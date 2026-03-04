@@ -1,0 +1,7 @@
+terms:
+  - term: "alert_id"
+    definition: "Identifiant unique d'alerte. Format: ALERT__YYYYMMDD__HHmmss__severity__agent_id"
+  - term: "deduplication"
+    definition: "Un seul ticket par agent_id+issue_type dans une fenêtre de 24h"
+  - term: "blocking"
+    definition: "true si severity=P0 — le playbook ne peut pas reprendre sans résolution"

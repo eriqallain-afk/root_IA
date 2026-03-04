@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-RessentiTonalite
+display_name: "@IASM - Analyse de ressenti & tonalité"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Analyse texte : émotions probables, intensité, besoins, vulnérabilités."
+intents:
+  - iasm
+  - sentiment
+  - tone
+aliases:
+  - "@IASM - Analyse de ressenti & tonalité"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

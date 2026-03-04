@@ -1,0 +1,46 @@
+schema_version: '1.0'
+actor_id: OPS-RouterIA
+team_id: TEAM__IT_OPS
+product_id: IT
+standalone: true
+
+inputs:
+  user_message:
+    type: string
+    required: true
+  context:
+    type: object
+    required: false
+    fields:
+      client_id: string?
+      ticket_id: string?
+      priority: string?
+      platform: string?
+
+outputs:
+  route:
+    actor_id: string
+    playbook_id: string
+    intents_detected: list[string]
+    confidence: number      # 0.0 - 1.0
+    match_type: string      # exact | partial | fallback
+    reasons: list[string]
+    product: 'IT'
+    routed_by: 'OPS-RouterIA'
+    timestamp: string
+
+rules:
+  must_use_routing_file: 80_MACHINES/hub_routing.yaml
+  must_use_intents_file: 00_INDEX/intents.yaml
+  must_exist_playbook_file: playbooks/playbooks.yaml
+  forbidden_actors:
+    - HUB-AgentMO-MasterOrchestrator
+    - HUB-AgentMO2-DeputyOrchestrator
+    - META-AgentProductFactory
+    - META-ArchitecteChoix
+  internal_fallback: IT-OrchestratorMSP
+
+error_handling:
+  on_unknown_intent: internal_fallback
+  on_missing_routing_file: raise_error
+  on_yaml_invalid: raise_error

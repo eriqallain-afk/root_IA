@@ -1,0 +1,286 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "@EDU-Reflexions_CCQ output contract",
+  "type": "object",
+  "required": [
+    "agent",
+    "rubric",
+    "document",
+    "sections",
+    "overall",
+    "teacher_report"
+  ],
+  "properties": {
+    "agent": {
+      "type": "object",
+      "required": [
+        "id",
+        "display_name",
+        "version",
+        "generated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "generated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "rubric": {
+      "type": "object",
+      "required": [
+        "name",
+        "source_document",
+        "retrieval_required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source_document": {
+          "type": "string"
+        },
+        "retrieval_required": {
+          "type": "boolean"
+        },
+        "rubric_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "ref_id",
+              "snippet"
+            ],
+            "properties": {
+              "ref_id": {
+                "type": "string"
+              },
+              "page": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "snippet": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "required": [
+        "input_type",
+        "sections_detected",
+        "ocr"
+      ],
+      "properties": {
+        "input_type": {
+          "type": "string",
+          "enum": [
+            "pdf"
+          ]
+        },
+        "sections_detected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ocr": {
+          "type": "object",
+          "required": [
+            "used",
+            "confidence",
+            "flags"
+          ],
+          "properties": {
+            "used": {
+              "type": "boolean"
+            },
+            "confidence": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "flags": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "page",
+                  "issue"
+                ],
+                "properties": {
+                  "page": {
+                    "type": "integer"
+                  },
+                  "issue": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "max_points",
+          "points",
+          "grade",
+          "status",
+          "rationale",
+          "evidence",
+          "rubric_refs"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "max_points": {
+            "type": "integer"
+          },
+          "points": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "grade": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "scored",
+              "missing",
+              "needs_review"
+            ]
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "rubric_refs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": [
+                "ref_id",
+                "snippet"
+              ],
+              "properties": {
+                "ref_id": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "snippet": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overall": {
+      "type": "object",
+      "required": [
+        "total_points",
+        "max_points",
+        "percent",
+        "summary",
+        "next_steps"
+      ],
+      "properties": {
+        "total_points": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_points": {
+          "type": "integer",
+          "enum": [
+            100
+          ]
+        },
+        "percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "summary": {
+          "type": "string"
+        },
+        "next_steps": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "teacher_report": {
+      "type": "object",
+      "required": [
+        "strengths",
+        "improvements",
+        "final_comment"
+      ],
+      "properties": {
+        "strengths": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": {
+            "type": "string"
+          }
+        },
+        "improvements": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": {
+            "type": "string"
+          }
+        },
+        "final_comment": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

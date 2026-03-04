@@ -1,0 +1,11 @@
+# Contract I/O — PLR-Orchestrator
+# Planifie et coordonne la production d'épisodes radio/podcast
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

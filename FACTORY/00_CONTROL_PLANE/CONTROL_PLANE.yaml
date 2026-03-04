@@ -1,0 +1,13 @@
+schema_version: '1.0'
+generated_at: '2025-12-28T18:00:12Z'
+root: root_IA
+source_of_truth: ./
+machine_mode:
+  canonical_actor_id: AGENTS[].id
+  canonical_team_id: TEAM__*
+  contracts_required: true
+  output_format: YAML_STRICT
+runtime:
+  router_actor_id: OPS-RouterIA
+  runner_actor_id: OPS-PlaybookRunner
+  memory_actor_id: OPS-DossierIA

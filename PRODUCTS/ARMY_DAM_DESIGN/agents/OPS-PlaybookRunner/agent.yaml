@@ -1,0 +1,19 @@
+id: OPS-PlaybookRunner
+display_name: '@OPS-PlaybookRunner'
+team_id: TEAM__OPS
+team_name: OPS
+version: 1.0.0
+status: active
+description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+intents:
+- ops
+- runner
+- playbook
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml

@@ -1,0 +1,299 @@
+schema_version: "2.0"
+kind: orchestrator_blueprint
+id: META_ORCHESTRATOR_V2
+version: 2.0.0
+owner_team_id: TEAM__META
+entry_actor_id: META-OrchestrateurCentral
+purpose: 'Orchestrateur META V2 : sélection automatique des GPT/agents, exécution playbooks, mémoire & QA pour accélérer la
+  création/optimisation d''armées GPT.'
+depends_on:
+  control_plane: /mnt/data/CONTROL_PLANE.yaml
+  indexes:
+    agents: /mnt/data/agents_index.yaml
+    teams: /mnt/data/teams_index.yaml
+    intents: /mnt/data/intents.yaml
+    capabilities: /mnt/data/capability_map.yaml
+    gpt_catalog: /mnt/data/gpt_catalog.yaml
+    playbooks: /mnt/data/playbooks.yaml
+    hub_routing: /mnt/data/hub_routing.yaml
+  memories_global_read:
+  - /mnt/data/MEM-TeamsGlobal.yaml
+  - /mnt/data/MEM-RoutingGlobal.yaml
+  - /mnt/data/MEM-PlaybooksGlobal.yaml
+  - /mnt/data/MEM-CapabilitiesGlobal.yaml
+  - /mnt/data/MEM-AgentsGlobal.yaml
+  - /mnt/data/MEM-IntentsGlobal.yaml
+  - /mnt/data/MEM-EvidenceRegister.yaml
+  - /mnt/data/MEM-QualityGatesGlobal.yaml
+inputs:
+  required:
+  - user_request
+  optional:
+  - context
+  - constraints
+  - artifacts
+  - preferred_language
+  - deadline
+  - success_criteria
+outputs:
+  primary:
+  - execution_plan
+  - deliverable_bundle
+  telemetry:
+  - routing_trace
+  - memory_trace
+  - evidence_log
+  - qa_report
+defaults:
+  output_format: YAML_STRICT
+  preferred_language: fr-CA
+  timezone: America/Toronto
+  execution_mode: parallel_when_independent
+  confidence_thresholds:
+    intent_high: 0.72
+    intent_medium: 0.55
+policies:
+  truthfulness:
+    rule: Si une info est inconnue ou non fournie, la marquer HYPOTHESE_A_VALIDER et l'archiver dans evidence_log.
+    no_fabrication: true
+  scope:
+    meta_team_first: true
+    cross_team_handoff_via_router: true
+  safety:
+    high_stakes_redirect:
+    - medical_diagnosis
+    - legal_advice
+    - financial_advice
+    privacy: Ne pas inventer ni exposer d'informations personnelles.
+  source_attribution:
+    policy_file: /mnt/data/SOURCE_ATTRIBUTION.yaml
+    requirements:
+    - Chaque sortie de stage doit inclure un champ sources {source_mode, items}.
+    - Si aucun outil web n'est utilisé, source_mode=none ou internal_repo/provided_by_user.
+    - Les hypothèses doivent être distinguées des faits et loggées.
+memory:
+  dossier_ia:
+    actor_id: OPS-DossierIA
+    create_on_intake: true
+    dossier_id_template: DossierIA::META::{project_slug}::v{semver}
+    write_policy:
+      decision_log: append_only
+      artifacts_index: upsert
+      routing_trace: append_only
+      evidence_log: append_only
+    minimum_fields:
+    - project_title
+    - user_request
+    - constraints
+    - assumptions
+    - decisions
+    - artifacts
+    - next_actions
+  global_memory_reads:
+    teams: MEM-TeamsGlobal
+    routing: MEM-RoutingGlobal
+    playbooks: MEM-PlaybooksGlobal
+    capabilities: MEM-CapabilitiesGlobal
+    agents: MEM-AgentsGlobal
+    intents: MEM-IntentsGlobal
+    evidence_register: MEM-EvidenceRegister
+  versioning:
+    semver: MAJOR.MINOR.PATCH
+    bump_rules:
+      major: changement de schéma ou de contrat
+      minor: ajout/suppression de stage ou d'un quality gate
+      patch: tuning de seuils, wording prompts
+selection:
+  intent_detection:
+    method: hybrid_keywords_plus_agent_judgement
+    sources:
+    - /mnt/data/intents.yaml
+    - /mnt/data/agents_index.yaml
+    output:
+      intents: list(str)
+      confidence: float
+      needs_cross_team: bool
+    heuristics:
+      boost:
+        army_factory:
+        - army_factory
+        - army_design
+        - gpt
+        - agents
+        - orchestrateur
+        - armée
+        - catalogue
+        prompt:
+        - prompt
+        - instructions
+        - system prompt
+        - template
+        audit:
+        - audit
+        - qa
+        - cohérence
+        - governance
+      needs_cross_team_triggers:
+      - it
+      - msp
+      - dam
+      - trad
+      - iasm
+      - nea
+      - radio
+  capability_resolution:
+    method: intent_to_capability_map_with_fallback
+    map:
+    - when_any_intents:
+      - army_factory
+      - army_design
+      - orchestrate
+      - roles
+      - prompt
+      - audit
+      capability_id: CAP__ARMY_FACTORY
+    - when_any_intents:
+      - route
+      - dispatch
+      - classify
+      capability_id: CAP__ROUTE_DISPATCH
+    fallback_capability_id: CAP__ARMY_FACTORY
+  agent_selection:
+    strategy: playbook_first_then_score
+    team_scope:
+    - TEAM__META
+    scoring:
+      intent_overlap_weight: 0.6
+      capability_weight: 0.25
+      role_fit_weight: 0.15
+      tie_breakers:
+      - default_actor_id
+      - alphabetical
+    playbook_binding:
+      default_playbook_id: BUILD_ARMY_FACTORY
+      steps_to_agents:
+        requirements: META-AnalysteBesoinsEquipes
+        roles: META-CartographeRoles
+        prompts: META-Opromptimizer
+        audit: META-SuperviseurInvisible
+        package: IAHQ-DevFactoryIA
+stages:
+- stage: intake
+  actor_id: META-OrchestrateurCentral
+  actions:
+  - do: normalize_request
+    output:
+    - project_title
+    - project_slug
+    - constraints
+    - success_criteria
+  - do: ensure_dossier_ia
+    via_actor_id: OPS-DossierIA
+  - do: classify_intents_and_cross_team_need
+    via: selection.intent_detection
+- stage: plan
+  actor_id: META-OrchestrateurCentral
+  actions:
+  - do: select_playbook
+    default_playbook_id: BUILD_ARMY_FACTORY
+    override_rules:
+    - when_any_intents:
+      - prompt
+      - engineering
+      - optimize
+      playbook_id: BUILD_ARMY_FACTORY
+      options:
+        start_at_step: prompts
+    - when_any_intents:
+      - audit
+      - qa
+      - governance
+      playbook_id: BUILD_ARMY_FACTORY
+      options:
+        include_step: audit
+  - do: decompose_tasks
+    output: task_graph
+  - do: assign_agents
+    via: selection.agent_selection
+  - do: write_execution_plan_to_dossier
+    via_actor_id: OPS-DossierIA
+- stage: execute
+  actor_id: OPS-PlaybookRunner
+  actions:
+  - do: run_playbook
+    playbook_id_from: plan.selected_playbook_id
+    mode: parallel_when_independent
+    inputs:
+    - user_request
+    - context
+    - constraints
+    - artifacts
+    - dossier_ia_ref
+    outputs:
+    - step_outputs
+  - do: if_needs_cross_team_then_handoff
+    condition: selection.intent_detection.needs_cross_team == true
+    handoff_actor_id: OPS-RouterIA
+    handoff_playbook_id: INTAKE_ROUTE_EXECUTE
+- stage: qa
+  actor_id: META-SuperviseurInvisible
+  actions:
+  - do: run_quality_gates
+    gates:
+    - QA-01
+    - QA-02
+    - QA-03
+    - QA-04
+    - QA-05
+  - do: log_evidence
+    via_actor_id: OPS-DossierIA
+    register_id: MEM-EvidenceRegister
+- stage: package_and_handoff
+  actor_id: META-OrchestrateurCentral
+  actions:
+  - do: bundle_deliverables
+    output: deliverable_bundle
+  - do: update_artifacts_index
+    via_actor_id: OPS-DossierIA
+  - do: emit_routing_and_memory_trace
+    output:
+    - routing_trace
+    - memory_trace
+    - qa_report
+quality_gates:
+  QA-01:
+    rule: 'Le plan contient: intent -> teams -> agents -> prompts -> mémoire -> validation.'
+    severity: blocker
+  QA-02:
+    rule: Chaque hypothèse est explicitement marquée et enregistrée.
+    severity: blocker
+  QA-03:
+    rule: 'Aucune redondance: un agent par responsabilité; éviter doublons de livrables.'
+    severity: major
+  QA-04:
+    rule: Chaque livrable a un format + critères de succès testables.
+    severity: major
+  QA-05:
+    rule: Chaque livrable/artefact inclut le champ 'sources' conforme à SOURCE_ATTRIBUTION.
+    severity: major
+prompt_wrappers:
+  requirements: Tu es @META-AnalysteBesoinsEquipes. Produis une spec priorisée (MoSCoW), avec critères d'acceptation, risques,
+    et questions ouvertes. Conclus par une checklist testable.
+  roles: Tu es @META-CartographeRoles. Transforme la spec en rôles GPT (mission, inputs/outputs, limites, métriques). Prévois
+    interfaces entre rôles et escalades.
+  prompts: Tu es @META-Opromptimizer. Conçois prompts V1 pour chaque rôle (system + user templates) + tests rapides. Utilise
+    YAML_STRICT pour les artefacts.
+  audit: 'Tu es @META-SuperviseurInvisible. Audit: cohérence, doublons, sécurité, conformité au routage & mémoire. Donne corrections
+    concrètes.'
+  package: 'Tu es @IAHQ-DevFactoryIA. Emballe: structure de repo/dossiers, fichiers YAML/MD, instructions d''intégration,
+    et plan de déploiement.'
+telemetry:
+  enable: true
+  fields:
+  - selected_intents
+  - selected_capability
+  - selected_playbook_id
+  - agent_assignments
+  - latency_estimates
+  - qa_findings
+  persist_to_dossier: true

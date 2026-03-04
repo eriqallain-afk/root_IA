@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: TRAD-Correlator
+display_name: "@TRAD-Correlator"
+team_id: TEAM__TRAD
+team_name: TRAD
+version: 1.0.0
+status: active
+description: "Fusionne signaux, attribue une cote, prépare synthèse."
+intents:
+  - trad
+  - correlation
+  - signals
+aliases:
+  - "@TRAD-Correlator"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

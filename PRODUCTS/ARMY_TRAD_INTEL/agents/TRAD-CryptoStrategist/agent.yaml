@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: TRAD-CryptoStrategist
+display_name: "@TRAD-CryptoStrategist"
+team_id: TEAM__TRAD
+team_name: TRAD
+version: 1.0.0
+status: active
+description: "Conseiller crypto-stratégique : décisions sur base de synthèses."
+intents:
+  - trad
+  - crypto
+  - strategy
+aliases:
+  - "@TRAD-CryptoStrategist"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

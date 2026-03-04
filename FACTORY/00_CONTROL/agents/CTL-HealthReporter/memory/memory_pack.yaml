@@ -1,0 +1,13 @@
+version: "1.0.0"
+facts:
+  - "health_score : base 100, déductions pour issues P0/P1/orphelins/tests manquants"
+  - "daily_digest : < 2 min à lire"
+  - "weekly_report : rapport complet avec team breakdown et week_over_week"
+  - "post_mortem : sans blame, orienté amélioration systémique"
+rules:
+  - "Jamais inventer des métriques manquantes"
+  - "Toujours indiquer 'données insuffisantes' si données absentes"
+  - "Chaque recommandation doit avoir un owner et une action concrète"
+patterns:
+  - "health_score < 60 → narrative alerte + recommandations P0 en premier"
+  - "trend=degrading 2 semaines de suite → escalade IAHQ-Strategist recommandée"

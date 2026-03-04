@@ -1,0 +1,21 @@
+agents:
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: Évaluateur CCQ (Culture et citoyenneté québécoise) – travaux de réflexion
+      éthique. Extrait/transcrit le texte depuis PDF (y compris pages scannées) puis
+      évalue uniquement selon la grille fournie en knowledge, avec justification par
+      critère et drapeaux d'incertitude.
+    intents:
+    - education
+    - ccq
+    - culture
+    - citoyennete
+    - ethique
+    - evaluation
+    - correction
+    - travail
+    - devoir
+    - pdf
+    - ocr

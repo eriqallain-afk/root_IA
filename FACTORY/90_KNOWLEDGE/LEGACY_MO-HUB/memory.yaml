@@ -1,0 +1,319 @@
+# memory.yaml
+version: 1
+project: "IA-Multiverse"
+description: "Blocs mémoire de l'écosystème IA, avec versioning, rôles et validation."
+
+memory_blocks:
+
+  # ───────── NIVEAU GLOBAL ─────────
+
+  - id: MEM-NomenclatureArméesGPT
+    label: "Nomenclature des armées de GPT"
+    scope: global
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Règles de nommage des GPT (@PREFIX-NomDuRôle[-suffixe]), liste des préfixes
+      officiels (HUB, IAHQ, META, OPS, DAM, TRAD, IT, IASM, NEA, RADIO), conventions
+      (CamelCase, singulier, verbe implicite).
+    owners:
+      - META-OrchestrateurCentral
+    writers:
+      - META-OrchestrateurCentral
+      - HUB-IA-ChatBotMaster
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - HUB-AgentMO
+      - OPS-RouterIA
+      - OPS-PlaybookRunner
+      - META-CartographeRoles
+
+  - id: MEM-RegistryGPT
+    label: "Registry des GPT"
+    scope: global
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Vue consolidée de tous les GPT, par team, avec leurs rôles, orchestrateurs et
+      relations principales. Miroir conceptuel de registry.yaml.
+    owners:
+      - HUB-IA-ChatBotMaster
+    writers:
+      - HUB-IA-ChatBotMaster
+      - OPS-DossierIA
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - HUB-AgentMO
+      - OPS-RouterIA
+      - OPS-PlaybookRunner
+
+  - id: MEM-PlaybooksGlobal
+    label: "Catalogue de playbooks"
+    scope: global
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Catalogue de tous les playbooks (ID, team, objectifs, étapes clés), miroir de
+      playbooks.yaml, avec historique des versions majeures.
+    owners:
+      - OPS-PlaybookRunner
+    writers:
+      - OPS-PlaybookRunner
+      - HUB-IA-ChatBotMaster
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - HUB-AgentMO
+      - OPS-RouterIA
+      - Tous
+
+  - id: MEM-TemplatesPrompts
+    label: "Bibliothèque de templates de prompts"
+    scope: global
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Collection de prompts types pour cadrage, analyse, vente, conception d’armées,
+      audit, scripts radio, recueil NEA, etc.
+    owners:
+      - META-Opromptimizer
+    writers:
+      - META-Opromptimizer
+      - HUB-OproEngine
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - Tous
+
+  - id: MEM-DossiersIA
+    label: "Dossiers IA par client/projet"
+    scope: client_project
+    versioning:
+      strategy: "incremental"
+      current_version: "1"
+    description: >
+      Dossiers IA consolidés par client/projet : contexte, process, armées, ROI,
+      décisions, documents clés et historiques des versions.
+    owners:
+      - OPS-DossierIA
+    writers:
+      - OPS-DossierIA
+      - IAHQ-SolutionOrchestrator
+      - IT-OrchestratorMSP
+      - DAM-Orchestrator
+      - NEA-Orchestrator
+      - TRAD-GlobalReport
+    validators:
+      - HUB-AgentMO
+    readers:
+      - IAHQ-OrchestreurEntrepriseIA
+      - META-OrchestrateurCentral
+      - Teams concernées
+      - HUB-AgentMO
+
+  # ───────── MÉMOIRE PAR TEAM ─────────
+
+  - id: MEM-IAHQ-MethodesVenteIA
+    label: "Méthodes & scripts de vente IA"
+    scope: team
+    team: IAHQ
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Méthodologie de vente de solutions IA : discovery, cadrage, argumentaires,
+      exemples de propositions, scripts 30-60-90, objections fréquentes et réponses.
+    owners:
+      - IAHQ-OrchestreurEntrepriseIA
+    writers:
+      - IAHQ-OrchestreurEntrepriseIA
+      - IAHQ-AdminManagerIA
+      - IAHQ-SolutionOrchestrator
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - HUB-CoachIA360
+      - HUB-AgentMO
+      - OPS-PlaybookRunner
+
+  - id: MEM-META-DesignArmées
+    label: "Design d’armées de GPT"
+    scope: team
+    team: META
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Frameworks pour analyser les besoins d'équipes, cartographier les rôles GPT,
+      patterns d'architectures d'armées réutilisables par domaine (BIZ, IMMO, IT, etc.).
+    owners:
+      - META-OrchestrateurCentral
+    writers:
+      - META-OrchestrateurCentral
+      - META-AnalysteBesoinsEquipes
+      - META-CartographeRoles
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - IAHQ-OrchestreurEntrepriseIA
+      - OPS-PlaybookRunner
+      - HUB-IA-ChatBotMaster
+
+  - id: MEM-OPS-ProceduresMachine
+    label: "Procédures Machine & standards d’exécution"
+    scope: team
+    team: OPS
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Standards pour router les demandes, exécuter les playbooks, maintenir les
+      Dossiers IA et synchroniser registry, playbooks et mémoire.
+    owners:
+      - OPS-RouterIA
+    writers:
+      - OPS-RouterIA
+      - OPS-PlaybookRunner
+      - OPS-DossierIA
+    validators:
+      - HUB-AgentMO
+    readers:
+      - META-SuperviseurInvisible
+      - Tous les orchestrateurs de team
+
+  - id: MEM-DAM-StandardsConstruction
+    label: "Normes & pratiques projet construction"
+    scope: team
+    team: DAM
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Normes, codes, bonnes pratiques, modèles de fiches, checklists chantier,
+      flux types pour projets construction/rénovation.
+    owners:
+      - DAM-Orchestrator
+    writers:
+      - DAM-Orchestrator
+      - DAM-GPT2-Conformite
+      - DAM-GPT13-Analytics
+    validators:
+      - DAM-Superviseur
+    readers:
+      - IAHQ-OrchestreurEntrepriseIA
+      - OPS-DossierIA
+
+  - id: MEM-TRAD-ModelesSignals
+    label: "Modèles de signaux TRAD"
+    scope: team
+    team: TRAD
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Définition des indicateurs TRAD, typologies de signaux (cosmo, market, socio,
+      cyber), patterns observés et exemples de corrélations.
+    owners:
+      - TRAD-CommandCore
+    writers:
+      - TRAD-CommandCore
+      - TRAD-Correlator
+      - TRAD-AnalytikGlobal
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - TRAD-CryptoStrategist
+      - HUB-AgentMO
+      - OPS-DossierIA
+
+  - id: MEM-IT-StandardsMSP
+    label: "Standards & patterns MSP/IT"
+    scope: team
+    team: IT
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Catalogues de standards MSP (sécurité, backup, monitoring, cloud, réseau),
+      modèles de services, SLAs, matrices de risques techniques.
+    owners:
+      - IT-OrchestratorMSP
+    writers:
+      - IT-CTOMaster
+      - IT-SecurityMaster
+      - IT-BackupDRMaster
+      - IT-MonitoringMaster
+    validators:
+      - HUB-AgentMO
+    readers:
+      - IAHQ-TechLeadIA
+      - OPS-DossierIA
+
+  - id: MEM-IASM-ProtocolesCabinet
+    label: "Protocoles & lignes directrices Cabinet IA"
+    scope: team
+    team: IASM
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Lignes de prudence, structure des entretiens, limites, types d’interventions,
+      exemples de formulations prudentes & redirections vers des ressources humaines.
+    owners:
+      - IASM-DirecteurCabinet
+    writers:
+      - IASM-DirecteurCabinet
+      - IASM-Psychoeducateur
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - Tous les GPT IASM
+
+  - id: MEM-NEA-LoreRecueil
+    label: "Lore & structure du Recueil NEA"
+    scope: team
+    team: NEA
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Axes thématiques du recueil NEA, structure globale, archétypes, tonalité,
+      grilles de récurrence et patterns symboliques.
+    owners:
+      - NEA-Orchestrator
+    writers:
+      - NEA-Orchestrator
+      - NEA-ConseilPatterns
+      - NEA-Archiviste
+    validators:
+      - META-SuperviseurInvisible
+    readers:
+      - NEA-RedacteurRecueil
+      - NEA-Imagier
+
+  - id: MEM-RADIO-FormatsScripts
+    label: "Formats & styles de scripts radio"
+    scope: team
+    team: RADIO
+    versioning:
+      strategy: "semver"
+      current_version: "1.0.0"
+    description: >
+      Modèles de scripts (chronique, interview, débat, capsule), durées types,
+      tonalité, contraintes de rythme & repères pour la voix.
+    owners:
+      - PLR-RadioScripteur
+    writers:
+      - PLR-RadioScripteur
+      - ESPL-PaulLejeuneRadio
+    validators:
+      - HUB-AgentMO
+    readers:
+      - OPS-DossierIA
+      - HUB-AgentMO

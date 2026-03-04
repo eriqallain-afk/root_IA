@@ -1,0 +1,325 @@
+schema_version: "1.0"
+playbook_id: PROMPT_OPTIMIZATION_CYCLE
+display_name: "Prompt Optimization Cycle"
+description: >
+  Cycle complet d'optimisation d'un prompt existant. Inspiré de la méthode OPRO
+  (Optimization by PROmpting). Mesure baseline → reverse-analyse les faiblesses →
+  génère 2 variantes améliorées → évalue → applique la meilleure → test de régression.
+  Déclenché par drift détecté, performance < 80%, ou demande manuelle.
+category: "optimisation"
+team_owner: TEAM__META
+trigger: "drift_detected | performance_low | manual | scheduled_quarterly"
+estimated_duration_minutes: 60
+version: "1.0.0"
+last_updated: "2026-02-25"
+
+philosophy: >
+  « Le meilleur prompt est celui qu'on comprend. » — META-PromptMaster
+  Chaque optimisation est mesurée, versionnée, et testée avant déploiement.
+  On n'optimise jamais à l'aveugle : la baseline est toujours établie d'abord.
+
+inputs:
+  agent_id:
+    type: string
+    required: true
+    description: "ID canonique de l'agent à optimiser (ex: META-PromptMaster)"
+  trigger_reason:
+    type: "drift_detected | performance_below_threshold | user_request | scheduled"
+    required: true
+  drift_score_observed:
+    type: float
+    required: false
+    description: "drift_score fourni par WatchdogIA si trigger=drift_detected"
+  performance_issues:
+    type: list[string]
+    required: false
+    description: "Description des problèmes observés (format de sortie incorrect, réponses vagues, etc.)"
+  optimization_focus:
+    type: list[string]
+    required: false
+    description: "Aspects à améliorer en priorité. Ex: [output_format, instructions_clarity, examples]"
+  keep_core_identity:
+    type: boolean
+    required: false
+    default: true
+    description: "Préserver l'identité et la mission fondamentale de l'agent (true recommandé)"
+
+steps:
+
+  - step_id: "S1_baseline"
+    name: "Mesure de performance baseline"
+    actor_id: CTL-WatchdogIA
+    input:
+      operation: "drift_check"
+      scope: "{{agent_id}}"
+      context:
+        drift_score_provided: "{{drift_score_observed | default: null}}"
+    output_key: "baseline"
+    collects:
+      - "drift_score actuel (0.0-1.0)"
+      - "Champs qui driftent le plus (evidence)"
+      - "Nombre d'outputs récents analysés"
+      - "Conformité au contract.yaml (section par section)"
+    on_failure: "continue"
+    on_failure_message: >
+      Baseline non disponible (pas d'outputs récents). Optimisation lancée sur
+      analyse statique du prompt uniquement — drift_score sera null.
+    sla_minutes: 5
+
+  - step_id: "S2_read_current_state"
+    name: "Lecture état actuel agent"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "search"
+      search_query:
+        keywords: ["{{agent_id}}", "prompt", "contract"]
+    action: >
+      Lire le contenu actuel de prompt.md, contract.yaml, et expected_output.yaml
+      de l'agent. Construire un snapshot complet de l'état before-optimization.
+    output_key: "current_state"
+    format:
+      current_prompt_md: "<contenu>"
+      current_contract_output_schema: "<schéma de sortie attendu>"
+      current_expected_output: "<expected_output.yaml>"
+      current_version: "<agent.version>"
+      test_cases_count: <int>
+    on_failure: "abort"
+    on_failure_message: "Impossible de lire l'agent. Vérifier que le chemin 20_AGENTS/{{agent_id}}/ existe."
+    sla_minutes: 3
+
+  - step_id: "S3_reverse_analysis"
+    name: "Reverse-analyse du prompt actuel"
+    actor_id: META-ReversePrompt
+    input:
+      user_input: "Analyser le prompt de {{agent_id}}"
+      context:
+        gpt_raw_prompt: "{{current_state.current_prompt_md}}"
+        observed_issues: "{{performance_issues | default: []}}"
+        drift_evidence: "{{baseline.drift_report | default: []}}"
+        contract_schema: "{{current_state.current_contract_output_schema}}"
+    output_key: "reverse_analysis"
+    extracts:
+      - "Structure actuelle du prompt (sections identifiées)"
+      - "Instructions ambiguës ou contradictoires"
+      - "Instructions manquantes vs ce que le contrat exige"
+      - "Examples absents ou insuffisants"
+      - "Format de sortie mal spécifié"
+      - "Points forts à préserver absolument"
+    on_failure: "abort"
+    sla_minutes: 10
+
+  - step_id: "S4_generate_variants"
+    name: "Génération de 2 variantes optimisées"
+    actor_id: HUB-OproEngine
+    input:
+      objective: "Générer 2 variantes de prompt optimisées pour {{agent_id}}"
+      context:
+        current_prompt: "{{current_state.current_prompt_md}}"
+        reverse_analysis: "{{reverse_analysis}}"
+        optimization_focus: "{{optimization_focus | default: ['output_format', 'instructions_clarity', 'examples']}}"
+        keep_core_identity: "{{keep_core_identity}}"
+        contract_schema: "{{current_state.current_contract_output_schema}}"
+        baseline_drift_score: "{{baseline.drift_score | default: null}}"
+    action: >
+      Produire exactement 2 variantes :
+      - Variante A (conservative) : corrections minimales ciblées sur les issues identifiées
+      - Variante B (progressive) : restructuration plus profonde avec nouvelles sections/examples
+      Chaque variante doit inclure une justification des changements appliqués.
+    output_key: "variants"
+    format:
+      variant_a:
+        label: "conservative"
+        prompt_md: "<prompt complet>"
+        changes_summary: "<liste des changements vs prompt actuel>"
+        hypothesis: "<pourquoi cette variante devrait améliorer le drift_score>"
+      variant_b:
+        label: "progressive"
+        prompt_md: "<prompt complet>"
+        changes_summary: "<liste des changements vs prompt actuel>"
+        hypothesis: "<pourquoi cette variante devrait améliorer le drift_score>"
+    on_failure: "abort"
+    sla_minutes: 15
+
+  - step_id: "S5_evaluate_variants"
+    name: "Évaluation et sélection de la meilleure variante"
+    actor_id: META-PromptMaster
+    input:
+      objective: "Évaluer et sélectionner la meilleure variante de prompt pour {{agent_id}}"
+      context:
+        variant_a: "{{variants.variant_a}}"
+        variant_b: "{{variants.variant_b}}"
+        current_prompt: "{{current_state.current_prompt_md}}"
+        contract_schema: "{{current_state.current_contract_output_schema}}"
+        test_cases: "{{current_state.current_expected_output}}"
+        optimization_focus: "{{optimization_focus | default: []}}"
+    evaluation_criteria:
+      - name: "conformité_contrat"
+        weight: 30
+        description: "Le prompt génère-t-il des outputs conformes au contract.yaml ?"
+      - name: "clarté_instructions"
+        weight: 25
+        description: "Les instructions sont-elles sans ambiguïté et sans contradiction ?"
+      - name: "exemples_pertinents"
+        weight: 20
+        description: "Les examples illustrent-ils tous les cas du contrat ?"
+      - name: "robustesse"
+        weight: 15
+        description: "Le prompt tient-il face à des inputs variés ou limites ?"
+      - name: "maintenabilité"
+        weight: 10
+        description: "Le prompt sera-t-il facile à maintenir et faire évoluer ?"
+    output_key: "evaluation"
+    format:
+      scores:
+        variant_a: <0-100>
+        variant_b: <0-100>
+        current: <0-100>
+      recommended: "a | b | current (si aucune variante n'améliore)"
+      recommendation_rationale: "<justification 2-4 phrases>"
+      improvements_vs_current:
+        variant_a: "<delta estimé de conformité>"
+        variant_b: "<delta estimé de conformité>"
+      risks:
+        - variant: "a | b"
+          risk: "<risque potentiel de cette variante>"
+    on_failure: "abort"
+    sla_minutes: 10
+
+  - step_id: "S6_apply_best_variant"
+    name: "Application de la meilleure variante"
+    actor_id: META-AgentProductFactory
+    condition: "evaluation.recommended != 'current'"
+    input:
+      agent_id: "{{agent_id}}"
+      operation: "update_prompt"
+      recommended_variant: "{{evaluation.recommended}}"
+      new_prompt_md: >
+        {{evaluation.recommended == 'a' ?
+          variants.variant_a.prompt_md :
+          variants.variant_b.prompt_md}}
+      version_bump: "minor"
+      version_from: "{{current_state.current_version}}"
+    actions:
+      - "Sauvegarder prompt.md actuel en prompt.md.v<current_version>.bak"
+      - "Écrire le nouveau prompt.md"
+      - "Incrémenter agent.version (minor : ex 1.2 → 1.3)"
+      - "Mettre à jour last_updated"
+    output_key: "apply_result"
+    on_failure: "abort"
+    on_failure_message: "Application échouée. Prompt actuel conservé intact (backup disponible)."
+    sla_minutes: 5
+
+  - step_id: "S7_regression_test"
+    name: "Test de régression complet"
+    actor_id: META-GouvernanceQA
+    condition: "evaluation.recommended != 'current'"
+    input:
+      scope: "{{agent_id}}"
+      context:
+        new_prompt_md: "{{apply_result.new_prompt_md}}"
+        contract_schema: "{{current_state.current_contract_output_schema}}"
+    checks:
+      - "Exécuter sample_input.yaml → output conforme à expected_output.yaml ?"
+      - "YAML strict respecté (aucun texte hors YAML) ?"
+      - "Tous les champs required du contrat présents ?"
+      - "log.decisions et log.assumptions présents ?"
+      - "Aucune régression vs test_cases existants ?"
+    output_key: "regression_report"
+    format:
+      status: "pass | fail"
+      tests_run: <int>
+      tests_passed: <int>
+      conformance_score: <0-100>
+      regressions_detected: ["<test_case qui régresse>"]
+      improvement_confirmed: <true|false>
+    on_failure_action: "rollback"
+    rollback_action: "Restaurer prompt.md depuis backup + décrémenter agent.version"
+    on_failure: "rollback_then_abort"
+    sla_minutes: 10
+
+  - step_id: "S8_update_tests"
+    name: "Mise à jour des tests (capitalisation)"
+    actor_id: META-AgentProductFactory
+    condition: "regression_report.status == 'pass'"
+    input:
+      agent_id: "{{agent_id}}"
+    actions:
+      - "Mettre à jour expected_output.yaml si le format de sortie a changé (légitimement)"
+      - "Ajouter les cas qui avaient causé le drift comme nouveaux test_cases"
+      - "Documenter dans memory_pack.yaml le pattern résolu"
+    output_key: "test_updates"
+    on_failure: "continue"
+    sla_minutes: 5
+
+  - step_id: "S9_measure_improvement"
+    name: "Mesure post-optimisation"
+    actor_id: CTL-WatchdogIA
+    condition: "regression_report.status == 'pass'"
+    input:
+      operation: "drift_check"
+      scope: "{{agent_id}}"
+    output_key: "post_optimization_score"
+    action: "Mesurer le drift_score après optimisation pour confirmer l'amélioration."
+    sla_minutes: 5
+
+  - step_id: "S10_archive"
+    name: "Archivage Dossier IA"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "create"
+      playbook_id: "PROMPT_OPTIMIZATION_CYCLE"
+      metadata:
+        type: "prompt_optimization"
+        agent_id: "{{agent_id}}"
+        trigger_reason: "{{trigger_reason}}"
+        version_before: "{{current_state.current_version}}"
+        version_after: "{{apply_result.new_version | default: current_state.current_version}}"
+        drift_score_before: "{{baseline.drift_score | default: null}}"
+        drift_score_after: "{{post_optimization_score.drift_score | default: null}}"
+        improvement_confirmed: "{{regression_report.improvement_confirmed | default: false}}"
+        variant_applied: "{{evaluation.recommended | default: 'none'}}"
+      outputs:
+        baseline: "{{baseline}}"
+        reverse_analysis: "{{reverse_analysis}}"
+        variants: "{{variants}}"
+        evaluation: "{{evaluation}}"
+        regression_report: "{{regression_report}}"
+        test_updates: "{{test_updates | default: null}}"
+    dossier_name: "OPTIM__{{agent_id}}__v{{apply_result.new_version | default: 'unchanged'}}__{{date_yyyymmdd}}"
+    on_failure: "continue"
+    sla_minutes: 3
+
+final_output:
+  primary: "regression_report"
+  secondary: ["evaluation", "post_optimization_score"]
+  dossier: "{{S10_archive.result.dossier.id}}"
+  improvement_delta: "{{post_optimization_score.drift_score - baseline.drift_score | default: null}}"
+
+success_criteria:
+  - "S3_reverse_analysis completed"
+  - "S4_generate_variants produced 2 variants"
+  - "S5_evaluate_variants produced a recommendation"
+  - "IF applied: regression_report.status == 'pass'"
+  - "S10_archive completed"
+
+abort_conditions:
+  - "S2_read_current_state fails (agent introuvable)"
+  - "S7_regression_test fails (rollback automatique)"
+
+notifications:
+  on_improvement:
+    message: >
+      ⚡ Optimisation {{agent_id}} complétée.
+      drift_score : {{baseline.drift_score | default: 'N/A'}} → {{post_optimization_score.drift_score | default: 'N/A'}}
+      Version : {{current_state.current_version}} → {{apply_result.new_version}}
+    route_to: [META-GouvernanceQA, OPS-DossierIA]
+  on_no_improvement:
+    message: >
+      ℹ️ Optimisation {{agent_id}} : aucune variante n'améliore le prompt actuel.
+      Prompt conservé à la version {{current_state.current_version}}.
+    route_to: [META-OrchestrateurCentral]
+  on_rollback:
+    message: >
+      ⚠️ Rollback {{agent_id}} : la nouvelle variante a causé des régressions.
+      Prompt restauré à la version {{current_state.current_version}}.
+    route_to: [META-GouvernanceQA, CTL-AlertRouter]

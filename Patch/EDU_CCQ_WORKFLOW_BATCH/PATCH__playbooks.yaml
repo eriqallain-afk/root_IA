@@ -1,0 +1,9 @@
+playbooks:
+  EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE:
+    description: Évaluer une production écrite CCQ (réflexion éthique) à partir d'un
+      PDF, avec extraction/transcription et justification selon la grille.
+    steps:
+    - step: execute
+      actor_id: EDU-Reflexions_CCQ
+    - step: archive
+      actor_id: OPS-DossierIA

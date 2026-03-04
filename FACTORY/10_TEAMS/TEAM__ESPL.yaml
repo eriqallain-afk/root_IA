@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__ESPL
+name: ESPL
+mission: "Radio Paul-Lejeune : scripts & adaptation."
+default_orchestrator: ESPL-PaulLejeuneRadio

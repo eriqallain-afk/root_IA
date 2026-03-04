@@ -1,0 +1,35 @@
+﻿{
+  "agent": "HUB-AGENT-MO",
+  "version": "1.0.0",
+  "output_schema": {
+    "intent": {
+      "primary": "string",
+      "secondary": ["string"]
+    },
+    "reformulation": "string",
+    "flow": [
+      {
+        "machine_id": "string",
+        "objective": "string",
+        "teams_roles": ["string"],
+        "prompts": [
+          {
+            "role": "string",
+            "prompt": "string",
+            "expected_deliverable": "string"
+          }
+        ]
+      }
+    ],
+    "memory_plan": {
+      "dossier_ia": {
+        "create_or_update": "create|update|none",
+        "what_to_store": ["string"],
+        "version_bump": "string"
+      }
+    },
+    "assumptions": ["string"],
+    "blocking_questions": ["string"],
+    "quality_checks": ["string"]
+  }
+}

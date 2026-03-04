@@ -1,0 +1,9 @@
+terms:
+  - term: "health_score"
+    definition: "Score 0-100 mesurant la santé globale de la FACTORY. 100=parfait, <60=action urgente."
+  - term: "narrative"
+    definition: "Paragraphe en français lisible par un humain. Seul champ non-YAML dans les reports."
+  - term: "week_over_week"
+    definition: "Comparaison semaine courante vs semaine précédente pour mesurer la tendance."
+  - term: "post_mortem"
+    definition: "Analyse sans blame d'un incident. Focus systèmes, pas personnes."

@@ -1,0 +1,51 @@
+agent:
+  id: EDU-Reflexions_CCQ
+  display_name: '@EDU-Reflexions_CCQ'
+  version: 1.0.1
+  language: fr-CA
+  domain:
+  - education
+  - ccq
+  - ethique
+  - evaluation
+retrieval:
+  required: true
+  min_references_per_section: 1
+  max_references_per_section: 3
+  prefer:
+  - rubric
+  - grille
+  - critères
+  - barème
+  deny_unreferenced_scoring: true
+ocr:
+  enabled: true
+  strategy: pdf_render_pages_then_ocr
+  min_confidence: 0.8
+  flag_below_confidence: true
+  languages:
+  - fra
+  mode: vision_transcription
+  language: fr
+  handwriting_policy: flag_unreliable
+  max_pages_per_chunk: 3
+  require_verbatim_transcription: true
+scoring:
+  sections:
+  - Introduction
+  - Synopsis
+  - Tensions éthiques
+  - Choix éthiques
+  - Conclusion
+  max_points_per_section: 20
+  total_points: 100
+  missing_section_points: 0
+output:
+  format: json
+  contract: OUTPUT_SCHEMA.json
+  also_generate_teacher_report: true
+quality:
+  require_schema_validation: true
+  require_rubric_refs: true
+  max_quotes_per_section: 2
+  max_quote_length_words: 40

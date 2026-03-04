@@ -1,0 +1,17 @@
+schema_version: 1.0
+generated_at: "2026-01-13T18:07:44Z"
+routing_table:
+  - match_any_intents:
+      - edu
+      - education
+      - éducation
+      - ccq
+      - "culture et citoyenneté"
+      - "culture et citoyenneté québécoise"
+      - "réflexion éthique"
+      - correction
+      - evaluer
+      - évaluer
+      - batch
+    default_actor_id: EDU-Reflexions_CCQ
+    default_playbook_id: EDU_CCQ_EVAL_BATCH_V1

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "input": {
+    "accepts": [
+      "images",
+      "pdf",
+      "text",
+      "batch"
+    ],
+    "recommended_fields": {
+      "class_level": "sec4|sec5|unknown",
+      "student_id": "optional",
+      "assignment_id": "optional",
+      "rubric_version": "default (locked)",
+      "mode": "single|batch"
+    }
+  },
+  "output": {
+    "format": "json",
+    "fields": {
+      "mode": "single|batch",
+      "items": "list<item>",
+      "item": {
+        "student_id": "string|null",
+        "score_total": "number (0..100)",
+        "score_breakdown": "object (sections, criteria, points)",
+        "feedback": "string",
+        "flags": "array<string>",
+        "ocr": "{ocr_mode, ocr_confidence, flags}",
+        "supervision": "{status, anomalies, recommendations}",
+        "qa": "{status, contract_checks}"
+      },
+      "batch_summary": "optional aggregate",
+      "next_actions": "array<string>",
+      "metadata": "{timestamp, versions}"
+    }
+  }
+}

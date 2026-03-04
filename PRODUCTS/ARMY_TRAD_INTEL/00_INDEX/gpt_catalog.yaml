@@ -1,0 +1,200 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.864023'
+catalog:
+  TRAD-AnalytikGlobal:
+    display_name: '@TRAD-AnalytikGlobal'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - analysis
+    - strategy
+    paths:
+      agent: agents/TRAD-AnalytikGlobal/agent.yaml
+      contract: agents/TRAD-AnalytikGlobal/contract.yaml
+      prompt: agents/TRAD-AnalytikGlobal/prompt.md
+  TRAD-CommandCore:
+    display_name: '@TRAD-CommandCore'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - coordonne
+    paths:
+      agent: agents/TRAD-CommandCore/agent.yaml
+      contract: agents/TRAD-CommandCore/contract.yaml
+      prompt: agents/TRAD-CommandCore/prompt.md
+  TRAD-Correlator:
+    display_name: '@TRAD-Correlator'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - correlation
+    - signals
+    paths:
+      agent: agents/TRAD-Correlator/agent.yaml
+      contract: agents/TRAD-Correlator/contract.yaml
+      prompt: agents/TRAD-Correlator/prompt.md
+  TRAD-CosmoPsyWatcher:
+    display_name: '@TRAD-CosmoPsyWatcher'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - cosmos
+    - psycho_collective
+    paths:
+      agent: agents/TRAD-CosmoPsyWatcher/agent.yaml
+      contract: agents/TRAD-CosmoPsyWatcher/contract.yaml
+      prompt: agents/TRAD-CosmoPsyWatcher/prompt.md
+  TRAD-CryptoAnalyst:
+    display_name: '@TRAD-CryptoAnalyst'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    paths:
+      agent: agents/TRAD-CryptoAnalyst/agent.yaml
+      contract: agents/TRAD-CryptoAnalyst/contract.yaml
+      prompt: agents/TRAD-CryptoAnalyst/prompt.md
+  TRAD-CryptoStrategist:
+    display_name: '@TRAD-CryptoStrategist'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - crypto
+    - strategy
+    paths:
+      agent: agents/TRAD-CryptoStrategist/agent.yaml
+      contract: agents/TRAD-CryptoStrategist/contract.yaml
+      prompt: agents/TRAD-CryptoStrategist/prompt.md
+  TRAD-CyberWatch:
+    display_name: '@TRAD-CyberWatch'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - veille
+    paths:
+      agent: agents/TRAD-CyberWatch/agent.yaml
+      contract: agents/TRAD-CyberWatch/contract.yaml
+      prompt: agents/TRAD-CyberWatch/prompt.md
+  TRAD-FractalMathCrypto:
+    display_name: '@TRAD-FractalMathCrypto'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - crypto
+    - quant
+    paths:
+      agent: agents/TRAD-FractalMathCrypto/agent.yaml
+      contract: agents/TRAD-FractalMathCrypto/contract.yaml
+      prompt: agents/TRAD-FractalMathCrypto/prompt.md
+  TRAD-GeoAnalyst:
+    display_name: '@TRAD-GeoAnalyst'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    paths:
+      agent: agents/TRAD-GeoAnalyst/agent.yaml
+      contract: agents/TRAD-GeoAnalyst/contract.yaml
+      prompt: agents/TRAD-GeoAnalyst/prompt.md
+  TRAD-GlobalReport:
+    display_name: '@TRAD-GlobalReport'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - report
+    - writing
+    paths:
+      agent: agents/TRAD-GlobalReport/agent.yaml
+      contract: agents/TRAD-GlobalReport/contract.yaml
+      prompt: agents/TRAD-GlobalReport/prompt.md
+  TRAD-MarketAnalyst:
+    display_name: '@TRAD-MarketAnalyst'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - analyse
+    paths:
+      agent: agents/TRAD-MarketAnalyst/agent.yaml
+      contract: agents/TRAD-MarketAnalyst/contract.yaml
+      prompt: agents/TRAD-MarketAnalyst/prompt.md
+  TRAD-MarketSentinel:
+    display_name: '@TRAD-MarketSentinel'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - markets
+    - watch
+    paths:
+      agent: agents/TRAD-MarketSentinel/agent.yaml
+      contract: agents/TRAD-MarketSentinel/contract.yaml
+      prompt: agents/TRAD-MarketSentinel/prompt.md
+  TRAD-SocioRadar:
+    display_name: '@TRAD-SocioRadar'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - social
+    - trends
+    paths:
+      agent: agents/TRAD-SocioRadar/agent.yaml
+      contract: agents/TRAD-SocioRadar/contract.yaml
+      prompt: agents/TRAD-SocioRadar/prompt.md
+  TRAD-VigillIntel:
+    display_name: '@TRAD-VigillIntel'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - intel
+    - geopolitics
+    paths:
+      agent: agents/TRAD-VigillIntel/agent.yaml
+      contract: agents/TRAD-VigillIntel/contract.yaml
+      prompt: agents/TRAD-VigillIntel/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

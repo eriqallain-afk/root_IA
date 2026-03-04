@@ -1,0 +1,32 @@
+input:
+  objective: "Audit TEAM : détecter doublons et conflits de routing."
+  context: |
+    L’équipe gère plusieurs agents exposés client. On veut s’assurer qu’il n’y a pas de chevauchements
+    et que les validations humaines sont présentes pour les décisions à fort impact.
+  scope:
+    type: "team"
+    target_id: "TEAM__OPS"
+  audit_type:
+    - "coherence"
+    - "risk_assessment"
+    - "compliance"
+    - "quality_gates"
+  resources:
+    - type: "file"
+      path: "teams.yaml"
+      content: "..."
+    - type: "file"
+      path: "agents_index.yaml"
+      content: "..."
+    - type: "file"
+      path: "hub_routing.yaml"
+      content: "..."
+    - type: "policy"
+      path: "50_POLICIES/POLICIES__INDEX.md"
+      content: "..."
+  constraints:
+    - "respect YAML_STRICT"
+    - "evidence-based only"
+  expected_output: "YAML_STRICT"
+  priority: "high"
+  deadline: "2026-02-03"

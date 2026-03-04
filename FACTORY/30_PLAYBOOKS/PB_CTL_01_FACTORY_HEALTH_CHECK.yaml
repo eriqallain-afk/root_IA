@@ -1,0 +1,122 @@
+schema_version: "1.0"
+playbook_id: FACTORY_HEALTH_CHECK
+display_name: "Factory Health Check"
+description: "Audit de santé complet de la FACTORY root_IA. Scan tous les agents, détecte anomalies, émet alertes et produit rapport hebdomadaire."
+category: "monitoring"
+team_owner: TEAM__CTL
+trigger: "scheduled_weekly | on_demand | post_incident"
+estimated_duration_minutes: 15
+version: "1.0.0"
+last_updated: "2026-02-25"
+
+inputs:
+  check_type:
+    type: "light | full"
+    default: "full"
+    description: "Type de scan. 'light' pour un check rapide, 'full' pour l'audit hebdomadaire."
+  scope:
+    type: "all | team_id | agent_id"
+    default: "all"
+  period_days:
+    type: int
+    default: 7
+    description: "Nombre de jours couverts pour les métriques du rapport."
+
+steps:
+
+  - step_id: "S1_scan"
+    name: "Scan complet de santé"
+    actor_id: CTL-WatchdogIA
+    input:
+      operation: "{{check_type == 'light' ? 'light_check' : 'full_check'}}"
+      scope: "{{scope}}"
+      agents_manifest: "00_INDEX/agents.manifest.yaml"
+      agents_index: "00_INDEX/agents_index.yaml"
+    output_key: "watchdog_report"
+    on_failure: "abort"
+    on_failure_message: "Le scan Watchdog a échoué. Vérifier que agents.manifest.yaml est accessible."
+    sla_minutes: 20
+
+  - step_id: "S2_route_alerts"
+    name: "Routage des alertes P0/P1"
+    actor_id: CTL-AlertRouter
+    condition: "watchdog_report.factory_status != 'healthy'"
+    input:
+      watchdog_report: "{{watchdog_report}}"
+      escalation_matrix: "00_CONTROL/policies/ESCALATION_MATRIX.yaml"
+    output_key: "alert_routing"
+    on_failure: "continue"
+    on_failure_message: "AlertRouter dégradé — continuer le rapport, escalader manuellement si P0 détecté."
+    sla_minutes: 5
+
+  - step_id: "S3_collect_metrics"
+    name: "Collecte métriques de run"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "search"
+      search_query:
+        keywords: ["run_metrics", "playbook_execution"]
+        date_range:
+          days_back: "{{period_days}}"
+    output_key: "run_metrics"
+    on_failure: "continue"
+    on_failure_message: "Métriques OPS indisponibles — rapport produit sans données d'exécution."
+    sla_minutes: 5
+
+  - step_id: "S4_health_report"
+    name: "Génération du rapport de santé"
+    actor_id: CTL-HealthReporter
+    input:
+      report_type: "{{check_type == 'light' ? 'daily_digest' : 'weekly_report'}}"
+      watchdog_reports: ["{{watchdog_report}}"]
+      alert_tickets: "{{alert_routing.result.alerts_emitted | default: []}}"
+      run_metrics: "{{run_metrics.result.search_results | default: []}}"
+      period_end: "{{now}}"
+    output_key: "health_report"
+    on_failure: "continue"
+    sla_minutes: 10
+
+  - step_id: "S5_archive"
+    name: "Archivage dans Dossier IA"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "create"
+      playbook_id: "FACTORY_HEALTH_CHECK"
+      metadata:
+        type: "health_check"
+        scope: "{{scope}}"
+        check_type: "{{check_type}}"
+        factory_status: "{{watchdog_report.factory_status}}"
+        health_score: "{{health_report.result.health_score | default: null}}"
+      outputs:
+        watchdog_report: "{{watchdog_report}}"
+        alert_routing: "{{alert_routing | default: null}}"
+        health_report: "{{health_report | default: null}}"
+    dossier_name: "HEALTH__{{check_type | upper}}__{{date_yyyymmdd}}"
+    on_failure: "continue"
+    sla_minutes: 3
+
+final_output:
+  primary: "health_report"
+  secondary: ["watchdog_report", "alert_routing"]
+  dossier: "{{S5_archive.result.dossier.id}}"
+
+success_criteria:
+  - "S1_scan completed (watchdog_report présent)"
+  - "S4_health_report completed (health_report présent)"
+  - "health_score calculé et >= 0"
+
+failure_conditions:
+  - "S1_scan échoue (abort)"
+  - "factory_status=critical ET alert_routing échoue"
+
+notifications:
+  on_critical:
+    message: "⚠️ FACTORY CRITICAL — factory_status=critical détecté. Voir watchdog_report pour details."
+    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-QualityGate]
+  on_degraded:
+    message: "⚡ FACTORY DEGRADED — issues P1 détectées. Voir health_report."
+    route_to: [CTL-HealthReporter]
+  on_healthy:
+    message: "✅ FACTORY HEALTHY — Tous les agents conformes."
+    route_to: [OPS-DossierIA]

@@ -1,0 +1,18 @@
+id: IASM-OutilsTCC
+display_name: '@IASM-OutilsTCC'
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: 'Techniques de thérapie cognitivo-comportementale : exercices, restructuration'
+intents:
+- iasm
+output_format: markdown
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: markdown
+  contract_required: true
+  logs_required: true

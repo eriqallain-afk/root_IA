@@ -1,0 +1,22 @@
+schema_version: '1.0'
+id: META-AnalysteBesoinsEquipes
+display_name: '@META-AnalysteBesoinsEquipes'
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: 'Analyse besoins : produit spec claire, priorisée et testable.'
+intents:
+- requirements
+- analysis
+- spec
+aliases:
+- '@META-AnalysteBesoinsEquipes'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+last_updated: '2026-02-07'

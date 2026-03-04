@@ -1,0 +1,14 @@
+# glossary.yaml — CTL-WatchdogIA
+terms:
+  - term: "drift_score"
+    definition: "Score de conformité comportementale d'un agent (0.0=drift total, 1.0=conforme). Seuil alerte: < 0.75"
+  - term: "orphaned_agent"
+    definition: "Agent présent dans le manifest mais non référencé dans aucun playbook actif."
+  - term: "phantom_agent"
+    definition: "Agent référencé dans un manifest ou catalog mais sans dossier physique dans 20_AGENTS/."
+  - term: "light_check"
+    definition: "Scan rapide (<5s) : vérifie uniquement les agents du playbook en cours et les issues P0 ouvertes."
+  - term: "full_check"
+    definition: "Scan complet de toute la FACTORY : schémas, naming, orphelins, fantômes, drift, couverture tests."
+  - term: "factory_status"
+    definition: "État global : healthy (0 P0/P1), degraded (≥1 P1, 0 P0), critical (≥1 P0)."

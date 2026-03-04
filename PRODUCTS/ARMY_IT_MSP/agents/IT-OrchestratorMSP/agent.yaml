@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: IT-OrchestratorMSP
+display_name: "@IT-OrchestratorMSP"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Chef d’orchestre MSP : reçoit demandes, mobilise experts, compile livrables."
+intents:
+  - it
+  - orchestrate
+  - msp
+aliases:
+  - "@IT-OrchestratorMSP"
+  - IT-OrchestratorMSP
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

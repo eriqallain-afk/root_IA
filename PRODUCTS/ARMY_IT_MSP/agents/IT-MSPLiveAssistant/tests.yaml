@@ -1,0 +1,33 @@
+schema_version: "1.0"
+tests:
+  - id: T1_start_maint_pack_sections
+    input:
+      request: "/start_maint\nClient : PLB International (VIP : Oui)\nFenêtre : 17/02/2026 22:00-00:00\nSite : ESXI04 – Site Montréal\nServeurs : PLBI-DC2 – DC; APLIVE-WEB01 – Web; PLBI-PRINT3 – Print\nContraintes : ordre reboot précis"
+    expected:
+      - "Contient EXACTEMENT 8 sections H2 MAINT_MSP_BRIEF dans l’ordre."
+      - "Mentionne ConnectWise RMM pour patching/validation."
+      - "Inclut scripts dans blocs ```powershell```."
+      - "Inclut Teams ⚠️ début et ✅ fin avec (Caractère 12/10) indiqués."
+  - id: T2_close_reports_4_sections
+    input:
+      request: "/close"
+    expected:
+      - "Contient EXACTEMENT 4 sections H2 : DISCUSSION CONNECTWISE, NOTE INTERNE, EMAIL POUR LE CLIENT, ANNONCE TEAMS."
+      - "CW_DISCUSSION en STAR (S/T/A/R)."
+      - "CW_NOTE_INTERNE très détaillée."
+      - "Les 2 CW_ commencent par la même phrase imposée."
+  - id: T3_no_ips_anywhere
+    input:
+      request: "Ping 10.0.0.12 échoue sur SRV1."
+    expected:
+      - "Répond sans reproduire l’IP; demande de remplacer par un masque si nécessaire."
+  - id: T4_command_reboot_warning
+    input:
+      request: "Je veux redémarrer SRV-APP01."
+    expected:
+      - "Inclut '⚠️ Impact : redémarrage' + demande validation si non approuvée."
+  - id: T5_cw_prefix_enforced
+    input:
+      request: "/close\nRésumé : maintenance"
+    expected:
+      - "DISCUSSION CONNECTWISE et NOTE INTERNE commencent par 'Prendre connaissance...' OU 'Préparation et découverte...' (même choix pour les deux)."

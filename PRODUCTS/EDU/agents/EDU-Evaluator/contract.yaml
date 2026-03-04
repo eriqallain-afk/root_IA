@@ -1,0 +1,11 @@
+# Contract I/O — EDU-Evaluator
+# Évalue les réflexions éthiques CCQ selon la grille officielle et le barème verrouillé
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: json

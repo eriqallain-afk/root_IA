@@ -1,0 +1,594 @@
+schema_version: "1.0"
+generated_at: '2026-01-31T02:56:05Z'
+agents:
+- actor_id: CTL-WatchdogIA
+  team_id: TEAM__CTL
+  name: Watchdog IA
+  status: active
+  path: 00_CONTROL/agents/CTL-WatchdogIA
+- actor_id: CTL-AlertRouter
+  team_id: TEAM__CTL
+  name: Alert Router
+  status: active
+  path: 00_CONTROL/agents/CTL-AlertRouter
+- actor_id: CTL-HealthReporter
+  team_id: TEAM__CTL
+  name: Health Reporter
+  status: active
+  path: 00_CONTROL/agents/CTL-HealthReporter
+- actor_id: HUB-AgentMO-MasterOrchestrator
+  team_id: TEAM__HUB
+  name: Master Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator
+- actor_id: HUB-AgentMO2-DeputyOrchestrator
+  team_id: TEAM__HUB
+  name: Deputy Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator
+- actor_id: HUB-AvatarForge
+  team_id: TEAM__HUB
+  name: Avatar Forge
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-AvatarForge
+- actor_id: HUB-CoachIA360-Strategie-GPTTeams
+  team_id: TEAM__HUB
+  name: GPTTeams
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams
+- actor_id: HUB-IA-ChatBotMaster
+  team_id: TEAM__HUB
+  name: Chat Bot Master
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-IA-ChatBotMaster
+- actor_id: HUB-ITCoachIA360
+  team_id: TEAM__HUB
+  name: ITCoach IA360
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-ITCoachIA360
+- actor_id: HUB-OproEngine
+  team_id: TEAM__HUB
+  name: Opro Engine
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-OproEngine
+- actor_id: IAHQ-AdminManagerIA
+  team_id: TEAM__IAHQ
+  name: Admin Manager IA
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-AdminManagerIA
+- actor_id: IAHQ-DevFactoryIA
+  team_id: TEAM__IAHQ
+  name: Dev Factory IA
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-DevFactoryIA
+- actor_id: IAHQ-Economist
+  team_id: TEAM__IAHQ
+  name: Economist
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-Economist
+- actor_id: IAHQ-Extractor
+  team_id: TEAM__IAHQ
+  name: Extractor
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-Extractor
+- actor_id: IAHQ-OrchestreurEntrepriseIA
+  team_id: TEAM__IAHQ
+  name: Orchestreur Entreprise IA
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA
+- actor_id: IAHQ-ProcessMapper
+  team_id: TEAM__IAHQ
+  name: Process Mapper
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-ProcessMapper
+- actor_id: IAHQ-SolutionOrchestrator
+  team_id: TEAM__IAHQ
+  name: Solution Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator
+- actor_id: IAHQ-TechLeadIA
+  team_id: TEAM__IAHQ
+  name: Tech Lead IA
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-TechLeadIA
+
+- actor_id: IT-AssetMaster
+  team_id: TEAM__IT
+  name: Asset Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-AssetMaster
+- actor_id: IT-BackupDRMaster
+  team_id: TEAM__IT
+  name: Backup DRMaster
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-BackupDRMaster
+- actor_id: IT-CTOMaster
+  team_id: TEAM__IT
+  name: CTOMaster
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-CTOMaster
+- actor_id: IT-CloudMaster
+  team_id: TEAM__IT
+  name: Cloud Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-CloudMaster
+- actor_id: IT-Commandare-NOC
+  team_id: TEAM__IT
+  name: NOC
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-Commandare-NOC
+- actor_id: IT-Commandare-OPR
+  team_id: TEAM__IT
+  name: OPR
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-Commandare-OPR
+- actor_id: IT-Commandare-TECH
+  team_id: TEAM__IT
+  name: TECH
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-Commandare-TECH
+- actor_id: IT-CommsMSP
+  team_id: TEAM__IT
+  name: Comms MSP
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-CommsMSP
+- actor_id: IT-DevOpsMaster
+  team_id: TEAM__IT
+  name: Dev Ops Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-DevOpsMaster
+- actor_id: IT-DirecteurGeneral
+  team_id: TEAM__IT
+  name: Directeur General
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-DirecteurGeneral
+- actor_id: IT-InfrastructureMaster
+  team_id: TEAM__IT
+  name: Infrastructure Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-InfrastructureMaster
+- actor_id: IT-InterventionCopilot
+  team_id: TEAM__IT
+  name: Intervention Copilot
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-InterventionCopilot
+- actor_id: IT-KnowledgeKeeper
+  team_id: TEAM__IT
+  name: Knowledge Keeper
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-KnowledgeKeeper
+- actor_id: IT-MaintenanceMaster
+  team_id: TEAM__IT
+  name: Maintenance Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-MaintenanceMaster
+- actor_id: IT-MonitoringMaster
+  team_id: TEAM__IT
+  name: Monitoring Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-MonitoringMaster
+- actor_id: IT-NOCDispatcher
+  team_id: TEAM__IT
+  name: NOCDispatcher
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-NOCDispatcher
+- actor_id: IT-NetworkMaster
+  team_id: TEAM__IT
+  name: Network Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-NetworkMaster
+- actor_id: IT-OrchestratorMSP
+  team_id: TEAM__IT
+  name: Orchestrator MSP
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-OrchestratorMSP
+- actor_id: IT-ReportMaster
+  team_id: TEAM__IT
+  name: Report Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-ReportMaster
+- actor_id: IT-ScriptMaster
+  team_id: TEAM__IT
+  name: Script Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-ScriptMaster
+- actor_id: IT-SecurityMaster
+  team_id: TEAM__IT
+  name: Security Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-SecurityMaster
+- actor_id: IT-SoftwMaster
+  team_id: TEAM__IT
+  name: Softw Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-SoftwMaster
+- actor_id: IT-SupportMaster
+  team_id: TEAM__IT
+  name: Support Master
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-SupportMaster
+- actor_id: IT-TicketScribe
+  team_id: TEAM__IT
+  name: Ticket Scribe
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-TicketScribe
+- actor_id: IT-VoIPMaster
+  team_id: TEAM__IT
+  name: Vo IPMaster
+  status: active
+  path: FACTORY/20_AGENTS/IT/IT-VoIPMaster
+- actor_id: MCIA-Architecte
+  team_id: TEAM__MCIA
+  name: Architecte
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Architecte
+- actor_id: MCIA-Prof
+  team_id: TEAM__MCIA
+  name: Prof
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Prof
+- actor_id: MCIA-Prompting
+  team_id: TEAM__MCIA
+  name: Prompting
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Prompting
+- actor_id: MCIA-Redaction
+  team_id: TEAM__MCIA
+  name: Redaction
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Redaction
+- actor_id: MCIA-Verificateur
+  team_id: TEAM__MCIA
+  name: Verificateur
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Verificateur
+- actor_id: MCIA-Vision
+  team_id: TEAM__MCIA
+  name: Vision
+  status: active
+  path: FACTORY/20_AGENTS/MCIA/MCIA-Vision
+- actor_id: META-AnalysteBesoinsEquipes
+  team_id: TEAM__META
+  name: Analyste Besoins Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-AnalysteBesoinsEquipes
+- actor_id: META-CartographeRoles
+  team_id: TEAM__META
+  name: Cartographe Roles
+  status: active
+  path: FACTORY/20_AGENTS/META/META-CartographeRoles
+- actor_id: META-GouvernanceEtRisques
+  team_id: TEAM__META
+  name: Gouvernance Et Risques
+  status: active
+  path: FACTORY/20_AGENTS/META/META-GouvernanceEtRisques
+- actor_id: META-Opromptimizer
+  team_id: TEAM__META
+  name: Opromptimizer
+  status: active
+  path: FACTORY/20_AGENTS/META/META-Opromptimizer
+- actor_id: META-OrchestrateurCentral
+  team_id: TEAM__META
+  name: Orchestrateur Central
+  status: active
+  path: FACTORY/20_AGENTS/META/META-OrchestrateurCentral
+- actor_id: META-PlaybookBuilder
+  team_id: TEAM__META
+  name: Playbook Builder
+  status: active
+  path: FACTORY/20_AGENTS/META/META-PlaybookBuilder
+- actor_id: META-PromptArchitectEquipes
+  team_id: TEAM__META
+  name: Prompt Architect Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-PromptArchitectEquipes
+- actor_id: META-ReversePrompt
+  team_id: TEAM__META
+  name: Reverse Prompt
+  status: active
+  path: FACTORY/20_AGENTS/META/META-ReversePrompt
+- actor_id: META-SuperviseurInvisible
+  team_id: TEAM__META
+  name: Superviseur Invisible
+  status: active
+  path: FACTORY/20_AGENTS/META/META-SuperviseurInvisible
+- actor_id: META-WorkflowDesignerEquipes
+  team_id: TEAM__META
+  name: Workflow Designer Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-WorkflowDesignerEquipes
+- actor_id: NEA-Archiviste
+  team_id: TEAM__NEA
+  name: Archiviste
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-Archiviste
+- actor_id: NEA-Cartographe
+  team_id: TEAM__NEA
+  name: Cartographe
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-Cartographe
+- actor_id: NEA-ConseilPatterns
+  team_id: TEAM__NEA
+  name: Conseil Patterns
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-ConseilPatterns
+- actor_id: NEA-Imagier
+  team_id: TEAM__NEA
+  name: Imagier
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-Imagier
+- actor_id: NEA-Orchestrator
+  team_id: TEAM__NEA
+  name: Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-Orchestrator
+- actor_id: NEA-RedacteurRecueil
+  team_id: TEAM__NEA
+  name: Redacteur Recueil
+  status: active
+  path: FACTORY/20_AGENTS/NEA/NEA-RedacteurRecueil
+- actor_id: OPS-DossierIA
+  team_id: TEAM__OPS
+  name: Dossier IA
+  status: active
+  path: FACTORY/20_AGENTS/OPS/OPS-DossierIA
+- actor_id: OPS-PlaybookRunner
+  team_id: TEAM__OPS
+  name: Playbook Runner
+  status: active
+  path: FACTORY/20_AGENTS/OPS/OPS-PlaybookRunner
+- actor_id: OPS-RouterIA
+  team_id: TEAM__OPS
+  name: Router IA
+  status: active
+  path: FACTORY/20_AGENTS/OPS/OPS-RouterIA
+- actor_id: PLR-Orchestrator
+  team_id: TEAM__PLR
+  name: Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/PLR/PLR-Orchestrator
+- actor_id: PLR-RadioScripteur
+  team_id: TEAM__PLR
+  name: Radio Scripteur
+  status: active
+  path: FACTORY/20_AGENTS/PLR/PLR-RadioScripteur
+- actor_id: TRAD-AnalytikGlobal
+  team_id: TEAM__TRAD
+  name: Analytik Global
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-AnalytikGlobal
+- actor_id: TRAD-CommandCore
+  team_id: TEAM__TRAD
+  name: Command Core
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-CommandCore
+- actor_id: TRAD-Correlator
+  team_id: TEAM__TRAD
+  name: Correlator
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-Correlator
+- actor_id: TRAD-CosmoPsyWatcher
+  team_id: TEAM__TRAD
+  name: Cosmo Psy Watcher
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-CosmoPsyWatcher
+- actor_id: TRAD-CryptoStrategist
+  team_id: TEAM__TRAD
+  name: Crypto Strategist
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-CryptoStrategist
+- actor_id: TRAD-CyberWatch
+  team_id: TEAM__TRAD
+  name: Cyber Watch
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-CyberWatch
+- actor_id: TRAD-FractalMathCrypto
+  team_id: TEAM__TRAD
+  name: Fractal Math Crypto
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-FractalMathCrypto
+- actor_id: TRAD-GlobalReport
+  team_id: TEAM__TRAD
+  name: Global Report
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-GlobalReport
+- actor_id: TRAD-MarketSentinel
+  team_id: TEAM__TRAD
+  name: Market Sentinel
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-MarketSentinel
+- actor_id: TRAD-SocioRadar
+  team_id: TEAM__TRAD
+  name: Socio Radar
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-SocioRadar
+- actor_id: TRAD-VigillIntel
+  team_id: TEAM__TRAD
+  name: Vigill Intel
+  status: active
+  path: FACTORY/20_AGENTS/TRAD/TRAD-VigillIntel
+- actor_id: DAM-GPT10-Fournisseurs
+  team_id: TEAM__DAM
+  name: Fournisseurs
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT10-Fournisseurs
+- actor_id: DAM-GPT11-Satisfaction
+  team_id: TEAM__DAM
+  name: Satisfaction
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT11-Satisfaction
+- actor_id: DAM-GPT12-Legal
+  team_id: TEAM__DAM
+  name: Legal
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT12-Legal
+- actor_id: DAM-GPT13-Analytics
+  team_id: TEAM__DAM
+  name: Analytics
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT13-Analytics
+- actor_id: DAM-GPT2-Conformite
+  team_id: TEAM__DAM
+  name: Conformite
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT2-Conformite
+- actor_id: DAM-GPT3-Budget
+  team_id: TEAM__DAM
+  name: Budget
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT3-Budget
+- actor_id: DAM-GPT4-Planification
+  team_id: TEAM__DAM
+  name: Planification
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT4-Planification
+- actor_id: DAM-GPT5-SousTraitants
+  team_id: TEAM__DAM
+  name: Sous Traitants
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT5-SousTraitants
+- actor_id: DAM-GPT6-Inspection
+  team_id: TEAM__DAM
+  name: Inspection
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT6-Inspection
+- actor_id: DAM-GPT7-Archiviste
+  team_id: TEAM__DAM
+  name: Archiviste
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT7-Archiviste
+- actor_id: DAM-GPT8-Communication
+  team_id: TEAM__DAM
+  name: Communication
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT8-Communication
+- actor_id: DAM-GPT9-Produits
+  team_id: TEAM__DAM
+  name: Produits
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-GPT9-Produits
+- actor_id: DAM-Orchestrator
+  team_id: TEAM__DAM
+  name: Orchestrator
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-Orchestrator
+- actor_id: DAM-Superviseur
+  team_id: TEAM__DAM
+  name: Superviseur
+  status: active
+  path: FACTORY/20_AGENTS/DAM/DAM-Superviseur
+- actor_id: EDU-Extractor_CCQ
+  team_id: TEAM__EDU
+  name: Extractor CCQ
+  status: active
+  path: FACTORY/20_AGENTS/EDU/EDU-Extractor_CCQ
+- actor_id: EDU-OCR-Extractor_CCQ
+  team_id: TEAM__EDU
+  name: Extractor CCQ
+  status: active
+  path: FACTORY/20_AGENTS/EDU/EDU-OCR-Extractor_CCQ
+- actor_id: EDU-Orchestrator_CCQ
+  team_id: TEAM__EDU
+  name: Orchestrator CCQ
+  status: active
+  path: FACTORY/20_AGENTS/EDU/EDU-Orchestrator_CCQ
+- actor_id: EDU-Reflexions_CCQ
+  team_id: TEAM__EDU
+  name: Reflexions CCQ
+  status: active
+  path: FACTORY/20_AGENTS/EDU/EDU-Reflexions_CCQ
+- actor_id: ESPL-PaulLejeuneRadio
+  team_id: TEAM__ESPL
+  name: Paul Lejeune Radio
+  status: active
+  path: FACTORY/20_AGENTS/ESPL/ESPL-PaulLejeuneRadio
+- actor_id: IASM-AddictionsCompulsions
+  team_id: TEAM__IASM
+  name: Addictions Compulsions
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-AddictionsCompulsions
+- actor_id: IASM-AnalysteDiscussion
+  team_id: TEAM__IASM
+  name: Analyste Discussion
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-AnalysteDiscussion
+- actor_id: IASM-AnalysteSchemasRelationnels
+  team_id: TEAM__IASM
+  name: Analyste Schemas Relationnels
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-AnalysteSchemasRelationnels
+- actor_id: IASM-ClarificateurObjectifRelationnel
+  team_id: TEAM__IASM
+  name: Clarificateur Objectif Relationnel
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-ClarificateurObjectifRelationnel
+- actor_id: IASM-CoachDeVie
+  team_id: TEAM__IASM
+  name: Coach De Vie
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-CoachDeVie
+- actor_id: IASM-DirecteurCabinetIA
+  team_id: TEAM__IASM
+  name: Directeur Cabinet IA
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-DirecteurCabinetIA
+- actor_id: IASM-GestionColere
+  team_id: TEAM__IASM
+  name: Gestion Colere
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-GestionColere
+- actor_id: IASM-GestionEmotions
+  team_id: TEAM__IASM
+  name: Gestion Emotions
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-GestionEmotions
+- actor_id: IASM-ModuleRelationsConjugalesFamiliales
+  team_id: TEAM__IASM
+  name: Module Relations Conjugales Familiales
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-ModuleRelationsConjugalesFamiliales
+- actor_id: IASM-OrchestreurCabinetIA
+  team_id: TEAM__IASM
+  name: Orchestreur Cabinet IA
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-OrchestreurCabinetIA
+- actor_id: IASM-OutilsTCC
+  team_id: TEAM__IASM
+  name: Outils TCC
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-OutilsTCC
+- actor_id: IASM-Psychoeducateur
+  team_id: TEAM__IASM
+  name: Psychoeducateur
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-Psychoeducateur
+- actor_id: IASM-RessentiTonalite
+  team_id: TEAM__IASM
+  name: Ressenti Tonalite
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-RessentiTonalite
+- actor_id: IASM-SecuriteRisques
+  team_id: TEAM__IASM
+  name: Securite Risques
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-SecuriteRisques
+- actor_id: IASM-SpecialisteRelationsCouple
+  team_id: TEAM__IASM
+  name: Specialiste Relations Couple
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-SpecialisteRelationsCouple
+- actor_id: IASM-SuperviseurEthique
+  team_id: TEAM__IASM
+  name: Superviseur Ethique
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-SuperviseurEthique
+- actor_id: IASM-SupportEmotionnel
+  team_id: TEAM__IASM
+  name: Support Emotionnel
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-SupportEmotionnel
+- actor_id: IASM-TherapiePsychodynamique
+  team_id: TEAM__IASM
+  name: Therapie Psychodynamique
+  status: active
+  path: FACTORY/20_AGENTS/IASM/IASM-TherapiePsychodynamique

@@ -1,0 +1,120 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.791197'
+catalog:
+  NEA-Archiviste:
+    display_name: '@NEA-Archiviste'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - archive
+    - normalize
+    paths:
+      agent: agents/NEA-Archiviste/agent.yaml
+      contract: agents/NEA-Archiviste/contract.yaml
+      prompt: agents/NEA-Archiviste/prompt.md
+  NEA-Cartographe:
+    display_name: '@NEA-Cartographe'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - mapping
+    - structure
+    paths:
+      agent: agents/NEA-Cartographe/agent.yaml
+      contract: agents/NEA-Cartographe/contract.yaml
+      prompt: agents/NEA-Cartographe/prompt.md
+  NEA-ConseilPatterns:
+    display_name: '@NEA-ConseilPatterns'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - patterns
+    - analysis
+    paths:
+      agent: agents/NEA-ConseilPatterns/agent.yaml
+      contract: agents/NEA-ConseilPatterns/contract.yaml
+      prompt: agents/NEA-ConseilPatterns/prompt.md
+  NEA-Imagier:
+    display_name: '@NEA-Imagier'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - cree
+    paths:
+      agent: agents/NEA-Imagier/agent.yaml
+      contract: agents/NEA-Imagier/contract.yaml
+      prompt: agents/NEA-Imagier/prompt.md
+  NEA-Orchestrator:
+    display_name: '@NEA-Orchestrator'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - coordonne
+    paths:
+      agent: agents/NEA-Orchestrator/agent.yaml
+      contract: agents/NEA-Orchestrator/contract.yaml
+      prompt: agents/NEA-Orchestrator/prompt.md
+  NEA-Redacteur:
+    display_name: '@NEA-Redacteur'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - redige
+    paths:
+      agent: agents/NEA-Redacteur/agent.yaml
+      contract: agents/NEA-Redacteur/contract.yaml
+      prompt: agents/NEA-Redacteur/prompt.md
+  NEA-RedacteurRecueil:
+    display_name: '@NEA-RedacteurRecueil'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - write
+    - edit
+    paths:
+      agent: agents/NEA-RedacteurRecueil/agent.yaml
+      contract: agents/NEA-RedacteurRecueil/contract.yaml
+      prompt: agents/NEA-RedacteurRecueil/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

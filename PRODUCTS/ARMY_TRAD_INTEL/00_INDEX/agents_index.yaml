@@ -1,0 +1,149 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.863993'
+agents:
+  TRAD-AnalytikGlobal:
+    display_name: '@TRAD-AnalytikGlobal'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Analyste stratégique : scénarios & impacts.'
+    intents:
+    - trad
+    - analysis
+    - strategy
+  TRAD-CommandCore:
+    display_name: '@TRAD-CommandCore'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Orchestrateur intelligence stratégique : coordonne les analystes'
+    intents:
+    - trad
+    - coordonne
+  TRAD-Correlator:
+    display_name: '@TRAD-Correlator'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: Fusionne signaux, attribue une cote, prépare synthèse.
+    intents:
+    - trad
+    - correlation
+    - signals
+  TRAD-CosmoPsyWatcher:
+    display_name: '@TRAD-CosmoPsyWatcher'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: Observateur cosmo/psycho-collectif.
+    intents:
+    - trad
+    - cosmos
+    - psycho_collective
+  TRAD-CryptoAnalyst:
+    display_name: '@TRAD-CryptoAnalyst'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Intelligence crypto/DeFi : on-chain, sentiment, régulation'
+    intents:
+    - trad
+  TRAD-CryptoStrategist:
+    display_name: '@TRAD-CryptoStrategist'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Conseiller crypto-stratégique : décisions sur base de synthèses.'
+    intents:
+    - trad
+    - crypto
+    - strategy
+  TRAD-CyberWatch:
+    display_name: '@TRAD-CyberWatch'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Veille cybersécurité : menaces, vulnérabilités, incidents'
+    intents:
+    - trad
+    - veille
+  TRAD-FractalMathCrypto:
+    display_name: '@TRAD-FractalMathCrypto'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Analyse fractale crypto : BTC/ETH/SOL etc.'
+    intents:
+    - trad
+    - crypto
+    - quant
+  TRAD-GeoAnalyst:
+    display_name: '@TRAD-GeoAnalyst'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Intelligence géopolitique et sociale : tensions, signaux faibles'
+    intents:
+    - trad
+  TRAD-GlobalReport:
+    display_name: '@TRAD-GlobalReport'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Rédacteur : met en forme infos consolidées en rapport actionnable.'
+    intents:
+    - trad
+    - report
+    - writing
+  TRAD-MarketAnalyst:
+    display_name: '@TRAD-MarketAnalyst'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Analyse marchés financiers : tendances, signaux, risques'
+    intents:
+    - trad
+    - analyse
+  TRAD-MarketSentinel:
+    display_name: '@TRAD-MarketSentinel'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Surveillance marchés : crypto, devises, métaux.'
+    intents:
+    - trad
+    - markets
+    - watch
+  TRAD-SocioRadar:
+    display_name: '@TRAD-SocioRadar'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Oreille sociale : tendances virales/forums, signaux panique.'
+    intents:
+    - trad
+    - social
+    - trends
+  TRAD-VigillIntel:
+    display_name: '@TRAD-VigillIntel'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Veille mondiale : conflits, ressources, climat, tech, mouvements.'
+    intents:
+    - trad
+    - intel
+    - geopolitics
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

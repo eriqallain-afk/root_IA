@@ -1,0 +1,28 @@
+schema_version: "1.0"
+description: "Seuils déclencheurs d'alertes pour le CTL-WatchdogIA"
+last_updated: "2026-02-25"
+
+thresholds:
+  # Qualité des agents
+  prompt_min_lines: 20                 # < 20 lignes → P1
+  drift_score_alert: 0.75              # < 0.75 → P1
+  drift_score_critical: 0.50           # < 0.50 → P0
+
+  # Cycle de vie
+  orphan_alert_days: 14                # Orphelin > 14j → P2
+  deprecated_archive_days: 30          # Deprecated > 30j sans archivage → P3
+  draft_stale_days: 7                  # Draft > 7j sans activation → P2
+
+  # Exécution playbooks
+  playbook_step_timeout_minutes: 30    # Step > 30 min → P1
+  run_failure_rate_24h: 0.10           # > 10% échecs sur 24h → P1
+  consecutive_failures: 3              # 3 échecs consécutifs même agent → P1
+
+  # Couverture
+  phantom_tolerance: 0                 # Zéro fantôme accepté → P1 (ou P0 si actif)
+  schema_version_lag_max: 2            # Retard de 2+ versions → P2
+
+  # Health score
+  health_score_warning: 80             # < 80 → rapport + recommandations
+  health_score_alert: 60               # < 60 → P1 escalade IAHQ
+  health_score_critical: 40            # < 40 → P0 escalade HUB-AgentMO

@@ -1,0 +1,601 @@
+schema_version: '1.0'
+generated_at: '2026-02-26T00:00:00Z'
+catalog:
+  HUB-AgentMO-MasterOrchestrator:
+    display_name: '@HUB - AGENT-MO — Master Orchestrator'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - orchestrate
+    - intake
+    - dispatch
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/prompt.md
+  HUB-AgentMO2-DeputyOrchestrator:
+    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - orchestrate
+    - qa
+    - brief
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/prompt.md
+  HUB-AvatarForge:
+    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - brand
+    - avatar
+    - design
+    - assets
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AvatarForge/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AvatarForge/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AvatarForge/prompt.md
+  HUB-CoachIA360-Strategie-GPTTeams:
+    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - coach
+    - strategy
+    - teams
+    - roadmap
+    paths:
+      agent: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/prompt.md
+  HUB-Concierge:
+    display_name: '@HUB-Concierge'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - hub
+    paths:
+      agent: 20_AGENTS/HUB/HUB-Concierge/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-Concierge/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-Concierge/prompt.md
+  HUB-IA-ChatBotMaster:
+    display_name: '@HUB - IA-ChatBotMaster'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - chatbot
+    - architecture
+    - conversation
+    paths:
+      agent: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/prompt.md
+  HUB-ITCoachIA360:
+    display_name: '@HUB - IT Coach IA 360'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - coach
+    - it
+    - strategy
+    - deployment
+    paths:
+      agent: 20_AGENTS/HUB/HUB-ITCoachIA360/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-ITCoachIA360/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-ITCoachIA360/prompt.md
+  HUB-OproEngine:
+    display_name: '@HUB-OproEngine'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - prompt
+    - optimize
+    - standardize
+    - qa
+    paths:
+      agent: 20_AGENTS/HUB/HUB-OproEngine/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-OproEngine/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-OproEngine/prompt.md
+  HUB-Orchestrator:
+    display_name: '@HUB-Orchestrator'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - hub
+    - coordonne
+    paths:
+      agent: 20_AGENTS/HUB/HUB-Orchestrator/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-Orchestrator/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-Orchestrator/prompt.md
+  HUB-Router:
+    display_name: '@HUB-Router'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - hub
+    - analyse
+    - route
+    paths:
+      agent: 20_AGENTS/HUB/HUB-Router/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-Router/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-Router/prompt.md
+  TL-WatchdogIA:
+    display_name: '@CTL-WatchdogIA'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - health_check
+    - monitor
+    - watchdog
+    - drift_detect
+    - factory_status
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
+      contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
+  TL-AlertRouter:
+    display_name: '@CTL-AlertRouter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - alert
+    - escalate
+    - route_alert
+    - incident
+    - notify
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
+  TL-HealthReporter:
+    display_name: '@CTL-HealthReporter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - report
+    - health_report
+    - digest
+    - weekly_report
+    - post_mortem
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md
+  IAHQ-AdminManagerIA:
+    display_name: '@IAHQ-AdminManagerIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - admin
+    - operations
+    - offers
+    - governance
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/prompt.md
+  IAHQ-DevFactoryIA:
+    display_name: '@IAHQ-DevFactoryIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - build
+    - deployment
+    - plan
+    - delivery
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/prompt.md
+  IAHQ-Economist:
+    display_name: '@IAHQ-Economist'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - roi
+    - cost
+    - finance
+    - business_case
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-Economist/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-Economist/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-Economist/prompt.md
+  IAHQ-Extractor:
+    display_name: '@IAHQ-Extractor'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - extract
+    - ingest
+    - summarize
+    - structure
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-Extractor/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-Extractor/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-Extractor/prompt.md
+  IAHQ-OrchestreurEntrepriseIA:
+    display_name: '@IAHQ-OrchestreurEntrepriseIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - strategy
+    - company
+    - positioning
+    - portfolio
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/prompt.md
+  IAHQ-ProcessMapper:
+    display_name: '@IAHQ-ProcessMapper'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - iahq
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/prompt.md
+  IAHQ-QualityGate:
+    display_name: '@IAHQ-QualityGate'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - qa
+    - quality_gate
+    - review
+    - conformity
+    - iahq
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-QualityGate/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-QualityGate/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-QualityGate/prompt.md
+  IAHQ-SolutionOrchestrator:
+    display_name: '@IAHQ-SolutionOrchestrator'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - solution
+    - architecture
+    - client
+    - blueprint
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/prompt.md
+  IAHQ-Strategist:
+    display_name: '@IAHQ-Strategist'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - iahq
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-Strategist/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-Strategist/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-Strategist/prompt.md
+  IAHQ-TechLeadIA:
+    display_name: '@IAHQ-TechLeadIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - cto
+    - architecture
+    - security
+    - data
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/prompt.md
+  META-AgentFactory:
+    display_name: '@META-AgentFactory'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - cree
+    paths:
+      agent: 20_AGENTS/META/META-AgentFactory/agent.yaml
+      contract: 20_AGENTS/META/META-AgentFactory/contract.yaml
+      prompt: 20_AGENTS/META/META-AgentFactory/prompt.md
+  META-AnalysteBesoinsEquipes:
+    display_name: '@META-AnalysteBesoinsEquipes'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - requirements
+    - analysis
+    - spec
+    paths:
+      agent: 20_AGENTS/META/META-AnalysteBesoinsEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-AnalysteBesoinsEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-AnalysteBesoinsEquipes/prompt.md
+  META-ArchitecteChoix:
+    display_name: MCIA — Architecte (Choix technique)
+    team_id: TEAM__META
+    status: active
+    intents:
+    - mcia
+    - architecture
+    - ml
+    - llm
+    - rag
+    - agent
+    - design
+    paths:
+      agent: 20_AGENTS/META/META-ArchitecteChoix/agent.yaml
+      contract: 20_AGENTS/META/META-ArchitecteChoix/contract.yaml
+      prompt: 20_AGENTS/META/META-ArchitecteChoix/prompt.md
+  META-CartographeRoles:
+    display_name: '@META-CartographeRoles'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - analyse
+    paths:
+      agent: 20_AGENTS/META/META-CartographeRoles/agent.yaml
+      contract: 20_AGENTS/META/META-CartographeRoles/contract.yaml
+      prompt: 20_AGENTS/META/META-CartographeRoles/prompt.md
+  META-Concierge:
+    display_name: '@META-Concierge'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    paths:
+      agent: 20_AGENTS/META/META-Concierge/agent.yaml
+      contract: 20_AGENTS/META/META-Concierge/contract.yaml
+      prompt: 20_AGENTS/META/META-Concierge/prompt.md
+  META-GouvernanceEtRisques:
+    display_name: '@META-GouvernanceEtRisques'
+    team_id: TEAM__META
+    status: deprecated
+    intents:
+    - governance
+    - risk
+    - quality
+    paths:
+      agent: 20_AGENTS/META/META-GouvernanceEtRisques/agent.yaml
+      contract: 20_AGENTS/META/META-GouvernanceEtRisques/contract.yaml
+      prompt: 20_AGENTS/META/META-GouvernanceEtRisques/prompt.md
+  META-GouvernanceQA:
+    display_name: '@META-GouvernanceQA'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    paths:
+      agent: 20_AGENTS/META/META-GouvernanceQA/agent.yaml
+      contract: 20_AGENTS/META/META-GouvernanceQA/contract.yaml
+      prompt: 20_AGENTS/META/META-GouvernanceQA/prompt.md
+  META-Opromptimizer:
+    display_name: '@META-Opromptimizer'
+    team_id: TEAM__META
+    status: deprecated
+    intents:
+    - prompt
+    - engineering
+    - optimize
+    paths:
+      agent: 20_AGENTS/META/META-Opromptimizer/agent.yaml
+      contract: 20_AGENTS/META/META-Opromptimizer/contract.yaml
+      prompt: 20_AGENTS/META/META-Opromptimizer/prompt.md
+  META-OrchestrateurCentral:
+    display_name: '@META-OrchestrateurCentral'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - army_factory
+    - design
+    - orchestrate
+    paths:
+      agent: 20_AGENTS/META/META-OrchestrateurCentral/agent.yaml
+      contract: 20_AGENTS/META/META-OrchestrateurCentral/contract.yaml
+      prompt: 20_AGENTS/META/META-OrchestrateurCentral/prompt.md
+  META-Pedagogie:
+    display_name: MCIA — Prof (Pédagogie)
+    team_id: TEAM__META
+    status: active
+    intents:
+    - mcia
+    - education
+    - teach_ai
+    - course
+    - exercise
+    paths:
+      agent: 20_AGENTS/META/META-Pedagogie/agent.yaml
+      contract: 20_AGENTS/META/META-Pedagogie/contract.yaml
+      prompt: 20_AGENTS/META/META-Pedagogie/prompt.md
+  META-PlaybookBuilder:
+    display_name: '@META-PlaybookBuilder'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - cree
+    paths:
+      agent: 20_AGENTS/META/META-PlaybookBuilder/agent.yaml
+      contract: 20_AGENTS/META/META-PlaybookBuilder/contract.yaml
+      prompt: 20_AGENTS/META/META-PlaybookBuilder/prompt.md
+  META-PromptArchitectEquipes:
+    display_name: '@META-PromptArchitectEquipes'
+    team_id: TEAM__META
+    status: deprecated
+    intents:
+    - prompt
+    - architecture
+    - standardization
+    paths:
+      agent: 20_AGENTS/META/META-PromptArchitectEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-PromptArchitectEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-PromptArchitectEquipes/prompt.md
+  META-PromptMaster:
+    display_name: '@META-PromptMaster'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    paths:
+      agent: 20_AGENTS/META/META-PromptMaster/agent.yaml
+      contract: 20_AGENTS/META/META-PromptMaster/contract.yaml
+      prompt: 20_AGENTS/META/META-PromptMaster/prompt.md
+  META-Redaction:
+    display_name: MCIA — Rédaction (Long format)
+    team_id: TEAM__META
+    status: active
+    intents:
+    - mcia
+    - writing
+    - docs
+    - book
+    - email
+    - documentation
+    paths:
+      agent: 20_AGENTS/META/META-Redaction/agent.yaml
+      contract: 20_AGENTS/META/META-Redaction/contract.yaml
+      prompt: 20_AGENTS/META/META-Redaction/prompt.md
+  META-ReversePrompt:
+    display_name: '@META-ReversePrompt'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - analyse
+    paths:
+      agent: 20_AGENTS/META/META-ReversePrompt/agent.yaml
+      contract: 20_AGENTS/META/META-ReversePrompt/contract.yaml
+      prompt: 20_AGENTS/META/META-ReversePrompt/prompt.md
+  META-SuperviseurInvisible:
+    display_name: '@META-SuperviseurInvisible'
+    team_id: TEAM__META
+    status: deprecated
+    intents:
+    - audit
+    - qa
+    - governance
+    - consistency
+    paths:
+      agent: 20_AGENTS/META/META-SuperviseurInvisible/agent.yaml
+      contract: 20_AGENTS/META/META-SuperviseurInvisible/contract.yaml
+      prompt: 20_AGENTS/META/META-SuperviseurInvisible/prompt.md
+  META-VisionCreative:
+    display_name: MCIA — Vision & Créatif (Image/Vidéo)
+    team_id: TEAM__META
+    status: active
+    intents:
+    - mcia
+    - assets
+    - vision
+    - image
+    - video
+    - creative
+    paths:
+      agent: 20_AGENTS/META/META-VisionCreative/agent.yaml
+      contract: 20_AGENTS/META/META-VisionCreative/contract.yaml
+      prompt: 20_AGENTS/META/META-VisionCreative/prompt.md
+  META-WorkflowDesignerEquipes:
+    display_name: '@META-WorkflowDesignerEquipes'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - workflow
+    - process
+    - mapping
+    paths:
+      agent: 20_AGENTS/META/META-WorkflowDesignerEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-WorkflowDesignerEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-WorkflowDesignerEquipes/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - archive
+    - audit
+    - gere
+    - memory
+    - ops
+    - search
+    paths:
+      agent: 20_AGENTS/OPS/OPS-DossierIA/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-DossierIA/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-DossierIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - execute_workflow
+    - ops
+    - orchestration_runtime
+    - run_playbook
+    paths:
+      agent: 20_AGENTS/OPS/OPS-PlaybookRunner/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-PlaybookRunner/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-PlaybookRunner/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - classify
+    - dispatch
+    - intent_detection
+    - ops
+    - route
+    paths:
+      agent: 20_AGENTS/OPS/OPS-RouterIA/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-RouterIA/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-RouterIA/prompt.md
+  CTL-WatchdogIA:
+    display_name: '@CTL-WatchdogIA'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - health_check
+    - monitor
+    - watchdog
+    - drift_detect
+    - factory_status
+    - agent_scan
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
+      contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
+  CTL-AlertRouter:
+    display_name: '@CTL-AlertRouter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - alert
+    - escalate
+    - route_alert
+    - incident
+    - notify
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
+  CTL-HealthReporter:
+    display_name: '@CTL-HealthReporter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - report
+    - health_report
+    - digest
+    - weekly_report
+    - post_mortem
+    - ctl
+    paths:
+      agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md

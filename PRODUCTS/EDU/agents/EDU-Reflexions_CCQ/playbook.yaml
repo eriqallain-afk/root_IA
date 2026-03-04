@@ -1,0 +1,28 @@
+schema_version: 1.0
+playbook_id: EDU_CCQ_EVAL_PDF_V1_0_3
+description: PDF -> extraction/OCR -> split multi-élèves -> sections -> retrieval
+  -> évaluation -> validation (single ou batch)
+steps:
+- step: pdf_text_extract
+  operator: PDF_TEXT_EXTRACT
+- step: pdf_render_pages
+  operator: PDF_RENDER_PAGES
+- step: ocr_images
+  operator: VISION_TRANSCRIBE_PAGES
+- step: merge_normalize
+  operator: TEXT_MERGE_NORMALIZE
+- step: split_students
+  operator: DOC_SPLIT_BY_STUDENT
+- step: section_detect_each
+  operator: SECTION_DETECT
+  foreach: student_docs
+- step: rubric_retrieve_each
+  operator: RUBRIC_RETRIEVE
+  foreach: sections
+- step: evaluate_each_section
+  operator: EVALUATE_SECTION
+  foreach: sections
+- step: compile_batch
+  operator: COMPILE_BATCH_REPORT
+- step: schema_validate
+  operator: SCHEMA_VALIDATE

@@ -1,0 +1,188 @@
+﻿contract_version: 2.0.0
+id: OPS-DossierIA
+team: OPS
+description: Hub mÃ©moire persistant de la Factory. Il crÃ©e et maintient des dossiers dâ€™exÃ©cution structurÃ©s, archive les inputs/outputs/logs
+  Ã  chaque step et produit un export audit-ready. Il supporte aussi une recherche sur lâ€™historique des dossiers avec score
+  de pertinence.
+input:
+  objective:
+    type: string
+    required: false
+    description: 'Intention globale (ex: crÃ©er/archiver/rechercher).'
+  operation:
+    type: string
+    required: true
+    description: create|append|close|search
+  workflow_id:
+    type: string
+    required: false
+    description: Identifiant workflow/run.
+  playbook_id:
+    type: string
+    required: false
+    description: Identifiant playbook.
+  metadata:
+    type: object
+    required: false
+    description: Tags, auteur, contexte, niveau de sensibilitÃ©.
+  inputs:
+    type: object
+    required: false
+    description: Inputs initiaux ou inputs de step (append).
+  outputs:
+    type: object
+    required: false
+    description: Outputs de step ou livrable final (append/close).
+  logs:
+    type: object
+    required: false
+    description: Log de step ou log global (append/close).
+  search_query:
+    type: object
+    required: false
+    description: '{keywords, workflow_id, date_range, tags} pour operation=search.'
+  constraints:
+    type: object
+    required: false
+    description: Politique de rÃ©tention, cloisonnement, redaction.
+output:
+  output_format: YAML_STRICT
+  result:
+    summary: string
+    status: success|failed
+    confidence: 0.0-1.0
+    dossier:
+      id: string
+      status: open|closed
+      created_at: timestamp
+      playbook_id: string|null
+      workflow_id: string|null
+      steps_archived: int
+      deliverable_path: string|null
+    export:
+      path: string|null
+      format: yaml|json|null
+    search_results:
+    - dossier_id: string
+      score: 0.0-1.0
+      created_at: timestamp
+      playbook_id: string|null
+      tags:
+      - string
+      paths:
+        context: string
+        deliverable: string|null
+  artifacts:
+  - path:FACTORY/20_AGENTS/OPS/OPS-DossierIA/artifacts/DOSSIER__<date>__<playbook>__<sujet>/00_context.yaml
+    type: yaml
+    description: Brief initial et mÃ©tadonnÃ©es.
+  - path:FACTORY/20_AGENTS/OPS/OPS-DossierIA/artifacts/DOSSIER__<date>__<playbook>__<sujet>/01_steps/<step_id>.yaml
+    type: yaml
+    description: Archive step-by-step (input/output/log).
+  - path:FACTORY/20_AGENTS/OPS/OPS-DossierIA/artifacts/DOSSIER__<date>__<playbook>__<sujet>/02_deliverable/final.yaml
+    type: yaml
+    description: Livrable final compilÃ© (copie ou lien).
+  - path:FACTORY/20_AGENTS/OPS/OPS-DossierIA/artifacts/DOSSIER__<date>__<playbook>__<sujet>/03_log.yaml
+    type: yaml
+    description: Journal global (actions, dÃ©cisions, risques).
+  next_actions:
+  - 'Si operation=create et playbook_id absent: demander playbook_id ou sujet.'
+  - 'Si operation=append et step_id manquant: demander step_id + payload (inputs/outputs/logs).'
+  - 'Si operation=search et search_query vide: demander keywords ou filtres (dates/tags).'
+  - 'Si donnÃ©es sensibles dÃ©tectÃ©es: recommander redaction et activer cloisonnement.'
+  log:
+    decisions:
+    - id: string
+      decision: string
+      rationale: string
+    risks:
+    - id: string
+      severity: low|medium|high
+      risk: string
+      mitigation: string
+    assumptions:
+    - id: string
+      assumption: string
+      to_confirm: string
+    quality_score: 0-10
+    actions:
+    - ts: timestamp
+      action: create|append|close|search
+      path: string
+      details: string
+artifacts:
+  dossier_root:FACTORY/20_AGENTS/OPS/OPS-DossierIA/artifacts/DOSSIER__<date>__<playbook>__<sujet>/
+  context_file: 00_context.yaml
+  steps_dir: 01_steps/
+  deliverable_dir: 02_deliverable/
+  log_file: 03_log.yaml
+  export_file: export.<yaml|json>
+success_criteria:
+- Structure de dossier conforme crÃ©Ã©e pour chaque run.
+- Chaque step archivÃ© avec input/output/log.
+- Export produit sur demande (close) et traÃ§able.
+- Search renvoie des rÃ©sultats scorÃ©s et pertinents.
+guardrails:
+- 'Respecter confidentialitÃ©: cloisonnement et redaction si metadata.sensitivity=high.'
+- Ne jamais stocker de secrets en clair (tokens, clÃ©s, mots de passe).
+- 'Ne pas inventer des paths inexistants: retourner les paths rÃ©ellement crÃ©Ã©s.'
+- SÃ©parer faits (archives existantes) et hypothÃ¨ses (interprÃ©tation).
+constraints:
+  retention:
+    long_term: true
+  security:
+    partition_sensitive_data: true
+  audit_ready: true
+escalation:
+- when: suspicion of sensitive data leakage
+  to: META-GouvernanceQA
+  how: return status=failed + risk(high) + redaction_required
+- when: storage/path errors persist
+  to: OPS-PlaybookRunner
+  how: return status=failed + next_actions for remediation
+tests:
+  unit_tests:
+  - name: create_dossier_structure
+    input:
+      operation: create
+      playbook_id: PBK_TEST
+      metadata:
+        subject: demo
+    expected:
+      result.status: success
+      result.dossier.status: open
+  - name: append_step_archive
+    input:
+      operation: append
+      workflow_id: WF1
+      metadata:
+        dossier_id: DOSSIER__...
+      inputs:
+        x: 1
+      outputs:
+        y: 2
+      logs:
+        step: ok
+    expected:
+      result.status: success
+  - name: search_returns_scored_results
+    input:
+      operation: search
+      search_query:
+        keywords:
+        - PBK_TEST
+    expected:
+      result.search_results[0].score: 0.0-1.0
+examples:
+- input:
+    operation: close
+    workflow_id: WF123
+    playbook_id: PBK_BUILD_ARMY_FACTORY
+    outputs:
+      deliverable: '...'
+  output_snippet:
+    result:
+      status: success
+      export:
+        format: yaml
+last_updated: '2026-02-07'

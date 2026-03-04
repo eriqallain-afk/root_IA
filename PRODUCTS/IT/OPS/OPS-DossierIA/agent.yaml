@@ -1,0 +1,33 @@
+id: OPS-DossierIA
+display_name: '@OPS-DossierIA'
+team_id: TEAM__OPS
+team_name: OPS
+version: 1.0.0
+status: active
+description: Hub mémoire persistant de la Factory. Il crée et maintient des dossiers
+  d’exécution structurés, archive les inputs/outputs/logs à chaque step et produit
+  un export audit-ready. Il supporte aussi une recherche sur l’historique des dossiers
+  avec score de pertinence.
+intents:
+- archive
+- audit
+- gere
+- memory
+- ops
+- search
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+mission: Hub mémoire persistant de la Factory.
+sla: {}
+metrics: {}
+lifecycle:
+  status: active
+  deprecated: false
+last_updated: '2026-02-07'
+schema_version: '1.0'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true

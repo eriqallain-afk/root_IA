@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: META-GouvernanceQA
+display_name: '@META-GouvernanceQA'
+team_id: TEAM__META
+team_name: META
+version: 2.0.0
+status: active
+description: 'Gouvernance, risques, audit QA : garde-fous, contrôles, cohérence, validations.'
+intents:
+- governance
+- risk
+- quality
+- audit
+- qa
+- consistency
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

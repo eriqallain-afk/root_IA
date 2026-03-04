@@ -1,0 +1,14 @@
+result:
+  report_type: "daily_digest"
+  health_score: 97
+  report_content:
+    runs_today: 1
+    success_rate: "100%"
+    failed_runs: 0
+    active_p0_count: 0
+    active_p1_count: 0
+artifacts:
+  - type: md
+    title: "Daily Digest 2026-02-25"
+log:
+  quality_score: 9

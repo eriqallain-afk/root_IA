@@ -1,0 +1,11 @@
+  EDU_CCQ_EXTRACT_EVAL_V1:
+    description: "CCQ: PDF/images -> extraction -> evaluation -> assemblage -> dossier"
+    steps:
+      - step: extraction
+        actor_id: EDU-Extractor_CCQ
+      - step: evaluation
+        actor_id: EDU-Reflexions_CCQ
+      - step: assembly
+        actor_id: EDU-Orchestrator_CCQ
+      - step: dossier
+        actor_id: OPS-DossierIA

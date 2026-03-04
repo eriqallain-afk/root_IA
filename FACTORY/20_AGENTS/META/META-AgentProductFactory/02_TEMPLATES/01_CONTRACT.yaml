@@ -1,0 +1,147 @@
+﻿schema_version: '1.1'
+agent:
+  id: META-AgentFactory
+  team_id: TEAM__META
+  status: active
+description: Générateur d’agents root_IA. À partir d’un catalogue_roles ou d’une spécification agent, produit les fichiers
+  agent.yaml, contract.yaml et prompt.md conformes aux standards (YAML strict, logs, conventions).
+mission: Industrialiser la création de dossiers agents (agent.yaml + contract.yaml + prompt.md) à partir de specs validées.
+responsibilities:
+- Lire le catalogue_roles et créer une arborescence d’agents.
+- Générer agent.yaml conforme au schéma (id, team_id, version, status, intents).
+- Générer contract.yaml enrichi (structure commune, artifacts, guardrails).
+- Générer prompt.md aligné au contrat (format root_IA, exemples, anti-hallucination).
+- Produire un rapport de génération (succès, erreurs, champs manquants).
+input:
+  objective:
+    type: string
+    required: true
+    description: Objectif métier exprimé en texte libre.
+  context:
+    type: object|string|yaml|json
+    required: false
+    description: Contexte (données structurées ou texte).
+  constraints:
+    type: array<string>
+    required: false
+    description: Contraintes (sécurité, conformité, budget, délais, outils, ton, etc.).
+  resources:
+    type: array<string>
+    required: false
+    description: Ressources disponibles (docs, liens internes, schémas, fichiers, modèles).
+  priority:
+    type: enum(low,medium,high,critical)
+    required: false
+    default: medium
+  deadline:
+    type: string|date
+    required: false
+    description: Échéance attendue (ISO 8601 conseillé).
+  missing_data:
+    type: array<string>
+    required: false
+    description: Champs connus manquants (si déjà identifiés par l’orchestrateur).
+  catalogue_roles:
+    type: array<object>|yaml
+    required: false
+    description: Catalogue d’agents à générer (CartographeRoles).
+  agent_spec:
+    type: object|yaml
+    required: false
+    description: Spécification d’un agent unique (si génération unitaire).
+  naming_rules:
+    type: object|yaml
+    required: false
+    description: Règles de nommage/versions/statuts.
+  templates:
+    type: object|yaml
+    required: false
+    description: Templates (prompt/contract) à appliquer.
+output:
+  output_format: YAML_STRICT
+  result:
+    summary:
+      type: string
+      description: Résumé 1–3 lignes.
+    status:
+      type: enum(ok,needs_clarification,partial,error)
+      description: Statut d’exécution.
+    confidence:
+      type: number
+      range: 0..1
+      description: Confiance sur la complétude et l’exactitude (0–1).
+    generation_report:
+      type: object
+      description: Bilan génération (agents créés, erreurs, warnings, next_actions).
+    agents_generated:
+      type: array<object>
+      description: Liste des agents générés (paths, versions, statuts).
+  artifacts:
+    type: array<object>
+    item_schema:
+      type: object
+      fields:
+        type: string
+        title: string
+        path: string
+        description: string
+        required: boolean
+    description: Liste des artefacts produits (doit correspondre au bloc top-level artifacts).
+  next_actions:
+    type: array<object>
+    item_schema:
+      type: object
+      fields:
+        action: string
+        when: string
+        questions: array<string> (optional)
+    description: Actions à entreprendre / questions si informations manquantes.
+  log:
+    type: object
+    required_fields:
+    - decisions
+    - risks
+    - assumptions
+    - quality_score
+    fields:
+      decisions: array<string>
+      risks: array<string>
+      assumptions: array<string>
+      quality_score:
+        type: object
+        fields:
+          overall: number (0..10)
+          clarity: number (0..10)
+          completeness: number (0..10)
+          compliance: number (0..10)
+          timeliness: number (0..10)
+artifacts:
+- type: zip
+  title: Bundle d’agents générés
+  path: Mon Drive/EA_IA/root_IA/12_FACTORY/agents_bundle_<bundle_id>.zip
+  description: Dossiers agents complets (agent.yaml, contract.yaml, prompt.md).
+  required: true
+- type: md
+  title: Rapport de génération
+  path: Mon Drive/EA_IA/root_IA/12_FACTORY/generation_report_<bundle_id>.md
+  description: Erreurs/warnings, champs manquants, actions correctives.
+  required: true
+constraints:
+- Valider la conformité YAML (pas d’indentation invalide).
+- Ne jamais inclure de secrets ou données sensibles dans les templates.
+- 'En cas d’info manquante : générer un ‘default’ + next_actions pour compléter.'
+metrics:
+  quality_target: ≥ 9/10 (overall)
+  yaml_valid: 100%
+success_criteria:
+- Bundle généré prêt à être audité par GouvernanceQA et testé par PromptMaster.
+guardrails:
+- Pas de divergence prompt/contrat ; maintenir alignement.
+escalation:
+- trigger: Prompts non conformes ou score <7
+  to: META-PromptMaster
+  reason: Refactor + tests.
+- trigger: Risques/compliance détectés
+  to: META-GouvernanceQA
+  reason: Audit.
+

@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__PLR
+name: PLR
+mission: "Radio : scripts (Annie Morneau) et adaptation."
+default_orchestrator: PLR-RadioScripteur

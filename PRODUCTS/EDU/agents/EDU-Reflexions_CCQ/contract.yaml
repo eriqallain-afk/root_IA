@@ -1,0 +1,18 @@
+schema_version: '1.0'
+input:
+  accepts:
+  - student_texts
+  - extraction_batch_optional
+  - rubric_optional
+  required:
+  - context
+  notes: Évalue la réflexion éthique CCQ (unitaire ou batch). Toujours citer les critères utilisés et signaler les zones d'incertitude.
+output:
+  format: YAML_STRICT
+  fields:
+    evaluation: 'object (unitaire) ou evaluations: list<object> (batch)'
+    score: number|string
+    rationale: str
+    criterion_breakdown: list<{criterion:str, score:any, evidence:str}>
+    flags: list<str>
+    notes: str

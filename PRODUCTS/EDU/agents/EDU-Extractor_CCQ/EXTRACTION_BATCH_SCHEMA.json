@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/extraction_batch.schema.json",
+  "title": "EDU-Extractor_CCQ — extraction_batch output schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "extraction_batch"
+  ],
+  "properties": {
+    "extraction_batch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "detected_students_total",
+        "returned_students_count",
+        "continuation_required",
+        "next_start_index",
+        "students",
+        "notes"
+      ],
+      "properties": {
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "filename",
+            "page_count"
+          ],
+          "properties": {
+            "filename": {
+              "type": "string",
+              "minLength": 1
+            },
+            "page_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "detected_students_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_students_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "continuation_required": {
+          "type": "boolean"
+        },
+        "next_start_index": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "1-based index of next student to return when continuation_required=true, else null."
+        },
+        "students": {
+          "type": "array",
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "student_id",
+              "label_raw",
+              "pages",
+              "ocr_used",
+              "ocr_confidence",
+              "flags",
+              "text"
+            ],
+            "properties": {
+              "student_id": {
+                "type": "string",
+                "pattern": "^Student_\\d{2}$",
+                "description": "Student identifier like Student_01, Student_02, ..."
+              },
+              "label_raw": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Raw detected label/header for the student (optional). Use null if none."
+              },
+              "pages": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "minItems": 1,
+                "description": "0-based page indices belonging to the student."
+              },
+              "ocr_used": {
+                "type": "boolean"
+              },
+              "ocr_confidence": {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low",
+                  "unknown"
+                ]
+              },
+              "flags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Flags like [INCERTAIN]..., [ILLISIBLE]..."
+              },
+              "text": {
+                "type": "string",
+                "description": "Full transcription for the student. Must be empty string only if nothing is readable."
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Batch-level notes (e.g., segmentation uncertainty)."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "continuation_required": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "next_start_index": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

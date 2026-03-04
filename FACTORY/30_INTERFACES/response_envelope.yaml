@@ -1,0 +1,6 @@
+schema_version: "1.0"
+fields:
+  request_id: string
+  timestamp: RFC3339
+  target_actor_id: string
+  payload: contract.output

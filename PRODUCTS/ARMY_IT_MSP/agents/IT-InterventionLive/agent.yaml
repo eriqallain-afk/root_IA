@@ -1,0 +1,19 @@
+id: IT-InterventionLive
+display_name: '@IT-InterventionLive'
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: Suit une intervention IT en temps réel et génère les rapports ConnectWise
+intents:
+- it
+- genere
+output_format: markdown
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: markdown
+  contract_required: true
+  logs_required: true

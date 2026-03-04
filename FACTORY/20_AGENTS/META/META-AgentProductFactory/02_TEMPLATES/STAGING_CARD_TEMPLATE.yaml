@@ -1,0 +1,47 @@
+schema_version: '1.0'
+# ============================================================
+# STAGING CARD — À remplir par la FACTORY pour chaque agent
+# Déposer dans 99_STAGING/INCOMING/<AgentID>/STAGING_CARD.yaml
+# ============================================================
+
+agent_id: ~                         # ex: IT-VendorManager
+created_by: META-AgentProductFactory
+created_at: ~                        # ISO8601
+manifest_version_read: '3.0'         # Version du FACTORY_MANIFEST.yaml lue
+conflicts_checked: true              # Confirme que agents[] et intents_covered[] ont été vérifiés
+
+purpose: >
+  # Décrire en 2-3 phrases : quel gap ce nouvel agent comble,
+  # pourquoi les agents existants ne couvrent pas ce besoin.
+
+gap_source: intents_gaps             # intents_gaps | nouveau_besoin | optimisation_agent_existant
+
+intents_new:                         # Intents NOUVEAUX uniquement (pas dans intents_covered[])
+  - ~
+
+intents_reused: []                   # Intents déjà dans intents_covered[] que cet agent touche aussi
+
+playbook_integration:                # Laisser vide si l'agent s'intègre dans aucun playbook existant
+  - playbook_id: ~                   # ex: IT_MSP_TICKET_TO_KB
+    step: ~                          # ex: vendor_lookup
+    order: ~                         # Position dans le playbook (1-based)
+    after_actor: ~                   # Acteur avant ce step
+    before_actor: ~                  # Acteur après ce step
+
+new_playbook_required: false         # Si true : proposer le playbook.yaml dans le package
+new_playbook_id: ~
+
+knowledge_pack_required: false       # Si true : indiquer le path attendu
+knowledge_pack_path: ~
+
+quality_assessment:
+  clarity: ~                         # /10
+  precision: ~                       # /10
+  testability: ~                     # /10
+  overall: ~                         # /10 — doit être >= 8
+
+status: staging
+# Ne pas modifier les champs ci-dessous (remplis par EA)
+# validated_at: ~
+# rejection_reason: ~
+# activated_at: ~

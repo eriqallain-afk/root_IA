@@ -1,0 +1,122 @@
+﻿schema_version: "1.0"
+generated_at: '2026-01-04T00:00:00Z'
+memory_objects:
+  OPS-DossierIA:
+    purpose: 'Journal & dossier projet : dÃ©cisions, artefacts, index, liens.'
+    write_policy: append_only
+    index_fields:
+    - project_id
+    - request_id
+    - actor_id
+    - timestamp
+    - tags
+    - artifact_paths
+  KnowledgeBase:
+    purpose: 'Connaissances rÃ©utilisables : KB, templates, runbooks, patterns.'
+    write_policy: versioned
+    index_fields:
+    - topic
+    - owner
+    - updated_at
+    - tags
+  MEM-PlaybooksGlobal:
+    purpose: Index global des playbooks (description, steps, actors).
+    write_policy: regenerated
+    index_fields:
+    - playbook_id
+    - step
+    - actor_id
+    - tags
+    source:SHARED/90_MEMORY/MEM-PlaybooksGlobal.yaml
+  MEM-AgentsGlobal:
+    purpose: Index global des agents (metadata + intents + paths).
+    write_policy: regenerated
+    index_fields:
+    - actor_id
+    - team_id
+    - intent
+    - status
+    source:SHARED/90_MEMORY/MEM-AgentsGlobal.yaml
+  MEM-TeamsGlobal:
+    purpose: Index global des Ã©quipes (missions + orchestrateurs).
+    write_policy: regenerated
+    index_fields:
+    - team_id
+    - name
+    source:SHARED/90_MEMORY/MEM-TeamsGlobal.yaml
+  MEM-IntentsGlobal:
+    purpose: Index inversÃ© intent -> agents.
+    write_policy: regenerated
+    index_fields:
+    - intent
+    - actor_id
+    source:SHARED/90_MEMORY/MEM-IntentsGlobal.yaml
+  MEM-RoutingGlobal:
+    purpose: Table de routage globale (intent match -> actor/playbook).
+    write_policy: regenerated
+    index_fields:
+    - intent
+    - default_actor_id
+    - default_playbook_id
+    source:SHARED/90_MEMORY/MEM-RoutingGlobal.yaml
+  MEM-CapabilitiesGlobal:
+    purpose: Catalogue des capacitÃ©s (capability -> actor/team).
+    write_policy: regenerated
+    index_fields:
+    - capability_id
+    - team_id
+    - default_actor_id
+    source:SHARED/90_MEMORY/MEM-CapabilitiesGlobal.yaml
+  MEM-RunbooksGlobal:
+    purpose: Index global des runbooks (MD).
+    write_policy: regenerated
+    index_fields:
+    - path
+    - category
+    source:SHARED/90_MEMORY/MEM-RunbooksGlobal.yaml
+  MEM-IntegrationPackagesGlobal:
+    purpose: Index global des packages dâ€™intÃ©gration.
+    write_policy: regenerated
+    index_fields:
+    - package_id
+    - file
+    source:SHARED/90_MEMORY/MEM-IntegrationPackagesGlobal.yaml
+  MEM-QualityGatesGlobal:
+    purpose: Quality gates pour QA Machine.
+    write_policy: regenerated
+    index_fields:
+    - gate_id
+    - rule
+    source:SHARED/90_MEMORY/MEM-QualityGatesGlobal.yaml
+  MEM-EvidenceRegister:
+    purpose: Journal d'Ã©vidence (sources -> affirmations).
+    write_policy: append_only
+    index_fields:
+    - claim_id
+    - source_mode
+    - date
+    source:SHARED/90_MEMORY/MEM-EvidenceRegister.yaml
+  MEM-NEA-LoreRecueil:
+    purpose: 'Lore & continuitÃ© NEA : thÃ¨mes, univers, contraintes Ã©ditoriales, glossary.'
+    write_policy: versioned
+    index_fields:
+    - work_id
+    - chapter
+    - theme
+    - updated_at
+    - tags
+    - owner
+  MEM-RADIO-FormatsScripts:
+    purpose: 'Formats & gabarits Radio : structures dâ€™Ã©mission, repÃ¨res tempo, intentions,
+      styles.'
+    write_policy: versioned
+    index_fields:
+    - show
+    - format
+    - segment
+    - updated_at
+    - tags
+    - owner
+privacy:
+  default: private
+  note: Ne pas stocker donnÃ©es sensibles sans chiffrement/consentement.

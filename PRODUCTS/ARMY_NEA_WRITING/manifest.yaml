@@ -1,0 +1,6 @@
+﻿name: ARMY_NEA_WRITING
+version: "0.1.0"
+includes:
+  agents: []
+  playbooks: []
+  memories: []

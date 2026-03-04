@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-OrchestreurCabinetIA
+display_name: "@IASM - Orchestreur — Cabinet IA"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Porte d’entrée : intake, brief, routage modules, compilation synthèse."
+intents:
+  - iasm
+  - intake
+  - route
+aliases:
+  - "@IASM - Orchestreur — Cabinet IA"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

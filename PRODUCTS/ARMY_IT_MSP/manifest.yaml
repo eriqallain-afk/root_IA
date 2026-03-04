@@ -1,0 +1,6 @@
+﻿name: ARMY_IT_MSP
+version: "0.1.0"
+includes:
+  agents: []
+  playbooks: []
+  memories: []

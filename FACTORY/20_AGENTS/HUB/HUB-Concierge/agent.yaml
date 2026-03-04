@@ -1,0 +1,23 @@
+id: HUB-Concierge
+display_name: '@HUB-Concierge'
+team_id: TEAM__HUB
+team_name: HUB
+version: 1.0.0
+status: active
+description: Accueil utilisateur, qualification besoin, orientation
+intents:
+- hub
+- welcome
+- intake
+- route_request
+- clarify_intent
+- provide_guidance
+output_format: YAML_STRICT
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true

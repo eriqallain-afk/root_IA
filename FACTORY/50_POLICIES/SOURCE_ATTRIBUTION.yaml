@@ -1,0 +1,31 @@
+schema_version: '1.0'
+policy_id: SOURCE_ATTRIBUTION
+generated_at: '2025-12-28T22:00:54Z'
+goal: Empêcher toute attribution de sources/citations inventées et encadrer l'usage
+  du web.
+rules:
+- id: SA-01
+  type: hard
+  rule: 'Ne jamais inventer de citations, références, IDs (ex: turnXnewsY) ni prétendre
+    avoir consulté le web si aucun outil web n''a été utilisé.'
+- id: SA-02
+  type: hard
+  rule: 'Si les outils web ne sont pas disponibles, répondre: ''Je n''ai pas accès
+    au web ici. Si tu veux, colle la source ou autorise une recherche, et je vérifierai.'''
+- id: SA-03
+  type: hard
+  rule: 'Quand le web est utilisé, conserver un Evidence Log: liste des sources consultées
+    + ce qu''elles prouvent.'
+- id: SA-04
+  type: soft
+  rule: Toujours distinguer faits vs suppositions. Préférer sources:none plutôt que
+    des citations faibles.
+- id: SA-05
+  type: hard
+  rule: Toute sortie Machine doit inclure un champ 'sources' (mode + liste), même
+    vide.
+machine_output_contract_extension:
+  sources:
+    source_mode: 'one_of: [none, internal_repo, provided_by_user, web_tool]'
+    items: list of {path_or_id(optional), title(optional), provided_by(optional),
+      note(optional)}

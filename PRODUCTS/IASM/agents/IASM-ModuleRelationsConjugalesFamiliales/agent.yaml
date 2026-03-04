@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-ModuleRelationsConjugalesFamiliales
+display_name: "@IASM - Module Relations conjugales & familiales"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Lecture systémique du couple/famille : places, rôles, alliances, cycles."
+intents:
+  - iasm
+  - family
+  - systemic
+aliases:
+  - "@IASM - Module Relations conjugales & familiales"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

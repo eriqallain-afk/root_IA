@@ -1,0 +1,12 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-QualityGatesGlobal
+type: registry_memory
+purpose: Quality gates pour QA Machine.
+source:
+  quality_gates_file: 90_KNOWLEDGE/META_FACTORY/rubrics/quality_gates.yaml
+write_policy: regenerated
+index_fields:
+- gate_id
+- rule
+quality_gates: {}

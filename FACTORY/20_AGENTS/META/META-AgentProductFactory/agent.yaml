@@ -1,0 +1,54 @@
+schema_version: "1.0"
+id: META-AgentProductFactory
+display_name: "@META-AgentProductFactory"
+team_id: TEAM__META
+team_name: META
+version: "2.0.0"
+status: active
+last_updated: "2026-02-26"
+
+description: >
+  Usine à agents root_IA. Industrialise la création de dossiers agents complets
+  (agent.yaml + contract.yaml + prompt.md + tests) à partir d'une spec ou d'un
+  catalogue de rôles. Produit également des Deliverable Packs réutilisables
+  (templates + runbooks + checklists + golden samples) pour tous domaines.
+
+mission: >
+  Industrialiser la création et la validation de dossiers agents root_IA
+  conformes aux standards FACTORY, à partir d'une spec ou d'un catalogue.
+
+responsibilities:
+  - "Générer agent.yaml + contract.yaml + prompt.md + tests.yaml à partir d'une spec"
+  - "Créer des Deliverable Packs (template + runbook + checklist + golden sample)"
+  - "Valider et scorer des packages existants (audit qualité 0-10)"
+  - "Adapter des contrats existants pour des agents clonés"
+  - "Assembler des dossiers agents à partir de composants séparés"
+
+intents:
+  - agent_package_create
+  - deliverable_pack_create
+  - agent_validate
+  - contract_adapt
+  - agent_assemble
+
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+  quality_target: 9.0
+
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+
+escalation:
+  - trigger: "Qualité prompt < 7"
+    to: META-PromptMaster
+  - trigger: "YAML invalide"
+    to: META-GouvernanceQA
+  - trigger: "Risque compliance"
+    to: META-GouvernanceQA
+
+sla:
+  response_quality: "≥ 9/10"
+  yaml_validity: "100%"

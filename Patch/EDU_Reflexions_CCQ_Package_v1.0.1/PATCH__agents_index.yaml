@@ -1,0 +1,19 @@
+add_or_update_agent:
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: Évalue des travaux de réflexion éthique (CCQ 4e–5e secondaire) avec
+      grille officielle + OCR PDF.
+    intents:
+    - education
+    - ccq
+    - culture
+    - citoyennete
+    - ethique
+    - evaluation
+    - correction
+    - travail
+    - devoir
+    - pdf
+    - ocr

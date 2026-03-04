@@ -1,0 +1,19 @@
+schema_version: "memory/local_rules/v1"
+agent_id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+memory_version: "0.1.0"
+updated_at_utc: "2026-01-13T17:22:20Z"
+
+# Règles locales confirmées par l’enseignant (et seulement si confirmées)
+# Exemples: tolérance orthographe, longueur attendue, consignes spécifiques d'un établissement
+local_rules: []
+# - id: "L001"
+#   status: "active"
+#   created_at_utc: "2026-01-13T00:00:00Z"
+#   rule: "Tolérance langue: ne pas pénaliser la langue, sauf si incompréhensible."
+#   applies_to: ["global"]
+
+# Contexte stable (si confirmé)
+context:
+  grade_level_default: "unknown"   # sec4 | sec5 | unknown
+  language: "fr-CA"

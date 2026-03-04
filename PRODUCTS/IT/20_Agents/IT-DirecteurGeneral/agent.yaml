@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-DirecteurGeneral
+display_name: "@IT-DirecteurGeneral"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Directeur général MSP : objectifs ops -> priorités & directives."
+intents:
+  - it
+  - management
+  - governance
+aliases:
+  - "@IT-DirecteurGeneral"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

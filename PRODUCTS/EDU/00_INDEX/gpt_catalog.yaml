@@ -1,0 +1,144 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.510334'
+catalog:
+  EDU-Evaluator:
+    display_name: '@EDU-Evaluator'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - edu
+    - evalue
+    paths:
+      agent: agents/EDU-Evaluator/agent.yaml
+      contract: agents/EDU-Evaluator/contract.yaml
+      prompt: agents/EDU-Evaluator/prompt.md
+  EDU-Extractor:
+    display_name: '@EDU-Extractor'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - edu
+    paths:
+      agent: agents/EDU-Extractor/agent.yaml
+      contract: agents/EDU-Extractor/contract.yaml
+      prompt: agents/EDU-Extractor/prompt.md
+  EDU-Extractor_CCQ:
+    display_name: '@EDU-Extractor_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - education
+    - ccq
+    - extract
+    - extraction
+    - transcription
+    - transcrire
+    - ocr
+    - scan
+    - pdf_scan
+    - batch_extract
+    paths:
+      agent: agents/EDU-Extractor_CCQ/agent.yaml
+      contract: agents/EDU-Extractor_CCQ/contract.yaml
+      prompt: agents/EDU-Extractor_CCQ/prompt.md
+  EDU-OCR-Extractor_CCQ:
+    display_name: '@EDU-OCR-Extractor_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - ocr
+    - transcription
+    - scan
+    - photo
+    - ccq
+    - education
+    - batch
+    paths:
+      agent: agents/EDU-OCR-Extractor_CCQ/agent.yaml
+      contract: agents/EDU-OCR-Extractor_CCQ/contract.yaml
+      prompt: agents/EDU-OCR-Extractor_CCQ/prompt.md
+  EDU-Orchestrator:
+    display_name: '@EDU-Orchestrator'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - edu
+    - coordonne
+    paths:
+      agent: agents/EDU-Orchestrator/agent.yaml
+      contract: agents/EDU-Orchestrator/contract.yaml
+      prompt: agents/EDU-Orchestrator/prompt.md
+  EDU-Orchestrator_CCQ:
+    display_name: '@EDU-Orchestrator_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - batch
+    - batch_eval
+    - ccq
+    - correction
+    - education
+    - evaluation
+    - extract
+    - extraction
+    - ocr
+    - orchestration
+    - transcription
+    - workflow
+    paths:
+      agent: agents/EDU-Orchestrator_CCQ/agent.yaml
+      contract: agents/EDU-Orchestrator_CCQ/contract.yaml
+      prompt: agents/EDU-Orchestrator_CCQ/prompt.md
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - education
+    - ccq
+    - culture
+    - citoyennete
+    - ethique
+    - evaluation
+    - correction
+    - batch
+    paths:
+      agent: agents/EDU-Reflexions_CCQ/agent.yaml
+      contract: agents/EDU-Reflexions_CCQ/contract.yaml
+      prompt: agents/EDU-Reflexions_CCQ/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

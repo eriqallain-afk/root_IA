@@ -1,0 +1,33 @@
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+routing_table:
+- match_any_intents:
+  - ccq_citoyennete
+  - ccq_culture
+  - ccq_ethique
+  - ccq_evaluation
+  - citoyennete
+  - correction
+  - culture
+  - devoir
+  - education
+  - ethique
+  - evaluation
+  - ocr
+  - reflexion
+  default_actor_id: EDU-Orchestrator_CCQ
+  default_playbook_id: EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE
+- match_any_intents:
+  - ccq
+  - ccq_batch
+  - ccq_correction
+  - ccq_edu
+  - ccq_education
+  - ccq_evaluer
+  default_actor_id: EDU-Orchestrator_CCQ
+  default_playbook_id: EDU_CCQ_EVAL_BATCH_V1
+- fallback: null
+  default_actor_id: EDU-Orchestrator_CCQ
+  default_playbook_id: EDU_CCQ_EVAL_SINGLE_V1
+  note: "Fallback interne produit EDU (standalone)"

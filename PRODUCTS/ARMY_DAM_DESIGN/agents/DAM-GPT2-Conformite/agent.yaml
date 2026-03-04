@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT2-Conformite
+display_name: "@DAM-GPT 2 — Conformité"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Conformité (Québec/RBQ/municipal) : risques, écarts, correctifs."
+intents:
+  - dam
+  - compliance
+  - risk
+aliases:
+  - "@DAM-GPT 2 — Conformité"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

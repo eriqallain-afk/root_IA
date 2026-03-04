@@ -1,0 +1,218 @@
+playbook_id: BUILD_ARMY_FACTORY
+display_name: "Build Army Factory"
+version: "2.0.0"
+category: fabrication
+team_owner: TEAM__META
+created_date: "2026-02-26"
+
+description: >
+  Pipeline complet de création d'une armée d'agents GPT pour un domaine donné.
+  De l'analyse des besoins jusqu'à l'archivage, en passant par la cartographie
+  des rôles, la génération des prompts, l'audit qualité et le packaging.
+
+trigger: "manual | onboard_new_team"
+duration_minutes: 300
+steps_count: 8
+
+inputs:
+  domain:
+    type: string
+    required: true
+    description: "Domaine métier cible (ex: IT-MSP, Construction, Éducation)"
+  team_id:
+    type: string
+    required: true
+    description: "ID de l'équipe à créer (ex: TEAM__IT)"
+  scope:
+    type: string
+    required: false
+    description: "Périmètre précis (ex: support NOC uniquement)"
+  constraints:
+    type: array
+    required: false
+    description: "Contraintes (budget, délais, technologies, intégrations)"
+  max_agents:
+    type: integer
+    required: false
+    default: 8
+    description: "Nombre max d'agents (règle anti-bloat FACTORY)"
+
+success_criteria:
+  - "Tous les agents du catalogue générés avec fichiers complets"
+  - "Audit qualité META-GouvernanceQA : aucun issue critique"
+  - "Routage opérationnel — intents enregistrés dans hub_routing.yaml"
+  - "Dossier archivé dans OPS-DossierIA"
+
+on_failure_global: abort_with_report
+
+steps:
+
+  - step_id: S01
+    name: "Analyse des besoins"
+    actor_id: META-AnalysteBesoinsEquipes
+    duration_minutes: 30
+    description: "Analyser le domaine et produire une spec claire, priorisée et testable."
+    input:
+      domain: "{{inputs.domain}}"
+      scope: "{{inputs.scope}}"
+      constraints: "{{inputs.constraints}}"
+    output_key: spec_besoins
+    output_schema:
+      domain_analysis: object
+      use_cases_prioritized: array
+      agents_needed_estimate: integer
+      constraints_validated: array
+    on_failure: abort
+    sla_minutes: 30
+
+  - step_id: S02
+    name: "Cartographie des rôles"
+    actor_id: META-CartographeRoles
+    duration_minutes: 20
+    description: "Identifier et nommer les agents nécessaires selon la spec. Appliquer règle anti-bloat (max 8 agents, verbe unique par agent)."
+    input:
+      spec_besoins: "{{S01.spec_besoins}}"
+      max_agents: "{{inputs.max_agents}}"
+      team_id: "{{inputs.team_id}}"
+    output_key: catalogue_roles
+    output_schema:
+      roles:
+        type: array
+        items:
+          agent_id: string
+          mission: string
+          action_verb_unique: string
+          intents: array
+          priority: "P1 | P2 | P3"
+    validation:
+      max_agents_respected: true
+      no_duplicate_verbs: true
+    on_failure: abort
+    sla_minutes: 20
+
+  - step_id: S03
+    name: "Validation stratégique"
+    actor_id: IAHQ-OrchestreurEntrepriseIA
+    duration_minutes: 15
+    description: "Valider la pertinence stratégique du catalogue avant génération."
+    input:
+      catalogue_roles: "{{S02.catalogue_roles}}"
+      domain: "{{inputs.domain}}"
+    output_key: strategic_validation
+    output_schema:
+      approved: boolean
+      adjustments: array
+      go_nogo: "go | nogo"
+    condition: "go_nogo == go"
+    on_failure: abort
+    sla_minutes: 15
+
+  - step_id: S04
+    name: "Génération des agents"
+    actor_id: META-AgentProductFactory
+    duration_minutes: 120
+    description: "Générer tous les dossiers agents (agent.yaml + contract.yaml + prompt.md + tests) pour chaque rôle du catalogue."
+    mode: loop_per_agent
+    input:
+      catalogue_roles: "{{S02.catalogue_roles}}"
+      team_id: "{{inputs.team_id}}"
+      templates:
+        agent: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__AGENT.md"
+        prompt_style: "90_KNOWLEDGE/TEMPLATES/META-PROMPT-STYLE-GUIDE.md"
+    output_key: agents_generated
+    output_schema:
+      agents:
+        type: array
+        items:
+          agent_id: string
+          files: array
+          quality_score: number
+          status: "ok | partial | failed"
+    success_condition: "agents_generated.success_rate >= 0.5"
+    on_failure: continue
+    sla_minutes: 120
+
+  - step_id: S05
+    name: "Design des workflows"
+    actor_id: META-WorkflowDesignerEquipes
+    duration_minutes: 20
+    description: "Modéliser 3–7 workflows opérationnels pour l'équipe (entrées/sorties, steps, handoffs)."
+    input:
+      agents_generated: "{{S04.agents_generated}}"
+      use_cases: "{{S01.spec_besoins.use_cases_prioritized}}"
+    output_key: workflows_designed
+    output_schema:
+      workflows: array
+      workflows_count: integer
+    on_failure: continue
+    sla_minutes: 20
+
+  - step_id: S06
+    name: "Construction des playbooks"
+    actor_id: META-PlaybookBuilder
+    duration_minutes: 25
+    description: "Créer minimum 2 playbooks opérationnels pour les cas d'usage P1 de l'équipe."
+    input:
+      workflows: "{{S05.workflows_designed.workflows}}"
+      agents: "{{S04.agents_generated.agents}}"
+      team_id: "{{inputs.team_id}}"
+    output_key: playbooks_built
+    output_schema:
+      playbooks: array
+      playbooks_count: integer
+    success_condition: "playbooks_count >= 2"
+    on_failure: continue
+    sla_minutes: 25
+
+  - step_id: S07
+    name: "Audit qualité complet"
+    actor_id: META-GouvernanceQA
+    duration_minutes: 20
+    description: "Auditer tous les agents générés — structure, cohérence, conformité FACTORY."
+    input:
+      agents_generated: "{{S04.agents_generated}}"
+      playbooks: "{{S06.playbooks_built}}"
+      team_id: "{{inputs.team_id}}"
+    output_key: audit_result
+    output_schema:
+      critical_issues: integer
+      governance_score: number
+      issues_by_agent: array
+      approval: "approved | rejected | approved_with_conditions"
+    gate:
+      condition: "critical_issues == 0"
+      on_fail: abort_with_report
+    sla_minutes: 20
+
+  - step_id: S08
+    name: "Mise à jour des index + archivage"
+    actor_id: OPS-DossierIA
+    duration_minutes: 15
+    description: "Mettre à jour agents_manifest, intents, hub_routing, teams_manifest. Archiver le dossier complet."
+    input:
+      agents_generated: "{{S04.agents_generated}}"
+      playbooks: "{{S06.playbooks_built}}"
+      team_id: "{{inputs.team_id}}"
+      audit_result: "{{S07.audit_result}}"
+    output_key: archive_result
+    actions:
+      - "Ajouter agents dans agents_manifest.yaml"
+      - "Ajouter intents dans 00_INDEX/intents.yaml"
+      - "Ajouter routage dans 40_ROUTING/hub_routing.yaml"
+      - "Ajouter team dans teams_manifest.yaml"
+      - "Créer BIRTH__TEAM__<team_id> dans OPS-DossierIA"
+    on_failure: continue
+    sla_minutes: 15
+
+notifications:
+  on_success:
+    to: [HUB-AgentMO-MasterOrchestrator, IAHQ-OrchestreurEntrepriseIA]
+    message: "Armée {{inputs.team_id}} déployée — {{S04.agents_generated.agents_count}} agents, {{S06.playbooks_built.playbooks_count}} playbooks"
+  on_abort:
+    to: [HUB-AgentMO-MasterOrchestrator]
+    message: "BUILD_ARMY_FACTORY avorté à {{failed_step}} — rapport disponible dans OPS-DossierIA"
+
+relationships:
+  called_by: [ONBOARD_NEW_TEAM]
+  calls: [CLONE_AND_ADAPT_AGENT]
+  triggers_on_failure: [FACTORY_HEALTH_CHECK]

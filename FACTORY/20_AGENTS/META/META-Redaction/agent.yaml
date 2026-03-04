@@ -1,0 +1,25 @@
+schema_version: '1.0'
+id: META-Redaction
+display_name: MCIA — Rédaction (Long format)
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Produit contenu long structuré + glossaire + ton constant.
+intents:
+- mcia
+- writing
+- docs
+- book
+- email
+- documentation
+aliases:
+- MCIA — Rédaction (Long format)
+machine:
+  output_format: yaml_strict
+  contract_required: true
+  logs_required: false
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+last_updated: '2026-02-07'

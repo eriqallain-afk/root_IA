@@ -1,0 +1,23 @@
+id: IAHQ-Strategist
+display_name: '@IAHQ-Strategist'
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: Design d'offres et business cases pour projets de transformation IA
+intents:
+- iahq
+- define_strategy
+- assess_market
+- plan_roadmap
+- evaluate_options
+- recommend_approach
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true

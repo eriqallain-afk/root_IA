@@ -1,0 +1,223 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-PlaybooksGlobal
+type: registry_memory
+purpose: Index global des playbooks (description, steps, actors).
+source:
+  playbooks_file: 40_RUNBOOKS/playbooks.yaml
+  format: yaml
+write_policy: regenerated
+index_fields:
+- playbook_id
+- step
+- actor_id
+- tags
+playbooks:
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+    actors:
+    - OPS-DossierIA
+    - OPS-PlaybookRunner
+    - OPS-RouterIA
+    step_count: 3
+    tags: []
+  BUILD_ARMY_FACTORY:
+    description: 'Usine armées : besoins -> rôles -> prompts -> audit -> plan d’intégration'
+    steps:
+    - step: requirements
+      actor_id: META-AnalysteBesoinsEquipes
+    - step: roles
+      actor_id: META-CartographeRoles
+    - step: prompts
+      actor_id: META-Opromptimizer
+    - step: audit
+      actor_id: META-SuperviseurInvisible
+    - step: package
+      actor_id: IAHQ-DevFactoryIA
+    actors:
+    - IAHQ-DevFactoryIA
+    - META-AnalysteBesoinsEquipes
+    - META-CartographeRoles
+    - META-Opromptimizer
+    - META-SuperviseurInvisible
+    step_count: 5
+    tags: []
+  IT_MSP_TICKET_TO_KB:
+    description: Ticket MSP -> diagnostic -> communication -> knowledge
+    steps:
+    - step: scribe
+      actor_id: IT-TicketScribe
+    - step: support
+      actor_id: IT-SupportMaster
+    - step: comms
+      actor_id: IT-CommsMSP
+    - step: kb
+      actor_id: IT-KnowledgeKeeper
+    actors:
+    - IT-CommsMSP
+    - IT-KnowledgeKeeper
+    - IT-SupportMaster
+    - IT-TicketScribe
+    step_count: 4
+    tags: []
+  TRAD_WATCH_TO_REPORT:
+    description: Veille -> corrélation -> rapport
+    steps:
+    - step: correlate
+      actor_id: TRAD-Correlator
+    - step: report
+      actor_id: TRAD-GlobalReport
+    actors:
+    - TRAD-Correlator
+    - TRAD-GlobalReport
+    step_count: 2
+    tags: []
+  DAM_PROJECT_CONTROL:
+    description: 'Projet DAM : conformité/budget/planning/inspection + synthèse'
+    steps:
+    - step: conformite
+      actor_id: DAM-GPT2-Conformite
+    - step: budget
+      actor_id: DAM-GPT3-Budget
+    - step: planning
+      actor_id: DAM-GPT4-Planification
+    - step: vendors
+      actor_id: DAM-GPT5-SousTraitants
+    - step: inspection
+      actor_id: DAM-GPT6-Inspection
+    - step: synthese
+      actor_id: DAM-Orchestrator
+    actors:
+    - DAM-GPT2-Conformite
+    - DAM-GPT3-Budget
+    - DAM-GPT4-Planification
+    - DAM-GPT5-SousTraitants
+    - DAM-GPT6-Inspection
+    - DAM-Orchestrator
+    step_count: 6
+    tags: []
+  IASM_SESSION:
+    description: 'Cabinet IA : intake -> risques -> analyse -> plan -> validation'
+    steps:
+    - step: intake
+      actor_id: IASM-OrchestreurCabinetIA
+    - step: risk
+      actor_id: IASM-SecuriteRisques
+    - step: analysis
+      actor_id: IASM-AnalysteSchemasRelationnels
+    - step: plan
+      actor_id: IASM-CoachDeVie
+    - step: director
+      actor_id: IASM-DirecteurCabinetIA
+    actors:
+    - IASM-AnalysteSchemasRelationnels
+    - IASM-CoachDeVie
+    - IASM-DirecteurCabinetIA
+    - IASM-OrchestreurCabinetIA
+    - IASM-SecuriteRisques
+    step_count: 5
+    tags: []
+  IAHQ_FRONTDOOR:
+    description: 'Front door business : cadrage IAHQ -> mapping process -> route ->
+      exécute -> archive'
+    steps:
+    - step: business_intake
+      actor_id: IAHQ-OrchestreurEntrepriseIA
+    - step: process_map
+      actor_id: IAHQ-ProcessMapper
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+    actors:
+    - IAHQ-OrchestreurEntrepriseIA
+    - IAHQ-ProcessMapper
+    - OPS-DossierIA
+    - OPS-PlaybookRunner
+    - OPS-RouterIA
+    step_count: 5
+    tags: []
+  NEA_MACHINE_LIVRE_V1:
+    description: 'Pipeline NEA : cadrage -> organisation notes -> cartographie ->
+      patterns -> rédaction -> imagerie -> assemblage -> archive -> validation'
+    steps:
+    - step: brief
+      actor_id: NEA-Orchestrator
+    - step: organize_notes
+      actor_id: NEA-Archiviste
+    - step: theme_map
+      actor_id: NEA-Cartographe
+    - step: patterns
+      actor_id: NEA-ConseilPatterns
+    - step: draft
+      actor_id: NEA-RedacteurRecueil
+    - step: visual_ideas
+      actor_id: NEA-Imagier
+    - step: assemble
+      actor_id: NEA-Orchestrator
+    - step: archive
+      actor_id: OPS-DossierIA
+    - step: validate
+      actor_id: META-SuperviseurInvisible
+    actors:
+    - META-SuperviseurInvisible
+    - NEA-Archiviste
+    - NEA-Cartographe
+    - NEA-ConseilPatterns
+    - NEA-Imagier
+    - NEA-Orchestrator
+    - NEA-RedacteurRecueil
+    - OPS-DossierIA
+    step_count: 9
+    tags: []
+  RADIO_MACHINE_SCRIPT_V1:
+    description: 'Pipeline Radio : analyse -> structure -> adaptation ton -> finalisation
+      -> archive -> validation MO'
+    steps:
+    - step: analyze
+      actor_id: PLR-RadioScripteur
+    - step: structure
+      actor_id: PLR-RadioScripteur
+    - step: tone_adapt
+      actor_id: ESPL-PaulLejeuneRadio
+    - step: finalize
+      actor_id: PLR-RadioScripteur
+    - step: archive
+      actor_id: OPS-DossierIA
+    - step: validate
+      actor_id: HUB-AgentMO-MasterOrchestrator
+    actors:
+    - ESPL-PaulLejeuneRadio
+    - HUB-AgentMO-MasterOrchestrator
+    - OPS-DossierIA
+    - PLR-RadioScripteur
+    step_count: 6
+    tags: []
+  HUB_MACHINE_COORDINATION_V1:
+    description: 'Coordination globale via MO : intake -> routage -> optimisation
+      prompt -> préparation exécution'
+    steps:
+    - step: intake
+      actor_id: HUB-AgentMO-MasterOrchestrator
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: prompt_opt
+      actor_id: HUB-OproEngine
+    - step: prepare_run
+      actor_id: OPS-PlaybookRunner
+    actors:
+    - HUB-AgentMO-MasterOrchestrator
+    - HUB-OproEngine
+    - OPS-PlaybookRunner
+    - OPS-RouterIA
+    step_count: 4
+    tags: []

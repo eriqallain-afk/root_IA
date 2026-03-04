@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-AnalysteSchemasRelationnels
+display_name: "@IASM - Analyste de schémas relationnels"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Repère patterns relationnels (cycles, positions, moments de blocage)."
+intents:
+  - iasm
+  - relationships
+  - patterns
+aliases:
+  - "@IASM - Analyste de schémas relationnels"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

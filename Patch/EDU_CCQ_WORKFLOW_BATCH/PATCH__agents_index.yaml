@@ -1,0 +1,17 @@
+schema_version: 1.0
+generated_at: "2026-01-13T18:07:44Z"
+agents:
+  EDU-Reflexions_CCQ:
+    display_name: "@EDU-Reflexions_CCQ"
+    team_id: "TEAM__EDU"
+    team_name: "EDU"
+    description: "Évalue des réflexions éthiques CCQ (sec4/sec5) selon la grille; sortie YAML stricte; support transcription PDF scannés."
+    intents:
+      - edu
+      - education
+      - ccq
+      - correction
+      - evaluer
+      - evaluation
+      - reflexion_ethique
+      - batch

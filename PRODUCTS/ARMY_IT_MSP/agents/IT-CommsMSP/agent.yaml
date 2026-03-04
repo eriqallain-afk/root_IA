@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-CommsMSP
+display_name: "@IT-CommsMSP"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Communication client MSP : emails, Teams, SMS maintenance/incidents."
+intents:
+  - it
+  - comms
+  - client
+aliases:
+  - "@IT-CommsMSP"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

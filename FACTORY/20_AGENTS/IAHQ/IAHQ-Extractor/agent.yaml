@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: IAHQ-Extractor
+display_name: "@IAHQ-Extractor"
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: "Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes."
+intents:
+  - extract
+  - ingest
+  - summarize
+  - structure
+aliases:
+  - "@IAHQ-Extractor"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

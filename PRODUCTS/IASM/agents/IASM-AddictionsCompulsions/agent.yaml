@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-AddictionsCompulsions
+display_name: "@IASM - Addictions & comportements compulsifs"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Cadre psychoéducatif addictions/compulsions : déclencheurs, coûts/bénéfices, pistes."
+intents:
+  - iasm
+  - addiction
+  - compulsion
+aliases:
+  - "@IASM - Addictions & comportements compulsifs"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

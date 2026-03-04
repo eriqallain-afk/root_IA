@@ -1,0 +1,11 @@
+# Contract I/O — IASM-SupportEmotionnel
+# Écoute active et validation émotionnelle
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: markdown

@@ -1,0 +1,14 @@
+request:
+  objective: Rapport TRAD sur BTC + risque cyber 24h
+  context:
+    horizon: 24h
+    assets:
+    - BTC
+    sources:
+    - news
+    - social
+  constraints:
+  - concis
+  expected_output: rapport actionnable
+expected:
+  target_playbook: TRAD_WATCH_TO_REPORT

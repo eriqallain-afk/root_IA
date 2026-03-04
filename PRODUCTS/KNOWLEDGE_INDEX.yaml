@@ -1,0 +1,1218 @@
+schema_version: '1.0'
+generated_at: '2024-02-14T03:40:00Z'
+description: Index central de tous les Knowledge Packs disponibles pour root_IA v3
+total_products: 8
+total_agents: 123
+total_knowledge_files: 398
+products:
+  DAM:
+    team_id: TEAM__DAM
+    agent_count: 22
+    knowledge_file_count: 66
+    agents:
+    - agent_id: DAM-Budget
+      display_name: '@DAM-Budget'
+      description: 'Analyse budgétaire : coûts, priorisation, risques financiers'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Budget/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Controle_Couts.md
+      - GUIDE__Estimation.md
+      - TEMPLATE__Budget_Projet.md
+      file_count: 3
+    - agent_id: DAM-Conformite
+      display_name: '@DAM-Conformite'
+      description: Vérifie la conformité RBQ, code du bâtiment, règlements municipaux
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Conformite/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT10-Fournisseurs
+      display_name: '@DAM-GPT 10 — Fournisseurs'
+      description: 'Fournisseurs : prix, dispo, délais, fiabilité.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT10-Fournisseurs/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT11-Satisfaction
+      display_name: '@DAM-GPT 11 — Satisfaction'
+      description: 'Satisfaction client : signaux faibles, risques relationnels.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT11-Satisfaction/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT12-Legal
+      display_name: '@DAM-GPT 12 — Légal'
+      description: 'Revue non-juridique : ambiguïtés, clauses à clarifier, risques.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT12-Legal/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT13-Analytics
+      display_name: '@DAM-GPT 13 — Analytics'
+      description: 'Analytics : écarts, délais, coûts, risques, dashboards.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT13-Analytics/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT2-Conformite
+      display_name: '@DAM-GPT 2 — Conformité'
+      description: 'Conformité (Québec/RBQ/municipal) : risques, écarts, correctifs.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT2-Conformite/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT3-Budget
+      display_name: '@DAM-GPT 3 — Budget'
+      description: 'Budget : cadrage coûts, priorisation, impacts.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT3-Budget/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Controle_Couts.md
+      - GUIDE__Estimation.md
+      - TEMPLATE__Budget_Projet.md
+      file_count: 3
+    - agent_id: DAM-GPT4-Planification
+      display_name: '@DAM-GPT 4 — Planification'
+      description: 'Planning : calendrier, dépendances, risques, jalons.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT4-Planification/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT5-SousTraitants
+      display_name: '@DAM-GPT 5 — Sous-Traitants'
+      description: 'Sous-traitants : soumissions, comparatifs, conformité/disponibilités.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT5-SousTraitants/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT6-Inspection
+      display_name: '@DAM-GPT 6 — Inspection'
+      description: 'Inspection : défauts/anomalies/risques, rapports.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT6-Inspection/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Points_Verification.md
+      - GUIDE__Non_Conformites.md
+      - TEMPLATE__Rapport_Inspection.md
+      file_count: 3
+    - agent_id: DAM-GPT7-Archiviste
+      display_name: '@DAM-GPT 7 — Archiviste'
+      description: Archivage documents/plans/budgets/rapports/photos.
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT7-Archiviste/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Controle_Couts.md
+      - GUIDE__Estimation.md
+      - TEMPLATE__Budget_Projet.md
+      file_count: 3
+    - agent_id: DAM-GPT8-Communication
+      display_name: '@DAM-GPT 8 — Communication'
+      description: 'Communication client : messages structurés, suivi.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT8-Communication/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-GPT9-Produits
+      display_name: '@DAM-GPT 9 — Produits'
+      description: 'Produits/matériaux : sélection, comparatifs, fiches.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-GPT9-Produits/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-Inspection
+      display_name: '@DAM-Inspection'
+      description: Crée le plan d'inspection et les checklists par étape
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Inspection/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Points_Verification.md
+      - GUIDE__Non_Conformites.md
+      - TEMPLATE__Rapport_Inspection.md
+      file_count: 3
+    - agent_id: DAM-Orchestrator
+      display_name: '@DAM-Orchestrator'
+      description: Coordonne l'analyse complète d'un projet domiciliaire
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Orchestrator/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-Planification
+      display_name: '@DAM-Planification'
+      description: 'Calendrier projet : dépendances, jalons, chemin critique'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Planification/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-SousTraitants
+      display_name: '@DAM-SousTraitants'
+      description: Évalue et compare les soumissions de sous-traitants
+      knowledge_path: PRODUCTS/DAM/agents/DAM-SousTraitants/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: DAM-Superviseur
+      display_name: '@DAM - Superviseur'
+      description: 'Supervise tous les GPTs DAM : cohérence, sécurité, hiérarchie.'
+      knowledge_path: PRODUCTS/DAM/agents/DAM-Superviseur/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/DAM/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/DAM/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/DAM/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Jalons.md
+      - RUNBOOK__Gestion_Projet.md
+      - TEMPLATE__Livrable_Type.md
+      file_count: 3
+  EDU:
+    team_id: TEAM__EDU
+    agent_count: 10
+    knowledge_file_count: 30
+    agents:
+    - agent_id: EDU-Evaluator
+      display_name: '@EDU-Evaluator'
+      description: Évalue les réflexions éthiques CCQ selon la grille officielle et
+        le barème verrouillé
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Evaluator/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Criteres_CCQ.md
+      - RUBRIQUE__Evaluation_Competences.md
+      - TEMPLATE__Rapport_Evaluation.md
+      file_count: 3
+    - agent_id: EDU-Extractor
+      display_name: '@EDU-Extractor'
+      description: Extrait le texte des copies CCQ (PDF natif + OCR pour scans)
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Extractor/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation_Donnees.md
+      - GUIDE__Extraction_Informations.md
+      - TEMPLATE__Synthese.md
+      file_count: 3
+    - agent_id: EDU-Extractor_CCQ
+      display_name: '@EDU-Extractor_CCQ'
+      description: 'Extraction / transcription CCQ : PDF natif + scans/images -> transcription
+        complète structurée par élève (sans évaluation).'
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Extractor_CCQ/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation_Donnees.md
+      - GUIDE__Extraction_Informations.md
+      - TEMPLATE__Synthese.md
+      file_count: 3
+    - agent_id: EDU-OCR-Extractor_CCQ
+      display_name: '@EDU-OCR-Extractor_CCQ'
+      description: 'Extracteur OCR fidèle pour copies CCQ : transcrit images/PDF scannés
+        sans reformuler, signale incertitudes, sort YAML/JSON exploitable.'
+      knowledge_path: PRODUCTS/EDU/agents/EDU-OCR-Extractor_CCQ/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation_Donnees.md
+      - GUIDE__Extraction_Informations.md
+      - TEMPLATE__Synthese.md
+      file_count: 3
+    - agent_id: EDU-Orchestrator
+      display_name: '@EDU-Orchestrator'
+      description: 'Coordonne le pipeline d''évaluation CCQ : extraction → évaluation
+        → rapport'
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Orchestrator/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+    - agent_id: EDU-Orchestrator_CCQ
+      display_name: '@EDU-Orchestrator_CCQ'
+      description: 'Orchestrateur CCQ : pipeline Extraction→Évaluation→Supervision
+        invisible→QA contrat→Rapport (single ou batch).'
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Orchestrator_CCQ/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+    - agent_id: EDU-Reflexions_CCQ
+      display_name: '@EDU-Reflexions_CCQ'
+      description: Évalue des réflexions éthiques CCQ (sec.4–5) selon cahier + grille
+        + barème verrouillé; transcription PDF scannés; mode batch multi-élèves; sortie
+        JSON.
+      knowledge_path: PRODUCTS/EDU/agents/EDU-Reflexions_CCQ/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/EDU/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/EDU/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/EDU/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Standards_CCQ.md
+      - RUNBOOK__Processus_Evaluation.md
+      - TEMPLATE__Documentation.md
+      file_count: 3
+  ESPL:
+    team_id: TEAM__ESPL
+    agent_count: 4
+    knowledge_file_count: 12
+    agents:
+    - agent_id: ESPL-PaulLejeuneRadio
+      display_name: '@ESPL-PaulLejeuneRadio'
+      description: 'Personnage radio Paul Lejeune : animation, recherche, scriptage'
+      knowledge_path: PRODUCTS/ESPL/agents/ESPL-PaulLejeuneRadio/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite.md
+      - GUIDE__Adaptation_Format.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/ESPL/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite.md
+      - GUIDE__Adaptation_Format.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/ESPL/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite.md
+      - GUIDE__Adaptation_Format.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/ESPL/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite.md
+      - GUIDE__Adaptation_Format.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+  IASM:
+    team_id: TEAM__IASM
+    agent_count: 23
+    knowledge_file_count: 69
+    agents:
+    - agent_id: IASM-AddictionsCompulsions
+      display_name: '@IASM - Addictions & comportements compulsifs'
+      description: 'Cadre psychoéducatif addictions/compulsions : déclencheurs, coûts/bénéfices,
+        pistes.'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-AddictionsCompulsions/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-AnalysteDiscussion
+      display_name: '@IASM - ANALYSTE DISCUSSION'
+      description: Analyse forme des échanges (ton, mots, tension) pour clarifier
+        dynamiques.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-AnalysteDiscussion/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-AnalysteSchemasRelationnels
+      display_name: '@IASM - Analyste de schémas relationnels'
+      description: Repère patterns relationnels (cycles, positions, moments de blocage).
+      knowledge_path: PRODUCTS/IASM/agents/IASM-AnalysteSchemasRelationnels/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-ClarificateurObjectifRelationnel
+      display_name: '@IASM - Clarificateur d''objectif relationnel'
+      description: Situation floue -> objectif principal + secondaires.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-ClarificateurObjectifRelationnel/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-CoachDeVie
+      display_name: '@IASM - Coach de vie'
+      description: Transforme objectif flou en plan d’action (7–30 jours).
+      knowledge_path: PRODUCTS/IASM/agents/IASM-CoachDeVie/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Objectifs.md
+      - GUIDE__Techniques_Coaching.md
+      - TEMPLATE__Plan_Action.md
+      file_count: 3
+    - agent_id: IASM-DirecteurCabinetIA
+      display_name: '@IASM - Directeur de cabinet IA'
+      description: Supervise modules, structure la réponse, valide cohérence et ton.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-DirecteurCabinetIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-GestionColere
+      display_name: '@IASM - Module Gestion de la colère'
+      description: Déclencheurs, signaux, fonction, plan d’apaisement.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-GestionColere/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-GestionEmotions
+      display_name: '@IASM - Module Gestion des émotions'
+      description: Cartographie émotions/déclencheurs/réactions, pistes concrètes.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-GestionEmotions/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Gestion_Emotions.md
+      - REFERENCE__Strategies.md
+      - TEMPLATE__Journal_Emotionnel.md
+      file_count: 3
+    - agent_id: IASM-ModuleRelationsConjugalesFamiliales
+      display_name: '@IASM - Module Relations conjugales & familiales'
+      description: 'Lecture systémique du couple/famille : places, rôles, alliances,
+        cycles.'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-ModuleRelationsConjugalesFamiliales/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-Orchestrator
+      display_name: '@IASM-Orchestrator'
+      description: 'Coordonne les modules de coaching : accueil, évaluation, orientation'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-Orchestrator/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Objectifs.md
+      - GUIDE__Techniques_Coaching.md
+      - TEMPLATE__Plan_Action.md
+      file_count: 3
+    - agent_id: IASM-OrchestreurCabinetIA
+      display_name: '@IASM - Orchestreur — Cabinet IA'
+      description: 'Porte d’entrée : intake, brief, routage modules, compilation synthèse.'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-OrchestreurCabinetIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-OutilsTCC
+      display_name: '@IASM-OutilsTCC'
+      description: 'Techniques de thérapie cognitivo-comportementale : exercices,
+        restructuration'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-OutilsTCC/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-Psychoeducateur
+      display_name: '@IASM - PSYCHOÉDUCATEUR'
+      description: Explique notions psycho/relationnelles en langage simple + exemples.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-Psychoeducateur/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-RessentiTonalite
+      display_name: '@IASM - Analyse de ressenti & tonalité'
+      description: 'Analyse texte : émotions probables, intensité, besoins, vulnérabilités.'
+      knowledge_path: PRODUCTS/IASM/agents/IASM-RessentiTonalite/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-Securite
+      display_name: '@IASM-Securite'
+      description: Évaluation de risque et protocole de sécurité en cas de détresse
+      knowledge_path: PRODUCTS/IASM/agents/IASM-Securite/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-SecuriteRisques
+      display_name: '@IASM - Sécurité / risques'
+      description: Repère signaux danger et propose limites + escalade vers aide pro.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-SecuriteRisques/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-SpecialisteRelationsCouple
+      display_name: '@IASM - Spécialiste Relations de couple'
+      description: Analyse dynamiques clés, propose pistes de dialogue et limites.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-SpecialisteRelationsCouple/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-SuperviseurEthique
+      display_name: '@IASM - Superviseur / éthique'
+      description: Relit sorties, sécurise formulations, retire tout contenu risqué/confus.
+      knowledge_path: PRODUCTS/IASM/agents/IASM-SuperviseurEthique/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: IASM-SupportEmotionnel
+      display_name: '@IASM-SupportEmotionnel'
+      description: Écoute active et validation émotionnelle
+      knowledge_path: PRODUCTS/IASM/agents/IASM-SupportEmotionnel/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Gestion_Emotions.md
+      - REFERENCE__Strategies.md
+      - TEMPLATE__Journal_Emotionnel.md
+      file_count: 3
+    - agent_id: IASM-TherapiePsychodynamique
+      display_name: '@IASM - Thérapie psychodynamique'
+      description: Exploration prudente de schémas profonds (non médical).
+      knowledge_path: PRODUCTS/IASM/agents/IASM-TherapiePsychodynamique/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/IASM/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/IASM/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/IASM/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Ethique.md
+      - GUIDE__Approche_Therapeutique.md
+      - TEMPLATE__Intervention.md
+      file_count: 3
+  IT:
+    team_id: TEAM__IT
+    agent_count: 31
+    knowledge_file_count: 122
+    agents:
+    - agent_id: IT-AssetMaster
+      display_name: '@IT-AssetMaster'
+      description: 'Inventaire IT & CMDB : structure, maintient et exploite actifs
+        HW/SW.'
+      knowledge_path: PRODUCTS/IT/agents/IT-AssetMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-BackupDRMaster
+      display_name: '@IT-BackupDRMaster'
+      description: 'Sauvegardes & DR : stratégies RPO/RTO, tests, runbooks.'
+      knowledge_path: PRODUCTS/IT/agents/IT-BackupDRMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-CTOMaster
+      display_name: '@IT-CTOMaster'
+      description: 'Directeur technique MSP : architectures, standards, arbitrages.'
+      knowledge_path: PRODUCTS/IT/agents/IT-CTOMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-CloudMaster
+      display_name: '@IT-CloudMaster'
+      description: 'Cloud Azure/M365/SaaS : architectures, gouvernance, sécurité.'
+      knowledge_path: PRODUCTS/IT/agents/IT-CloudMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Best_Practices.md
+      - REFERENCE__Commands.md
+      - RUNBOOK__Cloud_Operations.md
+      file_count: 3
+    - agent_id: IT-Commandare-NOC
+      display_name: '@IT-Commandare-NOC'
+      description: 'Orchestrateur NOC : triage des alertes, routage et escalade vers
+        TECH/SOC/CTO.'
+      knowledge_path: PRODUCTS/IT/agents/IT-Commandare-NOC/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-Commandare-OPR
+      display_name: '@IT-Commandare-OPR'
+      description: 'Orchestrateur back-office : pipeline fermeture ticket, standardisation
+        et contrôle.'
+      knowledge_path: PRODUCTS/IT/agents/IT-Commandare-OPR/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-Commandare-TECH
+      display_name: '@IT-Commandare-TECH'
+      description: 'Chef d’exécution technique : diagnostic, remédiation, plan de
+        changement et validation post-fix.'
+      knowledge_path: PRODUCTS/IT/agents/IT-Commandare-TECH/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-CommsMSP
+      display_name: '@IT-CommsMSP'
+      description: 'Communication client MSP : emails, Teams, SMS maintenance/incidents.'
+      knowledge_path: PRODUCTS/IT/agents/IT-CommsMSP/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-DevOpsMaster
+      display_name: '@IT-DevOpsMaster'
+      description: 'DevOps/CI-CD : pipelines, environnements, IaC.'
+      knowledge_path: PRODUCTS/IT/agents/IT-DevOpsMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-DirecteurGeneral
+      display_name: '@IT-DirecteurGeneral'
+      description: 'Directeur général MSP : objectifs ops -> priorités & directives.'
+      knowledge_path: PRODUCTS/IT/agents/IT-DirecteurGeneral/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-InfrastructureMaster
+      display_name: '@IT-InfrastructureMaster'
+      description: 'Serveurs/virtualisation/stockage : design, capacity planning.'
+      knowledge_path: PRODUCTS/IT/agents/IT-InfrastructureMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-InterventionCopilot
+      display_name: '@IT-InterventionCopilot'
+      description: 'Copilote dâ€™intervention LIVE : checklist, validations post-action,
+        notes structurÃ©es, closeout (CW_INTERNAL_NOTES / CW_DISCUSSION / EMAIL si
+        requis).'
+      knowledge_path: PRODUCTS/IT/agents/IT-InterventionCopilot/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Intervention.md
+      - TEMPLATE__CW_DISCUSSION.md
+      - TEMPLATE__CW_INTERNAL_NOTE.md
+      - TEMPLATE__EMAIL_CLIENT.md
+      file_count: 4
+    - agent_id: IT-InterventionLive
+      display_name: '@IT-InterventionLive'
+      description: Suit une intervention IT en temps réel et génère les rapports ConnectWise
+      knowledge_path: PRODUCTS/IT/agents/IT-InterventionLive/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Intervention.md
+      - TEMPLATE__CW_DISCUSSION.md
+      - TEMPLATE__CW_INTERNAL_NOTE.md
+      - TEMPLATE__EMAIL_CLIENT.md
+      file_count: 4
+    - agent_id: IT-KnowledgeKeeper
+      display_name: '@IT-KnowledgeKeeper'
+      description: 'Knowledge MSP : tickets résolus -> KB & runbooks.'
+      knowledge_path: PRODUCTS/IT/agents/IT-KnowledgeKeeper/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-MaintenanceMaster
+      display_name: '@IT-MaintenanceMaster'
+      description: 'Maintenance & audits : patching, plans, conformité.'
+      knowledge_path: PRODUCTS/IT/agents/IT-MaintenanceMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-MonitoringMaster
+      display_name: '@IT-MonitoringMaster'
+      description: 'Supervision/observabilité : KPIs, alertes, rapports.'
+      knowledge_path: PRODUCTS/IT/agents/IT-MonitoringMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__KPIs.md
+      - RUNBOOK__Alert_Response.md
+      - TEMPLATE__Incident_Log.md
+      file_count: 3
+    - agent_id: IT-NOC
+      display_name: '@IT-NOC'
+      description: 'Centre de commande NOC : triage alertes, escalade, communication'
+      knowledge_path: PRODUCTS/IT/agents/IT-NOC/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-NOCDispatcher
+      display_name: '@IT-NOCDispatcher'
+      description: 'Dispatcher NOC : affectation, priorisation, escalade et suivi
+        (SLA) des tickets/alertes.'
+      knowledge_path: PRODUCTS/IT/agents/IT-NOCDispatcher/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-NetworkMaster
+      display_name: '@IT-NetworkMaster'
+      description: 'Réseau : LAN/WAN/VPN/WiFi/routage/QoS/firewalls.'
+      knowledge_path: PRODUCTS/IT/agents/IT-NetworkMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-OrchestratorMSP
+      display_name: '@IT-OrchestratorMSP'
+      description: 'Chef d’orchestre MSP : reçoit demandes, mobilise experts, compile
+        livrables.'
+      knowledge_path: PRODUCTS/IT/agents/IT-OrchestratorMSP/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-ReportMaster
+      display_name: '@IT-ReportMaster'
+      description: 'Génère les rapports IT : postmortem, mensuel, QBR'
+      knowledge_path: PRODUCTS/IT/agents/IT-ReportMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-ScriptMaster
+      display_name: '@IT-ScriptMaster'
+      description: Génère des scripts PowerShell/Bash pour opérations IT MSP
+      knowledge_path: PRODUCTS/IT/agents/IT-ScriptMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-SecurityMaster
+      display_name: '@IT-SecurityMaster'
+      description: 'Cybersécurité : risques, posture, remédiations.'
+      knowledge_path: PRODUCTS/IT/agents/IT-SecurityMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-SoftwMaster
+      display_name: '@IT-SoftwMaster'
+      description: 'Logiciels & licences : conformité, coûts, optimisation licences.'
+      knowledge_path: PRODUCTS/IT/agents/IT-SoftwMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-SupportMaster
+      display_name: '@IT-SupportMaster'
+      description: 'Support TI N1–N3 : diagnostic, résolution, escalade, standards.'
+      knowledge_path: PRODUCTS/IT/agents/IT-SupportMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-Technicien
+      display_name: '@IT-Technicien'
+      description: 'Technicien MSP guide pour billets ConnectWise (NOC/SOC/Support/Autre)
+        : diagnostic court, checklist priorise validations/tests, et bloc POUR COPILOTe
+        pret à coller dans @IT-InterventionCopilot. Ne produit jamais CW_DISCUSSION/CW_INTERNAL_NOTES
+        finaux avant le "/close".
+
+        '
+      knowledge_path: PRODUCTS/IT/agents/IT-Technicien/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Intervention.md
+      - TEMPLATE__CW_DISCUSSION.md
+      - TEMPLATE__CW_INTERNAL_NOTE.md
+      - TEMPLATE__EMAIL_CLIENT.md
+      file_count: 4
+    - agent_id: IT-TicketScribe
+      display_name: '@IT-TicketScribe'
+      description: 'Rédacteur ConnectWise : notes brutes -> compte rendu + actions.'
+      knowledge_path: PRODUCTS/IT/agents/IT-TicketScribe/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: IT-VoIPMaster
+      display_name: '@IT-VoIPMaster'
+      description: 'Téléphonie IP & UC : design, évolution, optimisation.'
+      knowledge_path: PRODUCTS/IT/agents/IT-VoIPMaster/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/IT/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/IT/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/IT/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Validation.md
+      - GUIDE__Troubleshooting.md
+      - RUNBOOK__Procedures.md
+      - TEMPLATE__Report.md
+      file_count: 4
+  NEA:
+    team_id: TEAM__NEA
+    agent_count: 10
+    knowledge_file_count: 30
+    agents:
+    - agent_id: NEA-Archiviste
+      display_name: '@NEA-Archiviste'
+      description: 'Archiviste : nettoie, reformule sans trahir, titre/tags/IDs, cohérence.'
+      knowledge_path: PRODUCTS/NEA/agents/NEA-Archiviste/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Archivage.md
+      - RUNBOOK__Classification.md
+      - TEMPLATE__Metadata.md
+      file_count: 3
+    - agent_id: NEA-Cartographe
+      display_name: '@NEA-Cartographe'
+      description: 'Cartographe conceptuel : analyses -> plans, cartes, structures.'
+      knowledge_path: PRODUCTS/NEA/agents/NEA-Cartographe/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: NEA-ConseilPatterns
+      display_name: '@NEA-ConseilPatterns'
+      description: Repère patterns cosmos/terre/vivant/symboles/systèmes.
+      knowledge_path: PRODUCTS/NEA/agents/NEA-ConseilPatterns/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: NEA-Imagier
+      display_name: '@NEA-Imagier'
+      description: Crée des briefs détaillés pour les illustrations du recueil
+      knowledge_path: PRODUCTS/NEA/agents/NEA-Imagier/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: NEA-Orchestrator
+      display_name: '@NEA-Orchestrator'
+      description: 'Coordonne la création d''un recueil : plan → rédaction → illustrations
+        → révision'
+      knowledge_path: PRODUCTS/NEA/agents/NEA-Orchestrator/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: NEA-Redacteur
+      display_name: '@NEA-Redacteur'
+      description: Rédige les textes du recueil selon le plan éditorial et le ton
+        défini
+      knowledge_path: PRODUCTS/NEA/agents/NEA-Redacteur/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite_Redaction.md
+      - GUIDE__Styles_Ecriture.md
+      - TEMPLATE__Structure_Narrative.md
+      file_count: 3
+    - agent_id: NEA-RedacteurRecueil
+      display_name: '@NEA-RedacteurRecueil'
+      description: 'Rédacteur : transforme notes/analyses en sections claires.'
+      knowledge_path: PRODUCTS/NEA/agents/NEA-RedacteurRecueil/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Qualite_Redaction.md
+      - GUIDE__Styles_Ecriture.md
+      - TEMPLATE__Structure_Narrative.md
+      file_count: 3
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/NEA/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/NEA/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/NEA/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - GUIDE__Bonnes_Pratiques.md
+      - REFERENCE__Formats.md
+      - TEMPLATE__Document_Standard.md
+      file_count: 3
+  PLR:
+    team_id: TEAM__PLR
+    agent_count: 6
+    knowledge_file_count: 18
+    agents:
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/PLR/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/PLR/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/PLR/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: PLR-Orchestrator
+      display_name: '@PLR-Orchestrator'
+      description: Planifie et coordonne la production d'épisodes radio/podcast
+      knowledge_path: PRODUCTS/PLR/agents/PLR-Orchestrator/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: PLR-RadioScripteur
+      display_name: '@PLR - Radio Scripteur'
+      description: Transforme textes en scripts radio dynamiques (hooks, transitions,
+        rythme).
+      knowledge_path: PRODUCTS/PLR/agents/PLR-RadioScripteur/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+    - agent_id: PLR-Scripteur
+      display_name: '@PLR-Scripteur'
+      description: Rédige les scripts d'épisodes radio/podcast
+      knowledge_path: PRODUCTS/PLR/agents/PLR-Scripteur/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Production.md
+      - GUIDE__Style_Annie_Morneau.md
+      - TEMPLATE__Script_Radio.md
+      file_count: 3
+  TRAD:
+    team_id: TEAM__TRAD
+    agent_count: 17
+    knowledge_file_count: 51
+    agents:
+    - agent_id: OPS-DossierIA
+      display_name: '@OPS-DossierIA'
+      description: Générateur de Dossier IA produit (packaging livrable).
+      knowledge_path: PRODUCTS/TRAD/agents/OPS-DossierIA/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: OPS-PlaybookRunner
+      display_name: '@OPS-PlaybookRunner'
+      description: Exécuteur de playbook produit (déroule les étapes, valide, assemble
+        le livrable).
+      knowledge_path: PRODUCTS/TRAD/agents/OPS-PlaybookRunner/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: OPS-RouterIA
+      display_name: '@OPS-RouterIA'
+      description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+      knowledge_path: PRODUCTS/TRAD/agents/OPS-RouterIA/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-AnalytikGlobal
+      display_name: '@TRAD-AnalytikGlobal'
+      description: 'Analyste stratégique : scénarios & impacts.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-AnalytikGlobal/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Indicators.md
+      - RUNBOOK__Market_Analysis.md
+      - TEMPLATE__Intelligence_Report.md
+      file_count: 3
+    - agent_id: TRAD-CommandCore
+      display_name: '@TRAD-CommandCore'
+      description: 'Orchestrateur intelligence stratégique : coordonne les analystes'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-CommandCore/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Indicators.md
+      - RUNBOOK__Market_Analysis.md
+      - TEMPLATE__Intelligence_Report.md
+      file_count: 3
+    - agent_id: TRAD-Correlator
+      display_name: '@TRAD-Correlator'
+      description: Fusionne signaux, attribue une cote, prépare synthèse.
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-Correlator/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-CosmoPsyWatcher
+      display_name: '@TRAD-CosmoPsyWatcher'
+      description: Observateur cosmo/psycho-collectif.
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-CosmoPsyWatcher/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Monitoring_Points.md
+      - GUIDE__Signal_Detection.md
+      - TEMPLATE__Alert_Format.md
+      file_count: 3
+    - agent_id: TRAD-CryptoAnalyst
+      display_name: '@TRAD-CryptoAnalyst'
+      description: 'Intelligence crypto/DeFi : on-chain, sentiment, régulation'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-CryptoAnalyst/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Indicators.md
+      - RUNBOOK__Market_Analysis.md
+      - TEMPLATE__Intelligence_Report.md
+      file_count: 3
+    - agent_id: TRAD-CryptoStrategist
+      display_name: '@TRAD-CryptoStrategist'
+      description: 'Conseiller crypto-stratégique : décisions sur base de synthèses.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-CryptoStrategist/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-CyberWatch
+      display_name: '@TRAD-CyberWatch'
+      description: 'Veille cybersécurité : menaces, vulnérabilités, incidents'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-CyberWatch/02_TEMPLATES
+      knowledge_files:
+      - CHECKLIST__Monitoring_Points.md
+      - GUIDE__Signal_Detection.md
+      - TEMPLATE__Alert_Format.md
+      file_count: 3
+    - agent_id: TRAD-FractalMathCrypto
+      display_name: '@TRAD-FractalMathCrypto'
+      description: 'Analyse fractale crypto : BTC/ETH/SOL etc.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-FractalMathCrypto/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-GeoAnalyst
+      display_name: '@TRAD-GeoAnalyst'
+      description: 'Intelligence géopolitique et sociale : tensions, signaux faibles'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-GeoAnalyst/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Indicators.md
+      - RUNBOOK__Market_Analysis.md
+      - TEMPLATE__Intelligence_Report.md
+      file_count: 3
+    - agent_id: TRAD-GlobalReport
+      display_name: '@TRAD-GlobalReport'
+      description: 'Rédacteur : met en forme infos consolidées en rapport actionnable.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-GlobalReport/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-MarketAnalyst
+      display_name: '@TRAD-MarketAnalyst'
+      description: 'Analyse marchés financiers : tendances, signaux, risques'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-MarketAnalyst/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Indicators.md
+      - RUNBOOK__Market_Analysis.md
+      - TEMPLATE__Intelligence_Report.md
+      file_count: 3
+    - agent_id: TRAD-MarketSentinel
+      display_name: '@TRAD-MarketSentinel'
+      description: 'Surveillance marchés : crypto, devises, métaux.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-MarketSentinel/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-SocioRadar
+      display_name: '@TRAD-SocioRadar'
+      description: 'Oreille sociale : tendances virales/forums, signaux panique.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-SocioRadar/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3
+    - agent_id: TRAD-VigillIntel
+      display_name: '@TRAD-VigillIntel'
+      description: 'Veille mondiale : conflits, ressources, climat, tech, mouvements.'
+      knowledge_path: PRODUCTS/TRAD/agents/TRAD-VigillIntel/02_TEMPLATES
+      knowledge_files:
+      - REFERENCE__Sources.md
+      - RUNBOOK__Intelligence_Gathering.md
+      - TEMPLATE__Analysis_Report.md
+      file_count: 3

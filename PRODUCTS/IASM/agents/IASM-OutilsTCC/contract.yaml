@@ -1,0 +1,11 @@
+# Contract I/O — IASM-OutilsTCC
+# Techniques de thérapie cognitivo-comportementale : exercices, restructuration
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: markdown

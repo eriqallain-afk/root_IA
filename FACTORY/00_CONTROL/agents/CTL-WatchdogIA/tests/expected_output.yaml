@@ -1,0 +1,32 @@
+watchdog_report:
+  run_id: "WATCH__20260225__100000"
+  operation: "light_check"
+  timestamp: "2026-02-25T10:00:00Z"
+  scope: "all"
+  factory_status: "healthy"
+  summary:
+    total_agents_scanned: 37
+    healthy: 37
+    degraded: 0
+    critical: 0
+    orphaned: 0
+    phantom: 0
+    test_coverage_none: 0
+    test_coverage_partial: 5
+    test_coverage_full: 32
+  issues: []
+  drift_report: []
+  lifecycle_report:
+    deprecated_ready_to_archive: []
+    draft_stale: []
+    teams_without_orchestrator: []
+  recommendations: []
+  next_steps:
+    - "Prochain health check complet recommandé dans 7 jours."
+  log:
+    decisions:
+      - "Light check exécuté sur 37 agents — aucune anomalie détectée."
+    risks: []
+    assumptions: []
+    quality_score: 10
+    scan_duration_ms: 1240

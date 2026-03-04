@@ -1,0 +1,13 @@
+add_or_update_playbook:
+  EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE:
+    description: OCR -> normalisation -> détection sections -> retrieval grille ->
+      évaluation -> validation contrat
+    steps:
+    - step: ocr
+      actor_id: OPS-PlaybookRunner
+    - step: evaluate
+      actor_id: EDU-Reflexions_CCQ
+    - step: qa
+      actor_id: IAHQ-QARisk
+    - step: archive
+      actor_id: OPS-DossierIA

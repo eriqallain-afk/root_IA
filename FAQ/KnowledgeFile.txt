@@ -1,0 +1,41 @@
+Est-ce que j'upload ces fichiers dans les propriété des GPT?
+
+Oui — **mais pas “tout tel quel”**. Dans les propriétés d’un GPT, il y a 2 endroits différents, et ils n’ont pas le même rôle :
+
+## 1) Ce qui doit aller dans **Instructions**
+
+Mets dans **Instructions** tout ce qui est **critique et non-négociable**, parce que les fichiers “Knowledge” sont récupérés à la demande (le modèle peut ne pas les consulter à chaque réponse). ([OpenAI Help Center][1])
+
+Concrètement, mets ici :
+
+* la **règle de non-divulgation** (celle du `.rtf`),
+* les contraintes de format (ex. **MODE MACHINE = YAML strict**, logs obligatoires),
+* les règles de comportement (style, priorités, escalades),
+* et la consigne “utiliser `contract.yaml` comme schéma”.
+
+## 2) Ce qui peut aller dans **Knowledge (fichiers uploadés)**
+
+Upload dans **Knowledge** les documents de référence “longs” que le GPT doit pouvoir consulter :
+
+* `contract.yaml` (schéma I/O)
+* `README.md` (contexte)
+* guides, procédures, templates, checklists, etc.
+
+À savoir :
+
+* Tu peux attacher **jusqu’à 20 fichiers** à un GPT. ([OpenAI Help Center][2])
+* Limites typiques : **512 MB par fichier** et cap de tokens pour les docs texte. ([OpenAI Help Center][3])
+* Important : le help center précise que le contenu des fichiers uploadés **peut se retrouver dans les sorties**. Donc **n’upload pas** en “Knowledge” des infos que tu veux garder secrètes (prompts internes complets, secrets, procédures sensibles). ([OpenAI Help Center][4])
+
+## Recommandation pratique pour tes fichiers 01→06
+
+* **02-Prompt-interne.md** : plutôt **dans Instructions** (ou bien une version “sanitisée” en Knowledge si tu assumes qu’il peut en ressortir).
+* **04-Amorces.md** : mieux en **Prompt Starters** (copier/coller les 10 amorces), pas forcément en Knowledge. ([OpenAI Help Center][4])
+* **01 / 03 / 05 / 06** : optionnel en Knowledge (utile pour cohérence), mais attention au risque de “prompt leakage” si ça contient des éléments trop internes.
+
+Si tu me dis si tes GPT sont **publics / partagés / internes uniquement**, je te donne la config “safe” la plus adaptée (quoi mettre en Instructions vs Knowledge, et quoi retirer/neutraliser).
+
+[1]: https://help.openai.com/en/articles/9358033-key-guidelines-for-writing-instructions-for-custom-gpts?utm_source=chatgpt.com "Key Guidelines for Writing Instructions for Custom GPTs"
+[2]: https://help.openai.com/en/articles/8843948-knowledge-in-gpts?utm_source=chatgpt.com "Knowledge in GPTs"
+[3]: https://help.openai.com/en/articles/8555545-file-uploads-faq?utm_source=chatgpt.com "File Uploads FAQ"
+[4]: https://help.openai.com/en/articles/8554397-creating-a-gpt?utm_source=chatgpt.com "Creating a GPT | OpenAI Help Center"

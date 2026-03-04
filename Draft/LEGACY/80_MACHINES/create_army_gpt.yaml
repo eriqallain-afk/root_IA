@@ -1,0 +1,5 @@
+schema_version: "1.0"
+generated_at: "2025-12-28T17:09:03Z"
+machine_id: CREATE_ARMY_GPT
+entry_actor_id: META-OrchestrateurCentral
+playbook_id: BUILD_ARMY_FACTORY

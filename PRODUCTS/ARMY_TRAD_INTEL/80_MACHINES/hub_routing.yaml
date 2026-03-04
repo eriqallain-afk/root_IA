@@ -1,0 +1,37 @@
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+routing_table:
+- match_any_intents:
+  - command
+  - correlation
+  - cosmos
+  - crypto
+  - cyber
+  - intel
+  - markets
+  - quant
+  - report
+  - signals
+  - social
+  - strategy
+  - trad
+  - trad_command
+  - trad_correlation
+  - trad_cosmos
+  - trad_crypto
+  - trad_cyber
+  - trad_intel
+  - trad_quant
+  - trad_report
+  - trad_signals
+  - trad_social
+  - trad_strategy
+  - trad_watch
+  - watch
+  default_actor_id: TRAD-CommandCore
+  default_playbook_id: TRAD_WATCH_TO_REPORT
+- fallback: null
+  default_actor_id: TRAD-CommandCore
+  default_playbook_id: TRAD_WATCH_TO_REPORT
+  note: "Fallback interne produit TRAD (standalone)"

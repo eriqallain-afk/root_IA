@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: NEA-Cartographe
+display_name: "@NEA-Cartographe"
+team_id: TEAM__NEA
+team_name: NEA
+version: 1.0.0
+status: active
+description: "Cartographe conceptuel : analyses -> plans, cartes, structures."
+intents:
+  - nea
+  - mapping
+  - structure
+aliases:
+  - "@NEA-Cartographe"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

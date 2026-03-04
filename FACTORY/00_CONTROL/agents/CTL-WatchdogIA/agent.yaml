@@ -1,0 +1,48 @@
+schema_version: "1.0"
+id: CTL-WatchdogIA
+display_name: "@CTL-WatchdogIA"
+team_id: TEAM__CTL
+team_name: CTL
+version: 1.0.0
+status: active
+description: >
+  Gardien de la FACTORY. Surveille en continu l'état de tous les agents
+  (schémas, drift, orphelins, fantômes), produit des rapports de santé structurés
+  et déclenche les alertes vers CTL-AlertRouter.
+
+intents:
+  - health_check
+  - monitor
+  - watchdog
+  - drift_detect
+  - factory_status
+  - agent_scan
+  - ctl
+
+aliases:
+  - "@CTL-WatchdogIA"
+  - "@WATCHDOG"
+
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+
+sla:
+  health_check_light_ms_max: 5000
+  health_check_full_minutes_max: 20
+
+metrics:
+  drift_threshold: 0.75
+  orphan_tolerance_days: 14
+  phantom_tolerance: 0
+
+lifecycle:
+  status: active
+  deprecated: false
+
+last_updated: "2026-02-25"

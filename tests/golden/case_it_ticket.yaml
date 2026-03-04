@@ -1,0 +1,14 @@
+request:
+  objective: 'Ticket: Outlook ne synchronise plus'
+  context:
+    client: ACME
+    env:
+    - M365
+    - Windows
+    symptoms:
+    - sync stopped
+  constraints:
+  - P2
+  expected_output: résolution + message client + KB
+expected:
+  target_playbook: IT_MSP_TICKET_TO_KB

@@ -1,0 +1,116 @@
+agents:
+- actor_id: IASM-AddictionsCompulsions
+  team_id: TEAM__IASM
+  name: '@IASM - Addictions & comportements compulsifs'
+  status: active
+  path: agents/IASM-AddictionsCompulsions
+- actor_id: IASM-AnalysteDiscussion
+  team_id: TEAM__IASM
+  name: '@IASM - ANALYSTE DISCUSSION'
+  status: active
+  path: agents/IASM-AnalysteDiscussion
+- actor_id: IASM-AnalysteSchemasRelationnels
+  team_id: TEAM__IASM
+  name: '@IASM - Analyste de schémas relationnels'
+  status: active
+  path: agents/IASM-AnalysteSchemasRelationnels
+- actor_id: IASM-ClarificateurObjectifRelationnel
+  team_id: TEAM__IASM
+  name: '@IASM - Clarificateur d''objectif relationnel'
+  status: active
+  path: agents/IASM-ClarificateurObjectifRelationnel
+- actor_id: IASM-CoachDeVie
+  team_id: TEAM__IASM
+  name: '@IASM - Coach de vie'
+  status: active
+  path: agents/IASM-CoachDeVie
+- actor_id: IASM-DirecteurCabinetIA
+  team_id: TEAM__IASM
+  name: '@IASM - Directeur de cabinet IA'
+  status: active
+  path: agents/IASM-DirecteurCabinetIA
+- actor_id: IASM-GestionColere
+  team_id: TEAM__IASM
+  name: '@IASM - Module Gestion de la colère'
+  status: active
+  path: agents/IASM-GestionColere
+- actor_id: IASM-GestionEmotions
+  team_id: TEAM__IASM
+  name: '@IASM - Module Gestion des émotions'
+  status: active
+  path: agents/IASM-GestionEmotions
+- actor_id: IASM-ModuleRelationsConjugalesFamiliales
+  team_id: TEAM__IASM
+  name: '@IASM - Module Relations conjugales & familiales'
+  status: active
+  path: agents/IASM-ModuleRelationsConjugalesFamiliales
+- actor_id: IASM-Orchestrator
+  team_id: TEAM__IASM
+  name: '@IASM-Orchestrator'
+  status: active
+  path: agents/IASM-Orchestrator
+- actor_id: IASM-OrchestreurCabinetIA
+  team_id: TEAM__IASM
+  name: '@IASM - Orchestreur — Cabinet IA'
+  status: active
+  path: agents/IASM-OrchestreurCabinetIA
+- actor_id: IASM-OutilsTCC
+  team_id: TEAM__IASM
+  name: '@IASM-OutilsTCC'
+  status: active
+  path: agents/IASM-OutilsTCC
+- actor_id: IASM-Psychoeducateur
+  team_id: TEAM__IASM
+  name: '@IASM - PSYCHOÉDUCATEUR'
+  status: active
+  path: agents/IASM-Psychoeducateur
+- actor_id: IASM-RessentiTonalite
+  team_id: TEAM__IASM
+  name: '@IASM - Analyse de ressenti & tonalité'
+  status: active
+  path: agents/IASM-RessentiTonalite
+- actor_id: IASM-Securite
+  team_id: TEAM__IASM
+  name: '@IASM-Securite'
+  status: active
+  path: agents/IASM-Securite
+- actor_id: IASM-SecuriteRisques
+  team_id: TEAM__IASM
+  name: '@IASM - Sécurité / risques'
+  status: active
+  path: agents/IASM-SecuriteRisques
+- actor_id: IASM-SpecialisteRelationsCouple
+  team_id: TEAM__IASM
+  name: '@IASM - Spécialiste Relations de couple'
+  status: active
+  path: agents/IASM-SpecialisteRelationsCouple
+- actor_id: IASM-SuperviseurEthique
+  team_id: TEAM__IASM
+  name: '@IASM - Superviseur / éthique'
+  status: active
+  path: agents/IASM-SuperviseurEthique
+- actor_id: IASM-SupportEmotionnel
+  team_id: TEAM__IASM
+  name: '@IASM-SupportEmotionnel'
+  status: active
+  path: agents/IASM-SupportEmotionnel
+- actor_id: IASM-TherapiePsychodynamique
+  team_id: TEAM__IASM
+  name: '@IASM - Thérapie psychodynamique'
+  status: active
+  path: agents/IASM-TherapiePsychodynamique
+- actor_id: OPS-RouterIA
+  team_id: TEAM__OPS
+  name: '@OPS-RouterIA'
+  status: active
+  path: agents/OPS-RouterIA
+- actor_id: OPS-PlaybookRunner
+  team_id: TEAM__OPS
+  name: '@OPS-PlaybookRunner'
+  status: active
+  path: agents/OPS-PlaybookRunner
+- actor_id: OPS-DossierIA
+  team_id: TEAM__OPS
+  name: '@OPS-DossierIA'
+  status: active
+  path: agents/OPS-DossierIA

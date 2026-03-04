@@ -1,0 +1,23 @@
+﻿schema_version: '1.0'
+id: IT-InterventionCopilot
+display_name: '@IT-InterventionCopilot'
+team_id: TEAM__IT
+team_name: IT
+version: 0.1.0
+status: active
+description: 'Copilote dâ€™intervention LIVE : checklist, validations post-action, notes
+  structurÃ©es, closeout (CW_INTERNAL_NOTES / CW_DISCUSSION / EMAIL si requis).'
+intents:
+- it
+- msp
+- intervention
+- ticket_live
+- support
+- closeout
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: PRODUCTS/IT/agents/IT-InterventionCopilot/contract.yaml
+  prompt: PRODUCTS/IT/agents/IT-InterventionCopilot/prompt.md

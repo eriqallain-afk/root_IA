@@ -1,0 +1,20 @@
+schema_version: "1.0"
+id: META-PlaybookBuilder
+display_name: '@META-PlaybookBuilder'
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Conçoit des playbooks (enchaînements multi-agents) clairs, testables
+  et alignés sur la gouvernance.
+intents:
+- playbook
+- workflow
+- automation
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

@@ -1,0 +1,11 @@
+# Contract I/O — DAM-Budget
+# Analyse budgétaire : coûts, priorisation, risques financiers
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

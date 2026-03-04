@@ -1,0 +1,36 @@
+id: TEAM-META
+name: "@META"
+status: active
+
+owner_orchestrator: "ORCH-META"
+upstream_orchestrator: "AGENT-MO"
+upstream_backup_orchestrator: "AGENT-MO2"
+
+mission: "Usine à armées de GPT : design d’agents, architectures, prompts, interfaces, tests."
+
+scope:
+  in: ["besoins", "process", "contraintes", "IP à valider"]
+  out: ["agents", "interfaces", "tests", "validation META", "standards agents"]
+
+interfaces:
+  consumes: []
+  produces: ["VALIDATION-META"]
+
+agents:
+  - "ORCH-META"
+
+rules:
+  - "Pas d’agent livré sans limites + tests minimum."
+  - "Validation META obligatoire sur tout IP."
+
+kpi:
+  - "Temps de création d’une armée"
+  - "Taux de réutilisation des modules"
+
+known_risks:
+  - "Doublons de rôles"
+  - "Interfaces non standardisées"
+
+last_review: "2025-12-15"
+version: "1.0.0"
+

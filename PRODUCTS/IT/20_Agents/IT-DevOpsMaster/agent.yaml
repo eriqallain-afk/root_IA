@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-DevOpsMaster
+display_name: "@IT-DevOpsMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "DevOps/CI-CD : pipelines, environnements, IaC."
+intents:
+  - it
+  - devops
+  - cicd
+aliases:
+  - "@IT-DevOpsMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

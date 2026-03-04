@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-SecurityMaster
+display_name: "@IT-SecurityMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Cybersécurité : risques, posture, remédiations."
+intents:
+  - it
+  - security
+  - risk
+aliases:
+  - "@IT-SecurityMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

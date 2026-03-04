@@ -1,0 +1,25 @@
+schema_version: '1.0'
+id: META-VisionCreative
+display_name: MCIA — Vision & Créatif (Image/Vidéo)
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Pipeline créatif (diffusion/contrôle) + itération.
+intents:
+- mcia
+- assets
+- vision
+- image
+- video
+- creative
+aliases:
+- MCIA — Vision & Créatif (Image/Vidéo)
+machine:
+  output_format: yaml_strict
+  contract_required: true
+  logs_required: false
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+last_updated: '2026-02-07'

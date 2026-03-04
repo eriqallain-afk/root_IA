@@ -1,0 +1,11 @@
+# Contract I/O — EDU-Orchestrator
+# Coordonne le pipeline d'évaluation CCQ : extraction → évaluation → rapport
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

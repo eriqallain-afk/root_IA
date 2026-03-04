@@ -1,0 +1,124 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.663405'
+playbooks:
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_CHANGE_EXEC:
+    description: Planifier/exécuter un change -> validations -> reporting -> archive
+    steps:
+    - step: assess
+      actor_id: IT-Commandare-TECH
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: implement
+      actor_id: IT-Commandare-TECH
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_COMMANDARE_NOC:
+    description: 'Commandare NOC: triage/diagnostic initial, sévérité, plan de réponse.'
+    steps:
+    - step: execute
+      actor_id: IT-Commandare-NOC
+  IT_COMMANDARE_OPR:
+    description: 'Commandare OPR: gouvernance ops, communication, coordination & contrôle.'
+    steps:
+    - step: execute
+      actor_id: IT-Commandare-OPR
+  IT_COMMANDARE_TECH:
+    description: 'Commandare TECH: troubleshooting/RCA, plan de remediation, risques.'
+    steps:
+    - step: cadrage
+      actor_id: IT-OrchestratorMSP
+    - step: execute
+      actor_id: IT-Commandare-TECH
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_CW_INTERVENTION_LIVE_CLOSE:
+    description: 'ConnectWise : LIVE journal + closeout CW + KB'
+    steps:
+    - step: intervention
+      actor_id: IT-InterventionCopilot
+    - step: kb
+      actor_id: IT-KnowledgeKeeper
+  IT_INCIDENT_TRIAGE:
+    description: NOC triage -> dispatch -> remediation -> reporting -> archive
+    steps:
+    - step: triage
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: execute
+      actor_id: IT-Commandare-TECH
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_MSP_LIVE_ASSIST:
+    description: "Assistance MSP temps réel (appel/chat/remote) : triage guidé, notes ticket, comms, escalade, KB draft."
+    steps:
+      - step: execute
+        actor_id: IT-MSPLiveAssistant
+  IT_MSP_TICKET_TO_KB:
+    description: Ticket MSP -> diagnostic -> communication -> knowledge
+    steps:
+    - step: scribe
+      actor_id: IT-TicketScribe
+    - step: support
+      actor_id: IT-SupportMaster
+    - step: comms
+      actor_id: IT-CommsMSP
+    - step: kb
+      actor_id: IT-KnowledgeKeeper
+  IT_NOC_DISPATCH:
+    description: 'NOC dispatch: prioriser/assigner/escalader et suivre SLA.'
+    steps:
+    - step: triage
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_NOC_HANDOFF:
+    description: Handoff NOC (fin de quart/escalade) -> synthèse -> reporting -> archive
+    steps:
+    - step: summarize
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+
+  IT_MAINT_PATCH_REBOOT_VALIDATE:
+    description: "Maintenance Windows (patching via CW RMM) : plan -> precheck -> patch -> reboot (si requis) -> postcheck -> closeout."
+    steps:
+      - step: plan
+        actor_id: IT-MaintenanceMaster
+      - step: live_assist
+        actor_id: IT-MSPLiveAssistant
+      - step: closeout
+        actor_id: IT-InterventionCopilot
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  IT_POST_SHUTDOWN_VALIDATE:
+    description: "Post-shutdown électrique : baseline réseau/stockage/virtualisation -> services critiques -> monitoring -> rapport."
+    steps:
+      - step: triage
+        actor_id: IT-Commandare-NOC
+      - step: validate
+        actor_id: IT-MSPLiveAssistant
+      - step: report
+        actor_id: IT-ReportMaster
+      - step: archive
+        actor_id: OPS-DossierIA

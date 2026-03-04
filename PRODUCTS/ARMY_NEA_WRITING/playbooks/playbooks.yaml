@@ -1,0 +1,29 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.786201'
+playbooks:
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  NEA_MACHINE_LIVRE_V1:
+    description: 'NEA : cadrage -> structure -> patterns -> rédaction -> imagerie -> archivage -> dossier'
+    steps:
+    - step: brief
+      actor_id: NEA-Orchestrator
+    - step: structure
+      actor_id: NEA-Cartographe
+    - step: patterns
+      actor_id: NEA-ConseilPatterns
+    - step: redaction
+      actor_id: NEA-RedacteurRecueil
+    - step: imagerie
+      actor_id: NEA-Imagier
+    - step: archivage
+      actor_id: NEA-Archiviste
+    - step: dossier
+      actor_id: OPS-DossierIA

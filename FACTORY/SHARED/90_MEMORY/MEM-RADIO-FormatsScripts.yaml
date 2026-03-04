@@ -1,0 +1,21 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-RADIO-FormatsScripts
+type: domain_memory
+purpose: 'Formats & gabarits Radio : structures d’émission, repères tempo, intentions,
+  styles.'
+write_policy: versioned
+index_fields:
+- show
+- format
+- segment
+- updated_at
+- tags
+- owner
+owner_team: RADIO
+suggested_sections:
+- show_profiles
+- format_templates
+- timing_guides
+- tone_guides
+- call_to_action

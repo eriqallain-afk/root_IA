@@ -1,0 +1,14 @@
+alert_routing:
+  result:
+    status: "alerts_sent"
+    alerts_emitted:
+      - severity: "P1"
+        agent_id: "META-PromptMaster"
+        issue_type: "drift_detected"
+        blocking: false
+        routed_to:
+          - agent_id: "META-GouvernanceQA"
+          - agent_id: "OPS-DossierIA"
+    suppressed_alerts: []
+  log:
+    quality_score: 9

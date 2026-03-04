@@ -1,0 +1,11 @@
+# Contract I/O — TRAD-CryptoAnalyst
+# Intelligence crypto/DeFi : on-chain, sentiment, régulation
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

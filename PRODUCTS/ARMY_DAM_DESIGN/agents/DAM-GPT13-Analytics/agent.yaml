@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT13-Analytics
+display_name: "@DAM-GPT 13 — Analytics"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Analytics : écarts, délais, coûts, risques, dashboards."
+intents:
+  - dam
+  - analytics
+  - kpi
+aliases:
+  - "@DAM-GPT 13 — Analytics"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

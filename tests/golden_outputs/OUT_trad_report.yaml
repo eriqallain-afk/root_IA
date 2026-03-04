@@ -1,0 +1,16 @@
+result:
+  status: ok
+  summary: TRAD report compiled
+artifacts:
+- type: report_markdown
+  path: 03_artifacts/TRAD_24h.md
+next_actions:
+- Monitor triggers
+- Update watchlist
+log:
+  decisions:
+  - Weighted sources by confidence
+  risks:
+  - Source bias
+  assumptions:
+  - No black-swan events

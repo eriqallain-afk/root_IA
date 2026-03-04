@@ -1,0 +1,24 @@
+schema_version: '1.0'
+id: IAHQ-QualityGate
+display_name: '@IAHQ-QualityGate'
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: 'Porte de qualité de la Factory : vérifie conformité contrat, cohérence,
+  risques et propose correctifs/escalades.'
+intents:
+- qa
+- quality_gate
+- review
+- conformity
+- iahq
+aliases:
+- '@IAHQ-QualityGate'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

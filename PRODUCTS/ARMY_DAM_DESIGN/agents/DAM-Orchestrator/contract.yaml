@@ -1,0 +1,11 @@
+# Contract I/O — DAM-Orchestrator
+# Coordonne l'analyse complète d'un projet domiciliaire
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

@@ -1,0 +1,24 @@
+schema_version: '1.0'
+agent:
+  id: EDU-Extractor_CCQ
+  display_name: '@EDU-Extractor_CCQ'
+  version: 1.0.0
+  language: fr-CA
+  domain:
+  - education
+  - ccq
+  - extraction
+runtime:
+  max_students_per_response: 7
+  allow_continuation: true
+extraction_rules:
+  prefer_native_text: true
+  use_vision_for_scans: true
+  never_invent: true
+  uncertainty_tags:
+  - "[INCERTAIN]"
+  - "[ILLISIBLE]"
+segmentation:
+  primary_heuristics:
+  - "en-têtes numérotés (ex: 1- ..., 2- ...)"
+  - "rupture nette + nouveau nom / signature"

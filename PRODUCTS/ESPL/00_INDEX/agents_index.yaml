@@ -1,0 +1,37 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.555742'
+agents:
+  ESPL-PaulLejeuneRadio:
+    display_name: '@ESPL-PaulLejeuneRadio'
+    team_id: TEAM__ESPL
+    team_name: ESPL
+    description: 'Personnage radio Paul Lejeune : animation, recherche, scriptage'
+    intents:
+    - espl
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

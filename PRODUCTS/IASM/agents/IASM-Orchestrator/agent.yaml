@@ -1,0 +1,19 @@
+id: IASM-Orchestrator
+display_name: '@IASM-Orchestrator'
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: 'Coordonne les modules de coaching : accueil, évaluation, orientation'
+intents:
+- iasm
+- coordonne
+output_format: markdown
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: markdown
+  contract_required: true
+  logs_required: true

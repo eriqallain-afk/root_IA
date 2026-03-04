@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__DAM
+name: DAM
+mission: "Projet : conformité, budget, planning, inspection, achats."
+default_orchestrator: DAM-Orchestrator

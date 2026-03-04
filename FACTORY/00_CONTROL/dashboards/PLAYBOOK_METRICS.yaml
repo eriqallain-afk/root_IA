@@ -1,0 +1,84 @@
+schema_version: "1.0"
+dashboard_id: PLAYBOOK_METRICS
+description: "Métriques d'exécution des playbooks — runs, succès, durée, artifacts"
+owner: TEAM__CTL
+updated_at: "2026-02-28"
+
+# ============================================================
+# SCHÉMA — consommé depuis run_metrics.schema.yaml (OPS)
+# ============================================================
+metrics_schema:
+  per_playbook:
+    playbook_id: string
+    runs_total: 0
+    runs_success: 0
+    runs_partial: 0
+    runs_failed: 0
+    success_rate: null
+    avg_duration_seconds: null
+    last_run: null
+    last_status: null
+
+thresholds:
+  success_rate_warning: 0.80
+  avg_duration_warning_seconds: 300
+
+# ============================================================
+# PLAYBOOKS SUIVIS
+# ============================================================
+playbooks_tracked:
+  - playbook_id: "PB_FAB_01_BUILD_ARMY_FACTORY"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_CTL_01_FACTORY_HEALTH_CHECK"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_CTL_03_POST_MORTEM_ANALYSIS"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_EXP_01_ONBOARD_NEW_TEAM"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_FAB_03_BUILD_TEAM_FROM_SCRATCH"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_FAB_04_CLONE_AND_ADAPT_AGENT"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_HUB_01_ORCHESTRATE_AND_DISPATCH"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_IAHQ_01_FRONTDOOR"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"
+  - playbook_id: "PB_OPT_02_ARMY_AUDIT_COMPLETE"
+    runs_total: 0
+    success_rate: null
+    last_run: null
+    status: "no_data"

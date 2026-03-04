@@ -1,0 +1,194 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.414519'
+agents:
+  DAM-Budget:
+    display_name: '@DAM-Budget'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Analyse budgétaire : coûts, priorisation, risques financiers'
+    intents:
+    - dam
+    - analyse
+  DAM-Conformite:
+    display_name: '@DAM-Conformite'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Vérifie la conformité RBQ, code du bâtiment, règlements municipaux
+    intents:
+    - dam
+  DAM-GPT10-Fournisseurs:
+    display_name: '@DAM-GPT 10 — Fournisseurs'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Fournisseurs : prix, dispo, délais, fiabilité.'
+    intents:
+    - dam
+    - suppliers
+    - procurement
+  DAM-GPT11-Satisfaction:
+    display_name: '@DAM-GPT 11 — Satisfaction'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Satisfaction client : signaux faibles, risques relationnels.'
+    intents:
+    - dam
+    - customer
+    - satisfaction
+  DAM-GPT12-Legal:
+    display_name: '@DAM-GPT 12 — Légal'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Revue non-juridique : ambiguïtés, clauses à clarifier, risques.'
+    intents:
+    - dam
+    - legal
+    - review
+  DAM-GPT13-Analytics:
+    display_name: '@DAM-GPT 13 — Analytics'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Analytics : écarts, délais, coûts, risques, dashboards.'
+    intents:
+    - dam
+    - analytics
+    - kpi
+  DAM-GPT2-Conformite:
+    display_name: '@DAM-GPT 2 — Conformité'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Conformité (Québec/RBQ/municipal) : risques, écarts, correctifs.'
+    intents:
+    - dam
+    - compliance
+    - risk
+  DAM-GPT3-Budget:
+    display_name: '@DAM-GPT 3 — Budget'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Budget : cadrage coûts, priorisation, impacts.'
+    intents:
+    - dam
+    - budget
+    - cost
+  DAM-GPT4-Planification:
+    display_name: '@DAM-GPT 4 — Planification'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Planning : calendrier, dépendances, risques, jalons.'
+    intents:
+    - dam
+    - planning
+    - schedule
+  DAM-GPT5-SousTraitants:
+    display_name: '@DAM-GPT 5 — Sous-Traitants'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Sous-traitants : soumissions, comparatifs, conformité/disponibilités.'
+    intents:
+    - dam
+    - vendors
+    - procurement
+  DAM-GPT6-Inspection:
+    display_name: '@DAM-GPT 6 — Inspection'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Inspection : défauts/anomalies/risques, rapports.'
+    intents:
+    - dam
+    - inspection
+    - quality
+  DAM-GPT7-Archiviste:
+    display_name: '@DAM-GPT 7 — Archiviste'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Archivage documents/plans/budgets/rapports/photos.
+    intents:
+    - dam
+    - archive
+    - docs
+  DAM-GPT8-Communication:
+    display_name: '@DAM-GPT 8 — Communication'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Communication client : messages structurés, suivi.'
+    intents:
+    - dam
+    - comms
+    - client
+  DAM-GPT9-Produits:
+    display_name: '@DAM-GPT 9 — Produits'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Produits/matériaux : sélection, comparatifs, fiches.'
+    intents:
+    - dam
+    - products
+    - selection
+  DAM-Inspection:
+    display_name: '@DAM-Inspection'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Crée le plan d'inspection et les checklists par étape
+    intents:
+    - dam
+    - cree
+  DAM-Orchestrator:
+    display_name: '@DAM-Orchestrator'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Coordonne l'analyse complète d'un projet domiciliaire
+    intents:
+    - dam
+    - analyse
+    - coordonne
+  DAM-Planification:
+    display_name: '@DAM-Planification'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Calendrier projet : dépendances, jalons, chemin critique'
+    intents:
+    - dam
+  DAM-SousTraitants:
+    display_name: '@DAM-SousTraitants'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Évalue et compare les soumissions de sous-traitants
+    intents:
+    - dam
+    - evalue
+  DAM-Superviseur:
+    display_name: '@DAM - Superviseur'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Supervise tous les GPTs DAM : cohérence, sécurité, hiérarchie.'
+    intents:
+    - dam
+    - qa
+    - governance
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

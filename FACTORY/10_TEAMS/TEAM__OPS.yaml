@@ -1,0 +1,26 @@
+schema_version: "1.0"
+team_id: TEAM__OPS
+name: OPS
+mission: "Routage, exécution playbooks, dossier projet, exploitation."
+default_orchestrator: OPS-RouterIA
+
+agents_count: 3
+
+key_agents:
+  - OPS-RouterIA
+  - OPS-PlaybookRunner
+  - OPS-DossierIA
+
+capabilities:
+  - Routage technique (latence <1s, 6 étapes obligatoires)
+  - Exécution playbooks (retry / skip / abort / pause / reprise)
+  - Mémoire persistante projets (create / append / close / search)
+
+policies:
+  - FACTORY/50_POLICIES/OPS_RUNTIME_POLICY.yaml
+
+runbooks:
+  - FACTORY/40_RUNBOOKS/RUNBOOK_PLAYBOOK_FAILURE.md
+  - FACTORY/40_RUNBOOKS/RUNBOOK_DOSSIER_CORRUPTION.md
+
+last_updated: "2026-03-02"

@@ -1,0 +1,21 @@
+﻿schema_version: '1.0'
+id: MCIA-Prompting
+display_name: MCIA â€” Prompting (QualitÃ© dâ€™instructions)
+team_id: TEAM__MCIA
+team_name: MasterClassIA
+version: 1.0.0
+status: active
+description: Transforme demande floue â†’ prompt exploitable + format.
+intents:
+- mcia
+- prompt
+- reverse_prompt
+- standardize
+- optimize
+machine:
+  output_format: yaml_strict
+  contract_required: true
+  logs_required: false
+interfaces:
+  contract:FACTORY/20_AGENTS/MCIA/MCIA-Prompting/contract.yaml
+  prompt:FACTORY/20_AGENTS/MCIA/MCIA-Prompting/prompt.md

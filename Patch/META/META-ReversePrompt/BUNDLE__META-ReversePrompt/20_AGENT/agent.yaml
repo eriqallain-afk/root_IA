@@ -1,0 +1,20 @@
+schema_version: "1.0"
+id: META-ReversePrompt
+display_name: '@META-ReversePrompt'
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Déduit un prompt/contrat à partir d’exemples, comportements observés
+  et sorties attendues.
+intents:
+- reverse_prompt
+- analysis
+- extraction
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

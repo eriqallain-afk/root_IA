@@ -1,0 +1,1132 @@
+schema_version: "1.0"
+generated_at: '2026-01-31T02:56:05Z'
+agents:
+  DAM-GPT10-Fournisseurs:
+    display_name: '@DAM-GPT 10 — Fournisseurs'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Fournisseurs : prix, dispo, délais, fiabilité.'
+    intents:
+    - dam
+    - suppliers
+    - procurement
+  DAM-GPT11-Satisfaction:
+    display_name: '@DAM-GPT 11 — Satisfaction'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Satisfaction client : signaux faibles, risques relationnels.'
+    intents:
+    - dam
+    - customer
+    - satisfaction
+  DAM-GPT12-Legal:
+    display_name: '@DAM-GPT 12 — Légal'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Revue non-juridique : ambiguïtés, clauses à clarifier, risques.'
+    intents:
+    - dam
+    - legal
+    - review
+  DAM-GPT13-Analytics:
+    display_name: '@DAM-GPT 13 — Analytics'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Analytics : écarts, délais, coûts, risques, dashboards.'
+    intents:
+    - dam
+    - analytics
+    - kpi
+  DAM-GPT2-Conformite:
+    display_name: '@DAM-GPT 2 — Conformité'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Conformité (Québec/RBQ/municipal) : risques, écarts, correctifs.'
+    intents:
+    - dam
+    - compliance
+    - risk
+  DAM-GPT3-Budget:
+    display_name: '@DAM-GPT 3 — Budget'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Budget : cadrage coûts, priorisation, impacts.'
+    intents:
+    - dam
+    - budget
+    - cost
+  DAM-GPT4-Planification:
+    display_name: '@DAM-GPT 4 — Planification'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Planning : calendrier, dépendances, risques, jalons.'
+    intents:
+    - dam
+    - planning
+    - schedule
+  DAM-GPT5-SousTraitants:
+    display_name: '@DAM-GPT 5 — Sous-Traitants'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Sous-traitants : soumissions, comparatifs, conformité/disponibilités.'
+    intents:
+    - dam
+    - vendors
+    - procurement
+  DAM-GPT6-Inspection:
+    display_name: '@DAM-GPT 6 — Inspection'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Inspection : défauts/anomalies/risques, rapports.'
+    intents:
+    - dam
+    - inspection
+    - quality
+  DAM-GPT7-Archiviste:
+    display_name: '@DAM-GPT 7 — Archiviste'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: Archivage documents/plans/budgets/rapports/photos.
+    intents:
+    - dam
+    - archive
+    - docs
+  DAM-GPT8-Communication:
+    display_name: '@DAM-GPT 8 — Communication'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Communication client : messages structurés, suivi.'
+    intents:
+    - dam
+    - comms
+    - client
+  DAM-GPT9-Produits:
+    display_name: '@DAM-GPT 9 — Produits'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Produits/matériaux : sélection, comparatifs, fiches.'
+    intents:
+    - dam
+    - products
+    - selection
+  DAM-Orchestrator:
+    display_name: '@DAM-Orchestrator'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Coordonne GPTs DAM : conformité, budget, planning, produits, inspection, synthèse.'
+    intents:
+    - dam
+    - orchestrate
+    - project
+  DAM-Superviseur:
+    display_name: '@DAM - Superviseur'
+    team_id: TEAM__DAM
+    team_name: DAM
+    description: 'Supervise tous les GPTs DAM : cohérence, sécurité, hiérarchie.'
+    intents:
+    - dam
+    - qa
+    - governance
+  EDU-Extractor_CCQ:
+    display_name: '@EDU-Extractor_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Extracteur/transcripteur CCQ : récupère fidèlement le contenu des copies (texte, image, scan, PDF scanné)
+      et le sort en YAML exploitable.'
+    intents:
+    - education
+    - ccq
+    - extract
+    - extraction
+    - transcription
+    - transcrire
+    - ocr
+    - scan
+    - pdf_scan
+    - batch_extract
+  EDU-OCR-Extractor_CCQ:
+    display_name: '@EDU-OCR-Extractor_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'OCR CCQ : extrait/transcrit le texte depuis photo/scan/PDF scanné et le rend en YAML exploitable (fidèle,
+      sans interprétation).'
+    intents:
+    - ocr
+    - transcription
+    - scan
+    - photo
+    - ccq
+    - education
+    - batch
+  EDU-Orchestrator_CCQ:
+    display_name: '@EDU-Orchestrator_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Orchestreur CCQ (alias @EDU-Orchestreur-CCQ) : enchaîne extraction → évaluation → compilation du rapport
+      final (unitaire ou batch) en respectant le contrat.'
+    intents:
+    - batch
+    - batch_eval
+    - ccq
+    - correction
+    - education
+    - evaluation
+    - extract
+    - extraction
+    - ocr
+    - orchestration
+    - transcription
+    - workflow
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__EDU
+    team_name: EDU
+    description: 'Évaluateur CCQ : corrige des réponses (notamment réflexion éthique) selon une grille verrouillée et produit
+      une sortie YAML structurée.'
+    intents:
+    - batch
+    - ccq
+    - citoyennete
+    - correction
+    - culture
+    - education
+    - ethique
+    - evaluation
+    - reflexion_ethique
+  ESPL-PaulLejeuneRadio:
+    display_name: '@ESPL-GPT-Paul-Lejeune Radio'
+    team_id: TEAM__ESPL
+    team_name: ESPL
+    description: 'Assistant radio Paul-Lejeune : adaptation et structure de segments.'
+    intents:
+    - radio
+    - script
+    - adaptation
+  HUB-AgentMO-MasterOrchestrator:
+    display_name: '@HUB - AGENT-MO — Master Orchestrator'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch, compilation.'
+    intents:
+    - orchestrate
+    - intake
+    - dispatch
+  HUB-AgentMO2-DeputyOrchestrator:
+    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance modules.'
+    intents:
+    - orchestrate
+    - qa
+    - brief
+  HUB-AvatarForge:
+    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction artistique, déclinaisons).
+    intents:
+    - brand
+    - avatar
+    - design
+    - assets
+  HUB-CoachIA360-Strategie-GPTTeams:
+    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Coach stratégie : structuration offres, équipes GPT, roadmap, priorisation.'
+    intents:
+    - coach
+    - strategy
+    - teams
+    - roadmap
+  HUB-IA-ChatBotMaster:
+    display_name: '@HUB - IA-ChatBotMaster'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices, design conversationnel.'
+    intents:
+    - chatbot
+    - architecture
+    - conversation
+  HUB-ITCoachIA360:
+    display_name: '@HUB - IT Coach IA 360'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement, adoption.'
+    intents:
+    - coach
+    - it
+    - strategy
+    - deployment
+  HUB-OproEngine:
+    display_name: '@HUB-OproEngine'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Optimisation prompts : supervise, améliore, standardise et teste les prompts.'
+    intents:
+    - prompt
+    - optimize
+    - standardize
+    - qa
+  IAHQ-AdminManagerIA:
+    display_name: '@IAHQ-AdminManagerIA'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
+    intents:
+    - admin
+    - operations
+    - offers
+    - governance
+  IAHQ-DevFactoryIA:
+    display_name: '@IAHQ-DevFactoryIA'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Plan build & déploiement : packaging, intégrations, gouvernance, livraison.'
+    intents:
+    - build
+    - deployment
+    - plan
+    - delivery
+  IAHQ-Economist:
+    display_name: '@IAHQ-Economist'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: Évalue les coûts/gains, construit business case et ROI.
+    intents:
+    - roi
+    - cost
+    - finance
+    - business_case
+  IAHQ-Extractor:
+    display_name: '@IAHQ-Extractor'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes.'
+    intents:
+    - extract
+    - ingest
+    - summarize
+    - structure
+  IAHQ-OrchestreurEntrepriseIA:
+    display_name: '@IAHQ-OrchestreurEntrepriseIA'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres, roadmap, organisation.'
+    intents:
+    - strategy
+    - company
+    - positioning
+    - portfolio
+    - business
+    - sales
+    - proposal
+    - discovery
+    - transformation
+  IAHQ-ProcessMapper:
+    display_name: '@IAHQ-ProcessMapper'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Cartographie processus : flux, étapes, exceptions, rôles.'
+    intents:
+    - process
+    - mapping
+    - workflow
+  IAHQ-SolutionOrchestrator:
+    display_name: '@IAHQ-SolutionOrchestrator'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Orchestrateur solution client : contexte, process, risques, ROI, vision cible.'
+    intents:
+    - solution
+    - architecture
+    - client
+    - blueprint
+  IAHQ-TechLeadIA:
+    display_name: '@IAHQ-TechLeadIA'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'CTO virtuel : architecture technique, briques IA, intégrations, data, sécurité.'
+    intents:
+    - cto
+    - architecture
+    - security
+    - data
+  IASM-AddictionsCompulsions:
+    display_name: '@IASM - Addictions & comportements compulsifs'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Cadre psychoéducatif addictions/compulsions : déclencheurs, coûts/bénéfices, pistes.'
+    intents:
+    - iasm
+    - addiction
+    - compulsion
+  IASM-AnalysteDiscussion:
+    display_name: '@IASM - ANALYSTE DISCUSSION'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Analyse forme des échanges (ton, mots, tension) pour clarifier dynamiques.
+    intents:
+    - iasm
+    - conversation
+    - analysis
+  IASM-AnalysteSchemasRelationnels:
+    display_name: '@IASM - Analyste de schémas relationnels'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Repère patterns relationnels (cycles, positions, moments de blocage).
+    intents:
+    - iasm
+    - relationships
+    - patterns
+  IASM-ClarificateurObjectifRelationnel:
+    display_name: '@IASM - Clarificateur d''objectif relationnel'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Situation floue -> objectif principal + secondaires.
+    intents:
+    - iasm
+    - goal
+    - clarify
+  IASM-CoachDeVie:
+    display_name: '@IASM - Coach de vie'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Transforme objectif flou en plan d’action (7–30 jours).
+    intents:
+    - iasm
+    - coaching
+    - actions
+  IASM-DirecteurCabinetIA:
+    display_name: '@IASM - Directeur de cabinet IA'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Supervise modules, structure la réponse, valide cohérence et ton.
+    intents:
+    - iasm
+    - orchestrate
+    - qa
+  IASM-GestionColere:
+    display_name: '@IASM - Module Gestion de la colère'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Déclencheurs, signaux, fonction, plan d’apaisement.
+    intents:
+    - iasm
+    - anger
+    - regulation
+  IASM-GestionEmotions:
+    display_name: '@IASM - Module Gestion des émotions'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Cartographie émotions/déclencheurs/réactions, pistes concrètes.
+    intents:
+    - iasm
+    - emotion
+    - regulation
+  IASM-ModuleRelationsConjugalesFamiliales:
+    display_name: '@IASM - Module Relations conjugales & familiales'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Lecture systémique du couple/famille : places, rôles, alliances, cycles.'
+    intents:
+    - iasm
+    - family
+    - systemic
+  IASM-OrchestreurCabinetIA:
+    display_name: '@IASM - Orchestreur — Cabinet IA'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Porte d’entrée : intake, brief, routage modules, compilation synthèse.'
+    intents:
+    - iasm
+    - intake
+    - route
+  IASM-OutilsTCC:
+    display_name: '@IASM - Outils inspirés de la TCC'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Outils TCC : situation→pensées→émotions→comportements, tests et exercices simples.'
+    intents:
+    - iasm
+    - cbt
+    - tools
+  IASM-Psychoeducateur:
+    display_name: '@IASM - PSYCHOÉDUCATEUR'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Explique notions psycho/relationnelles en langage simple + exemples.
+    intents:
+    - iasm
+    - education
+    - explain
+  IASM-RessentiTonalite:
+    display_name: '@IASM - Analyse de ressenti & tonalité'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Analyse texte : émotions probables, intensité, besoins, vulnérabilités.'
+    intents:
+    - iasm
+    - sentiment
+    - tone
+  IASM-SecuriteRisques:
+    display_name: '@IASM - Sécurité / risques'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Repère signaux danger et propose limites + escalade vers aide pro.
+    intents:
+    - iasm
+    - safety
+    - risk
+  IASM-SpecialisteRelationsCouple:
+    display_name: '@IASM - Spécialiste Relations de couple'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Analyse dynamiques clés, propose pistes de dialogue et limites.
+    intents:
+    - iasm
+    - couple
+    - communication
+  IASM-SuperviseurEthique:
+    display_name: '@IASM - Superviseur / éthique'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Relit sorties, sécurise formulations, retire tout contenu risqué/confus.
+    intents:
+    - iasm
+    - ethics
+    - review
+  IASM-SupportEmotionnel:
+    display_name: '@IASM - Support émotionnel'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Support émotionnel : accueil, reformulation, micro-actions d’apaisement.'
+    intents:
+    - iasm
+    - support
+    - emotion
+  IASM-TherapiePsychodynamique:
+    display_name: '@IASM - Thérapie psychodynamique'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Exploration prudente de schémas profonds (non médical).
+    intents:
+    - iasm
+    - insight
+    - deep_patterns
+  IT-AssetMaster:
+    display_name: '@IT-AssetMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Inventaire IT & CMDB : structure, maintient et exploite actifs HW/SW.'
+    intents:
+    - it
+    - cmdb
+    - assets
+  IT-BackupDRMaster:
+    display_name: '@IT-BackupDRMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Sauvegardes & DR : stratégies RPO/RTO, tests, runbooks.'
+    intents:
+    - it
+    - backup
+    - dr
+  IT-CTOMaster:
+    display_name: '@IT-CTOMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Directeur technique MSP : architectures, standards, arbitrages.'
+    intents:
+    - it
+    - cto
+    - standards
+  IT-CloudMaster:
+    display_name: '@IT-CloudMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Cloud Azure/M365/SaaS : architectures, gouvernance, sécurité.'
+    intents:
+    - it
+    - cloud
+    - azure
+    - m365
+  IT-Commandare-NOC:
+    display_name: '@IT-Commandare-NOC'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Orchestrateur NOC : triage des alertes, routage et escalade vers TECH/SOC/CTO.'
+    intents:
+    - noc
+    - monitoring
+    - incident
+    - triage
+  IT-Commandare-OPR:
+    display_name: '@IT-Commandare-OPR'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Orchestrateur back-office : pipeline fermeture ticket, standardisation et contrôle.'
+    intents:
+    - it
+    - msp
+    - process
+    - tickets
+  IT-Commandare-TECH:
+    display_name: '@IT-Commandare-TECH'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Chef d’exécution technique : diagnostic, remédiation, plan de changement et validation post-fix.'
+    intents:
+    - troubleshooting
+    - remediation
+    - change
+    - incident
+  IT-CommsMSP:
+    display_name: '@IT-CommsMSP'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Communication client MSP : emails, Teams, SMS maintenance/incidents.'
+    intents:
+    - it
+    - comms
+    - client
+  IT-DevOpsMaster:
+    display_name: '@IT-DevOpsMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'DevOps/CI-CD : pipelines, environnements, IaC.'
+    intents:
+    - it
+    - devops
+    - cicd
+  IT-DirecteurGeneral:
+    display_name: '@IT-DirecteurGeneral'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Directeur général MSP : objectifs ops -> priorités & directives.'
+    intents:
+    - it
+    - management
+    - governance
+  IT-InfrastructureMaster:
+    display_name: '@IT-InfrastructureMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Serveurs/virtualisation/stockage : design, capacity planning.'
+    intents:
+    - it
+    - infrastructure
+    - servers
+  IT-InterventionCopilot:
+    display_name: '@IT-InterventionCopilot'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Copilote d’intervention LIVE : checklist, validations post-action, notes structurées, closeout (CW_INTERNAL_NOTES
+      / CW_DISCUSSION / EMAIL si requis).'
+    intents:
+    - it
+    - msp
+    - intervention
+    - ticket_live
+    - support
+    - closeout
+  IT-KnowledgeKeeper:
+    display_name: '@IT-KnowledgeKeeper'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Knowledge MSP : tickets résolus -> KB & runbooks.'
+    intents:
+    - it
+    - knowledge
+    - kb
+    - runbook
+  IT-MaintenanceMaster:
+    display_name: '@IT-MaintenanceMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Maintenance & audits : patching, plans, conformité.'
+    intents:
+    - it
+    - maintenance
+    - patching
+  IT-MonitoringMaster:
+    display_name: '@IT-MonitoringMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Supervision/observabilité : KPIs, alertes, rapports.'
+    intents:
+    - it
+    - monitoring
+    - observability
+  IT-NOCDispatcher:
+    display_name: '@IT-NOCDispatcher'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Dispatcher NOC : affectation, priorisation, escalade et suivi (SLA) des tickets/alertes.'
+    intents:
+    - dispatch
+    - sla
+    - coordination
+    - incident
+  IT-NetworkMaster:
+    display_name: '@IT-NetworkMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Réseau : LAN/WAN/VPN/WiFi/routage/QoS/firewalls.'
+    intents:
+    - it
+    - network
+    - firewall
+  IT-OrchestratorMSP:
+    display_name: '@IT-OrchestratorMSP'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Chef d’orchestre MSP : reçoit demandes, mobilise experts, compile livrables.'
+    intents:
+    - it
+    - msp
+    - orchestrate
+  IT-ReportMaster:
+    display_name: '@IT-ReportMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Production de rapports MSP : KPI/SLA, tendances incidents, recommandations et synthèses client.'
+    intents:
+    - report
+    - kpi
+    - sla
+    - communication
+  IT-ScriptMaster:
+    display_name: '@IT-ScriptMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Scripting & automatisation (PowerShell/Python/Bash) : scripts fiables.'
+    intents:
+    - it
+    - automation
+    - scripting
+  IT-SecurityMaster:
+    display_name: '@IT-SecurityMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Cybersécurité : risques, posture, remédiations.'
+    intents:
+    - it
+    - security
+    - risk
+  IT-SoftwMaster:
+    display_name: '@IT-SoftwMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Logiciels & licences : conformité, coûts, optimisation licences.'
+    intents:
+    - it
+    - licenses
+    - software
+  IT-SupportMaster:
+    display_name: '@IT-SupportMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Support TI N1–N3 : diagnostic, résolution, escalade, standards.'
+    intents:
+    - it
+    - support
+    - incident
+  IT-TicketScribe:
+    display_name: '@IT-TicketScribe'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Rédacteur ConnectWise : notes brutes -> compte rendu + actions.'
+    intents:
+    - it
+    - ticket
+    - writing
+  IT-VoIPMaster:
+    display_name: '@IT-VoIPMaster'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Téléphonie IP & UC : design, évolution, optimisation.'
+    intents:
+    - it
+    - voip
+    - uc
+  MCIA-Architecte:
+    display_name: '@MCIA-Architecte'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: 'Architecture : MVP vs prod (ML/LLM/RAG/agents).'
+    intents:
+    - mcia
+    - architecture
+    - rag
+    - agent
+  MCIA-Prof:
+    display_name: '@MCIA-Prof'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: 'Pédagogie : explique en ordre + exercices + tests.'
+    intents:
+    - mcia
+    - education
+    - teach_ai
+  MCIA-Prompting:
+    display_name: '@MCIA-Prompting'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: 'Prompting : transforme flou → prompt template.'
+    intents:
+    - mcia
+    - prompt
+    - reverse_prompt
+  MCIA-Redaction:
+    display_name: '@MCIA-Redaction'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: Rédaction long format + glossaire.
+    intents:
+    - mcia
+    - writing
+    - docs
+  MCIA-Verificateur:
+    display_name: '@MCIA-Verificateur'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: 'Vérification : sûrs/probables/incertains + tests.'
+    intents:
+    - mcia
+    - qa
+    - verify
+  MCIA-Vision:
+    display_name: '@MCIA-Vision'
+    team_id: TEAM__MCIA
+    team_name: MasterClassIA
+    description: 'Vision & créatif : pipeline diffusion/contrôle/itération.'
+    intents:
+    - mcia
+    - assets
+    - vision
+  META-AnalysteBesoinsEquipes:
+    display_name: '@META-AnalysteBesoinsEquipes'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
+    intents:
+    - requirements
+    - analysis
+    - spec
+  META-CartographeRoles:
+    display_name: '@META-CartographeRoles'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Transforme spec en catalogue de rôles GPT : missions, interfaces, limites.'
+    intents:
+    - roles
+    - mapping
+    - army_design
+  META-GouvernanceEtRisques:
+    display_name: '@META-GouvernanceEtRisques'
+    team_id: TEAM__META
+    team_name: META
+    status: deprecated
+    replaced_by: META-GouvernanceQA
+    description: '[DEPRECATED 2026-02-01] Fusionné dans META-GouvernanceQA.'
+    intents:
+    - governance
+    - risk
+    - quality
+  META-GouvernanceQA:
+    display_name: '@META-GouvernanceQA'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Gouvernance, risques, audit QA : garde-fous, contrôles, cohérence, validations.'
+    intents:
+    - governance
+    - risk
+    - quality
+    - audit
+    - qa
+    - consistency
+  META-Opromptimizer:
+    display_name: '@META-Opromptimizer'
+    team_id: TEAM__META
+    team_name: META
+    status: deprecated
+    replaced_by: META-PromptMaster
+    description: '[DEPRECATED 2026-02-01] Fusionné dans META-PromptMaster.'
+    intents:
+    - prompt
+    - engineering
+    - optimize
+  META-OrchestrateurCentral:
+    display_name: '@META-OrchestrateurCentral'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Orchestrateur usine à armées : transforme demande en plan complet (teams, agents, runbooks).'
+    intents:
+    - army_factory
+    - design
+    - orchestrate
+  META-PlaybookBuilder:
+    display_name: '@META-PlaybookBuilder'
+    team_id: TEAM__META
+    team_name: META
+    description: Conçoit des playbooks (enchaînements multi-agents) clairs, testables et alignés sur la gouvernance.
+    intents:
+    - playbook
+    - workflow
+    - automation
+  META-PromptArchitectEquipes:
+    display_name: '@META-PromptArchitectEquipes'
+    team_id: TEAM__META
+    team_name: META
+    status: deprecated
+    replaced_by: META-PromptMaster
+    description: '[DEPRECATED 2026-02-01] Fusionné dans META-PromptMaster.'
+    intents:
+    - prompt
+    - architecture
+    - standardization
+  META-PromptMaster:
+    display_name: '@META-PromptMaster'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Prompt engineering complet : design, optimisation, standardisation, tests, library de patterns.'
+    intents:
+    - prompt
+    - engineering
+    - optimize
+    - prompt_design
+    - prompt_optimization
+    - standardization
+    - architecture
+  META-ReversePrompt:
+    display_name: '@META-ReversePrompt'
+    team_id: TEAM__META
+    team_name: META
+    description: Déduit un prompt/contrat à partir d’exemples, comportements observés et sorties attendues.
+    intents:
+    - reverse_prompt
+    - analysis
+    - extraction
+  META-SuperviseurInvisible:
+    display_name: '@META-SuperviseurInvisible'
+    team_id: TEAM__META
+    team_name: META
+    status: deprecated
+    replaced_by: META-GouvernanceQA
+    description: '[DEPRECATED 2026-02-01] Fusionné dans META-GouvernanceQA.'
+    intents:
+    - audit
+    - qa
+    - governance
+    - consistency
+  META-WorkflowDesignerEquipes:
+    display_name: '@META-WorkflowDesignerEquipes'
+    team_id: TEAM__META
+    team_name: META
+    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles, handoffs).
+    intents:
+    - workflow
+    - process
+    - mapping
+  NEA-Archiviste:
+    display_name: '@NEA-Archiviste'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Archiviste : nettoie, reformule sans trahir, titre/tags/IDs, cohérence.'
+    intents:
+    - nea
+    - archive
+    - normalize
+  NEA-Cartographe:
+    display_name: '@NEA-Cartographe'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Cartographe conceptuel : analyses -> plans, cartes, structures.'
+    intents:
+    - nea
+    - mapping
+    - structure
+  NEA-ConseilPatterns:
+    display_name: '@NEA-ConseilPatterns'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: Repère patterns cosmos/terre/vivant/symboles/systèmes.
+    intents:
+    - nea
+    - patterns
+    - analysis
+  NEA-Imagier:
+    display_name: '@NEA-Imagier'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: Idées d’illustrations, schémas, couvertures et prompts visuels.
+    intents:
+    - nea
+    - illustration
+    - visual
+  NEA-Orchestrator:
+    display_name: '@NEA-Orchestrator'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Orchestrateur du livre/recueil : plan, coordination, compilation et qualité.'
+    intents:
+    - nea
+    - orchestrate
+    - book
+  NEA-RedacteurRecueil:
+    display_name: '@NEA-RedacteurRecueil'
+    team_id: TEAM__NEA
+    team_name: NEA
+    description: 'Rédacteur : transforme notes/analyses en sections claires.'
+    intents:
+    - nea
+    - write
+    - edit
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: 'Hub mémoire projet : contexte, décisions, artefacts, index, traçabilité.'
+    intents:
+    - memory
+    - archive
+    - project_file
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de workflows (playbooks) à partir d’un objectif.
+    intents:
+    - run_playbook
+    - execute
+    - workflow
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: 'Dispatcher central : détecte intent/capability et route vers team/agent/playbook.'
+    intents:
+    - route
+    - dispatch
+    - classify
+  PLR-Orchestrator:
+    display_name: '@PLR-Orchestrator'
+    team_id: TEAM__PLR
+    team_name: PLR
+    description: 'Orchestrateur radio : intake, cadrage, coordination script/voix, packaging final et archivage.'
+    intents:
+    - plr
+    - radio
+    - writing
+    - adaptation
+    - broadcast
+  PLR-RadioScripteur:
+    display_name: '@PLR - Radio Scripteur'
+    team_id: TEAM__PLR
+    team_name: PLR
+    description: Transforme textes en scripts radio dynamiques (hooks, transitions, rythme).
+    intents:
+    - radio
+    - script
+    - writing
+  TRAD-AnalytikGlobal:
+    display_name: '@TRAD-AnalytikGlobal'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Analyste stratégique : scénarios & impacts.'
+    intents:
+    - trad
+    - analysis
+    - strategy
+  TRAD-CommandCore:
+    display_name: '@TRAD-CommandCore'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Noyau commandement TRAD : reçoit ordres, distribue aux modules.'
+    intents:
+    - trad
+    - command
+    - dispatch
+  TRAD-Correlator:
+    display_name: '@TRAD-Correlator'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: Fusionne signaux, attribue une cote, prépare synthèse.
+    intents:
+    - trad
+    - correlation
+    - signals
+  TRAD-CosmoPsyWatcher:
+    display_name: '@TRAD-CosmoPsyWatcher'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: Observateur cosmo/psycho-collectif.
+    intents:
+    - trad
+    - cosmos
+    - psycho_collective
+  TRAD-CryptoStrategist:
+    display_name: '@TRAD-CryptoStrategist'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Conseiller crypto-stratégique : décisions sur base de synthèses.'
+    intents:
+    - trad
+    - crypto
+    - strategy
+  TRAD-CyberWatch:
+    display_name: '@TRAD-CyberWatch'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Sentinelle cyber : piratages, ransomwares, pannes d’infras numériques.'
+    intents:
+    - trad
+    - cyber
+    - watch
+  TRAD-FractalMathCrypto:
+    display_name: '@TRAD-FractalMathCrypto'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Analyse fractale crypto : BTC/ETH/SOL etc.'
+    intents:
+    - trad
+    - crypto
+    - quant
+  TRAD-GlobalReport:
+    display_name: '@TRAD-GlobalReport'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Rédacteur : met en forme infos consolidées en rapport actionnable.'
+    intents:
+    - trad
+    - report
+    - writing
+  TRAD-MarketSentinel:
+    display_name: '@TRAD-MarketSentinel'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Surveillance marchés : crypto, devises, métaux.'
+    intents:
+    - trad
+    - markets
+    - watch
+  TRAD-SocioRadar:
+    display_name: '@TRAD-SocioRadar'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Oreille sociale : tendances virales/forums, signaux panique.'
+    intents:
+    - trad
+    - social
+    - trends
+  TRAD-VigillIntel:
+    display_name: '@TRAD-VigillIntel'
+    team_id: TEAM__TRAD
+    team_name: TRAD
+    description: 'Veille mondiale : conflits, ressources, climat, tech, mouvements.'
+    intents:
+    - trad
+    - intel
+    - geopolitics

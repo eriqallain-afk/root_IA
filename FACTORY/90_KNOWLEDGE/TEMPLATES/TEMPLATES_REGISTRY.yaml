@@ -1,0 +1,29 @@
+schema_version: "1.0"
+description: "Registre de tous les templates de la FACTORY"
+last_updated: "2026-02-25"
+
+templates:
+  TEMPLATE__AGENT:
+    file: 90_KNOWLEDGE/TEMPLATES/TEMPLATE__AGENT.md
+    use_for: "Créer un nouveau dossier agent complet"
+    used_by: [BUILD_SINGLE_AGENT, BUILD_TEAM_FROM_SCRATCH, CLONE_AND_ADAPT_AGENT]
+
+  TEMPLATE__PLAYBOOK:
+    file: 90_KNOWLEDGE/TEMPLATES/TEMPLATE__PLAYBOOK.md
+    use_for: "Créer un nouveau playbook FACTORY"
+    used_by: [META-PlaybookBuilder]
+
+  TEMPLATE__30_60_90:
+    file: 90_KNOWLEDGE/TEMPLATES/TEMPLATE__30_60_90.md
+    use_for: "Plan 30-60-90 jours pour un projet ou un client"
+    used_by: [IAHQ-OrchestreurEntrepriseIA]
+
+  TEMPLATE__PROPOSITION_IAHQ:
+    file: 90_KNOWLEDGE/TEMPLATES/TEMPLATE__PROPOSITION_IAHQ.md
+    use_for: "Proposition commerciale client"
+    used_by: [DELIVERY_PIPELINE, IAHQ-OrchestreurEntrepriseIA]
+
+  TEMPLATE__TEAM:
+    file: 90_KNOWLEDGE/TEMPLATES/TEMPLATE__TEAM.yaml
+    use_for: "Créer un nouveau fichier TEAM__<ID>.yaml"
+    used_by: [BUILD_TEAM_FROM_SCRATCH, ONBOARD_NEW_TEAM]

@@ -1,0 +1,399 @@
+schema_version: "1.0"
+playbook_id: ARMY_AUDIT_COMPLETE
+display_name: "Army Audit Complete"
+description: >
+  Audit complet d'une équipe entière : qualité structurelle de chaque agent,
+  couverture des cas d'usage, cohérence des workflows, performance des playbooks,
+  et dette technique accumulée. Produit un plan de remédiation priorisé et
+  un score de maturité de l'équipe.
+category: "optimisation"
+team_owner: TEAM__META
+trigger: "quarterly | post_major_change | pre_delivery | on_demand"
+estimated_duration_minutes: 120
+version: "1.0.0"
+last_updated: "2026-02-25"
+
+maturity_model:
+  levels:
+    L1_basic:
+      score_range: [0, 40]
+      label: "Embryonnaire"
+      description: "Agents créés mais incomplets. Pas de tests, playbooks manquants."
+    L2_functional:
+      score_range: [41, 60]
+      label: "Fonctionnel"
+      description: "Agents fonctionnels mais sans cohérence d'ensemble. Couverture partielle."
+    L3_operational:
+      score_range: [61, 75]
+      label: "Opérationnel"
+      description: "Équipe opérationnelle. Tests présents, playbooks couvrant les cas prioritaires."
+    L4_optimized:
+      score_range: [76, 90]
+      label: "Optimisé"
+      description: "Haute qualité. Couverture complète, drift sous contrôle, faible dette technique."
+    L5_excellence:
+      score_range: [91, 100]
+      label: "Excellence"
+      description: "Référence FACTORY. Zéro dette, tests complets, amélioration continue active."
+
+inputs:
+  team_id:
+    type: string
+    required: true
+    description: "ID de l'équipe à auditer. Ex: TEAM__META, TEAM__IT."
+  audit_depth:
+    type: "standard | deep"
+    required: false
+    default: "standard"
+    description: >
+      standard : structural + coverage + workflow. ~90 min.
+      deep : + performance analysis + technical debt scoring + optimization roadmap. ~2h+
+  reference_period_days:
+    type: integer
+    required: false
+    default: 30
+    description: "Période de référence pour les métriques de performance (runs, drift scores)."
+  benchmark_team_id:
+    type: string
+    required: false
+    description: "Équipe de référence pour comparaison. Optionnel."
+  focus_areas:
+    type: list[string]
+    required: false
+    description: "Zones d'attention particulière. Ex: [test_coverage, drift, orphaned_agents]"
+
+steps:
+
+  - step_id: "S1_structural_audit"
+    name: "Audit structurel de chaque agent"
+    actor_id: META-GouvernanceQA
+    input:
+      scope: "{{team_id}}"
+      audit_type: "structural"
+      context:
+        focus_areas: "{{focus_areas | default: []}}"
+    checks_per_agent:
+      - name: "prompt_quality"
+        criteria: "prompt.md > 50 lignes, instructions non génériques, format de sortie défini"
+        weight: 20
+      - name: "contract_specificity"
+        criteria: "contract.yaml non copié du template, champs I/O spécifiques au rôle"
+        weight: 20
+      - name: "examples_present"
+        criteria: "Au moins 1 exemple concret dans le prompt"
+        weight: 15
+      - name: "test_coverage"
+        criteria: "sample_input.yaml + expected_output.yaml présents et non vides"
+        weight: 20
+      - name: "playbook_membership"
+        criteria: "Agent utilisé dans au moins 1 playbook actif (pas orphelin)"
+        weight: 15
+      - name: "naming_compliance"
+        criteria: "Naming conforme TEAM-NomAgent, id = nom dossier"
+        weight: 5
+      - name: "version_discipline"
+        criteria: "version présent, last_updated récent (< 90 jours)"
+        weight: 5
+    output_key: "structural_audit"
+    format:
+      team_id: "{{team_id}}"
+      total_agents: <int>
+      per_agent_scores: []
+      team_structural_score: <0-100>
+      critical_issues: []
+      agents_failing: []
+      agents_excellent: []
+    on_failure: "abort"
+    sla_minutes: 25
+
+  - step_id: "S2_drift_scan"
+    name: "Scan drift de tous les agents de l'équipe"
+    actor_id: CTL-WatchdogIA
+    input:
+      operation: "full_check"
+      scope: "{{team_id}}"
+    output_key: "drift_scan"
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S3_coverage_analysis"
+    name: "Analyse de couverture des cas d'usage"
+    actor_id: META-AnalysteBesoinsEquipes
+    input:
+      objective: "Analyser la couverture des cas d'usage de {{team_id}}"
+      context:
+        team_id: "{{team_id}}"
+        structural_audit: "{{structural_audit}}"
+        team_manifest: "10_TEAMS/TEAM__{{team_id | replace('TEAM__', '')}}.yaml"
+    questions:
+      - "La mission de l'équipe est-elle couverte à 100% par les agents existants ?"
+      - "Y a-t-il des cas d'usage importants non couverts ?"
+      - "Y a-t-il des agents redondants (même fonction) ?"
+      - "Y a-t-il des intents qui se chevauchent entre agents ?"
+    output_key: "coverage_analysis"
+    format:
+      coverage_score: <0-100>
+      uncovered_use_cases: []
+      redundant_agents: []
+      intent_overlaps: []
+      coverage_gaps_priority: []
+    on_failure: "continue"
+    sla_minutes: 20
+
+  - step_id: "S4_workflow_analysis"
+    name: "Analyse des workflows et playbooks de l'équipe"
+    actor_id: META-WorkflowDesignerEquipes
+    input:
+      objective: "Évaluer les workflows existants de {{team_id}}"
+      context:
+        team_id: "{{team_id}}"
+        structural_audit: "{{structural_audit}}"
+        coverage_analysis: "{{coverage_analysis}}"
+    questions:
+      - "Les playbooks existants couvrent-ils les cas d'usage prioritaires ?"
+      - "Y a-t-il des cas d'usage prioritaires sans playbook ?"
+      - "Les playbooks existants sont-ils bien conçus (séquence logique, on_failure défini) ?"
+      - "Y a-t-il des playbooks obsolètes ou jamais utilisés ?"
+    output_key: "workflow_analysis"
+    format:
+      playbooks_count: <int>
+      playbooks_covering_priority_cases: <int>
+      playbooks_missing: []
+      playbooks_to_deprecate: []
+      workflow_score: <0-100>
+    on_failure: "continue"
+    sla_minutes: 20
+
+  - step_id: "S5_performance_analysis"
+    name: "Analyse de performance sur la période de référence"
+    actor_id: CTL-HealthReporter
+    condition: "audit_depth == 'deep'"
+    input:
+      report_type: "weekly_report"
+      watchdog_reports: ["{{drift_scan}}"]
+      run_metrics: []
+      context:
+        team_id: "{{team_id}}"
+        period_days: "{{reference_period_days}}"
+    output_key: "performance_analysis"
+    metrics_collected:
+      - "Taux de succès des runs par playbook"
+      - "Agents les plus/moins sollicités"
+      - "Drift scores moyens par agent"
+      - "Temps moyen par step"
+      - "Agents dormants (0 utilisation sur la période)"
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S6_technical_debt_assessment"
+    name: "Évaluation de la dette technique"
+    actor_id: IAHQ-TechLeadIA
+    condition: "audit_depth == 'deep'"
+    input:
+      objective: "Évaluer la dette technique de {{team_id}}"
+      context:
+        structural_audit: "{{structural_audit}}"
+        drift_scan: "{{drift_scan}}"
+        workflow_analysis: "{{workflow_analysis}}"
+        performance_analysis: "{{performance_analysis | default: {}}}"
+    debt_categories:
+      - category: "test_debt"
+        description: "Agents sans tests ou tests incomplets"
+      - category: "prompt_debt"
+        description: "Prompts génériques, mal structurés ou driftés"
+      - category: "contract_debt"
+        description: "Contrats copiés du template ou désynchronisés du prompt"
+      - category: "workflow_debt"
+        description: "Cas d'usage sans playbook, playbooks incomplets"
+      - category: "index_debt"
+        description: "Agents non référencés correctement dans les index"
+    output_key: "debt_assessment"
+    format:
+      total_debt_score: <0-100>
+      debt_by_category:
+        test_debt: <0-100>
+        prompt_debt: <0-100>
+        contract_debt: <0-100>
+        workflow_debt: <0-100>
+        index_debt: <0-100>
+      debt_items: []
+      estimated_remediation_hours: <int>
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S7_benchmark_comparison"
+    name: "Comparaison avec l'équipe de référence"
+    actor_id: IAHQ-Strategist
+    condition: "benchmark_team_id IS NOT NULL"
+    input:
+      objective: "Comparer {{team_id}} avec {{benchmark_team_id}}"
+      context:
+        team_scores:
+          structural: "{{structural_audit.team_structural_score}}"
+          coverage: "{{coverage_analysis.coverage_score}}"
+          workflow: "{{workflow_analysis.workflow_score}}"
+          drift: "{{drift_scan.summary}}"
+        benchmark_team_id: "{{benchmark_team_id}}"
+    output_key: "benchmark"
+    on_failure: "continue"
+    sla_minutes: 10
+
+  - step_id: "S8_maturity_score"
+    name: "Calcul du score de maturité global"
+    actor_id: META-GouvernanceQA
+    input:
+      scope: "maturity_calculation"
+      context:
+        structural_score: "{{structural_audit.team_structural_score | default: 0}}"
+        coverage_score: "{{coverage_analysis.coverage_score | default: 0}}"
+        workflow_score: "{{workflow_analysis.workflow_score | default: 0}}"
+        drift_score_avg: "{{drift_scan.summary.healthy / drift_scan.summary.total_agents_scanned * 100 | default: 0}}"
+        debt_score: "{{debt_assessment.total_debt_score | default: 100}}"
+        audit_depth: "{{audit_depth}}"
+    maturity_formula:
+      standard:
+        structural: 35
+        coverage: 35
+        workflow: 30
+      deep:
+        structural: 25
+        coverage: 25
+        workflow: 20
+        performance: 15
+        debt: 15
+    output_key: "maturity_result"
+    format:
+      maturity_score: <0-100>
+      maturity_level: "<L1|L2|L3|L4|L5>"
+      maturity_label: "<Embryonnaire|Fonctionnel|Opérationnel|Optimisé|Excellence>"
+      score_breakdown:
+        structural: <0-100>
+        coverage: <0-100>
+        workflow: <0-100>
+        drift: <0-100>
+        debt: <0-100>
+      previous_score: <0-100|null>
+      delta: <int|null>
+    on_failure: "continue"
+    sla_minutes: 5
+
+  - step_id: "S9_remediation_plan"
+    name: "Plan de remédiation priorisé"
+    actor_id: META-OrchestrateurCentral
+    input:
+      objective: "Produire le plan de remédiation de {{team_id}}"
+      context:
+        structural_audit: "{{structural_audit}}"
+        coverage_analysis: "{{coverage_analysis}}"
+        workflow_analysis: "{{workflow_analysis}}"
+        debt_assessment: "{{debt_assessment | default: {}}}"
+        maturity_result: "{{maturity_result}}"
+    output_key: "remediation_plan"
+    format:
+      backlog:
+        P0_immediate:
+          - action: "<action>"
+            target: "<agent ou playbook>"
+            estimated_hours: <int>
+            playbook_to_use: "<playbook_id>"
+        P1_this_sprint:
+          - action: "<action>"
+            target: "<agent ou playbook>"
+            estimated_hours: <int>
+            playbook_to_use: "<playbook_id>"
+        P2_next_quarter:
+          - action: "<action>"
+            target: "<agent ou playbook>"
+            estimated_hours: <int>
+        P3_nice_to_have: []
+      total_estimated_hours:
+        P0: <int>
+        P1: <int>
+        P2: <int>
+        total: <int>
+      quick_wins:
+        - "<action < 2h avec fort impact>"
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S10_audit_report"
+    name: "Rapport d'audit final"
+    actor_id: CTL-HealthReporter
+    input:
+      report_type: "weekly_report"
+      watchdog_reports: ["{{drift_scan}}"]
+      context:
+        event_type: "army_audit"
+        team_id: "{{team_id}}"
+        maturity_score: "{{maturity_result.maturity_score | default: null}}"
+        maturity_level: "{{maturity_result.maturity_level | default: null}}"
+        structural_score: "{{structural_audit.team_structural_score | default: null}}"
+        critical_issues_count: "{{structural_audit.critical_issues | length | default: 0}}"
+        remediation_p0_hours: "{{remediation_plan.total_estimated_hours.P0 | default: 0}}"
+        benchmark: "{{benchmark | default: null}}"
+    output_key: "audit_report"
+    on_failure: "continue"
+    sla_minutes: 10
+
+  - step_id: "S11_archive"
+    name: "Archivage Dossier IA"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "create"
+      playbook_id: "ARMY_AUDIT_COMPLETE"
+      metadata:
+        type: "army_audit"
+        team_id: "{{team_id}}"
+        audit_depth: "{{audit_depth}}"
+        maturity_score: "{{maturity_result.maturity_score | default: null}}"
+        maturity_level: "{{maturity_result.maturity_level | default: null}}"
+        structural_score: "{{structural_audit.team_structural_score | default: null}}"
+        total_agents_audited: "{{structural_audit.total_agents | default: null}}"
+        critical_issues: "{{structural_audit.critical_issues | length | default: 0}}"
+        remediation_hours_total: "{{remediation_plan.total_estimated_hours.total | default: null}}"
+      outputs:
+        structural_audit: "{{structural_audit}}"
+        drift_scan: "{{drift_scan}}"
+        coverage_analysis: "{{coverage_analysis}}"
+        workflow_analysis: "{{workflow_analysis}}"
+        performance_analysis: "{{performance_analysis | default: null}}"
+        debt_assessment: "{{debt_assessment | default: null}}"
+        maturity_result: "{{maturity_result}}"
+        remediation_plan: "{{remediation_plan}}"
+        audit_report: "{{audit_report}}"
+    dossier_name: "AUDIT__{{team_id}}__{{maturity_result.maturity_level | default: 'LX'}}__{{date_yyyymmdd}}"
+    retention: "365 days"
+    on_failure: "continue"
+    sla_minutes: 5
+
+final_output:
+  primary: "audit_report"
+  secondary: ["maturity_result", "remediation_plan"]
+  maturity_score: "{{maturity_result.maturity_score}}"
+  dossier: "{{S11_archive.result.dossier.id}}"
+
+success_criteria:
+  - "S1_structural_audit completed"
+  - "S8_maturity_score completed (maturity_score présent)"
+  - "S9_remediation_plan completed (backlog non vide si issues)"
+  - "S11_archive completed"
+
+quality_gates:
+  - "Si maturity_score < 41 (L1) → alerter META-OrchestrateurCentral + recommander BUILD_TEAM_FROM_SCRATCH"
+  - "Si P0 issues > 0 → déclencher CTL-AlertRouter avant de livrer le rapport"
+  - "Si remediation_plan.P0_immediate non vide → créer tickets CTL-AlertRouter"
+
+notifications:
+  on_excellent:
+    message: "⭐ {{team_id}} atteint le niveau Excellence (score {{maturity_result.maturity_score}}/100) !"
+    route_to: [IAHQ-OrchestreurEntrepriseIA]
+  on_degraded:
+    message: >
+      📊 Audit {{team_id}} : niveau {{maturity_result.maturity_level}} ({{maturity_result.maturity_score}}/100).
+      {{remediation_plan.total_estimated_hours.P0 | default: 0}}h de corrections P0 requises.
+    route_to: [META-OrchestrateurCentral, CTL-AlertRouter]
+  on_critical:
+    message: >
+      🚨 Audit {{team_id}} : niveau L1 Embryonnaire ({{maturity_result.maturity_score}}/100).
+      ACTION REQUISE : voir remediation_plan.P0_immediate.
+    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-QualityGate, META-OrchestrateurCentral]

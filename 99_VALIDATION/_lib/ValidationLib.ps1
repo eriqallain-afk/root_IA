@@ -1,0 +1,106 @@
+<# 
+ValidationLib.ps1 - utilitaires sans dependances.
+Parse YAML "lite" (list of maps) + recherche de fichiers.
+#>
+
+Set-StrictMode -Version Latest
+
+function _Trim-Quotes([string]$s) {
+  if ($null -eq $s) { return $null }
+  $t = $s.Trim()
+  if (($t.StartsWith('"') -and $t.EndsWith('"')) -or ($t.StartsWith("'") -and $t.EndsWith("'"))) {
+    return $t.Substring(1, $t.Length-2)
+  }
+  return $t
+}
+
+function Get-RepoFile([string]$RootPath, [string[]]$Candidates, [string]$FallbackName) {
+  foreach ($c in $Candidates) {
+    $p = Join-Path $RootPath $c
+    if (Test-Path -LiteralPath $p) { return (Resolve-Path -LiteralPath $p).Path }
+  }
+  $hit = Get-ChildItem -LiteralPath $RootPath -Recurse -File -ErrorAction SilentlyContinue |
+         Where-Object { $_.Name -ieq $FallbackName } |
+         Select-Object -First 1
+  if ($hit) { return $hit.FullName }
+  return $null
+}
+
+function Get-RepoFilesByPattern([string]$RootPath, [string[]]$Patterns) {
+  $files = @()
+  foreach ($pat in $Patterns) {
+    $files += @(Get-ChildItem -LiteralPath $RootPath -Recurse -File -ErrorAction SilentlyContinue -Filter $pat)
+  }
+  $files | Sort-Object FullName -Unique
+}
+
+function Parse-YamlLiteListOfMaps([string]$Path) {
+  <#
+    Retourne une liste de hashtables:
+      @{ __startLine = <int>; key1=val1; key2=val2; ... }
+    Supporte:
+      - key: value
+        key2: value2
+    Ignore commentaires (#) et lignes vides.
+  #>
+  if (-not (Test-Path -LiteralPath $Path)) { throw ("File not found: {0}" -f $Path) }
+
+  [string[]]$lines = @(Get-Content -LiteralPath $Path -Encoding UTF8)
+
+  $items = New-Object System.Collections.Generic.List[hashtable]
+  $current = $null
+
+  for ($i=0; $i -lt $lines.Count; $i++) {
+    $raw = $lines[$i]
+    $lineNo = $i + 1
+
+    if ($raw -match '^\s*#') { continue }
+    if ([string]::IsNullOrWhiteSpace($raw)) { continue }
+
+    if ($raw -match '^\s*-\s*(.*)$') {
+      if ($null -ne $current) { $items.Add($current) | Out-Null }
+      $current = @{}
+      $current["__startLine"] = $lineNo
+
+      $rest = $Matches[1].Trim()
+      if ($rest -match '^([A-Za-z0-9_]+)\s*:\s*(.*)$') {
+        $k = $Matches[1]
+        $v = _Trim-Quotes($Matches[2])
+        $current[$k] = $v
+      }
+      continue
+    }
+
+    if ($raw -match '^\s*([A-Za-z0-9_]+)\s*:\s*(.*)$') {
+      if ($null -eq $current) { continue } # ignore header keys until first '-'
+      $k = $Matches[1]
+      $v = _Trim-Quotes($Matches[2])
+      if ($v -eq "") { continue }
+      $current[$k] = $v
+      continue
+    }
+  }
+
+  if ($null -ne $current) { $items.Add($current) | Out-Null }
+  return $items
+}
+
+function Extract-IdsFromYamlLite([string]$Path, [string[]]$Keys) {
+  $items = Parse-YamlLiteListOfMaps -Path $Path
+  $set = New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach ($it in $items) {
+    foreach ($k in $Keys) {
+      if ($it.ContainsKey($k) -and $it[$k]) { [void]$set.Add([string]$it[$k]) }
+    }
+  }
+  return $set
+}
+
+function Write-Result([string]$Level, [string]$Message) {
+  switch ($Level) {
+    "OK"    { Write-Host ("[OK]  {0}" -f $Message) -ForegroundColor Green }
+    "WARN"  { Write-Host ("[WARN] {0}" -f $Message) -ForegroundColor Yellow }
+    "ERR"   { Write-Host ("[ERR] {0}" -f $Message) -ForegroundColor Red }
+    default { Write-Host ("[{0}] {1}" -f $Level, $Message) }
+  }
+}

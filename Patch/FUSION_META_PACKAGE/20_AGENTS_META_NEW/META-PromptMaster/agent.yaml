@@ -1,0 +1,26 @@
+schema_version: "1.0"
+id: META-PromptMaster
+display_name: '@META-PromptMaster'
+team_id: TEAM__META
+team_name: META
+version: 2.0.0
+status: active
+description: >-
+  Prompt engineering complet : design, optimisation, standardisation, tests,
+  library de patterns. Fusion de META-Opromptimizer + META-PromptArchitectEquipes
+  (2026-02-01).
+intents:
+- prompt
+- engineering
+- optimize
+- prompt_design
+- prompt_optimization
+- standardization
+- architecture
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

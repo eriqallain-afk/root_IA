@@ -1,0 +1,413 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.675746'
+catalog:
+catalog:
+  IT-MSPLiveAssistant:
+    display_name: "@IT-MSPLiveAssistant"
+    team_id: TEAM__IT
+    status: active
+    intents:
+      - it
+      - msp
+      - tickets
+      - triage
+      - incident
+      - support
+      - comms
+      - communication
+      - chatbot
+    paths:
+      agent: "20_AGENTS/IT/IT-MSPLiveAssistant/agent.yaml"
+      contract: "20_AGENTS/IT/IT-MSPLiveAssistant/contract.yaml"
+      prompt: "20_AGENTS/IT/IT-MSPLiveAssistant/prompt.md"
+  IT-AssetMaster:
+    display_name: '@IT-AssetMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cmdb
+    - assets
+    paths:
+      agent: agents/IT-AssetMaster/agent.yaml
+      contract: agents/IT-AssetMaster/contract.yaml
+      prompt: agents/IT-AssetMaster/prompt.md
+  IT-BackupDRMaster:
+    display_name: '@IT-BackupDRMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - backup
+    - dr
+    paths:
+      agent: agents/IT-BackupDRMaster/agent.yaml
+      contract: agents/IT-BackupDRMaster/contract.yaml
+      prompt: agents/IT-BackupDRMaster/prompt.md
+  IT-CTOMaster:
+    display_name: '@IT-CTOMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cto
+    - standards
+    paths:
+      agent: agents/IT-CTOMaster/agent.yaml
+      contract: agents/IT-CTOMaster/contract.yaml
+      prompt: agents/IT-CTOMaster/prompt.md
+  IT-CloudMaster:
+    display_name: '@IT-CloudMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cloud
+    - azure
+    - m365
+    paths:
+      agent: agents/IT-CloudMaster/agent.yaml
+      contract: agents/IT-CloudMaster/contract.yaml
+      prompt: agents/IT-CloudMaster/prompt.md
+  IT-Commandare-NOC:
+    display_name: '@IT-Commandare-NOC'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - noc
+    - monitoring
+    - incident
+    - triage
+    - it_commandare_noc
+    - noc_triage
+    paths:
+      agent: agents/IT-Commandare-NOC/agent.yaml
+      contract: agents/IT-Commandare-NOC/contract.yaml
+      prompt: agents/IT-Commandare-NOC/prompt.md
+  IT-Commandare-OPR:
+    display_name: '@IT-Commandare-OPR'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - msp
+    - process
+    - tickets
+    - it_commandare_opr
+    - ops_control
+    paths:
+      agent: agents/IT-Commandare-OPR/agent.yaml
+      contract: agents/IT-Commandare-OPR/contract.yaml
+      prompt: agents/IT-Commandare-OPR/prompt.md
+  IT-Commandare-TECH:
+    display_name: '@IT-Commandare-TECH'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - troubleshooting
+    - remediation
+    - change
+    - incident
+    - it_commandare_tech
+    - tech_escalation
+    paths:
+      agent: agents/IT-Commandare-TECH/agent.yaml
+      contract: agents/IT-Commandare-TECH/contract.yaml
+      prompt: agents/IT-Commandare-TECH/prompt.md
+  IT-CommsMSP:
+    display_name: '@IT-CommsMSP'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - comms
+    - client
+    paths:
+      agent: agents/IT-CommsMSP/agent.yaml
+      contract: agents/IT-CommsMSP/contract.yaml
+      prompt: agents/IT-CommsMSP/prompt.md
+  IT-DevOpsMaster:
+    display_name: '@IT-DevOpsMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - devops
+    - cicd
+    paths:
+      agent: agents/IT-DevOpsMaster/agent.yaml
+      contract: agents/IT-DevOpsMaster/contract.yaml
+      prompt: agents/IT-DevOpsMaster/prompt.md
+  IT-DirecteurGeneral:
+    display_name: '@IT-DirecteurGeneral'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - management
+    - governance
+    paths:
+      agent: agents/IT-DirecteurGeneral/agent.yaml
+      contract: agents/IT-DirecteurGeneral/contract.yaml
+      prompt: agents/IT-DirecteurGeneral/prompt.md
+  IT-InfrastructureMaster:
+    display_name: '@IT-InfrastructureMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - infrastructure
+    - servers
+    paths:
+      agent: agents/IT-InfrastructureMaster/agent.yaml
+      contract: agents/IT-InfrastructureMaster/contract.yaml
+      prompt: agents/IT-InfrastructureMaster/prompt.md
+  IT-InterventionCopilot:
+    display_name: '@IT-InterventionCopilot'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - msp
+    - intervention
+    - ticket_live
+    - support
+    - closeout
+    paths:
+      agent: agents/IT-InterventionCopilot/agent.yaml
+      contract: agents/IT-InterventionCopilot/contract.yaml
+      prompt: agents/IT-InterventionCopilot/prompt.md
+  IT-InterventionLive:
+    display_name: '@IT-InterventionLive'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - genere
+    paths:
+      agent: agents/IT-InterventionLive/agent.yaml
+      contract: agents/IT-InterventionLive/contract.yaml
+      prompt: agents/IT-InterventionLive/prompt.md
+  IT-KnowledgeKeeper:
+    display_name: '@IT-KnowledgeKeeper'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - knowledge
+    - kb
+    - runbook
+    paths:
+      agent: agents/IT-KnowledgeKeeper/agent.yaml
+      contract: agents/IT-KnowledgeKeeper/contract.yaml
+      prompt: agents/IT-KnowledgeKeeper/prompt.md
+  IT-MaintenanceMaster:
+    display_name: '@IT-MaintenanceMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - maintenance
+    - patching
+    paths:
+      agent: agents/IT-MaintenanceMaster/agent.yaml
+      contract: agents/IT-MaintenanceMaster/contract.yaml
+      prompt: agents/IT-MaintenanceMaster/prompt.md
+  IT-MonitoringMaster:
+    display_name: '@IT-MonitoringMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - monitoring
+    - observability
+    paths:
+      agent: agents/IT-MonitoringMaster/agent.yaml
+      contract: agents/IT-MonitoringMaster/contract.yaml
+      prompt: agents/IT-MonitoringMaster/prompt.md
+  IT-NOC:
+    display_name: '@IT-NOC'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    paths:
+      agent: agents/IT-NOC/agent.yaml
+      contract: agents/IT-NOC/contract.yaml
+      prompt: agents/IT-NOC/prompt.md
+  IT-NOCDispatcher:
+    display_name: '@IT-NOCDispatcher'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - dispatch
+    - sla
+    - coordination
+    - incident
+    - it_noc_dispatch
+    - noc_dispatch
+    paths:
+      agent: agents/IT-NOCDispatcher/agent.yaml
+      contract: agents/IT-NOCDispatcher/contract.yaml
+      prompt: agents/IT-NOCDispatcher/prompt.md
+  IT-NetworkMaster:
+    display_name: '@IT-NetworkMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - network
+    - firewall
+    paths:
+      agent: agents/IT-NetworkMaster/agent.yaml
+      contract: agents/IT-NetworkMaster/contract.yaml
+      prompt: agents/IT-NetworkMaster/prompt.md
+  IT-OrchestratorMSP:
+    display_name: '@IT-OrchestratorMSP'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - orchestrate
+    - msp
+    paths:
+      agent: agents/IT-OrchestratorMSP/agent.yaml
+      contract: agents/IT-OrchestratorMSP/contract.yaml
+      prompt: agents/IT-OrchestratorMSP/prompt.md
+  IT-ReportMaster:
+    display_name: '@IT-ReportMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - genere
+    paths:
+      agent: agents/IT-ReportMaster/agent.yaml
+      contract: agents/IT-ReportMaster/contract.yaml
+      prompt: agents/IT-ReportMaster/prompt.md
+  IT-ScriptMaster:
+    display_name: '@IT-ScriptMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - genere
+    paths:
+      agent: agents/IT-ScriptMaster/agent.yaml
+      contract: agents/IT-ScriptMaster/contract.yaml
+      prompt: agents/IT-ScriptMaster/prompt.md
+  IT-SecurityMaster:
+    display_name: '@IT-SecurityMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - security
+    - risk
+    paths:
+      agent: agents/IT-SecurityMaster/agent.yaml
+      contract: agents/IT-SecurityMaster/contract.yaml
+      prompt: agents/IT-SecurityMaster/prompt.md
+  IT-SoftwMaster:
+    display_name: '@IT-SoftwMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - licenses
+    - software
+    paths:
+      agent: agents/IT-SoftwMaster/agent.yaml
+      contract: agents/IT-SoftwMaster/contract.yaml
+      prompt: agents/IT-SoftwMaster/prompt.md
+  IT-SupportMaster:
+    display_name: '@IT-SupportMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - support
+    - incident
+    paths:
+      agent: agents/IT-SupportMaster/agent.yaml
+      contract: agents/IT-SupportMaster/contract.yaml
+      prompt: agents/IT-SupportMaster/prompt.md
+  IT-Technicien:
+    display_name: '@IT-Technicien'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - connectwise
+    - cw_ticket
+    - noc
+    - soc
+    - support
+    - triage
+    - diagnostic
+    - guidance
+    - handoff
+    - msp_ops
+    paths:
+      agent: agents/IT-Technicien/agent.yaml
+      contract: agents/IT-Technicien/contract.yaml
+      prompt: agents/IT-Technicien/prompt.md
+  IT-TicketScribe:
+    display_name: '@IT-TicketScribe'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - ticket
+    - writing
+    paths:
+      agent: agents/IT-TicketScribe/agent.yaml
+      contract: agents/IT-TicketScribe/contract.yaml
+      prompt: agents/IT-TicketScribe/prompt.md
+  IT-VoIPMaster:
+    display_name: '@IT-VoIPMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - voip
+    - uc
+    paths:
+      agent: agents/IT-VoIPMaster/agent.yaml
+      contract: agents/IT-VoIPMaster/contract.yaml
+      prompt: agents/IT-VoIPMaster/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

@@ -1,0 +1,17 @@
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+routing_table:
+- match_any_intents:
+  - adaptation
+  - plj_adaptation
+  - plj_radio
+  - plj_writing
+  - radio
+  - writing
+  default_actor_id: PLR-Orchestrator
+  default_playbook_id: RADIO_MACHINE_SCRIPT_V1
+- fallback: null
+  default_actor_id: PLR-Orchestrator
+  default_playbook_id: RADIO_MACHINE_SCRIPT_V1
+  note: "Fallback interne produit PLR (standalone)"

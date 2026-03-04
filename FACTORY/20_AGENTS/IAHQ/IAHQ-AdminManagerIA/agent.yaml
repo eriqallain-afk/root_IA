@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: IAHQ-AdminManagerIA
+display_name: "@IAHQ-AdminManagerIA"
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: "Admin & gestion : offres, devis, contrats, gouvernance, opérations."
+intents:
+  - admin
+  - operations
+  - offers
+  - governance
+aliases:
+  - "@IAHQ-AdminManagerIA"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

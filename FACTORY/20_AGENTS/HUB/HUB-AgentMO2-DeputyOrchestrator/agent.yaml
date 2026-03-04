@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: HUB-AgentMO2-DeputyOrchestrator
+display_name: "@HUB - AGENT-MO2 — Deputy Orchestrator"
+team_id: TEAM__HUB
+team_name: HUB
+version: 1.0.0
+status: active
+description: "Adjoint orchestration : préparation brief, QA cohérence, relance modules."
+intents:
+  - orchestrate
+  - qa
+  - brief
+aliases:
+  - "@HUB - AGENT-MO2 — Deputy Orchestrator"
+  - "@HUB-AGENT-MO2"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

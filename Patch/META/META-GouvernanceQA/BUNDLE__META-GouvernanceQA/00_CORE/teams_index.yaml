@@ -1,0 +1,42 @@
+schema_version: "1.0"
+generated_at: '2026-01-31T02:56:05Z'
+teams:
+  TEAM__DAM:
+    name: DAM
+    mission: 'Projet : conformité, budget, planning, inspection, achats.'
+  TEAM__EDU:
+    name: EDU
+    mission: 'Éducation : assistants pédagogiques, évaluation de travaux, CCQ, ressources et outils enseignants.'
+  TEAM__ESPL:
+    name: ESPL
+    mission: 'Radio Paul-Lejeune : scripts & adaptation.'
+  TEAM__HUB:
+    name: HUB
+    mission: Orchestration, coaching, UX, prompts & assets visuels.
+  TEAM__IAHQ:
+    name: IAHQ
+    mission: 'Siège : stratégie, ROI, admin, architecture & delivery.'
+  TEAM__IASM:
+    name: IASM
+    mission: 'Cabinet IA (psychoéducatif/coaching) : modules relationnels & support.'
+  TEAM__IT:
+    name: IT
+    mission: 'MSP IT : support, infra, cloud, sécu, DevOps, CMDB.'
+  TEAM__MCIA:
+    name: MasterClassIA
+    mission: 'Programme multi-agents pédagogie IA : cours, choix d’archi, prompting, vérification, rédaction, vision.'
+  TEAM__META:
+    name: META
+    mission: 'Usine armées GPT : besoins, rôles, prompts, audit.'
+  TEAM__NEA:
+    name: NEA
+    mission: 'Projet NEA : orchestration, rédaction, imagerie, archivage, patterns.'
+  TEAM__OPS:
+    name: OPS
+    mission: Routage, exécution playbooks, dossier projet, exploitation.
+  TEAM__PLR:
+    name: PLR
+    mission: 'Radio : scripts (Annie Morneau) et adaptation.'
+  TEAM__TRAD:
+    name: TRAD
+    mission: 'Veille & signaux : marchés/crypto/géo/social/cyber + corrélation.'

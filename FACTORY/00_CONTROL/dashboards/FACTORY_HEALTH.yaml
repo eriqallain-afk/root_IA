@@ -1,0 +1,65 @@
+schema_version: "1.0"
+dashboard_id: FACTORY_HEALTH
+description: "Santé globale de la Factory — agents actifs, drift, alertes en cours"
+owner: TEAM__CTL
+updated_at: "2026-02-28"
+
+# ============================================================
+# SNAPSHOT SANTÉ ACTUEL — mis à jour par CTL-WatchdogIA
+# ============================================================
+factory_summary:
+  total_agents: 40
+  agents_active: 39
+  agents_deprecated: 0
+  agents_no_data: 40      # Aucun run encore logué
+  teams_active: 5         # CTL, HUB, IAHQ, META, OPS
+  playbooks_active: 11
+  intents_registered: 281
+  last_full_check: null
+  health_status: "unknown"  # unknown | healthy | degraded | critical
+
+per_team_health:
+  CTL:
+    agents: 3
+    active: 3
+    status: "✅ Complet"
+    last_check: null
+  HUB:
+    agents: 10
+    active: 9
+    status: "🟡 MO2 partiel (68L)"
+    last_check: null
+  IAHQ:
+    agents: 10
+    active: 10
+    status: "✅ Complet"
+    last_check: null
+  META:
+    agents: 14
+    active: 14
+    status: "✅ Complet"
+    last_check: null
+  OPS:
+    agents: 3
+    active: 3
+    status: "✅ Complet"
+    last_check: null
+
+active_alerts: []
+
+known_issues:
+  - id: "ISS-001"
+    severity: "low"
+    description: "HUB-AgentMO2-DeputyOrchestrator — prompt partiel (68L, cible 120L+)"
+    status: "open"
+    owner: "CTL-WatchdogIA"
+  - id: "ISS-002"
+    severity: "low"
+    description: "3 dashboards CTL étaient vides (0 bytes) — corrigé 2026-02-28"
+    status: "resolved"
+  - id: "ISS-003"
+    severity: "low"
+    description: "OPS-RouterIA timings.total_ms/match_ms non mesurables en contexte GPT — champs null + note ajoutée"
+    status: "resolved"
+
+drift_detected: false

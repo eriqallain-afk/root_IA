@@ -1,0 +1,262 @@
+schema_version: '1.0'
+generated_at: '2026-02-01T18:47:04Z'
+playbooks:
+  BUILD_ARMY_FACTORY:
+    description: 'Usine armées : besoins -> rôles -> prompts -> audit -> packaging
+      -> archive'
+    steps:
+    - step: requirements
+      actor_id: META-AnalysteBesoinsEquipes
+    - step: roles
+      actor_id: META-CartographeRoles
+    - step: prompts
+      actor_id: META-PromptMaster
+    - step: audit
+      actor_id: META-GouvernanceQA
+    - step: package
+      actor_id: META-PlaybookBuilder
+    - step: archive
+      actor_id: OPS-DossierIA
+  DAM_PROJECT_CONTROL:
+    description: 'Projet DAM : conformité/budget/planning/inspection + synthèse'
+    steps:
+    - step: conformite
+      actor_id: DAM-GPT2-Conformite
+    - step: budget
+      actor_id: DAM-GPT3-Budget
+    - step: planning
+      actor_id: DAM-GPT4-Planification
+    - step: vendors
+      actor_id: DAM-GPT5-SousTraitants
+    - step: inspection
+      actor_id: DAM-GPT6-Inspection
+    - step: synthese
+      actor_id: DAM-Orchestrator
+  EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE:
+    description: Évaluer une production écrite CCQ (réflexion éthique) à partir d'un
+      PDF, avec extraction/transcription et justification selon la grille.
+    steps:
+    - step: ocr
+      actor_id: EDU-OCR-Extractor_CCQ
+    - step: evaluate
+      actor_id: EDU-Reflexions_CCQ
+    - step: qa
+      actor_id: HUB-AgentMO2-DeputyOrchestrator
+    - step: archive
+      actor_id: OPS-DossierIA
+    - step: execute
+      actor_id: EDU-Reflexions_CCQ
+  EDU_CCQ_EVAL_BATCH_V1:
+    description: 'Batch CCQ : évalue N copies, QA contrat, validation enseignant (flagged),
+      maj mémoire cross-session, rapport & archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: manifest
+      actor_id: OPS-PlaybookRunner
+    - step: evaluate_batch
+      actor_id: OPS-PlaybookRunner
+    - step: qa_contract
+      actor_id: HUB-AgentMO2-DeputyOrchestrator
+    - step: teacher_validation
+      actor_id: OPS-DossierIA
+    - step: apply_memory
+      actor_id: OPS-PlaybookRunner
+    - step: compile_report
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EVAL_SINGLE_V1:
+    description: 'Single CCQ : évalue 1 copie, QA contrat, option maj mémoire, archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: evaluate_one
+      actor_id: EDU-Reflexions_CCQ
+    - step: qa_contract
+      actor_id: HUB-AgentMO2-DeputyOrchestrator
+    - step: apply_memory
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EXTRACT_BATCH_V1:
+    description: 'Batch CCQ : extrait/transcrit N copies (PDF natif+scan), segmentation
+      par élève, QA contrat, archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: extract_batch
+      actor_id: EDU-Extractor_CCQ
+    - step: qa_contract
+      actor_id: HUB-AgentMO2-DeputyOrchestrator
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EXTRACT_EVAL_V1:
+    description: 'Pipeline CCQ : extraction/transcription → évaluation/correction
+      → compilation du rapport final (YAML).'
+    steps:
+    - step: extraction
+      actor_id: EDU-Extractor_CCQ
+    - step: eval_ccq
+      actor_id: EDU-Reflexions_CCQ
+    - step: compile_report
+      actor_id: EDU-Orchestrator_CCQ
+  IAHQ_FRONTDOOR:
+    description: 'Front door IAHQ : cadrage -> mapping -> blueprint -> validation
+      -> ROI -> wrapup -> archive'
+    steps:
+    - step: business_intake
+      actor_id: IAHQ-OrchestreurEntrepriseIA
+    - step: process_map
+      actor_id: IAHQ-ProcessMapper
+    - step: solution_blueprint
+      actor_id: IAHQ-SolutionOrchestrator
+    - step: tech_validation
+      actor_id: IAHQ-TechLeadIA
+    - step: business_case
+      actor_id: IAHQ-Economist
+    - step: wrapup
+      actor_id: IAHQ-OrchestreurEntrepriseIA
+    - step: archive
+      actor_id: OPS-DossierIA
+  IASM_SESSION:
+    description: 'Cabinet IA : intake -> risques -> analyse -> plan -> validation'
+    steps:
+    - step: intake
+      actor_id: IASM-OrchestreurCabinetIA
+    - step: risk
+      actor_id: IASM-SecuriteRisques
+    - step: analysis
+      actor_id: IASM-AnalysteSchemasRelationnels
+    - step: plan
+      actor_id: IASM-CoachDeVie
+    - step: director
+      actor_id: IASM-DirecteurCabinetIA
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_CHANGE_EXEC:
+    description: Planifier/exécuter un change -> validations -> reporting -> archive
+    steps:
+    - step: assess
+      actor_id: IT-Commandare-TECH
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: implement
+      actor_id: IT-Commandare-TECH
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_COMMANDARE_NOC:
+    description: 'Commandare NOC: triage/diagnostic initial, sévérité, plan de réponse.'
+    steps:
+    - step: execute
+      actor_id: IT-Commandare-NOC
+  IT_COMMANDARE_OPR:
+    description: 'Commandare OPR: gouvernance ops, communication, coordination & contrôle.'
+    steps:
+    - step: execute
+      actor_id: IT-Commandare-OPR
+  IT_COMMANDARE_TECH:
+    description: 'Commandare TECH: troubleshooting/RCA, plan de remediation, risques.'
+    steps:
+    - step: cadrage
+      actor_id: IT-OrchestratorMSP
+    - step: execute
+      actor_id: IT-Commandare-TECH
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_CW_INTERVENTION_LIVE_CLOSE:
+    description: 'ConnectWise : LIVE journal + closeout CW + KB'
+    steps:
+    - step: intervention
+      actor_id: IT-InterventionCopilot
+    - step: kb
+      actor_id: IT-KnowledgeKeeper
+  IT_INCIDENT_TRIAGE:
+    description: NOC triage -> dispatch -> remediation -> reporting -> archive
+    steps:
+    - step: triage
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: execute
+      actor_id: IT-Commandare-TECH
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_MSP_TICKET_TO_KB:
+    description: Ticket MSP -> diagnostic -> communication -> knowledge
+    steps:
+    - step: scribe
+      actor_id: IT-TicketScribe
+    - step: support
+      actor_id: IT-SupportMaster
+    - step: comms
+      actor_id: IT-CommsMSP
+    - step: kb
+      actor_id: IT-KnowledgeKeeper
+  IT_NOC_DISPATCH:
+    description: 'NOC dispatch: prioriser/assigner/escalader et suivre SLA.'
+    steps:
+    - step: triage
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: archive
+      actor_id: OPS-DossierIA
+  IT_NOC_HANDOFF:
+    description: Handoff NOC (fin de quart/escalade) -> synthèse -> reporting -> archive
+    steps:
+    - step: summarize
+      actor_id: IT-Commandare-NOC
+    - step: dispatch
+      actor_id: IT-NOCDispatcher
+    - step: report
+      actor_id: IT-ReportMaster
+    - step: archive
+      actor_id: OPS-DossierIA
+  NEA_MACHINE_LIVRE_V1:
+    description: 'NEA : cadrage -> structure -> patterns -> rédaction -> imagerie
+      -> archivage -> dossier'
+    steps:
+    - step: brief
+      actor_id: NEA-Orchestrator
+    - step: structure
+      actor_id: NEA-Cartographe
+    - step: patterns
+      actor_id: NEA-ConseilPatterns
+    - step: redaction
+      actor_id: NEA-RedacteurRecueil
+    - step: imagerie
+      actor_id: NEA-Imagier
+    - step: archivage
+      actor_id: NEA-Archiviste
+    - step: dossier
+      actor_id: OPS-DossierIA
+  RADIO_MACHINE_SCRIPT_V1:
+    description: 'Radio : cadrage -> script -> réécriture/voix -> dossier'
+    steps:
+    - step: intake
+      actor_id: PLR-Orchestrator
+    - step: script
+      actor_id: PLR-RadioScripteur
+    - step: voix
+      actor_id: ESPL-PaulLejeuneRadio
+    - step: dossier
+      actor_id: OPS-DossierIA
+  TRAD_WATCH_TO_REPORT:
+    description: Veille -> corrélation -> rapport
+    steps:
+    - step: correlate
+      actor_id: TRAD-Correlator
+    - step: report
+      actor_id: TRAD-GlobalReport

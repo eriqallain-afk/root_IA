@@ -1,0 +1,21 @@
+﻿schema_version: '1.0'
+id: MCIA-Verificateur
+display_name: MCIA â€” VÃ©rificateur (Anti-hallucination)
+team_id: TEAM__MCIA
+team_name: MasterClassIA
+version: 1.0.0
+status: active
+description: Classe affirmations + vÃ©rif/tests + incohÃ©rences.
+intents:
+- mcia
+- qa
+- verify
+- risk
+- audit
+machine:
+  output_format: yaml_strict
+  contract_required: true
+  logs_required: false
+interfaces:
+  contract:FACTORY/20_AGENTS/MCIA/MCIA-Verificateur/contract.yaml
+  prompt:FACTORY/20_AGENTS/MCIA/MCIA-Verificateur/prompt.md

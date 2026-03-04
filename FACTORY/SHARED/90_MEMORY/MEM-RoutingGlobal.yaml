@@ -1,0 +1,149 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-RoutingGlobal
+type: registry_memory
+purpose: Table de routage globale (match intents -> actor/playbook + fallback).
+source:
+  routing_file: 80_MACHINES/hub_routing.yaml
+write_policy: regenerated
+index_fields:
+- intent
+- default_actor_id
+- default_playbook_id
+routing:
+  schema_version: "1.0"
+  generated_at: '2026-01-04T00:00:00Z'
+  router_actor_id: OPS-RouterIA
+  routing_table:
+  - match_any_intents:
+    - it
+    - msp
+    - support
+    - incident
+    - cmdb
+    - network
+    - cloud
+    - security
+    - devops
+    - voip
+    - licenses
+    - monitoring
+    - maintenance
+    - backup
+    - dr
+    - script
+    - broadcast
+    - voiceover
+    - voice_over
+    - voiceOver
+    - studio
+    - audio_broadcast
+    default_actor_id: IT-OrchestratorMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+  - match_any_intents:
+    - company
+    - offers
+    - positioning
+    - business_case
+    - roi
+    - strategy
+    - process
+    - workflow
+    - blueprint
+    - governance
+    - portfolio
+    - plan
+    - architecture
+    - solution
+    - delivery
+    - operations
+    - finance
+    - cost
+    - cto
+    - business
+    - sales
+    - proposal
+    - discovery
+    - transformation
+    default_actor_id: IAHQ-OrchestreurEntrepriseIA
+    default_playbook_id: IAHQ_FRONTDOOR
+  - match_any_intents:
+    - army_factory
+    - roles
+    - requirements
+    - prompt
+    - optimize
+    - engineering
+    - audit
+    default_actor_id: META-OrchestrateurCentral
+    default_playbook_id: BUILD_ARMY_FACTORY
+  - match_any_intents:
+    - dam
+    - planning
+    - budget
+    - inspection
+    - compliance
+    - procurement
+    - suppliers
+    - vendors
+    - products
+    - analytics
+    - kpi
+    - archive
+    - docs
+    default_actor_id: DAM-Orchestrator
+    default_playbook_id: DAM_PROJECT_CONTROL
+  - match_any_intents:
+    - trad
+    - intel
+    - markets
+    - crypto
+    - watch
+    - cyber
+    - social
+    - correlation
+    - signals
+    - report
+    - strategy
+    - quant
+    - cosmos
+    - command
+    default_actor_id: TRAD-CommandCore
+    default_playbook_id: TRAD_WATCH_TO_REPORT
+  - match_any_intents:
+    - iasm
+    - relationship
+    - emotion
+    - anger
+    - family
+    - couple
+    - cbt
+    - support
+    - ethics
+    - risk
+    - safety
+    - goal
+    - tone
+    - sentiment
+    - education
+    - explain
+    default_actor_id: IASM-OrchestreurCabinetIA
+    default_playbook_id: IASM_SESSION
+  - match_any_intents:
+    - nea
+    - book
+    - write
+    - illustration
+    - mapping
+    - patterns
+    default_actor_id: NEA-Orchestrator
+    default_playbook_id: NEA_MACHINE_LIVRE_V1
+  - match_any_intents:
+    - radio
+    - writing
+    - adaptation
+    default_actor_id: PLR-RadioScripteur
+    default_playbook_id: RADIO_MACHINE_SCRIPT_V1
+  fallback:
+    default_actor_id: HUB-AgentMO-MasterOrchestrator
+    default_playbook_id: INTAKE_ROUTE_EXECUTE

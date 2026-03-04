@@ -1,0 +1,11 @@
+# Contract I/O — TRAD-CommandCore
+# Orchestrateur intelligence stratégique : coordonne les analystes
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

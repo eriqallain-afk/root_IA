@@ -1,0 +1,19 @@
+id: TRAD-CommandCore
+display_name: '@TRAD-CommandCore'
+team_id: TEAM__TRAD
+team_name: TRAD
+version: 1.0.0
+status: active
+description: 'Orchestrateur intelligence stratégique : coordonne les analystes'
+intents:
+- trad
+- coordonne
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

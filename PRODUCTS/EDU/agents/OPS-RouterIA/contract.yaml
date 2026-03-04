@@ -1,0 +1,13 @@
+schema_version: '1.0'
+actor_id: OPS-RouterIA
+team_id: TEAM__OPS
+inputs:
+  user_message: string
+  context: object?
+outputs:
+  route: '{actor_id:string, playbook_id:string, confidence:number, reasons:[string]}'
+rules:
+  must_use_routing_file: 80_MACHINES/hub_routing.yaml
+  must_exist_playbook_file: playbooks/playbooks.yaml
+error_handling:
+  on_unknown_intent: fallback

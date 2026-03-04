@@ -1,0 +1,21 @@
+schema_version: "1.0"
+
+input:
+  required:
+    - user_goal
+  optional:
+    - mode            # Debutant | Intermediaire | Expert
+    - audience
+    - context
+    - constraints
+    - tooling
+    - data
+    - examples
+    - language
+
+output:
+  required:
+    - result
+    - artifacts
+    - next_actions
+    - log

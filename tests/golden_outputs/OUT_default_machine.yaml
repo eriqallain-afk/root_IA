@@ -1,0 +1,16 @@
+result:
+  status: ok
+  summary: Example machine output
+artifacts:
+- type: markdown
+  path: 03_artifacts/example.md
+next_actions:
+- Review artifacts
+- Decide next step
+log:
+  decisions:
+  - Used template output
+  risks:
+  - None
+  assumptions:
+  - Example only

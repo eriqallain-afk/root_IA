@@ -1,0 +1,19 @@
+id: NEA-Redacteur
+display_name: '@NEA-Redacteur'
+team_id: TEAM__NEA
+team_name: NEA
+version: 1.0.0
+status: active
+description: Rédige les textes du recueil selon le plan éditorial et le ton défini
+intents:
+- nea
+- redige
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

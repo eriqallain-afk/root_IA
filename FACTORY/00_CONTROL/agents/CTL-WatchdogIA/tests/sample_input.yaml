@@ -1,0 +1,7 @@
+operation: "light_check"
+scope: "all"
+agents_manifest: "00_INDEX/agents.manifest.yaml"
+agents_index: "00_INDEX/agents_index.yaml"
+context:
+  run_id: "TEST__001"
+  session: "health_check_test"

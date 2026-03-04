@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__IASM
+name: IASM
+mission: "Cabinet IA (psychoéducatif/coaching) : modules relationnels & support."
+default_orchestrator: IASM-OrchestreurCabinetIA

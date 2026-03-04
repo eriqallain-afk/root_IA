@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: HUB-IA-ChatBotMaster
+display_name: "@HUB - IA-ChatBotMaster"
+team_id: TEAM__HUB
+team_name: HUB
+version: 1.0.0
+status: active
+description: "Architecte chatbots & GPT interconnectés : patterns, best practices, design conversationnel."
+intents:
+  - chatbot
+  - architecture
+  - conversation
+aliases:
+  - "@HUB - IA-ChatBotMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

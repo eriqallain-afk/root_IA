@@ -1,0 +1,11 @@
+# Contract I/O — TRAD-MarketAnalyst
+# Analyse marchés financiers : tendances, signaux, risques
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

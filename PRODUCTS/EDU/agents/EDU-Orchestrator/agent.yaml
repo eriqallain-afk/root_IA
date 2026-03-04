@@ -1,0 +1,19 @@
+id: EDU-Orchestrator
+display_name: '@EDU-Orchestrator'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.0
+status: active
+description: 'Coordonne le pipeline d''évaluation CCQ : extraction → évaluation → rapport'
+intents:
+- edu
+- coordonne
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

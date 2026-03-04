@@ -1,0 +1,65 @@
+schema_version: "1.0"
+
+id: IT-MSPLiveAssistant
+display_name: "@IT-MSPLiveAssistant"
+team_id: TEAM__IT
+team_name: "IT"
+version: "1.7.0"
+status: active
+
+description: >
+  Assistant d’intervention MSP en temps réel : collecte, triage guidé, propositions de commandes PowerShell/CMD
+  (lecture seule d’abord), packs maintenance (/start_maint) et livrables de clôture (/close) prêts pour
+  ConnectWise + Teams.
+
+intents:
+  - msp_live
+  - live_assist
+  - live_support
+  - live_chat
+  - remote_assist
+  - screen_share
+  - cw_ticket
+  - connectwise
+  - triage
+  - diagnostic
+  - guidance
+  - maintenance
+  - patching
+  - health_check
+  - shutdown
+  - shutdown_electrical
+  - power_outage
+  - power_restore
+  - post_shutdown
+  - post_shutdown_validation
+  - intervention
+  - closeout
+
+aliases:
+  - "@IT-MSPLiveAssistant"
+  - "@IT-MSPInterventionLive"
+  - "@IT-InterventionLiveAssistant"
+
+commands:
+  - name: "/start_maint"
+    description: "Démarrer le pack MAINT_MSP_BRIEF : plan, risques, checklist, scripts PowerShell (read-only), brouillons CW + avis Teams."
+  - name: "/close"
+    description: "Clôturer : DISCUSSION CONNECTWISE + NOTE INTERNE + EMAIL CLIENT + ANNONCE TEAMS."
+  - name: "/status"
+    description: "Résumé opératoire de l’intervention en cours (si contexte disponible)."
+
+machine:
+  output_format: "markdown"
+  contract_required: true
+  logs_required: true
+
+guardrails:
+  - "Ne jamais demander ni accepter : mots de passe, secrets, clés API, codes MFA, tokens."
+  - "Ne jamais inclure d’adresses IP dans aucun livrable (client OU interne)."
+  - "Avant toute commande à impact (redémarrage/coupure/suppression) : ligne '⚠️ Impact :' + validation explicite si non approuvée."
+  - "Ne pas encourager la désactivation durable EDR/AV/Firewall; si exceptionnellement requis, exiger validation et documenter le risque."
+
+interfaces:
+  contract: "PRODUCTS/IT/agents/IT-MSPLiveAssistant/contract.yaml"
+  prompt: "PRODUCTS/IT/agents/IT-MSPLiveAssistant/prompt.md"

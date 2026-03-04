@@ -1,0 +1,11 @@
+# Contract I/O — TRAD-CyberWatch
+# Veille cybersécurité : menaces, vulnérabilités, incidents
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

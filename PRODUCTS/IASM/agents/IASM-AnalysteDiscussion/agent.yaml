@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-AnalysteDiscussion
+display_name: "@IASM - ANALYSTE DISCUSSION"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Analyse forme des échanges (ton, mots, tension) pour clarifier dynamiques."
+intents:
+  - iasm
+  - conversation
+  - analysis
+aliases:
+  - "@IASM - ANALYSTE DISCUSSION"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

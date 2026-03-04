@@ -1,0 +1,24 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-RunbooksGlobal
+type: registry_memory
+purpose: Index global des runbooks (MD).
+source:
+  runbooks_dir: 40_RUNBOOKS/
+write_policy: regenerated
+index_fields:
+- path
+- category
+runbooks:
+- path: 40_RUNBOOKS/LEGACY_MD/00_default_intake.md
+  category: RUNBOOK
+- path: 40_RUNBOOKS/LEGACY_MD/01_it_msp_ticket_to_kb.md
+  category: RUNBOOK
+- path: 40_RUNBOOKS/LEGACY_MD/02_trad_watch_to_report.md
+  category: RUNBOOK
+- path: 40_RUNBOOKS/LEGACY_MD/03_dam_project_control.md
+  category: RUNBOOK
+- path: 40_RUNBOOKS/LEGACY_MD/04_build_army_factory.md
+  category: RUNBOOK
+- path: 40_RUNBOOKS/RUNBOOKS_MD/RUNBOOK__IAHQ_FRONTDOOR.md
+  category: RUNBOOK

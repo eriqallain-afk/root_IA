@@ -1,0 +1,13 @@
+playbook_id: PLAYBOOK_IT_MSP_CONNECTWISE_ONLY_V1
+tool: ConnectWise Manage
+step_2_dispatch_rules:
+  Incident:
+    default_owner: Support
+    source_tool_override: NOC
+  Demande de service:
+    infra_changes_owner: Infra
+    user_requests_owner: Support
+  Task:
+    internal_execution: true
+  Rencontre:
+    owner: Orchestrator

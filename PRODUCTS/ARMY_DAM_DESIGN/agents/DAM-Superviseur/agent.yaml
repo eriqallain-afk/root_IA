@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: DAM-Superviseur
+display_name: "@DAM - Superviseur"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Supervise tous les GPTs DAM : cohérence, sécurité, hiérarchie."
+intents:
+  - dam
+  - qa
+  - governance
+aliases:
+  - "@DAM - Superviseur"
+  - "@DAM-Superviseur"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

@@ -1,0 +1,12 @@
+schema_version: '1.0'
+playbook_id: EDU_CCQ_EXTRACT_BATCH_V1
+description: "PDF -> texte natif si disponible -> rendu pages pour vision si scan -> segmentation multi-élèves -> JSON extraction_batch (max 7 élèves/response)."
+steps:
+  - step: ingest_pdf
+    action: "Read PDF; detect page_count; extract native text when possible."
+  - step: render_for_vision_if_needed
+    action: "If pages are scans/images, transcribe visually; mark [INCERTAIN]/[ILLISIBLE] when needed."
+  - step: segment_students
+    action: "Split by headers (1-, 2-, ...) and clean page ranges per student."
+  - step: package_json
+    action: "Return strict JSON only; enforce max 7 students; set continuation_required/next_start_index."

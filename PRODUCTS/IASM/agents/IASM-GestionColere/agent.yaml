@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-GestionColere
+display_name: "@IASM - Module Gestion de la colère"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Déclencheurs, signaux, fonction, plan d’apaisement."
+intents:
+  - iasm
+  - anger
+  - regulation
+aliases:
+  - "@IASM - Module Gestion de la colère"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

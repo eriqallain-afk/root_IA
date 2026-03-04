@@ -1,0 +1,28 @@
+schema_version: "memory/rolling_stats/v1"
+agent_id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+memory_version: "0.1.0"
+updated_at_utc: "2026-01-13T17:22:20Z"
+
+window_size: 30
+
+# Statistiques glissantes (agrégées) — à mettre à jour après chaque évaluation
+rolling_stats:
+  total_on_100:
+    n: 0
+    mean: 0
+    stdev: 0
+    min: 0
+    max: 0
+  sections_mean_on_20:
+    "Introduction": {"n": 0, "mean": 0, "stdev": 0}
+    "Synopsis": {"n": 0, "mean": 0, "stdev": 0}
+    "Tensions éthiques": {"n": 0, "mean": 0, "stdev": 0}
+    "Choix éthiques": {"n": 0, "mean": 0, "stdev": 0}
+    "Conclusion": {"n": 0, "mean": 0, "stdev": 0}
+
+# Drapeaux d'écart: si une note s'éloigne fortement du profil, signaler pour relecture
+outlier_policy:
+  enabled: true
+  z_threshold: 2.0
+  action: "flag_for_review"

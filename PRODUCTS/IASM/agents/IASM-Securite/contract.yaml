@@ -1,0 +1,11 @@
+# Contract I/O — IASM-Securite
+# Évaluation de risque et protocole de sécurité en cas de détresse
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: markdown

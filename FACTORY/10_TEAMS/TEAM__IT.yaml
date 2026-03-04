@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__IT
+name: IT
+mission: "MSP IT : support, infra, cloud, sécu, DevOps, CMDB."
+default_orchestrator: IT-OrchestratorMSP

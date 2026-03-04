@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-SoftwMaster
+display_name: "@IT-SoftwMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Logiciels & licences : conformité, coûts, optimisation licences."
+intents:
+  - it
+  - licenses
+  - software
+aliases:
+  - "@IT-SoftwMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

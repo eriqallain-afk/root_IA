@@ -1,0 +1,56 @@
+schema_version: "1.0"
+input:
+  objective: string
+  context: string|yaml|json
+  constraints:
+  - string
+  resources:
+  - string
+  expected_output: string
+  priority: low|medium|high
+  deadline: string (optional)
+  # Spécifique gouvernance
+  scope:
+    type: string  # "agent" | "team" | "playbook" | "routing" | "full_architecture"
+    target_id: string  # ID de l'agent/team/playbook à auditer
+  audit_type:
+    - string  # "coherence" | "risk_assessment" | "compliance" | "quality_gates"
+output:
+  result:
+    summary: string
+    details: string
+  # Résultats d'audit
+  audit_findings:
+    coherence_score: int  # 0-10
+    risk_score: int  # 0-10 (10 = risque élevé)
+    compliance_status: string  # "compliant" | "non_compliant" | "partial"
+    issues:
+    - severity: string  # "critical" | "high" | "medium" | "low"
+      category: string  # "architecture" | "prompt" | "workflow" | "governance"
+      description: string
+      recommendation: string
+  # Garde-fous & règles
+  governance_rules:
+  - rule_id: string
+    description: string
+    applies_to: string
+    rationale: string
+  # Validations humaines requises
+  human_validation_required:
+  - checkpoint: string
+    reason: string
+    approver_role: string
+  artifacts:
+  - type: string
+    title: string
+    path: string
+    content: string
+  next_actions:
+  - string
+  log:
+    decisions:
+    - string
+    risks:
+    - string
+    assumptions:
+    - string

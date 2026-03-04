@@ -1,0 +1,24 @@
+id: IAHQ-ProcessMapper
+display_name: '@IAHQ-ProcessMapper'
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: Cartographie les processus métier pour identifier les opportunités d'automatisation. Documenter le processus, structurer l’output, optimiser les workflows.
+  IA
+intents:
+- iahq
+- map_process
+- identify_workflows
+- document_steps
+- analyze_bottlenecks
+- optimize_flow
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true

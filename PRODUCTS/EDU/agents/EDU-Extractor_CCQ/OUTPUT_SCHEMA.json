@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "@EDU-Extractor_CCQ output contract (extraction_batch)",
+  "type": "object",
+  "required": [
+    "extraction_batch"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "extraction_batch": {
+      "type": "object",
+      "required": [
+        "source",
+        "detected_students_total",
+        "returned_students_count",
+        "continuation_required",
+        "next_start_index",
+        "students",
+        "notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "filename",
+            "page_count"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "filename": {
+              "type": "string"
+            },
+            "page_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "detected_students_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_students_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "continuation_required": {
+          "type": "boolean"
+        },
+        "next_start_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "student_id",
+              "label_raw",
+              "pages",
+              "ocr_used",
+              "ocr_confidence",
+              "flags",
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "student_id": {
+                "type": "string"
+              },
+              "label_raw": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pages": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "ocr_used": {
+                "type": "boolean"
+              },
+              "ocr_confidence": {
+                "type": "string",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low",
+                  "unknown"
+                ]
+              },
+              "flags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

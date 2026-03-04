@@ -1,0 +1,11 @@
+# Contract I/O — NEA-Orchestrator
+# Coordonne la création d'un recueil : plan → rédaction → illustrations → révision
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

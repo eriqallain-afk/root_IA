@@ -1,0 +1,72 @@
+schema_version: "1.0"
+generated_at: '2025-12-28T18:00:12Z'
+capabilities:
+
+  CAP__ROUTE_DISPATCH:
+    description: Classifie et route la demande
+    team_id: TEAM__OPS
+    default_actor_id: OPS-RouterIA
+  CAP__PLAYBOOK_EXECUTE:
+    description: Exécute playbooks et compile
+    team_id: TEAM__OPS
+    default_actor_id: OPS-PlaybookRunner
+  CAP__MEMORY_ARCHIVE:
+    description: Archive et indexe
+    team_id: TEAM__OPS
+    default_actor_id: OPS-DossierIA
+  CAP__ARMY_FACTORY:
+    description: Conçoit armées GPT
+    team_id: TEAM__META
+    default_actor_id: META-OrchestrateurCentral
+  CAP__IT_MSP:
+    description: Support MSP IT
+    team_id: TEAM__IT
+    default_actor_id: IT-OrchestratorMSP
+  CAP__TRAD_INTEL:
+    description: Veille & rapports TRAD
+    team_id: TEAM__TRAD
+    default_actor_id: TRAD-CommandCore
+  CAP__DAM_PROJECT:
+    description: Gestion projet DAM
+    team_id: TEAM__DAM
+    default_actor_id: DAM-Orchestrator
+  CAP__IASM_CABINET:
+    description: Cabinet IA
+    team_id: TEAM__IASM
+    default_actor_id: IASM-OrchestreurCabinetIA
+  CAP__NEA_BOOK:
+    description: Recueil NEA
+    team_id: TEAM__NEA
+    default_actor_id: NEA-Orchestrator
+  CAP__RADIO_SCRIPTS:
+    description: Scripts radio
+    team_id: TEAM__PLR
+    default_actor_id: PLR-RadioScripteur
+  CAP__META_TEAM_BUILD:
+    description: "Construction complète d'une nouvelle équipe"
+    team_id: TEAM__META
+    default_actor_id: META-OrchestrateurCentral
+    playbook: BUILD_TEAM_FROM_SCRATCH
+  CAP__META_CLONE:
+    description: "Clonage et adaptation d'agent existant"
+    team_id: TEAM__META
+    default_actor_id: META-PromptMaster
+    playbook: CLONE_AND_ADAPT_AGENT
+  CAP__IAHQ_ONBOARD:
+    description: "Onboarding complet d'une nouvelle équipe (stratégique + technique)"
+    team_id: TEAM__IAHQ
+    default_actor_id: IAHQ-OrchestreurEntrepriseIA
+    playbook: ONBOARD_NEW_TEAM
+  CAP__META_AUDIT:
+    description: "Audit complet d'une équipe avec score de maturité L1-L5"
+    team_id: TEAM__META
+    default_actor_id: META-GouvernanceQA
+    playbook: ARMY_AUDIT_COMPLETE
+  CAP__CTL_MONITOR:
+    description: Surveillance santé et alertes FACTORY
+    team_id: TEAM__CTL
+    default_actor_id: CTL-WatchdogIA
+  CAP__CTL_REPORT:
+    description: Reporting santé (digest / weekly / post-mortem)
+    team_id: TEAM__CTL
+    default_actor_id: CTL-HealthReporter

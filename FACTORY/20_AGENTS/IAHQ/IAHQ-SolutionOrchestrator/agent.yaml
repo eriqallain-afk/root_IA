@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: IAHQ-SolutionOrchestrator
+display_name: "@IAHQ-SolutionOrchestrator"
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: "Orchestrateur solution client : contexte, process, risques, ROI, vision cible."
+intents:
+  - solution
+  - architecture
+  - client
+  - blueprint
+aliases:
+  - "@IAHQ-SolutionOrchestrator"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

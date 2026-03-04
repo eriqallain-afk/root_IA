@@ -1,0 +1,55 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.833722'
+agents:
+  PLR-Orchestrator:
+    display_name: '@PLR-Orchestrator'
+    team_id: TEAM__PLR
+    team_name: PLR
+    description: Planifie et coordonne la production d'épisodes radio/podcast
+    intents:
+    - plr
+    - coordonne
+  PLR-RadioScripteur:
+    display_name: '@PLR - Radio Scripteur'
+    team_id: TEAM__PLR
+    team_name: PLR
+    description: Transforme textes en scripts radio dynamiques (hooks, transitions, rythme).
+    intents:
+    - radio
+    - script
+    - writing
+  PLR-Scripteur:
+    display_name: '@PLR-Scripteur'
+    team_id: TEAM__PLR
+    team_name: PLR
+    description: Rédige les scripts d'épisodes radio/podcast
+    intents:
+    - plr
+    - redige
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

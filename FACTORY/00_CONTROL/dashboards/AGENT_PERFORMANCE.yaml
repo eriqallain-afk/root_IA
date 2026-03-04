@@ -1,0 +1,79 @@
+schema_version: "1.0"
+dashboard_id: AGENT_PERFORMANCE
+description: "Performance individuelle de chaque agent — quality_score, intents, escalades"
+owner: TEAM__CTL
+updated_at: "2026-02-28"
+
+# ============================================================
+# STRUCTURE DE SUIVI — à remplir par CTL-HealthReporter
+# ============================================================
+metrics_schema:
+  per_agent:
+    agent_id:
+      type: string
+      example: "OPS-RouterIA"
+    quality_score_avg:
+      type: float
+      range: "0.0-10.0"
+      source: "log.quality_score de chaque run"
+    quality_score_min:
+      type: float
+    quality_score_trend: "stable | improving | degrading"
+    runs_total: 0
+    runs_success: 0
+    runs_failed: 0
+    runs_escalated: 0
+    success_rate:
+      formula: "runs_success / runs_total"
+    top_intents_served: []
+    escalation_rate:
+      formula: "runs_escalated / runs_total"
+    last_seen: null
+
+thresholds:
+  quality_score_warning: 7.0   # En dessous → alerte CTL-AlertRouter
+  quality_score_critical: 5.0  # En dessous → escalade immédiate
+  escalation_rate_warning: 0.20
+  success_rate_warning: 0.80
+
+# ============================================================
+# AGENTS SUIVIS
+# ============================================================
+agents_tracked:
+  - agent_id: "OPS-RouterIA"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+  - agent_id: "OPS-PlaybookRunner"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+  - agent_id: "OPS-DossierIA"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+  - agent_id: "HUB-AgentMO-MasterOrchestrator"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+  - agent_id: "HUB-Concierge"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+  - agent_id: "META-PromptMaster"
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+note_metrics_disponibilite: >
+  Les métriques timings (total_ms, match_ms) ne sont PAS disponibles dans un
+  contexte GPT natif. Ces champs sont définis null par défaut.
+  Seul un proxy externe (middleware, orchestrateur API) peut collecter des
+  latences réelles. Dans GPT : utiliser routing_complexity + estimated_steps
+  comme proxy de complexité.

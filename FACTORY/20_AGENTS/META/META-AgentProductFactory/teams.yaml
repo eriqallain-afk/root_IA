@@ -1,0 +1,227 @@
+# teams.yaml - Catalogue des équipes (teams)
+schema_version: '1.1'
+last_updated: '2026-02-14'
+
+# ========================================
+# TEAMS DISPONIBLES
+# ========================================
+
+teams:
+  - id: TEAM__IT
+    display_name: "IT & Infrastructure"
+    description: "Gestion infrastructure IT, cloud, serveurs, réseau, sécurité"
+    domains:
+      - Infrastructure serveurs (Windows, Linux)
+      - Virtualisation (VMware, Hyper-V)
+      - Cloud (Azure, AWS, Google Cloud)
+      - Microsoft 365 / Google Workspace
+      - Réseau (Watchguard, Fortinet, switches)
+      - Backup (VEEAM, Datto)
+      - Monitoring et supervision
+      - Sécurité IT
+    tools:
+      - ConnectWise (ticketing, documentation)
+      - PowerShell / Azure CLI / AWS CLI
+      - VMware vSphere / Hyper-V Manager
+      - VEEAM Backup & Replication / Datto
+      - Azure Portal / Microsoft 365 Admin Center
+      - Google Workspace Admin Console
+    agent_count: 28
+    status: active
+    
+  - id: TEAM__CONSTRUCTION
+    display_name: "Construction & Inspection"
+    description: "Gestion projets construction, inspections, conformité CCQ/RBQ"
+    domains:
+      - Inspection bâtiments résidentiels/commerciaux
+      - Gestion projets construction
+      - Estimation coûts et matériaux
+      - Sécurité chantiers
+      - Contrôle qualité
+      - Conformité CCQ/RBQ
+      - Planification travaux
+      - Gestion matériel et équipements
+    standards:
+      - Normes CCQ (Commission de la construction du Québec)
+      - Règlements RBQ (Régie du bâtiment du Québec)
+      - Code de construction du Québec
+      - Normes de sécurité CNESST
+    agent_count: 8
+    status: active
+    
+  - id: TEAM__EDU
+    display_name: "Éducation & Formation"
+    description: "Évaluation compétences, formation technique, certification CCQ"
+    domains:
+      - Évaluation compétences métiers construction
+      - Conception programmes formation
+      - Gestion certifications CCQ
+      - Formation continue
+      - Développement matériel pédagogique
+    standards:
+      - Référentiels CCQ par métier
+      - Normes d'apprentissage Emploi-Québec
+      - Standards certification professionnelle
+    agent_count: 3
+    status: active
+    
+  - id: TEAM__META
+    display_name: "Meta & Gouvernance"
+    description: "Création agents, gouvernance système, optimisation et qualité"
+    domains:
+      - Création et génération d'agents
+      - Optimisation prompts
+      - Audit qualité et conformité
+      - Gestion Knowledge Packs
+      - Standards et gouvernance
+      - Métriques et amélioration continue
+    responsibilities:
+      - Maintenir qualité agents (score ≥9/10)
+      - Assurer conformité YAML
+      - Éviter duplications et prompts génériques
+      - Documenter best practices
+      - Escalader problèmes qualité
+    agent_count: 4
+    status: active
+    
+  - id: TEAM__OPS
+    display_name: "Opérations & Orchestration"
+    description: "Orchestration workflows, routing, gestion opérations quotidiennes"
+    domains:
+      - Orchestration multi-agents
+      - Routing intelligent de requêtes
+      - Gestion workflows complexes
+      - Coordination inter-équipes
+      - Monitoring opérations
+    agent_count: 0
+    status: planned
+    note: "Team en phase de conception"
+    
+  - id: TEAM__STRAT
+    display_name: "Stratégie & Intelligence"
+    description: "Analyse stratégique, intelligence d'affaires, aide décision"
+    domains:
+      - Analyse stratégique
+      - Intelligence d'affaires
+      - Aide à la décision
+      - Veille technologique
+      - Optimisation processus métier
+    agent_count: 0
+    status: planned
+    note: "Team en phase de conception"
+    
+  - id: TEAM__DOSSIER_IA
+    display_name: "Dossier IA & Documentation"
+    description: "Gestion documentation système, historique, archives"
+    domains:
+      - Documentation système root_IA
+      - Historique conversations et décisions
+      - Archives et versionnement
+      - Knowledge base centrale
+      - Recherche et indexation
+    agent_count: 0
+    status: planned
+    note: "Team en phase de conception"
+
+# ========================================
+# NAMING CONVENTIONS
+# ========================================
+
+naming_rules:
+  team_id_format: "TEAM__<UPPERCASE>"
+  examples:
+    - TEAM__IT
+    - TEAM__CONSTRUCTION
+    - TEAM__EDU
+    - TEAM__META
+  
+  agent_id_format: "<TEAM>-<AgentName>"
+  examples:
+    - IT-CloudMaster
+    - CONSTRUCTION-InspectionBatiment
+    - EDU-EvaluationCCQ
+    - META-AgentFactory
+  
+  case_rules:
+    team_id: "UPPERCASE with underscores"
+    agent_name: "PascalCase (UpperCamelCase)"
+    full_id: "kebab-case (TEAM-AgentName)"
+
+# ========================================
+# TEAM SELECTION GUIDE
+# ========================================
+
+selection_guide:
+  IT:
+    when_to_use:
+      - Infrastructure serveurs, réseau, cloud
+      - Support IT et maintenance
+      - Gestion Microsoft 365, Azure, AWS
+      - Backup et disaster recovery
+      - Monitoring et sécurité IT
+    examples:
+      - "Agent pour gérer patching serveurs"
+      - "Agent pour générer rapports cloud Azure"
+      - "Agent pour troubleshooter problèmes réseau"
+      
+  CONSTRUCTION:
+    when_to_use:
+      - Inspection bâtiments
+      - Gestion projets construction
+      - Conformité CCQ/RBQ
+      - Sécurité chantiers
+      - Estimation coûts
+    examples:
+      - "Agent pour inspecter conformité bâtiment"
+      - "Agent pour estimer coûts projet"
+      - "Agent pour planifier séquence travaux"
+      
+  EDU:
+    when_to_use:
+      - Évaluation compétences métiers
+      - Formation technique
+      - Certification CCQ
+      - Développement matériel pédagogique
+    examples:
+      - "Agent pour évaluer compétences électricien"
+      - "Agent pour concevoir programme formation"
+      - "Agent pour gérer certifications CCQ"
+      
+  META:
+    when_to_use:
+      - Création d'agents
+      - Optimisation prompts
+      - Audit qualité
+      - Gestion Knowledge Packs
+      - Gouvernance système
+    examples:
+      - "Agent pour créer nouveaux agents"
+      - "Agent pour optimiser prompts existants"
+      - "Agent pour auditer qualité agents"
+      
+  OPS:
+    when_to_use:
+      - Orchestration workflows
+      - Routing de requêtes
+      - Coordination multi-agents
+    note: "Team en développement"
+    
+  STRAT:
+    when_to_use:
+      - Analyse stratégique
+      - Intelligence d'affaires
+      - Aide décision
+    note: "Team en développement"
+
+# ========================================
+# STATISTIQUES
+# ========================================
+
+statistics:
+  total_teams: 7
+  active: 4
+  planned: 3
+  total_agents_across_teams: 43
+  average_agents_per_team: 10.75
+  largest_team: "TEAM__IT (28 agents)"
+  smallest_team: "TEAM__EDU (3 agents)"

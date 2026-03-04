@@ -1,0 +1,12 @@
+request:
+  objective: Créer une armée GPT pour une PME de plomberie
+  context:
+    domain: services
+    stack:
+    - Notion
+    - Google Drive
+  constraints:
+  - budget limité
+  expected_output: blueprint + registry
+expected:
+  target_playbook: BUILD_ARMY_FACTORY

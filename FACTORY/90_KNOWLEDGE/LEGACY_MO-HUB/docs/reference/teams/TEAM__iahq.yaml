@@ -1,0 +1,37 @@
+id: TEAM-IAHQ
+name: "@IAHQ"
+status: active
+
+owner_orchestrator: "AGENT-MO"
+upstream_orchestrator: "AGENT-MO"
+upstream_backup_orchestrator: "AGENT-MO2"
+
+mission: "Siège/Control plane : stratégie, gouvernance, qualité, priorisation, décisions, standards."
+
+scope:
+  in: ["objectifs business", "demandes de décision", "incidents/risques", "intégrations IP"]
+  out: ["priorités", "policies", "arbitrages", "validation IAHQ", "OKR/KPI"]
+
+interfaces:
+  consumes: []
+  produces: ["POLICY-APPROVALS", "POLICY-QUALITY", "POLICY-SECURITY"]
+
+agents:
+  - "AGENT-MO"
+  - "AGENT-MO2"
+
+rules:
+  - "Toute intégration passe par un IP + double validation IAHQ+META."
+  - "Toute décision structurante va dans decision_log.md."
+
+kpi:
+  - "Temps intake→décision"
+  - "Taux de rework après validation"
+
+known_risks:
+  - "Goulot si MO fait trop → MO reste control plane"
+  - "Décisions non tracées"
+
+last_review: "2025-12-15"
+version: "1.0.0"
+

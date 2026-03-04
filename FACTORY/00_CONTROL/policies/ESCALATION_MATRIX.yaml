@@ -1,0 +1,73 @@
+schema_version: "1.0"
+description: "Matrice d'escalade — qui est notifié pour quelle sévérité et quel type d'issue"
+last_updated: "2026-02-25"
+
+matrix:
+
+  P0:
+    response_delay: "immédiat (< 30 min)"
+    blocking: true
+    primary_contacts:
+      - agent_id: HUB-AgentMO-MasterOrchestrator
+        role: "Coordination générale & décision"
+      - agent_id: IAHQ-QualityGate
+        role: "Approbation avant reprise"
+      - agent_id: CTL-HealthReporter
+        role: "Log post-mortem"
+    by_issue_type:
+      schema_missing:
+        contacts: [HUB-AgentMO-MasterOrchestrator, META-GouvernanceQA]
+      phantom_agent_active:
+        contacts: [HUB-AgentMO-MasterOrchestrator, IAHQ-TechLeadIA]
+      factory_cascade_failure:
+        contacts: [HUB-AgentMO-MasterOrchestrator, IAHQ-QualityGate, IAHQ-TechLeadIA]
+      drift_critical:
+        contacts: [META-GouvernanceQA, META-PromptMaster, IAHQ-QualityGate]
+
+  P1:
+    response_delay: "< 24 heures"
+    blocking: false
+    primary_contacts:
+      - agent_id: OPS-DossierIA
+        role: "Archivage du ticket"
+    by_issue_type:
+      drift_detected:
+        contacts: [META-GouvernanceQA, OPS-DossierIA]
+      phantom_agent:
+        contacts: [IAHQ-TechLeadIA, META-AgentProductFactory, OPS-DossierIA]
+      schema_incomplete:
+        contacts: [META-GouvernanceQA, OPS-DossierIA]
+      team_no_orchestrator:
+        contacts: [META-OrchestrateurCentral, IAHQ-OrchestreurEntrepriseIA]
+      playbook_failure_rate:
+        contacts: [IAHQ-TechLeadIA, OPS-PlaybookRunner, OPS-DossierIA]
+      health_score_alert:
+        contacts: [IAHQ-Strategist, CTL-HealthReporter]
+
+  P2:
+    response_delay: "< 7 jours"
+    blocking: false
+    primary_contacts:
+      - agent_id: CTL-HealthReporter
+        role: "Queue rapport hebdomadaire"
+    by_issue_type:
+      orphaned_agent:
+        contacts: [CTL-HealthReporter, META-WorkflowDesignerEquipes]
+      no_tests:
+        contacts: [CTL-HealthReporter, META-GouvernanceQA]
+      naming_violation:
+        contacts: [CTL-HealthReporter, META-AgentProductFactory]
+      deprecated_overdue:
+        contacts: [CTL-HealthReporter, OPS-DossierIA]
+
+  P3:
+    response_delay: "prochain cycle de maintenance"
+    blocking: false
+    primary_contacts:
+      - agent_id: OPS-DossierIA
+        role: "Archivage informatif"
+
+fallback:
+  when: "Destinataire introuvable dans l'index"
+  contact: HUB-AgentMO-MasterOrchestrator
+  note: "Toujours router, même en fallback — jamais supprimer une alerte P0"

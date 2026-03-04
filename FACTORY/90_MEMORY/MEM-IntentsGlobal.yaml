@@ -1,0 +1,545 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-IntentsGlobal
+type: registry_memory
+purpose: Index inversé intent -> agents.
+source:
+  intents_file: 00_INDEX/intents.yaml
+write_policy: regenerated
+index_fields:
+- intent
+- actor_id
+intents:
+  actions:
+  - IASM-CoachDeVie
+  adaptation:
+  - ESPL-PaulLejeuneRadio
+  addiction:
+  - IASM-AddictionsCompulsions
+  admin:
+  - IAHQ-AdminManagerIA
+  analysis:
+  - IASM-AnalysteDiscussion
+  - META-AnalysteBesoinsEquipes
+  - META-ReversePrompt
+  - NEA-ConseilPatterns
+  - TRAD-AnalytikGlobal
+  analytics:
+  - DAM-GPT13-Analytics
+  anger:
+  - IASM-GestionColere
+  architecture:
+  - HUB-IA-ChatBotMaster
+  - IAHQ-SolutionOrchestrator
+  - IAHQ-TechLeadIA
+  - META-PromptArchitectEquipes
+  archive:
+  - DAM-GPT7-Archiviste
+  - NEA-Archiviste
+  - OPS-DossierIA
+  army_design:
+  - META-CartographeRoles
+  army_factory:
+  - META-OrchestrateurCentral
+  assets:
+  - HUB-AvatarForge
+  - IT-AssetMaster
+  audio_broadcast:
+  - IT-OrchestratorMSP
+  audit:
+  - META-SuperviseurInvisible
+  automation:
+  - IT-ScriptMaster
+  - META-PlaybookBuilder
+  avatar:
+  - HUB-AvatarForge
+  azure:
+  - IT-CloudMaster
+  backup:
+  - IT-BackupDRMaster
+  blueprint:
+  - IAHQ-SolutionOrchestrator
+  book:
+  - NEA-Orchestrator
+  brand:
+  - HUB-AvatarForge
+  brief:
+  - HUB-AgentMO2-DeputyOrchestrator
+  broadcast:
+  - IT-OrchestratorMSP
+  budget:
+  - DAM-GPT3-Budget
+  build:
+  - IAHQ-DevFactoryIA
+  business:
+  - IAHQ-OrchestreurEntrepriseIA
+  business_case:
+  - IAHQ-Economist
+  cbt:
+  - IASM-OutilsTCC
+  change:
+  - IT-Commandare-TECH
+  chatbot:
+  - HUB-IA-ChatBotMaster
+  cicd:
+  - IT-DevOpsMaster
+  clarify:
+  - IASM-ClarificateurObjectifRelationnel
+  classify:
+  - OPS-RouterIA
+  client:
+  - DAM-GPT8-Communication
+  - IAHQ-SolutionOrchestrator
+  - IT-CommsMSP
+  cloud:
+  - IT-CloudMaster
+  cmdb:
+  - IT-AssetMaster
+  coach:
+  - HUB-CoachIA360-Strategie-GPTTeams
+  - HUB-ITCoachIA360
+  coaching:
+  - IASM-CoachDeVie
+  command:
+  - TRAD-CommandCore
+  comms:
+  - DAM-GPT8-Communication
+  - IT-CommsMSP
+  communication:
+  - IASM-SpecialisteRelationsCouple
+  - IT-ReportMaster
+  company:
+  - IAHQ-OrchestreurEntrepriseIA
+  compliance:
+  - DAM-GPT2-Conformite
+  compulsion:
+  - IASM-AddictionsCompulsions
+  consistency:
+  - META-SuperviseurInvisible
+  conversation:
+  - HUB-IA-ChatBotMaster
+  - IASM-AnalysteDiscussion
+  coordination:
+  - IT-NOCDispatcher
+  correlation:
+  - TRAD-Correlator
+  cosmos:
+  - TRAD-CosmoPsyWatcher
+  cost:
+  - DAM-GPT3-Budget
+  - IAHQ-Economist
+  couple:
+  - IASM-SpecialisteRelationsCouple
+  crypto:
+  - TRAD-CryptoStrategist
+  - TRAD-FractalMathCrypto
+  cto:
+  - IAHQ-TechLeadIA
+  - IT-CTOMaster
+  customer:
+  - DAM-GPT11-Satisfaction
+  cyber:
+  - TRAD-CyberWatch
+  dam:
+  - DAM-GPT10-Fournisseurs
+  - DAM-GPT11-Satisfaction
+  - DAM-GPT12-Legal
+  - DAM-GPT13-Analytics
+  - DAM-GPT2-Conformite
+  - DAM-GPT3-Budget
+  - DAM-GPT4-Planification
+  - DAM-GPT5-SousTraitants
+  - DAM-GPT6-Inspection
+  - DAM-GPT7-Archiviste
+  - DAM-GPT8-Communication
+  - DAM-GPT9-Produits
+  - DAM-Orchestrator
+  - DAM-Superviseur
+  data:
+  - IAHQ-TechLeadIA
+  deep_patterns:
+  - IASM-TherapiePsychodynamique
+  delivery:
+  - IAHQ-DevFactoryIA
+  deployment:
+  - HUB-ITCoachIA360
+  - IAHQ-DevFactoryIA
+  design:
+  - HUB-AvatarForge
+  - META-OrchestrateurCentral
+  devops:
+  - IT-DevOpsMaster
+  discovery:
+  - IAHQ-OrchestreurEntrepriseIA
+  dispatch:
+  - HUB-AgentMO-MasterOrchestrator
+  - IT-NOCDispatcher
+  - OPS-RouterIA
+  - TRAD-CommandCore
+  docs:
+  - DAM-GPT7-Archiviste
+  dr:
+  - IT-BackupDRMaster
+  edit:
+  - NEA-RedacteurRecueil
+  education:
+  - IASM-Psychoeducateur
+  emotion:
+  - IASM-GestionEmotions
+  - IASM-SupportEmotionnel
+  engineering:
+  - META-Opromptimizer
+  ethics:
+  - IASM-SuperviseurEthique
+  execute:
+  - OPS-PlaybookRunner
+  explain:
+  - IASM-Psychoeducateur
+  extract:
+  - IAHQ-Extractor
+  extraction:
+  - META-ReversePrompt
+  family:
+  - IASM-ModuleRelationsConjugalesFamiliales
+  finance:
+  - IAHQ-Economist
+  firewall:
+  - IT-NetworkMaster
+  geopolitics:
+  - TRAD-VigillIntel
+  goal:
+  - IASM-ClarificateurObjectifRelationnel
+  governance:
+  - DAM-Superviseur
+  - IAHQ-AdminManagerIA
+  - IT-DirecteurGeneral
+  - META-GouvernanceEtRisques
+  - META-SuperviseurInvisible
+  iasm:
+  - IASM-AddictionsCompulsions
+  - IASM-AnalysteDiscussion
+  - IASM-AnalysteSchemasRelationnels
+  - IASM-ClarificateurObjectifRelationnel
+  - IASM-CoachDeVie
+  - IASM-DirecteurCabinetIA
+  - IASM-GestionColere
+  - IASM-GestionEmotions
+  - IASM-ModuleRelationsConjugalesFamiliales
+  - IASM-OrchestreurCabinetIA
+  - IASM-OutilsTCC
+  - IASM-Psychoeducateur
+  - IASM-RessentiTonalite
+  - IASM-SecuriteRisques
+  - IASM-SpecialisteRelationsCouple
+  - IASM-SuperviseurEthique
+  - IASM-SupportEmotionnel
+  - IASM-TherapiePsychodynamique
+  illustration:
+  - NEA-Imagier
+  incident:
+  - IT-Commandare-NOC
+  - IT-Commandare-TECH
+  - IT-NOCDispatcher
+  - IT-SupportMaster
+  infrastructure:
+  - IT-InfrastructureMaster
+  ingest:
+  - IAHQ-Extractor
+  insight:
+  - IASM-TherapiePsychodynamique
+  inspection:
+  - DAM-GPT6-Inspection
+  intake:
+  - HUB-AgentMO-MasterOrchestrator
+  - IASM-OrchestreurCabinetIA
+  intel:
+  - TRAD-VigillIntel
+  it:
+  - HUB-ITCoachIA360
+  - IT-AssetMaster
+  - IT-BackupDRMaster
+  - IT-CTOMaster
+  - IT-CloudMaster
+  - IT-Commandare-OPR
+  - IT-CommsMSP
+  - IT-DevOpsMaster
+  - IT-DirecteurGeneral
+  - IT-InfrastructureMaster
+  - IT-KnowledgeKeeper
+  - IT-MaintenanceMaster
+  - IT-MonitoringMaster
+  - IT-NetworkMaster
+  - IT-OrchestratorMSP
+  - IT-ScriptMaster
+  - IT-SecurityMaster
+  - IT-SoftwMaster
+  - IT-SupportMaster
+  - IT-TicketScribe
+  - IT-VoIPMaster
+  kb:
+  - IT-KnowledgeKeeper
+  knowledge:
+  - IT-KnowledgeKeeper
+  kpi:
+  - DAM-GPT13-Analytics
+  - IT-ReportMaster
+  legal:
+  - DAM-GPT12-Legal
+  licenses:
+  - IT-SoftwMaster
+  m365:
+  - IT-CloudMaster
+  maintenance:
+  - IT-MaintenanceMaster
+  management:
+  - IT-DirecteurGeneral
+  mapping:
+  - IAHQ-ProcessMapper
+  - META-CartographeRoles
+  - META-WorkflowDesignerEquipes
+  - NEA-Cartographe
+  markets:
+  - TRAD-MarketSentinel
+  memory:
+  - OPS-DossierIA
+  monitoring:
+  - IT-Commandare-NOC
+  - IT-MonitoringMaster
+  msp:
+  - IT-Commandare-OPR
+  - IT-OrchestratorMSP
+  nea:
+  - NEA-Archiviste
+  - NEA-Cartographe
+  - NEA-ConseilPatterns
+  - NEA-Imagier
+  - NEA-Orchestrator
+  - NEA-RedacteurRecueil
+  network:
+  - IT-NetworkMaster
+  noc:
+  - IT-Commandare-NOC
+  normalize:
+  - NEA-Archiviste
+  observability:
+  - IT-MonitoringMaster
+  offers:
+  - IAHQ-AdminManagerIA
+  operations:
+  - IAHQ-AdminManagerIA
+  optimize:
+  - HUB-OproEngine
+  - META-Opromptimizer
+  orchestrate:
+  - DAM-Orchestrator
+  - HUB-AgentMO-MasterOrchestrator
+  - HUB-AgentMO2-DeputyOrchestrator
+  - IASM-DirecteurCabinetIA
+  - IT-OrchestratorMSP
+  - META-OrchestrateurCentral
+  - NEA-Orchestrator
+  patching:
+  - IT-MaintenanceMaster
+  patterns:
+  - IASM-AnalysteSchemasRelationnels
+  - NEA-ConseilPatterns
+  plan:
+  - IAHQ-DevFactoryIA
+  planning:
+  - DAM-GPT4-Planification
+  playbook:
+  - META-PlaybookBuilder
+  portfolio:
+  - IAHQ-OrchestreurEntrepriseIA
+  positioning:
+  - IAHQ-OrchestreurEntrepriseIA
+  process:
+  - IAHQ-ProcessMapper
+  - IT-Commandare-OPR
+  - META-WorkflowDesignerEquipes
+  procurement:
+  - DAM-GPT10-Fournisseurs
+  - DAM-GPT5-SousTraitants
+  products:
+  - DAM-GPT9-Produits
+  project:
+  - DAM-Orchestrator
+  project_file:
+  - OPS-DossierIA
+  prompt:
+  - HUB-OproEngine
+  - META-Opromptimizer
+  - META-PromptArchitectEquipes
+  proposal:
+  - IAHQ-OrchestreurEntrepriseIA
+  psycho_collective:
+  - TRAD-CosmoPsyWatcher
+  qa:
+  - DAM-Superviseur
+  - HUB-AgentMO2-DeputyOrchestrator
+  - HUB-OproEngine
+  - IASM-DirecteurCabinetIA
+  - META-SuperviseurInvisible
+  quality:
+  - DAM-GPT6-Inspection
+  - META-GouvernanceEtRisques
+  quant:
+  - TRAD-FractalMathCrypto
+  radio:
+  - ESPL-PaulLejeuneRadio
+  - PLR-RadioScripteur
+  regulation:
+  - IASM-GestionColere
+  - IASM-GestionEmotions
+  relationships:
+  - IASM-AnalysteSchemasRelationnels
+  remediation:
+  - IT-Commandare-TECH
+  report:
+  - IT-ReportMaster
+  - TRAD-GlobalReport
+  requirements:
+  - META-AnalysteBesoinsEquipes
+  reverse_prompt:
+  - META-ReversePrompt
+  review:
+  - DAM-GPT12-Legal
+  - IASM-SuperviseurEthique
+  risk:
+  - DAM-GPT2-Conformite
+  - IASM-SecuriteRisques
+  - IT-SecurityMaster
+  - META-GouvernanceEtRisques
+  roadmap:
+  - HUB-CoachIA360-Strategie-GPTTeams
+  roi:
+  - IAHQ-Economist
+  roles:
+  - META-CartographeRoles
+  route:
+  - IASM-OrchestreurCabinetIA
+  - OPS-RouterIA
+  run_playbook:
+  - OPS-PlaybookRunner
+  runbook:
+  - IT-KnowledgeKeeper
+  safety:
+  - IASM-SecuriteRisques
+  sales:
+  - IAHQ-OrchestreurEntrepriseIA
+  satisfaction:
+  - DAM-GPT11-Satisfaction
+  schedule:
+  - DAM-GPT4-Planification
+  script:
+  - ESPL-PaulLejeuneRadio
+  - IT-OrchestratorMSP
+  - PLR-RadioScripteur
+  scripting:
+  - IT-ScriptMaster
+  security:
+  - IAHQ-TechLeadIA
+  - IT-SecurityMaster
+  selection:
+  - DAM-GPT9-Produits
+  sentiment:
+  - IASM-RessentiTonalite
+  servers:
+  - IT-InfrastructureMaster
+  signals:
+  - TRAD-Correlator
+  sla:
+  - IT-NOCDispatcher
+  - IT-ReportMaster
+  social:
+  - TRAD-SocioRadar
+  software:
+  - IT-SoftwMaster
+  solution:
+  - IAHQ-SolutionOrchestrator
+  spec:
+  - META-AnalysteBesoinsEquipes
+  standardization:
+  - META-PromptArchitectEquipes
+  standardize:
+  - HUB-OproEngine
+  standards:
+  - IT-CTOMaster
+  strategy:
+  - HUB-CoachIA360-Strategie-GPTTeams
+  - HUB-ITCoachIA360
+  - IAHQ-OrchestreurEntrepriseIA
+  - TRAD-AnalytikGlobal
+  - TRAD-CryptoStrategist
+  structure:
+  - IAHQ-Extractor
+  - NEA-Cartographe
+  studio:
+  - IT-OrchestratorMSP
+  summarize:
+  - IAHQ-Extractor
+  suppliers:
+  - DAM-GPT10-Fournisseurs
+  support:
+  - IASM-SupportEmotionnel
+  - IT-SupportMaster
+  systemic:
+  - IASM-ModuleRelationsConjugalesFamiliales
+  teams:
+  - HUB-CoachIA360-Strategie-GPTTeams
+  ticket:
+  - IT-TicketScribe
+  tickets:
+  - IT-Commandare-OPR
+  tone:
+  - IASM-RessentiTonalite
+  tools:
+  - IASM-OutilsTCC
+  trad:
+  - TRAD-AnalytikGlobal
+  - TRAD-CommandCore
+  - TRAD-Correlator
+  - TRAD-CosmoPsyWatcher
+  - TRAD-CryptoStrategist
+  - TRAD-CyberWatch
+  - TRAD-FractalMathCrypto
+  - TRAD-GlobalReport
+  - TRAD-MarketSentinel
+  - TRAD-SocioRadar
+  - TRAD-VigillIntel
+  transformation:
+  - IAHQ-OrchestreurEntrepriseIA
+  trends:
+  - TRAD-SocioRadar
+  triage:
+  - IT-Commandare-NOC
+  troubleshooting:
+  - IT-Commandare-TECH
+  uc:
+  - IT-VoIPMaster
+  vendors:
+  - DAM-GPT5-SousTraitants
+  visual:
+  - NEA-Imagier
+  voiceOver:
+  - IT-OrchestratorMSP
+  voice_over:
+  - IT-OrchestratorMSP
+  voiceover:
+  - IT-OrchestratorMSP
+  voip:
+  - IT-VoIPMaster
+  watch:
+  - TRAD-CyberWatch
+  - TRAD-MarketSentinel
+  workflow:
+  - IAHQ-ProcessMapper
+  - META-PlaybookBuilder
+  - META-WorkflowDesignerEquipes
+  - OPS-PlaybookRunner
+  write:
+  - NEA-RedacteurRecueil
+  writing:
+  - IT-TicketScribe
+  - PLR-RadioScripteur
+  - TRAD-GlobalReport

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent.yaml",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "display_name",
+    "team_id",
+    "team_name",
+    "version",
+    "status",
+    "description",
+    "intents",
+    "machine",
+    "interfaces"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "team_id": {
+      "type": "string",
+      "pattern": "^TEAM__"
+    },
+    "team_name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "deprecated"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "machine": {
+      "type": "object",
+      "required": [
+        "output_format",
+        "contract_required",
+        "logs_required"
+      ],
+      "properties": {
+        "output_format": {
+          "type": "string"
+        },
+        "contract_required": {
+          "type": "boolean"
+        },
+        "logs_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "interfaces": {
+      "type": "object",
+      "required": [
+        "contract",
+        "prompt"
+      ],
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+schema_version: "1.0"
+team_id: TEAM__META
+agents:
+  - id: META-OrchestrateurCentral
+    name: Orchestrateur Central
+    status: Orchestration
+
+  - id: META-AgentProductFactory
+    name: Agent Factory
+    status: production
+
+  - id: META-AnalysteBesoinsEquipes
+    name: Analyste Besoins Equipes
+    status: production
+    
+  - id: META-CartographeRoles
+    name: Cartographe des Rôles
+    status: production
+
+  - id: META-WorkflowDesignerEquipes
+    name: Workflow Designer Equipes
+    status: production
+
+  - id: META-ReversePrompt
+    name: Prompt Inverse
+    status: production
+
+  - id: META-PromptMaster
+    name: Prompt Master V2
+    status: production
+    
+  - id: META-PlaybookBuilder
+    name: Playbook Builder
+    status: production
+    
+  - id: META-Redaction
+    name: Rédaction Professionnelle
+    status: production
+    
+  - id: META-VisionCreative
+    name: Vision Créative
+    status: production
+    
+  - id: META-Pedagogie
+    name: Pédagogie Expert
+    status: production
+    
+  - id: META-ArchitecteChoix
+    name: Architecte Choix
+    status: production
+    
+  - id: META-GouvernanceQA
+    name: Gouvernance QA
+    status: production
+    
+  - id: META-Concierge
+    name: Concierge META
+    status: production
+
+  - id: META-ConciergeUX
+    name: ConciergeUX META
+    status: production

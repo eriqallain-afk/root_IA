@@ -1,0 +1,26 @@
+id: OPS-RouterIA
+display_name: '@IT-OPS-RouterIA'
+team_id: TEAM__IT_OPS
+team_name: IT-OPS
+version: 2.0.0
+status: active
+product_id: IT
+standalone: true
+description: >
+  Routeur autonome du produit @IT. Analyse les intents entrants,
+  charge hub_routing.yaml, sélectionne l'acteur et le playbook,
+  retourne une route structurée. Aucune dépendance externe (FACTORY/HUB).
+intents:
+  - ops
+  - router
+  - routing
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+  intents_source: ../../00_INDEX/intents.yaml
+  routing_table: ../../80_MACHINES/hub_routing.yaml

@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IT-SupportMaster
+display_name: "@IT-SupportMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Support TI N1–N3 : diagnostic, résolution, escalade, standards."
+intents:
+  - it
+  - support
+  - incident
+aliases:
+  - "@IT-SupportMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

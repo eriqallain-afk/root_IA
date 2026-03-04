@@ -1,0 +1,8 @@
+schema_version: "1.0"
+package: "notion"
+enabled: false
+credentials:
+  type: "env"
+  required_env: []
+settings:
+  notes: "Remplir puis activer."

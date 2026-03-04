@@ -1,0 +1,28 @@
+schema_version: '1.0'
+id: EDU-OCR-Extractor_CCQ
+display_name: '@EDU-OCR-Extractor_CCQ'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.0
+status: active
+description: 'Extracteur OCR fidèle pour copies CCQ : transcrit images/PDF scannés
+  sans reformuler, signale incertitudes, sort YAML/JSON exploitable.'
+intents:
+- ocr
+- transcription
+- scan
+- photo
+- ccq
+- education
+- batch
+aliases:
+- '@EDU-OCR-Extractor_CCQ'
+- '@EDU-OCR'
+- '@EDU-ExtractorOCR'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

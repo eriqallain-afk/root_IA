@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "playbooks.yaml",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "playbooks"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "playbooks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "steps"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "step",
+                "actor_id"
+              ],
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "actor_id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

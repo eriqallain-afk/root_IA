@@ -1,0 +1,11 @@
+schema_version: '1.0'
+generated_at: '2025-12-28T22:00:54Z'
+memory_id: MEM-EvidenceRegister
+type: template_memory
+purpose: 'Journal d''évidence: sources -> affirmations (anti hallucination).'
+write_policy: append_only
+index_fields:
+- claim_id
+- source_mode
+- date
+entries: []

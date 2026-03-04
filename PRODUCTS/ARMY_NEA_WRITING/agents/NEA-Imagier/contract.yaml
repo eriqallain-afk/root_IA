@@ -1,0 +1,11 @@
+# Contract I/O — NEA-Imagier
+# Crée des briefs détaillés pour les illustrations du recueil
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

@@ -1,0 +1,184 @@
+rubric_name: Grille de correction – Réflexion éthique (CCQ 4e–5e secondaire)
+source_document: Critères et Grille de correction - RÉFLEXION ÉTHIQUE.pdf
+sections:
+- name: Introduction
+  max_points: 20
+  score_map:
+    A+: 20
+    A: 19
+    A-: 18
+    B+: 17
+    B: 16
+    B-: 15
+    C+: 14
+    C: 13
+    C-: 12
+    D+: 11
+    D: 10
+    D-: 9
+    E+: 8
+    E: 7
+    E-: 6
+- name: Synopsis
+  max_points: 20
+  score_map:
+    A+: 20
+    A: 19
+    A-: 18
+    B+: 17
+    B: 16
+    B-: 15
+    C+: 14
+    C: 13
+    C-: 12
+    D+: 11
+    D: 10
+    D-: 9
+    E+: 8
+    E: 7
+    E-: 6
+- name: Tensions éthiques
+  max_points: 20
+  score_map:
+    A+: 20
+    A: 19
+    A-: 18
+    B+: 17
+    B: 16
+    B-: 15
+    C+: 14
+    C: 13
+    C-: 12
+    D+: 11
+    D: 10
+    D-: 9
+    E+: 8
+    E: 7
+    E-: 6
+- name: Choix éthiques
+  max_points: 20
+  score_map:
+    A+: 20
+    A: 19
+    A-: 18
+    B+: 17
+    B: 16
+    B-: 15
+    C+: 14
+    C: 13
+    C-: 12
+    D+: 11
+    D: 10
+    D-: 9
+    E+: 8
+    E: 7
+    E-: 6
+- name: Conclusion
+  max_points: 20
+  score_map:
+    A+: 20
+    A: 19
+    A-: 18
+    B+: 17
+    B: 16
+    B-: 15
+    C+: 14
+    C: 13
+    C-: 12
+    D+: 11
+    D: 10
+    D-: 9
+    E+: 8
+    E: 7
+    E-: 6
+global_descriptors:
+  A +: '✓ Les propos sont pertinents et complet : Toutes les parties obligatoires
+    sont présentes, de même que la partie facultative du sujet amené, laquelle est
+    fort bien énoncée, pertinente et suffisante. ✓ Ils démontrent une réflexion très
+    approfondie, il dépasse les exigences attendues. ✓ L’élève dépasse les exigences
+    en ce qui a trait à l’acquisition, la compréhension et l’application des connaissances
+    présentées dans le document de consignes. ✓ L’élève dépasse les exigences en ce
+    qui a trait à l’interrogation appropriée de la situation sous l’angle de l’éthique,
+    par exemple par la présentation d’éléments justes et pertinents (tensions, points
+    de vue, repères, etc.) et l’élaboration de questions liées aux enjeux éthiques
+    (valeurs et normes). ✓ L’élève dépasse les exigences en ce qui a trait au traitement
+    des éléments éthiques, par exemple par l’examen des points de vue et des repères
+    liés à ces points de vue ou par l’évaluation des effets des réponses possibles
+    aux questions éthiques sur soi, les autres, les relations et la société. ✓ L’élève
+    dépasse les exigences en ce qui a trait à l’expression d’un point de vue réfléchi
+    lié à l’interrogation de la situation sous l’angle de l’éthique, développé de
+    manière claire, cohérente et suffisante, et appuyé sur des idées pertinentes et
+    fondées, issues notamment du dialogue. ✓ L’élève dépasse les exigences en ce qui
+    a trait à l’expression claire et cohérente d’une interprétation, ou d’une explication,
+    liée à l’interrogation de réalités culturelles sous l’angle de la sociologie,
+    appuyée sur des informations et des idées pertinentes, et développée de manière
+    suffisante'
+  B +: '✓ Les propos sont pertinents et complets : Toutes les parties obligatoires
+    sont présentes, de même que la partie facultative du sujet amené. ✓ Ils démontrent
+    une bonne réflexion, l’élève atteint les exigences, mais ne les dépasse pas. ✓
+    L’élève atteint les exigences en ce qui a trait à l’acquisition, la compréhension
+    et l’application des connaissances présentées dans le document de consignes. ✓
+    L’élève atteint les exigences en ce qui a trait à l’interrogation appropriée de
+    la situation sous l’angle de l’éthique, par exemple par la présentation d’éléments
+    justes et pertinents (tensions, points de vue, repères, etc.) et l’élaboration
+    de questions liées aux enjeux éthiques (valeurs et normes). ✓ L’élève atteint
+    les exigences en ce qui a trait au traitement des éléments éthiques, par exemple
+    par l’examen des points de vue et des repères liés à ces points de vue ou par
+    l’évaluation des effets des réponses possibles aux questions éthiques sur soi,
+    les autres, les relations et la société. ✓ L’élève atteint les exigences en ce
+    qui a trait à l’expression d’un point de vue réfléchi lié à l’interrogation de
+    la situation sous l’angle de l’éthique, développé de manière claire, cohérente
+    et suffisante, et appuyé sur des idées pertinentes et fondées, issues notamment
+    du dialogue. ✓ L’élève atteint les exigences en ce qui a trait à l’expression
+    claire et cohérente d’une interprétation, ou d’une explication, liée à l’interrogation
+    de réalités culturelles sous l’angle de la sociologie, appuyée sur des informations
+    et des idées pertinentes, et développée de manière suffisante.'
+  C +: '✓ Les propos sont pertinents, mais ils sont développés de façon sommaire :
+    Les parties obligatoires sont présentes, il peut en manquer une. ✓ Ils démontrent
+    une réflexion acceptable, voire minimaliste. ✓ L’élève atteint les exigences,
+    avec certains manques et de façon minimaliste en ce qui a trait à l’acquisition,
+    la compréhension et l’application des connaissances présentées dans le document
+    de consignes. ✓ L’élève atteint les exigences, avec certains manques et de façon
+    minimaliste en ce qui a trait à l’interrogation appropriée de la situation sous
+    l’angle de l’éthique, par exemple par la présentation d’éléments justes et pertinents
+    (tensions, points de vue, repères, etc.) et l’élaboration de questions liées aux
+    enjeux éthiques (valeurs et normes). ✓ L’élève atteint les exigences, avec certains
+    manques et de façon minimaliste en ce qui a trait au traitement des éléments éthiques,
+    par exemple par l’examen des points de vue et des repères liés à ces points de
+    vue ou par l’évaluation des effets des réponses possibles aux questions éthiques
+    sur soi, les autres, les relations et la société. ✓ L’élève atteint les exigences,
+    avec certains manques et de façon minimaliste en ce qui a trait à l’expression
+    d’un point de vue réfléchi lié à l’interrogation de la situation sous l’angle
+    de l’éthique, développé de manière claire, cohérente et suffisante, et appuyé
+    sur des idées pertinentes et fondées, issues notamment du dialogue. ✓ L’élève
+    atteint les exigences, avec certains manques et de façon minimaliste en ce qui
+    a trait à l’expression claire et cohérente d’une interprétation, ou d’une explication,
+    liée à l’interrogation de réalités culturelles sous l’angle de la sociologie,
+    appuyée sur des informations et des idées pertinentes, et développée de manière
+    suffisante.'
+  D +: ✓ Les propos sont plus ou moins pertinents, mais largement incomplets. ✓ Ils
+    ne démontrent pas une réelle réflexion. ✓ L’élève n’atteint pas les exigences
+    en ce qui a trait à l’acquisition, la compréhension et l’application des connaissances
+    présentées dans le document de consignes. ✓ L’élève n’atteint pas les exigences
+    en ce qui a trait à l’interrogation appropriée de la situation sous l’angle de
+    l’éthique, par exemple par la présentation d’éléments justes et pertinents (tensions,
+    points de vue, repères, etc.) et l’élaboration de questions liées aux enjeux éthiques
+    (valeurs et normes). ✓ L’élève n’atteint en ce qui a trait au traitement des éléments
+    éthiques, par exemple par l’examen des points de vue et des repères liés à ces
+    points de vue ou par l’évaluation des effets des réponses possibles aux questions
+    éthiques sur soi, les autres, les relations et la société. ✓ L’élève n’atteint
+    pas les exigences en ce qui a trait à l’expression d’un point de vue réfléchi
+    lié à l’interrogation de la situation sous l’angle de l’éthique, développé de
+    manière claire, cohérente et suffisante, et appuyé sur des idées pertinentes et
+    fondées, issues notamment du dialogue. ✓ L’élève n’atteint pas les exigences en
+    ce qui a trait à l’expression claire et cohérente d’une interprétation, ou d’une
+    explication, liée à l’interrogation de réalités culturelles sous l’angle de la
+    sociologie, appuyée sur des informations et des idées pertinentes, et développée
+    de manière suffisante.
+  E +: ✓ Les propos ne sont pas pertinents et/ou ne tiennent pas compte des éléments
+    attendus d’une réflexion éthique.
+  0 pt: ✓ Le paragraphe est tout simplement ABSENT.
+notes:
+- Les descripteurs A+/B+/… proviennent de la grille et s’appliquent à la qualité globale
+  attendue.
+- Le barème /20 par section et /100 total provient du tableau de la grille.

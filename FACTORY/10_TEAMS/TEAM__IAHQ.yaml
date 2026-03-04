@@ -1,0 +1,39 @@
+schema_version: "1.0"
+team_id: TEAM__IAHQ
+name: IAHQ
+mission: "Siège : stratégie, ROI, admin, architecture & delivery."
+default_orchestrator: IAHQ-OrchestreurEntrepriseIA
+
+agents_count: 10
+
+key_agents:
+  - IAHQ-OrchestreurEntrepriseIA
+  - IAHQ-Strategist
+  - IAHQ-ProcessMapper
+  - IAHQ-Economist
+  - IAHQ-TechLeadIA
+  - IAHQ-Extractor
+  - IAHQ-AdminManagerIA
+  - IAHQ-DevFactoryIA
+  - IAHQ-SolutionOrchestrator
+  - IAHQ-QualityGate
+
+capabilities:
+  - Direction stratégique et business cases
+  - Segmentation marchés et offres IA
+  - Cartographie processus et quick wins
+  - Évaluation coûts/gains et ROI
+  - Architecture technique IA (CTO virtuel)
+  - Ingestion et extraction documents
+  - Administration et gestion contractuelle
+  - Build, packaging et déploiement
+  - Orchestration solution client
+  - Audit qualité finale (5 étapes)
+
+policies:
+  - FACTORY/50_POLICIES/IAHQ_GOVERNANCE_POLICY.yaml
+
+runbooks:
+  - FACTORY/40_RUNBOOKS/RUNBOOK_IAHQ_FRONTDOOR.md
+
+last_updated: "2026-03-02"

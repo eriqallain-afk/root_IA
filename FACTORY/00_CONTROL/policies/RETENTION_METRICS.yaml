@@ -1,0 +1,35 @@
+schema_version: "1.0"
+description: "Politique de rétention des métriques et artifacts de monitoring"
+last_updated: "2026-02-25"
+
+retention:
+  watchdog_reports:
+    light_check: "7 jours"
+    full_check: "90 jours"
+    note: "Les full_check avec issues P0/P1 sont retenus 365 jours"
+
+  alert_tickets:
+    P0: "365 jours (obligatoire pour audit)"
+    P1: "180 jours"
+    P2: "90 jours"
+    P3: "30 jours"
+
+  health_reports:
+    daily_digest: "30 jours"
+    weekly_report: "365 jours"
+    post_mortem: "illimité (archivage permanent)"
+
+  run_metrics:
+    raw_metrics: "90 jours"
+    aggregated_weekly: "365 jours"
+    aggregated_monthly: "illimité"
+
+  playbook_artifacts:
+    standard: "90 jours"
+    with_incidents: "365 jours"
+
+rules:
+  - "Pas de données client (noms, emails, données sensibles) dans les artifacts de monitoring"
+  - "Les secrets ne doivent jamais apparaître dans les logs — redaction obligatoire"
+  - "Les archives P0 sont immuables après clôture (no overwrite)"
+  - "Export mensuel recommandé pour backup des weekly_reports"

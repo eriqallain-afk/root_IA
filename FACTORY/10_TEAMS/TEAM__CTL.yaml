@@ -1,0 +1,31 @@
+schema_version: "1.0"
+team_id: TEAM__CTL
+name: CTL
+mission: "Monitoring & contrôle de la FACTORY : surveillance santé, alertes, reporting, cycle de vie des agents."
+default_orchestrator: CTL-WatchdogIA
+
+agents_count: 3
+
+key_agents:
+  - CTL-WatchdogIA
+  - CTL-AlertRouter
+  - CTL-HealthReporter
+
+capabilities:
+  - Surveillance santé agents (health check)
+  - Détection de drift comportemental
+  - Routage et escalade d'alertes
+  - Reporting périodique (quotidien / hebdo / post-mortem)
+  - Gestion cycle de vie agents (activate / deprecate / archive)
+
+policies:
+  - 00_CONTROL/policies/ALERT_THRESHOLDS.yaml
+  - 00_CONTROL/policies/ESCALATION_MATRIX.yaml
+  - 00_CONTROL/policies/RETENTION_METRICS.yaml
+
+runbooks:
+  - 00_CONTROL/runbooks/RUNBOOK_AGENT_FAILURE.md
+  - 00_CONTROL/runbooks/RUNBOOK_DRIFT_DETECTED.md
+  - 00_CONTROL/runbooks/RUNBOOK_FACTORY_DOWN.md
+
+last_updated: "2026-02-25"

@@ -1,0 +1,46 @@
+schema_version: "1.0"
+# ============================================================
+# TEMPLATE — Fichier TEAM__<ID>.yaml
+# Copier ce fichier, renommer en TEAM__<VOTRE_ID>.yaml
+# Remplir tous les champs (retirer les commentaires)
+# ============================================================
+
+team_id: "TEAM__<ID>"              # Ex: TEAM__DAM, TEAM__IT, TEAM__EDU
+name: "<ID>"                        # Ex: DAM, IT, EDU
+mission: >
+  <Mission de l'équipe en 1-3 phrases.
+  Décrit CE QUE fait l'équipe, POUR QUI, et QUEL domaine elle couvre.>
+
+default_orchestrator: "<ID>-<NomOrchestrator>"   # Ex: DAM-OrchestreurDAM
+
+# Nombre total d'agents créés (max recommandé : 8)
+agents_count: 0
+
+# Liste des agents (IDs canoniques)
+key_agents:
+  - "<ID>-<Agent1>"
+  - "<ID>-<Agent2>"
+  # ... ajouter tous les agents
+
+# Capacités clés de l'équipe (ce qu'elle sait faire)
+capabilities:
+  - "<Capacité 1>"
+  - "<Capacité 2>"
+
+# Références aux politiques applicables
+policies:
+  - "50_POLICIES/<fichier>.yaml"
+
+# Playbooks de l'équipe
+playbooks:
+  primary: "<playbook_id_principal>"
+  all:
+    - "<playbook_id_1>"
+    - "<playbook_id_2>"
+
+# Métadonnées de création
+created_by: "ONBOARD_NEW_TEAM | BUILD_TEAM_FROM_SCRATCH | manual"
+created_date: "<YYYY-MM-DD>"
+last_updated: "<YYYY-MM-DD>"
+version: "1.0.0"
+status: "active"    # active | deprecated | draft

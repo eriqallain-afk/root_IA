@@ -1,0 +1,68 @@
+====================================================================
+  FUSION META - Package d'installation (10 -> 8 agents)
+====================================================================
+
+Date: 2026-02-01
+Version: 1.0
+
+====================================================================
+INSTALLATION RAPIDE (Windows)
+====================================================================
+
+1. Extraire ce ZIP dans votre dossier root_IA
+
+2. Double-cliquer sur:
+   FUSION_META_PACKAGE\APPLY_FIXED.bat
+
+3. Le script fait tout automatiquement:
+   - Backup automatique
+   - Creation de 2 nouveaux agents
+   - Depreciation de 4 anciens agents
+   - Patches des fichiers
+
+4. C'est termine!
+
+====================================================================
+SI PROBLEME D'ENCODAGE
+====================================================================
+
+Si vous voyez des caracteres bizarres, utilisez:
+APPLY_FIXED.bat et APPLY_FIXED.ps1 (versions sans accents)
+
+====================================================================
+COMMANDES MANUELLES (PowerShell)
+====================================================================
+
+Si vous preferez lancer manuellement:
+
+cd C:\votre\chemin\root_IA
+powershell -NoProfile -ExecutionPolicy Bypass -File FUSION_META_PACKAGE\APPLY_FIXED.ps1
+
+====================================================================
+ROLLBACK (en cas de probleme)
+====================================================================
+
+Un backup est automatiquement cree dans:
+BACKUP_FUSION_META_YYYYMMDD_HHMMSS\
+
+Pour restaurer:
+1. Copier BACKUP_FUSION_META_xxx\META vers 20_AGENTS\
+2. Copier BACKUP_FUSION_META_xxx\agents_index.yaml vers 00_INDEX\
+3. Copier BACKUP_FUSION_META_xxx\playbooks.yaml vers 40_RUNBOOKS\
+
+====================================================================
+DOCUMENTATION COMPLETE
+====================================================================
+
+README.md              - Guide complet
+GUIDE_FUSION_META.md   - Guide detaille
+DEPRECATION.md         - Notice de depreciation
+
+====================================================================
+SUPPORT
+====================================================================
+
+Questions: Equipe META
+Documentation: Voir les fichiers .md dans le package
+
+====================================================================

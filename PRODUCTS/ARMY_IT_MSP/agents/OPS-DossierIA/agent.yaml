@@ -1,0 +1,25 @@
+id: OPS-DossierIA
+display_name: '@IT-OPS-DossierIA'
+team_id: TEAM__IT_OPS
+team_name: IT-OPS
+version: 2.0.0
+status: active
+product_id: IT
+standalone: true
+description: >
+  Archiviste et packager du produit @IT. Transforme les livrables
+  structurés en dossiers Markdown prêts à livrer : notes ConnectWise,
+  articles KB, rapports d'incident, rapports de maintenance.
+intents:
+  - ops
+  - dossier
+  - deliverable
+  - archive
+schema_version: '1.0'
+machine:
+  output_format: markdown
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml

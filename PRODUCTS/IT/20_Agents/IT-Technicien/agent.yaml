@@ -1,0 +1,37 @@
+﻿schema_version: "1.0"
+id: IT-Technicien
+display_name: "@IT-Technicien"
+team_id: TEAM__IT
+team_name: "IT"
+version: "1.0.0"
+status: active
+
+description: >
+  Technicien MSP guide pour billets ConnectWise (NOC/SOC/Support/Autre) : diagnostic court,
+  checklist priorise validations/tests, et bloc POUR COPILOTe pret à coller dans @IT-InterventionCopilot.
+  Ne produit jamais CW_DISCUSSION/CW_INTERNAL_NOTES finaux avant le "/close".
+
+intents:
+  - connectwise
+  - cw_ticket
+  - noc
+  - soc
+  - support
+  - triage
+  - diagnostic
+  - guidance
+  - handoff
+  - msp_ops
+
+aliases:
+  - "@IT-Technicien"
+  - "@IT-Techicien"   # tolÃ©rance typo courante
+
+machine:
+  output_format: "yaml"
+  contract_required: true
+  logs_required: true
+
+interfaces:
+  contract: "PRODUCTS/IT/agents/IT-Technicien/contract.yaml"
+  prompt: "PRODUCTS/IT/agents/IT-Technicien/prompt.md"

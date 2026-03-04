@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "memory.yaml",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "memory_objects"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "memory_objects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "purpose",
+          "write_policy",
+          "index_fields",
+          "source"
+        ],
+        "properties": {
+          "purpose": {
+            "type": "string"
+          },
+          "write_policy": {
+            "type": "string"
+          },
+          "index_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

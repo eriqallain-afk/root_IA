@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-SuperviseurEthique
+display_name: "@IASM - Superviseur / éthique"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: "Relit sorties, sécurise formulations, retire tout contenu risqué/confus."
+intents:
+  - iasm
+  - ethics
+  - review
+aliases:
+  - "@IASM - Superviseur / éthique"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

@@ -1,0 +1,8 @@
+schema_version: "1.0"
+package: "gdrive"
+enabled: false
+credentials:
+  type: "env"
+  required_env: []
+settings:
+  notes: "Remplir puis activer."

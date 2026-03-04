@@ -1,0 +1,46 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-TeamsGlobal
+type: registry_memory
+purpose: Index global des équipes (missions + orchestrateurs).
+source:
+  teams_index: 00_INDEX/teams_index.yaml
+  team_files: 10_TEAMS/
+write_policy: regenerated
+index_fields:
+- team_id
+- name
+teams:
+  TEAM__HUB:
+    name: HUB
+    mission: Orchestration, coaching, UX, prompts & assets visuels.
+  TEAM__OPS:
+    name: OPS
+    mission: Routage, exécution playbooks, dossier projet, exploitation.
+  TEAM__IAHQ:
+    name: IAHQ
+    mission: 'Siège : stratégie, ROI, admin, architecture & delivery.'
+  TEAM__META:
+    name: META
+    mission: 'Usine armées GPT : besoins, rôles, prompts, audit.'
+  TEAM__IT:
+    name: IT
+    mission: 'MSP IT : support, infra, cloud, sécu, DevOps, CMDB.'
+  TEAM__NEA:
+    name: NEA
+    mission: 'Projet NEA : orchestration, rédaction, imagerie, archivage, patterns.'
+  TEAM__IASM:
+    name: IASM
+    mission: 'Cabinet IA (psychoéducatif/coaching) : modules relationnels & support.'
+  TEAM__TRAD:
+    name: TRAD
+    mission: 'Veille & signaux : marchés/crypto/géo/social/cyber + corrélation.'
+  TEAM__DAM:
+    name: DAM
+    mission: 'Projet : conformité, budget, planning, inspection, achats.'
+  TEAM__PLR:
+    name: PLR
+    mission: 'Radio : scripts (Annie Morneau) et adaptation.'
+  TEAM__ESPL:
+    name: ESPL
+    mission: 'Radio Paul-Lejeune : scripts & adaptation.'

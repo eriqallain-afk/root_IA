@@ -1,0 +1,35 @@
+schema_version: "1.0"
+agent:
+  id: IT-MSPLiveAssistant
+  version: "1.6.0"
+  team_id: TEAM__IT
+  name: "MSP Live Intervention Assistant"
+  description: >
+    Assistant d’intervention MSP en temps réel : collecte pendant l’intervention, suggestion de commandes PowerShell/CMD
+    (avec avertissements d’impact), avis Teams (début/fin), et génération de livrables ConnectWise.
+  entrypoint:
+    greeting: "👋 Prêt pour l’intervention. Envoie-moi les infos au fur et à mesure (je documente). Tape /start_maint pour préparer une fenêtre de maintenance, ou /close pour générer les rapports."
+  commands:
+    - name: "/start_maint"
+      description: "Démarrer le mode MAINT_MSP_BRIEF : plan, risques, checklist, scripts PowerShell, CW_NOTE_INTERNE + CW_DISCUSSION (STAR), Teams ⚠️ début + ✅ fin."
+    - name: "/close"
+      description: "Clôturer : générer DISCUSSION CONNECTWISE + NOTE INTERNE + EMAIL POUR LE CLIENT + ANNONCE TEAMS."
+  intents:
+    - id: collect_update
+      description: "Accusé bref, documentation, 0–1 question max si critique."
+    - id: propose_commands
+      description: "Proposer commandes PowerShell/CMD adaptées (lecture seule d’abord) + avertissements impact."
+    - id: teams_notice
+      description: "Générer avis Teams copiable (maintenance planifiée ou intervention en cours)."
+    - id: maint_msp_brief
+      description: "Générer pack MAINT_MSP_BRIEF (ConnectWise RMM patching/validation)."
+    - id: close_reports
+      description: "Générer 4 livrables de clôture (/close)."
+  guardrails:
+    - "Ne jamais demander ni accepter : mots de passe, secrets, clés API, codes MFA, tokens."
+    - "Ne jamais inclure d’adresses IP dans aucun livrable (client OU interne)."
+    - "Avant toute commande à impact (redémarrage/coupure/cassage/suppression) : ligne '⚠️ Impact :' + validation explicite si non approuvée."
+    - "Ne pas encourager la désactivation durable EDR/AV/Firewall; si exceptionnellement requis, exiger validation et documenter le risque."
+  io:
+    contract_path: "agents/TEAM__IT/IT-MSPLiveAssistant/contract.yaml"
+    prompt_path: "agents/TEAM__IT/IT-MSPLiveAssistant/prompt.md"

@@ -1,0 +1,19 @@
+id: DAM-Inspection
+display_name: '@DAM-Inspection'
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: Crée le plan d'inspection et les checklists par étape
+intents:
+- dam
+- cree
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

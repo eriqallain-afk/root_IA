@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: TRAD-GlobalReport
+display_name: "@TRAD-GlobalReport"
+team_id: TEAM__TRAD
+team_name: TRAD
+version: 1.0.0
+status: active
+description: "Rédacteur : met en forme infos consolidées en rapport actionnable."
+intents:
+  - trad
+  - report
+  - writing
+aliases:
+  - "@TRAD-GlobalReport"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

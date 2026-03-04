@@ -1,0 +1,17 @@
+schema_version: '1.0'
+input:
+  accepts:
+  - images
+  - pdf_scans
+  - text_optional
+  notes: Si texte déjà fourni, le retourner tel quel dans combined_text et indiquer
+    ocr_mode=passthrough.
+output:
+  format: YAML_STRICT
+  fields:
+    ocr_mode: passthrough|vision_ocr
+    pages: list<{page:int, text:str, confidence:0..1, flags:list<str>}>
+    combined_text: str
+    ocr_confidence: 0..1
+    flags: list<str>
+    warnings: list<str>

@@ -1,0 +1,149 @@
+
+---
+
+## README.md
+
+```markdown
+# META-PromptMaster
+
+**Version** : 2.0.0  
+**Status** : Production  
+**Team** : META (TEAM__META)  
+**Agent ID** : META-PromptMaster  
+**Usine** : laFACTORY_IA (usine de production de Livrables GPT)  
+
+---
+
+## 1. Rôle dans laFACTORY_IA
+
+META-PromptMaster est l’expert unique en **prompt engineering** de laFACTORY_IA.  
+Il conçoit, optimise et standardise les prompts qui pilotent les GPT livrables (agents, orchestrateurs, playbooks).
+
+Objectifs principaux :
+
+- produire des prompts **clairs, précis et testables** ;
+- supprimer les prompts « magiques » impossibles à maintenir ;
+- fournir des artefacts prêts à l’emploi : `prompt.md`, `contract.yaml`, suites de tests et notes pédagogiques.
+
+---
+
+## 2. Mission & périmètre
+
+### 2.1 Mission
+
+- Transformer les besoins de l’équipe META et des équipes métiers en prompts professionnels compatibles laFACTORY_IA.
+- Assurer la cohérence entre prompt, contrat I/O, patterns utilisés et policies.
+- Former progressivement les équipes à de bonnes pratiques de prompt engineering.
+
+### 2.2 Périmètre fonctionnel
+
+META-PromptMaster couvre :
+
+1. **Création de prompts** (`meta_prompt_create`)  
+   - À partir d’un objectif + agent_definition + io_contract.
+
+2. **Optimisation** (`meta_prompt_optimize`)  
+   - À partir d’un prompt existant et de problèmes observés.
+
+3. **Validation** (`meta_prompt_validate`)  
+   - Audit qualité avec scoring, forces/faiblesses et recommandations.
+
+4. **Pédagogie** (`meta_prompt_teach`)  
+   - Explication des patterns, exemples, contre-exemples, exercice guidé.
+
+5. **Patterns & debug** (`meta_prompt_pattern`, `meta_prompt_debug`, `meta_prompt_review`)  
+   - Choix/combinaison de patterns, diagnostic et relecture pair.
+
+---
+
+## 3. Contrat I/O (vue d’ensemble)
+
+Le détail formel est dans `contract.yaml`, mais les grandes lignes sont :
+
+### 3.1 Input
+
+- `objective` (string) : description texte du besoin.
+- `mode` (string, optionnel) : `create_new`, `optimize_existing`, `standardize`, `test`, `teach`.
+- `agent_definition` (object, optionnel) : id, team, mission, responsabilités, criticité…
+- `prompt_existing` (string, optionnel) : prompt à analyser ou améliorer.
+- `io_contract` (object, optionnel) : description des entrées/sorties attendues pour l’agent cible.
+- `options` (object, optionnel) : préférences utilisateur (détail, format, niveau).
+
+### 3.2 Output
+
+- `result` : résumé de l’action + détails.
+- `prompt` : prompt complet en Markdown pour l’agent cible.
+- `quality_assessment` : scoring et justification.
+- `tests` : cas de test (nominal, edge, anti-hallucination).
+- `teaching_notes` : concepts clés & raisons du design.
+- `next_actions` : ce qu’il reste à faire côté humain / équipe META.
+- `log` : décisions, risques, hypothèses.
+
+Les sorties sont toujours en **YAML strict** lorsqu’elles sont destinées à l’usine.
+
+---
+
+## 4. Library de patterns (résumé)
+
+META-PromptMaster s’appuie sur une vingtaine de patterns dont :
+
+- **MACHINE_MODE** : sorties strictes, logs, séparation faits/hypothèses.
+- **CONVERSATIONAL_MODE** : dialogue humain, clarification, ton pédagogique.
+- **ORCHESTRATION_MODE** : coordination d’agents, handoff, agrégation.
+- **TEACHING_MODE** : explication progressive, pratique guidée.
+- **ANALYSIS_MODE** : analyse structurée, hypothèses, recommandations.
+- **VALIDATION_QA** : checklist, sévérité des issues, décision PASS/FAIL.
+- **ITERATIVE_REFINEMENT**, **FEEDBACK_LOOP**, **SCENARIO_PLANNING**, etc.
+
+Pour chaque prompt, les patterns utilisés sont documentés dans `quality_assessment.patterns_used` ou dans `teaching_notes`.
+
+---
+
+## 5. Flux type dans laFACTORY_IA
+
+### 5.1 Création d’un nouvel agent
+
+1. L’équipe métier ou META décrit l’agent cible (`agent_definition` + `objective` + premier jet de `io_contract`).  
+2. Un orchestrateur ou un humain appelle META-PromptMaster avec `mode: create_new`.  
+3. META-PromptMaster renvoie :
+   - un `prompt.content` prêt à mettre dans `prompt.md` ;
+   - une proposition de `contract.yaml` ;
+   - 3–6 tests pour valider le comportement ;
+   - des teaching_notes pour comprendre et ajuster.
+
+### 5.2 Optimisation d’un agent existant
+
+1. Un problème est observé (hallucinations, ton inadapté, etc.).  
+2. Le prompt actuel est envoyé à META-PromptMaster avec `mode: optimize_existing`.  
+3. META-PromptMaster renvoie :
+   - un scoring avant/après ;
+   - un prompt optimisé ;
+   - des tests supplémentaires ;
+   - des recommandations pour mise en production.
+
+---
+
+## 6. Exemple d’appel (simplifié)
+
+### 6.1 Création
+
+```yaml
+input:
+  objective: "Créer un agent GPT qui aide à concevoir des campagnes email B2B."
+  mode: "create_new"
+  agent_definition:
+    agent_id: "MKT-EmailStrategist"
+    team_id: "TEAM__MKT"
+    team_name: "Marketing"
+    mission: "Concevoir des campagnes email B2B performantes."
+    responsibilities:
+      - "Proposer des séquences email"
+      - "Adapter le ton au persona"
+      - "Respecter les contraintes légales"
+    criticality: "medium"
+  io_contract:
+    input:
+      brief: string
+    output:
+      sequence: string
+      rationale: string

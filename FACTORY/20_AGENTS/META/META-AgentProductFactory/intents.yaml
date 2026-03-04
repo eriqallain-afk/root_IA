@@ -1,0 +1,334 @@
+# intents.yaml - Catalogue des intents disponibles
+schema_version: '1.1'
+last_updated: '2026-02-14'
+
+# ========================================
+# CATÉGORIES D'INTENTS
+# ========================================
+
+generation:
+  description: "Créer, générer, produire du contenu ou des structures"
+  intents:
+    - generate_report
+    - generate_document
+    - generate_documentation
+    - create_agent
+    - create_procedure
+    - create_runbook
+    - create_template
+    - produce_output
+    - build_structure
+    - design_solution
+    - develop_materials
+    - create_curriculum
+
+analysis:
+  description: "Analyser, diagnostiquer, investiguer"
+  intents:
+    - analyze_data
+    - analyze_error
+    - analyze_logs
+    - analyze_event_log
+    - analyze_veeam_logs
+    - analyze_prompt_quality
+    - diagnose_issue
+    - diagnose_datto_issues
+    - troubleshoot_problem
+    - troubleshoot_server
+    - troubleshoot_backup_failure
+    - troubleshoot_connectivity
+    - troubleshoot_critical
+    - assess_risk
+    - assess_safety
+    - assess_competence
+    - assess_technology
+    - assess_quality
+    - assess_effectiveness
+    - identify_vulnerabilities
+    - identify_improvements
+    - identify_hazards
+    - detect_anomalies
+
+maintenance:
+  description: "Gérer, maintenir, opérer l'infrastructure"
+  intents:
+    - manage_servers
+    - manage_infrastructure
+    - manage_resources
+    - manage_budget
+    - manage_technicians
+    - manage_certification
+    - manage_inventory
+    - manage_firewall
+    - maintain_infrastructure
+    - maintain_knowledge_base
+    - patch_systems
+    - monitor_health
+    - monitor_infrastructure
+    - backup_data
+    - coordinate_operations
+    - coordinate_maintenance
+    - coordinate_incidents
+    - coordinate_emergency
+    - coordinate_teams
+    - coordinate_trades
+    - coordinate_deliveries
+    - plan_patching
+    - plan_project
+    - plan_sequence
+    - plan_roadmap
+    - schedule_tasks
+    - optimize_workflows
+    - optimize_network
+    - optimize_timeline
+    - optimize_usage
+    - track_progress
+    - track_maintenance_progress
+    - track_capacity
+    - track_performance
+    - track_compliance
+    - track_sla
+    - track_metrics
+    - track_materials
+    - track_requirements
+    - track_incidents
+
+communication:
+  description: "Communiquer, notifier, rapporter, documenter"
+  intents:
+    - notify_client
+    - communicate_status
+    - escalate_issue
+    - escalate_problem
+    - escalate_urgent
+    - report_status
+    - report_compliance
+    - log_intervention
+    - document_process
+    - document_intervention
+    - document_actions
+    - document_progress
+    - document_deficiencies
+    - document_issues
+    - document_procedures
+    - document_architecture
+    - generate_cw_notes
+    - generate_inspection_report
+    - generate_backup_report
+    - generate_security_report
+    - generate_evaluation
+    - generate_client_report
+    - generate_quote
+    - generate_certificates
+    - provide_guidance
+    - provide_strategic_guidance
+    - provide_recommendations
+    - provide_immediate_support
+
+validation:
+  description: "Valider, vérifier, contrôler, auditer"
+  intents:
+    - validate_compliance
+    - validate_ccq_compliance
+    - validate_quality
+    - validate_yaml
+    - validate_standards
+    - validate_alignment
+    - validate_hours
+    - check_quality
+    - check_compliance
+    - verify_security
+    - audit_configuration
+    - audit_security
+    - audit_agent
+    - test_functionality
+    - review_code
+    - conduct_inspection
+    - conduct_quality_inspection
+    - execute_procedure
+
+execution:
+  description: "Exécuter, appliquer, implémenter"
+  intents:
+    - suggest_powershell_commands
+    - suggest_solutions
+    - configure_network
+    - refactor_instructions
+    - add_examples
+    - recommend_fixes
+    - recommend_corrections
+    - recommend_investments
+    - recommend_retention_policy
+    - recommend_training
+    - recommend_controls
+    - recommend_improvements
+    - assign_tasks
+    - guide_intervention
+    - alert_issues
+    - bundle_agents
+
+creation_meta:
+  description: "Création et gestion d'agents et Knowledge Packs (META)"
+  intents:
+    - create_agent
+    - generate_contract
+    - produce_prompt
+    - bundle_agents
+    - validate_yaml
+    - analyze_prompt_quality
+    - identify_improvements
+    - refactor_instructions
+    - add_examples
+    - validate_alignment
+    - audit_agent
+    - validate_standards
+    - assess_quality
+    - recommend_improvements
+    - track_compliance
+    - design_knowledge_pack
+    - create_templates
+    - generate_runbooks
+    - build_checklists
+    - package_knowledge
+
+cloud_specific:
+  description: "Opérations spécifiques cloud (Azure, M365, AWS, Google)"
+  intents:
+    - generate_cloud_report
+    - audit_configuration
+    - provide_recommendations
+    - document_architecture
+    - manage_azure_resources
+    - manage_m365_users
+    - manage_aws_instances
+    - optimize_cloud_costs
+    - monitor_cloud_health
+
+construction_specific:
+  description: "Opérations spécifiques construction"
+  intents:
+    - conduct_inspection
+    - validate_compliance
+    - document_deficiencies
+    - generate_inspection_report
+    - plan_project
+    - track_progress
+    - manage_budget
+    - coordinate_teams
+    - estimate_costs
+    - calculate_materials
+    - assess_labor
+    - generate_quote
+    - assess_safety
+    - identify_hazards
+    - recommend_controls
+    - track_incidents
+    - validate_quality
+    - check_compliance
+    - document_issues
+    - recommend_corrections
+    - plan_sequence
+    - schedule_tasks
+    - coordinate_trades
+    - optimize_timeline
+    - track_materials
+    - manage_inventory
+    - coordinate_deliveries
+    - optimize_usage
+
+education_specific:
+  description: "Opérations spécifiques éducation/formation CCQ"
+  intents:
+    - assess_competence
+    - evaluate_knowledge
+    - generate_evaluation
+    - recommend_training
+    - design_training
+    - create_curriculum
+    - develop_materials
+    - assess_effectiveness
+    - manage_certification
+    - track_requirements
+    - validate_hours
+    - generate_certificates
+
+# ========================================
+# NAMING CONVENTIONS
+# ========================================
+
+naming_rules:
+  format: "verbe_nom"
+  case: "snake_case"
+  examples:
+    - "generate_report"
+    - "troubleshoot_server"
+    - "validate_compliance"
+  
+  verbs_recommended:
+    - generate
+    - create
+    - build
+    - design
+    - develop
+    - analyze
+    - diagnose
+    - troubleshoot
+    - assess
+    - identify
+    - detect
+    - manage
+    - maintain
+    - monitor
+    - coordinate
+    - plan
+    - schedule
+    - optimize
+    - track
+    - notify
+    - communicate
+    - escalate
+    - report
+    - log
+    - document
+    - validate
+    - check
+    - verify
+    - audit
+    - test
+    - review
+    - conduct
+    - execute
+    - configure
+    - refactor
+    - add
+    - recommend
+    - assign
+    - guide
+    - alert
+    - bundle
+    - estimate
+    - calculate
+    
+  avoid:
+    - do (trop vague)
+    - handle (trop générique)
+    - process (pas spécifique)
+    - manage_stuff (nom pas clair)
+
+# ========================================
+# STATISTIQUES
+# ========================================
+
+statistics:
+  total_intents: 150+
+  by_category:
+    generation: 12
+    analysis: 24
+    maintenance: 41
+    communication: 23
+    validation: 17
+    execution: 16
+    creation_meta: 18
+    cloud_specific: 9
+    construction_specific: 27
+    education_specific: 12

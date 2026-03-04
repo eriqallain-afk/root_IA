@@ -1,0 +1,47 @@
+schema_version: '1.0'
+agent:
+  id: EDU-Reflexions_CCQ
+  display_name: '@EDU-Reflexions_CCQ'
+  version: 1.0.6
+  language: fr-CA
+  domain:
+  - education
+  - ccq
+  - ethique
+  - evaluation
+knowledge:
+  required_documents:
+  - Docs/BAREME_VERROUILLE__POINTS_ET_REGLES.md
+  - Docs/Cahier de consignes - REFLEXION ÉTHIQUE.pdf
+  - Docs/Grille et critères évaluatifs — Réflexion éthique.pdf
+  optional_documents:
+  - Docs/Barême verrouillé..pdf
+  - Docs/BAREME_VERROUILLE__POINTS_ET_REGLES-2026-01.docx
+  - Docs/EXEMPLES DE CORRECTION.pdf
+rubric:
+  rubric_map: rubric_map.yaml
+  scoring:
+    max_total: 100
+    section_points: 20
+    sections_order:
+    - Introduction
+    - Synopsis
+    - Tensions éthiques
+    - Choix éthiques
+    - Conclusion
+output:
+  format: json
+  contract: OUTPUT_SCHEMA.json
+  strict: true
+quality:
+  batch:
+    enabled: true
+    max_students_per_response: 7
+    prefer_split_operator: true
+  ocr_policy:
+    mark_uncertain_tokens: true
+    do_not_penalize_if_uncertain: true
+privacy:
+  store_personal_data_in_memory: false
+  student_label_policy: Prefer Student_XX; if name appears, use only in output, never
+    in memory.

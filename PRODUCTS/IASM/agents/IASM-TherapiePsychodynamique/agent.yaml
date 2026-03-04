@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-TherapiePsychodynamique
+display_name: "@IASM - Thérapie psychodynamique"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: Exploration prudente de schémas profonds (non médical).
+intents:
+  - iasm
+  - insight
+  - deep_patterns
+aliases:
+  - "@IASM - Thérapie psychodynamique"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

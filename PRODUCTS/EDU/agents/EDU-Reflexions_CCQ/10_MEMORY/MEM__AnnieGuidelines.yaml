@@ -1,0 +1,28 @@
+schema_version: "memory/annie_guidelines/v1"
+agent_id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+memory_version: "0.1.0"
+updated_at_utc: "2026-01-13T17:22:20Z"
+
+# Règles explicites fournies par Annie (anonymisées, testables, compatibles avec la grille)
+annie_guidelines: []
+# Exemple:
+# - id: "A001"
+#   status: "active"          # active | retired
+#   created_at_utc: "2026-01-13T00:00:00Z"
+#   applies_to: ["Synopsis","Conclusion"]
+#   rule: "Conclusion: inclure une prise de position personnelle + conséquences (bien commun si attendu)."
+#   rationale: "Alignement exemples de correction."
+#   notes: "Ne pas surpénaliser si OCR incertain."
+
+# Préférences de rétroaction d'Annie (style)
+annie_feedback_style:
+  tone: "professionnel_bienveillant"
+  detail_level: "standard"    # court | standard | detaille
+  include_next_actions: true
+  max_lines_short: 8
+
+# Journal de mises à jour (ultra-court, sans données élèves)
+annie_updates_log:
+  - updated_at_utc: "2026-01-13T17:22:20Z"
+    summary: "Initialisation (vide)."

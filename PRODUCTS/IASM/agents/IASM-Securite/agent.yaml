@@ -1,0 +1,18 @@
+id: IASM-Securite
+display_name: '@IASM-Securite'
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: Évaluation de risque et protocole de sécurité en cas de détresse
+intents:
+- iasm
+output_format: markdown
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: markdown
+  contract_required: true
+  logs_required: true

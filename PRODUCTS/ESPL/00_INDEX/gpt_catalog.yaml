@@ -1,0 +1,49 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.555755'
+catalog:
+  ESPL-PaulLejeuneRadio:
+    display_name: '@ESPL-PaulLejeuneRadio'
+    team_id: TEAM__ESPL
+    status: active
+    intents:
+    - espl
+    paths:
+      agent: agents/ESPL-PaulLejeuneRadio/agent.yaml
+      contract: agents/ESPL-PaulLejeuneRadio/contract.yaml
+      prompt: agents/ESPL-PaulLejeuneRadio/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

@@ -1,0 +1,191 @@
+schema_version: '1.0'
+connectwise:
+  types:
+  - Demande de service
+  - Incident
+  - Rencontre
+  - metting
+  - task
+  sub_types:
+  - Accès usager
+  - Antispam
+  - Antivirus
+  - Apple
+  - Cablage
+  - COurriel
+  - Hébergement web
+  - Imprimante
+  - Infra Cloud
+  - Internet
+  - Logiciel
+  - Nom de domaine
+  - Pishing
+  - Poste de travail
+  - Réseau
+  - Sauvegarde
+  - Sécurité (autre)
+  - Serveur
+  - TÉléphonie
+dispatch_rules:
+  source_overrides:
+    Auvik:
+      owner: NOC
+      noc_cell: Monitoring
+    RMM:
+      owner: NOC
+      noc_cell: Monitoring
+    Monitoring:
+      owner: NOC
+      noc_cell: Monitoring
+    BackupRadar:
+      owner: NOC
+      noc_cell: Backup
+  by_type:
+    Incident:
+      default_owner: Support
+      support_level: Triage T1→T2→T3
+    Demande de service:
+      default_owner: Support
+      support_level: T1→T2→T3
+    task:
+      default_owner: Internal
+      note: tâche interne issue d’un ticket ou d’un plan
+    Rencontre:
+      default_owner: Orchestration
+    metting:
+      default_owner: Orchestration
+  by_sub_type:
+    Accès usager:
+      owner: Support
+      escalate_to:
+      - Cloud
+      - Security
+      agent_hint:
+      - IT-SupportMaster
+    Poste de travail:
+      owner: Support
+      agent_hint:
+      - IT-SupportMaster
+    Imprimante:
+      owner: Support
+      agent_hint:
+      - IT-SupportMaster
+    Apple:
+      owner: Support
+      agent_hint:
+      - IT-SupportMaster
+    Logiciel:
+      owner: Support
+      agent_hint:
+      - IT-SupportMaster
+      optional:
+      - IT-SoftwMaster
+      - IT-LicenseMaster
+    COurriel:
+      owner: Support
+      escalate_to:
+      - Cloud
+      agent_hint:
+      - IT-SupportMaster
+      - IT-CloudMaster
+    Antispam:
+      owner: Support
+      escalate_to:
+      - Cloud
+      - Security
+      agent_hint:
+      - IT-SupportMaster
+      - IT-CloudMaster
+      - IT-SecurityMaster
+    Antivirus:
+      owner: Support
+      escalate_to:
+      - Security
+      agent_hint:
+      - IT-SupportMaster
+      - IT-SecurityMaster
+    Pishing:
+      owner: Security
+      support_assist: true
+      agent_hint:
+      - IT-SecurityMaster
+      - IT-SupportMaster
+    Sécurité (autre):
+      owner: Security
+      support_assist: true
+      agent_hint:
+      - IT-SecurityMaster
+      - IT-SupportMaster
+    Serveur:
+      owner: Infra
+      support_assist: true
+      agent_hint:
+      - IT-InfrastructureMaster
+      - IT-SupportMaster
+    Réseau:
+      owner: Network
+      support_assist: true
+      agent_hint:
+      - IT-NetworkMaster
+      - IT-SupportMaster
+    Internet:
+      owner: Network
+      support_assist: true
+      agent_hint:
+      - IT-NetworkMaster
+      - IT-SupportMaster
+    Infra Cloud:
+      owner: Cloud
+      support_assist: true
+      agent_hint:
+      - IT-CloudMaster
+      - IT-SupportMaster
+    Sauvegarde:
+      owner: Backup
+      support_assist: true
+      agent_hint:
+      - IT-BackupDRMaster
+      - IT-SupportMaster
+    TÉléphonie:
+      owner: VoIP
+      support_assist: true
+      agent_hint:
+      - IT-VoIPMaster
+      - IT-SupportMaster
+    Nom de domaine:
+      owner: Cloud
+      support_assist: true
+      agent_hint:
+      - IT-CloudMaster
+      - IT-SupportMaster
+    Hébergement web:
+      owner: Cloud
+      support_assist: true
+      agent_hint:
+      - IT-CloudMaster
+      - IT-SupportMaster
+      - IT-DevOpsMaster
+    Cablage:
+      owner: CABLAGE
+      note: Département câblage séparé (terrain).
+      support_assist: coordination (RDV/accès/tests)
+      escalate_to:
+      - Network
+      - Infra
+      agent_hint:
+      - IT-SupportMaster
+      - IT-NetworkMaster
+      - IT-InfrastructureMaster
+agents_reference:
+  Support: IT-SupportMaster
+  Security: IT-SecurityMaster
+  Network: IT-NetworkMaster
+  Infra: IT-InfrastructureMaster
+  Cloud: IT-CloudMaster
+  VoIP: IT-VoIPMaster
+  Backup: IT-BackupDRMaster
+  NOC: IT-Commandare-NOC
+  Comms: IT-CommsMSP
+  Scribe: IT-TicketScribe
+  KB: IT-KnowledgeKeeper
+  QA_Close: IT-Commandare-OPR

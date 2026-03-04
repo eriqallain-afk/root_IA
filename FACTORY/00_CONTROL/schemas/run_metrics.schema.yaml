@@ -1,0 +1,130 @@
+schema_version: "1.0"
+schema_id: run_metrics
+description: >
+  Schéma standard des métriques d'exécution d'un playbook.
+  Produit par OPS-PlaybookRunner à chaque run. Consommé par CTL-WatchdogIA,
+  CTL-HealthReporter et IAHQ-Economist (ROI).
+owner: TEAM__OPS
+created: "2026-02-25"
+
+required_fields:
+  run_id:
+    type: string
+    format: "RUN__<YYYYMMDD>__<HHmmss>__<sequence>"
+    example: "RUN__20260225__143022__001"
+    required: true
+
+  playbook_id:
+    type: string
+    required: true
+    description: "ID du playbook exécuté"
+
+  triggered_by:
+    type: string
+    required: true
+    description: "Agent ou acteur qui a déclenché le run"
+
+  status:
+    type: enum
+    values: ["success", "partial", "failed", "abandoned", "rollback"]
+    required: true
+
+  started_at:
+    type: datetime
+    format: ISO_8601
+    required: true
+
+  completed_at:
+    type: datetime
+    format: ISO_8601
+    required: false
+    note: "Absent si status=abandoned et run non terminé"
+
+  duration_seconds:
+    type: integer
+    required: false
+    computed: "completed_at - started_at"
+
+optional_fields:
+  steps:
+    type: list[step_metric]
+    required: false
+    description: "Métriques par step"
+    step_metric_schema:
+      step_id:
+        type: string
+        required: true
+      actor_id:
+        type: string
+        required: true
+      status:
+        type: enum
+        values: ["success", "failed", "skipped", "retried"]
+        required: true
+      started_at:
+        type: datetime
+        required: true
+      duration_seconds:
+        type: integer
+        required: false
+      output_quality_score:
+        type: float
+        range: [0.0, 1.0]
+        required: false
+        description: "Score de conformité de l'output vs contract"
+      retry_count:
+        type: integer
+        default: 0
+      error_code:
+        type: string
+        required: false
+      error_message:
+        type: string
+        required: false
+        note: "Jamais inclure de secrets ou données sensibles"
+
+  artifacts_produced:
+    type: integer
+    required: false
+
+  dossier_ia_id:
+    type: string
+    required: false
+    description: "ID du Dossier IA créé par OPS-DossierIA pour ce run"
+
+  environment:
+    type: enum
+    values: ["dev", "stage", "prod"]
+    default: "prod"
+
+  user_satisfaction:
+    type: enum
+    values: ["confirmed", "partial", "rejected", null]
+    required: false
+    description: "Validation humaine post-run (si applicable)"
+
+  rollback_triggered:
+    type: boolean
+    default: false
+
+  rollback_reason:
+    type: string
+    required: false
+
+computed_metrics:
+  success_rate:
+    formula: "steps_success / steps_total"
+    type: float
+  step_failure_rate:
+    formula: "steps_failed / steps_total"
+    type: float
+  critical_path_duration_seconds:
+    description: "Durée du chemin critique (steps non-parallèles)"
+    type: integer
+
+validation_rules:
+  - "run_id doit être unique (jamais dupliquer)"
+  - "status=success requiert completed_at"
+  - "status=failed requiert au moins 1 step avec status=failed"
+  - "Jamais de secrets dans error_message"
+  - "duration_seconds = 0 si started_at == completed_at (incrément minimum : 1)"

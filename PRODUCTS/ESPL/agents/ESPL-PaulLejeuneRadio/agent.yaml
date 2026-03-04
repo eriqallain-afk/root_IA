@@ -1,0 +1,18 @@
+id: ESPL-PaulLejeuneRadio
+display_name: '@ESPL-PaulLejeuneRadio'
+team_id: TEAM__ESPL
+team_name: ESPL
+version: 1.0.0
+status: active
+description: 'Personnage radio Paul Lejeune : animation, recherche, scriptage'
+intents:
+- espl
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

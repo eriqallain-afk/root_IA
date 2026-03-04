@@ -1,0 +1,80 @@
+contract_version: "1.0.0"
+id: CTL-HealthReporter
+team: CTL
+description: >
+  Produit des rapports de santé de la FACTORY dans 3 formats :
+  daily_digest (rapide), weekly_report (complet), post_mortem (analyse incident).
+
+input:
+  report_type:
+    type: "daily_digest | weekly_report | post_mortem"
+    required: true
+    description: "Type de rapport à générer."
+  period_start:
+    type: string
+    required: false
+    description: "Début de la période (ISO 8601). Requis pour weekly_report et post_mortem."
+  period_end:
+    type: string
+    required: false
+    description: "Fin de la période (ISO 8601). Défaut : maintenant."
+  watchdog_reports:
+    type: list[object]|string
+    required: false
+    description: "Rapport(s) WatchdogIA de la période. Ou chemin vers OPS-DossierIA."
+  alert_tickets:
+    type: list[object]|string
+    required: false
+    description: "Tickets d'alerte AlertRouter de la période."
+  run_metrics:
+    type: list[object]|string
+    required: false
+    description: "Métriques de runs PlaybookRunner (durées, succès/échecs)."
+  incident_run_id:
+    type: string
+    required: false
+    description: "run_id de l'incident à analyser. Requis pour post_mortem."
+  context:
+    type: object
+    required: false
+    description: "Contexte additionnel (comparaison semaine précédente, objectifs)."
+
+output:
+  format: YAML_STRICT
+  result:
+    report_type:
+      type: "daily_digest | weekly_report | post_mortem"
+    period:
+      start: string
+      end: string
+    health_score:
+      type: int
+      range: 0-100
+      description: "Score de santé global (100=parfait, 0=critique)."
+    report_content:
+      type: object
+      description: "Contenu structuré selon le type de rapport."
+  artifacts:
+    - type: md
+      title: "Rapport de santé FACTORY"
+      path: "00_CONTROL/artifacts/health_report_<type>_<date>.md"
+    - type: yaml
+      title: "Métriques brutes"
+      path: "00_CONTROL/artifacts/health_metrics_<date>.yaml"
+  log:
+    decisions: []
+    risks: []
+    assumptions: []
+    quality_score: 0-10
+
+success_criteria:
+  must_include:
+    - result.health_score
+    - result.report_content
+    - artifacts
+  quality_score_target: 9
+
+guardrails:
+  - "Toujours fournir un health_score même si données partielles (avec hypothèses notées)."
+  - "Ne jamais inventer des métriques. Indiquer 'données insuffisantes' si manquant."
+  - "Post-mortem sans blame individuel — analyser systèmes, pas personnes."

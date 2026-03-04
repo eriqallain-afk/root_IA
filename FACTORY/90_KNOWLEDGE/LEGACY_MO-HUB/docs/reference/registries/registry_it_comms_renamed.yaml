@@ -1,0 +1,295 @@
+version: '1.0'
+hub:
+  id: AGENT-MO
+  description: 'Point d’entrée unique : intake, routage, gouvernance, logs, QA.'
+  logging: true
+  routing_mode: capability
+domains:
+- id: IASM
+  description: Cabinet IA (santé mentale) — cloisonnement strict.
+  orchestrator: IASM-OrchestrateurCabinet
+- id: DAM
+  description: Design intérieur & rénovation — GPT 1 à 13 + Annie.
+  orchestrator: DAM-Orchestrator
+- id: IT
+  description: Entreprise informatique / MSP.
+  orchestrator: IT-OrchestratorMSP
+- id: TRAD
+  description: Trading / veille / signaux — avec contrôle risque.
+  orchestrator: TRAD-CommandCore
+- id: IAHQ
+  description: Entreprise IA principale.
+  orchestrator: IAHQ-OrchestreurEntrepriseIA
+- id: META
+  description: Usine de conception des équipes, prompts, workflows.
+  orchestrator: META-OrchestrateurCentral
+agents:
+- id: IASM-OrchestrateurCabinet
+  domain: IASM
+  type: orchestrator
+  capabilities:
+  - triage
+  - routing
+  - safety
+  - synthese
+  prompt_file: prompts/IASM/IASM-OrchestrateurCabinet.md
+  contract_file: contracts/IASM/IASM-OrchestrateurCabinet.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: DAM-Orchestrator
+  domain: DAM
+  type: orchestrator
+  capabilities:
+  - triage
+  - routing
+  - budget
+  - planning
+  - conformite
+  prompt_file: prompts/DAM/DAM-Orchestrator.md
+  contract_file: contracts/DAM/DAM-Orchestrator.yaml
+  owner: Annie
+  status: active
+  version: 1.0.0
+- id: META-OrchestrateurCentral
+  domain: META
+  type: orchestrator
+  capabilities:
+  - intake
+  - routing
+  - governance
+  - qa_gate
+  - registry_update
+  prompt_file: prompts/META/META-OrchestrateurCentral.md
+  contract_file: contracts/META/META-OrchestrateurCentral.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-AnalysteBesoinsEquipes
+  domain: META
+  type: specialist
+  capabilities:
+  - needs_analysis
+  - scope
+  - users
+  - objectives
+  - constraints
+  - automation_level
+  prompt_file: prompts/META/META-AnalysteBesoinsEquipes.md
+  contract_file: contracts/META/META-AnalysteBesoinsEquipes.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-CartographeRoles
+  domain: META
+  type: specialist
+  capabilities:
+  - role_mapping
+  - team_design
+  - prioritization
+  - nomenclature
+  prompt_file: prompts/META/META-CartographeRoles.md
+  contract_file: contracts/META/META-CartographeRoles.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-PromptArchitectEquipes
+  domain: META
+  type: specialist
+  capabilities:
+  - prompt_systems
+  - prompt_templates
+  - agent_specs
+  - style_guides
+  prompt_file: prompts/META/META-PromptArchitectEquipes.md
+  contract_file: contracts/META/META-PromptArchitectEquipes.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-ReversePrompt
+  domain: META
+  type: specialist
+  capabilities:
+  - reverse_engineering
+  - prompt_refactor
+  - compatibility
+  - deprecation
+  prompt_file: prompts/META/META-ReversePrompt.md
+  contract_file: contracts/META/META-ReversePrompt.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-GouvernanceEtRisques
+  domain: META
+  type: qa
+  capabilities:
+  - policy
+  - risk_assessment
+  - privacy
+  - safety_rules
+  - compliance
+  prompt_file: prompts/META/META-GouvernanceEtRisques.md
+  contract_file: contracts/META/META-GouvernanceEtRisques.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-PlaybookBuilder
+  domain: META
+  type: specialist
+  capabilities:
+  - documentation
+  - sop
+  - training
+  - masterclass_assets
+  - templates
+  prompt_file: prompts/META/META-PlaybookBuilder.md
+  contract_file: contracts/META/META-PlaybookBuilder.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-SuperviseurInvisible
+  domain: META
+  type: qa
+  capabilities:
+  - final_review
+  - consistency_check
+  - regression_check
+  - quality_gate
+  prompt_file: prompts/META/META-SuperviseurInvisible.md
+  contract_file: contracts/META/META-SuperviseurInvisible.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: META-Opromptimizer
+  domain: META
+  type: specialist
+  capabilities:
+  - prompt_optimization
+  - compression
+  - clarity
+  - cost_control
+  prompt_file: prompts/META/META-Opromptimizer.md
+  contract_file: contracts/META/META-Opromptimizer.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: IASM-SecuriteRisques
+  domain: IASM
+  type: qa
+  capabilities:
+  - risk_check
+  - safety
+  - red_flags
+  prompt_file: prompts/IASM/IASM-SecuriteRisques.md
+  contract_file: contracts/IASM/IASM-SecuriteRisques.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: IASM-SupportEmotionnel
+  domain: IASM
+  type: specialist
+  capabilities:
+  - support
+  - emotions
+  - validation
+  - micro_actions
+  prompt_file: prompts/IASM/IASM-SupportEmotionnel.md
+  contract_file: contracts/IASM/IASM-SupportEmotionnel.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: DAM-01-Communication
+  domain: DAM
+  type: specialist
+  capabilities:
+  - courriels
+  - messages
+  - brief_client
+  prompt_file: prompts/DAM/DAM-01-Communication.md
+  contract_file: contracts/DAM/DAM-01-Communication.yaml
+  owner: Annie
+  status: active
+  version: 1.0.0
+- id: DAM-12-Legal
+  domain: DAM
+  type: qa
+  capabilities:
+  - review_docs
+  - clauses
+  - ambiguite
+  prompt_file: prompts/DAM/DAM-12-Legal.md
+  contract_file: contracts/DAM/DAM-12-Legal.yaml
+  owner: MO
+  status: active
+  version: 1.0.0
+- id: IT-OrchestratorMSP
+  domain: IT
+  type: orchestrator
+  capabilities:
+  - intake
+  - routing
+  - it_msp
+  - delivery
+  - qa_gate
+  prompt_file: prompts/IT/IT-OrchestratorMSP.md
+  contract_file: contracts/IT/IT-OrchestratorMSP.yaml
+  owner: MO
+  status: active
+  version: 0.1.0
+- id: TRAD-CommandCore
+  domain: TRAD
+  type: orchestrator
+  capabilities:
+  - intake
+  - routing
+  - market_synthesis
+  - risk_gate
+  - scenarios
+  prompt_file: prompts/TRAD/TRAD-CommandCore.md
+  contract_file: contracts/TRAD/TRAD-CommandCore.yaml
+  owner: MO
+  status: active
+  version: 0.1.0
+- id: IAHQ-OrchestreurEntrepriseIA
+  domain: IAHQ
+  type: orchestrator
+  capabilities:
+  - intake
+  - routing
+  - delivery
+  - product
+  - ops
+  - qa_gate
+  prompt_file: prompts/IAHQ/IAHQ-OrchestreurEntrepriseIA.md
+  contract_file: contracts/IAHQ/IAHQ-OrchestreurEntrepriseIA.yaml
+  owner: MO
+  status: active
+  version: 0.1.0
+- id: AGENT-MO
+  domain: META
+  type: orchestrator
+  capabilities:
+  - universal_intake
+  - domain_routing
+  - governance
+  - logging
+  - final_delivery
+  prompt_file: prompts/META/AGENT-MO.md
+  contract_file: contracts/META/AGENT-MO.yaml
+  owner: MO
+  status: active
+  version: 0.1.0
+- id: '@IT-CommsMSP'
+  domain: IT
+  type: ops
+  capabilities:
+  - client_communication
+  - email
+  - sms
+  - teams
+  - approval_request
+  prompt_file: prompts/IT/@IT-CommsMSP.md
+  contract_file: contracts/IT/@IT-CommsMSP.yaml
+  owner: MO
+  status: active
+  version: 1.0.0

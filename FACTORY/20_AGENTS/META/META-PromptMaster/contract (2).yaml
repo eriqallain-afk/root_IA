@@ -1,0 +1,59 @@
+contract_version: "1.0.0"
+agent_id: "META-PromptMaster"
+contract_type: "strict"
+output_format: "Mixed"
+
+inputs:
+  required:
+    - name: "request"
+      type: "object"
+      description: "Requête principale agent"
+  
+  optional:
+    - name: "context"
+      type: "object"
+      description: "Contexte additionnel"
+
+outputs:
+  result:
+    type: "object"
+    required: true
+    properties:
+      summary:
+        type: "string"
+        description: "Résumé résultat"
+      
+      details:
+        type: "object"
+        description: "Détails structurés"
+  
+  next_actions:
+    type: "array"
+    required: true
+    description: "Actions recommandées"
+  
+  log:
+    type: "object"
+    required: true
+    properties:
+      decisions:
+        type: "array"
+      risks:
+        type: "array"
+      assumptions:
+        type: "array"
+
+validation_rules:
+  - rule: "result.summary required"
+    severity: "error"
+  - rule: "Quality score >= 9.5"
+    severity: "error"
+
+examples:
+  - name: "Example 1"
+    input:
+      request:
+        type: "basic_request"
+    expected_output:
+      result:
+        summary: "Example output"

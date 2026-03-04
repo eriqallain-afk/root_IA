@@ -1,0 +1,28 @@
+capabilities:
+  - id: CAP-GOV
+    name: "Gouvernance & Stratégie"
+    primary_owner: TEAM-IAHQ
+
+  - id: CAP-GPT-FACTORY
+    name: "Conception d'armées de GPT"
+    primary_owner: TEAM-META
+
+  - id: CAP-EDITORIAL
+    name: "Édition & Production de livre"
+    primary_owner: TEAM-NEA
+
+  - id: CAP-IT
+    name: "IT / MSP / Outils"
+    primary_owner: TEAM-IT
+
+  - id: CAP-TRAD
+    name: "TRAD / Veille / Analyse"
+    primary_owner: TEAM-TRAD
+
+  - id: CAP-CAB-IA
+    name: "Cabinet IA / Coaching"
+    primary_owner: TEAM-CAB-IA
+
+  - id: CAP-DESIGN
+    name: "Design"
+    primary_owner: TEAM-DES-AM

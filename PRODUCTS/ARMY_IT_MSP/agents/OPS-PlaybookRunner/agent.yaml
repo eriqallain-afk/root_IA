@@ -1,0 +1,25 @@
+id: OPS-PlaybookRunner
+display_name: '@IT-OPS-PlaybookRunner'
+team_id: TEAM__IT_OPS
+team_name: IT-OPS
+version: 2.0.0
+status: active
+product_id: IT
+standalone: true
+description: >
+  Exécuteur de playbooks autonome du produit @IT. Déroule les étapes
+  définies dans playbooks.yaml, orchestre les acteurs IT concernés,
+  valide les outputs, assemble le livrable final.
+intents:
+  - ops
+  - runner
+  - playbook
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+  playbooks_source: ../../playbooks/playbooks.yaml

@@ -1,0 +1,305 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# hub_routing.yaml - ROOT IA v2
+# ═══════════════════════════════════════════════════════════════════════════════
+# Mis à jour: 2026-02-05
+# Changement: Intents MCIA remappés vers META
+# ═══════════════════════════════════════════════════════════════════════════════
+
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+
+routing_table:
+
+# ─────────────────────────────────────────────────────────────────────────────
+# EDU - Éducation CCQ
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - ccq_citoyennete
+  - ccq_culture
+  - ccq_ethique
+  - ccq_evaluation
+  - citoyennete
+  - correction
+  - culture
+  - devoir
+  - education
+  - ethique
+  - evaluation
+  - ocr
+  - reflexion
+  default_actor_id: EDU-Orchestrator_CCQ
+  default_playbook_id: EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE
+
+- match_any_intents:
+  - ccq
+  - ccq_batch
+  - ccq_correction
+  - ccq_edu
+  - ccq_education
+  - ccq_evaluer
+  default_actor_id: EDU-Orchestrator_CCQ
+  default_playbook_id: EDU_CCQ_EVAL_BATCH_V1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IT - Services MSP
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - it_noc_dispatch
+  - noc_dispatch
+  - noc_dispatcher
+  default_actor_id: IT-Commandare-NOC
+  default_playbook_id: IT_NOC_DISPATCH
+
+- match_any_intents:
+  - alert_triage
+  - it_commandare_noc
+  - noc_triage
+  default_actor_id: IT-Commandare-NOC
+  default_playbook_id: IT_COMMANDARE_NOC
+
+- match_any_intents:
+  - it_commandare_tech
+  - root_cause
+  - tech_escalation
+  default_actor_id: IT-OrchestratorMSP
+  default_playbook_id: IT_COMMANDARE_TECH
+
+- match_any_intents:
+  - it_commandare_opr
+  - it_governance_change
+  - it_ops_control
+  default_actor_id: IT-Commandare-OPR
+  default_playbook_id: IT_COMMANDARE_OPR
+
+- match_any_intents:
+  - cloud
+  - cmdb
+  - devops
+  - dr
+  - incident
+  - it
+  - licenses
+  - maintenance
+  - monitoring
+  - msp
+  - network
+  - script
+  - security
+  default_actor_id: IT-OrchestratorMSP
+  default_playbook_id: IT_MSP_TICKET_TO_KB
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IAHQ - Direction stratégique
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - ai_architecture
+  - ai_business
+  - ai_company
+  - ai_cost
+  - ai_cto
+  - ai_discovery
+  - ai_finance
+  - ai_governance
+  - ai_operations
+  - ai_plan
+  - ai_portfolio
+  - ai_process
+  - ai_proposal
+  - ai_transformation
+  - ai_sales
+  - ai_solution
+  - ai_strategy
+  - ai_workflow
+  - architecture
+  - blueprint
+  - business
+  - business_case
+  - company
+  - cost
+  - cto
+  - delivery
+  - discovery
+  - finance
+  - governance
+  - offers
+  - operations
+  - plan
+  - portfolio
+  - positioning
+  - process
+  - proposal
+  - roi
+  - sales
+  - solution
+  - transformation
+  - workflow
+  default_actor_id: IAHQ-OrchestreurEntrepriseIA
+  default_playbook_id: IAHQ_FRONTDOOR
+
+# ─────────────────────────────────────────────────────────────────────────────
+# META - Usine à armées + Pédagogie IA (inclut ex-MCIA)
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - ai_audit
+  - ai_engineering
+  - ai_optimize
+  - ai_prompt
+  - ai_requirements
+  - ai_roles
+  - army_factory
+  - audit
+  - engineering
+  - optimize
+  - prompt
+  - requirements
+  - roles
+  # Ex-MCIA intents (maintenant dans META)
+  - mcia
+  - teach_ai
+  - course
+  - exercise
+  - rag
+  - agent
+  - reverse_prompt
+  - prompt_template
+  - vision_creative
+  - diffusion
+  default_actor_id: META-OrchestrateurCentral
+  default_playbook_id: BUILD_ARMY_FACTORY
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DAM - Projets domiciliaires
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - analytics
+  - archive
+  - budget
+  - compliance
+  - dam
+  - dam_analytics
+  - dam_budget
+  - dam_compliance
+  - dam_docs
+  - dam_inspection
+  - dam_kpi
+  - dam_planning
+  - dam_procurement
+  - dam_products
+  - dam_archive
+  - dam_suppliers
+  - dam_vendors
+  - docs
+  - inspection
+  - kpi
+  - planning
+  - procurement
+  - products
+  - suppliers
+  - vendors
+  default_actor_id: DAM-Orchestrator
+  default_playbook_id: DAM_PROJECT_CONTROL
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TRAD - Intelligence stratégique
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - command
+  - correlation
+  - cosmos
+  - crypto
+  - cyber
+  - intel
+  - markets
+  - quant
+  - report
+  - signals
+  - social
+  - strategy
+  - trad
+  - trad_command
+  - trad_correlation
+  - trad_cosmos
+  - trad_crypto
+  - trad_cyber
+  - trad_intel
+  - trad_quant
+  - trad_report
+  - trad_signals
+  - trad_social
+  - trad_strategy
+  - trad_watch
+  - watch
+  default_actor_id: TRAD-CommandCore
+  default_playbook_id: TRAD_WATCH_TO_REPORT
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IASM - Coaching IA
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - anger
+  - cbt
+  - couple
+  - emotion
+  - ethics
+  - explain
+  - family
+  - goal
+  - iasm
+  - relationship
+  - risk
+  - safety
+  - sentiment
+  - sm_couple
+  - sm_education
+  - sm_ethics
+  - sm_explain
+  - sm_family
+  - sm_goal
+  - sm_relationship
+  - sm_risk
+  - sm_safety
+  - sm_support
+  - sm_tone
+  - support
+  - tone
+  default_actor_id: IASM-OrchestreurCabinetIA
+  default_playbook_id: IASM_SESSION
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NEA - Publishing
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - book
+  - illustration
+  - mapping
+  - nea
+  - nea_book
+  - nea_illustration
+  - nea_mapping
+  - nea_patterns
+  - nea_write
+  - patterns
+  - write
+  default_actor_id: NEA-Orchestrator
+  default_playbook_id: NEA_MACHINE_LIVRE_V1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLR - Radio/Podcast
+# ─────────────────────────────────────────────────────────────────────────────
+- match_any_intents:
+  - adaptation
+  - plj_adaptation
+  - plj_radio
+  - plj_writing
+  - radio
+  - writing
+  default_actor_id: PLR-Orchestrator
+  default_playbook_id: RADIO_MACHINE_SCRIPT_V1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FALLBACK - HUB Master Orchestrator
+# ─────────────────────────────────────────────────────────────────────────────
+- fallback:
+  default_actor_id: HUB-AgentMO-MasterOrchestrator
+  default_playbook_id: INTAKE_ROUTE_EXECUTE

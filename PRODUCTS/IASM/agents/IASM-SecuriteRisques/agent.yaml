@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-SecuriteRisques
+display_name: "@IASM - Sécurité / risques"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: Repère signaux danger et propose limites + escalade vers aide pro.
+intents:
+  - iasm
+  - safety
+  - risk
+aliases:
+  - "@IASM - Sécurité / risques"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

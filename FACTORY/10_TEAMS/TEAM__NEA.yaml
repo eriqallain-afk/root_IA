@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__NEA
+name: NEA
+mission: "Projet NEA : orchestration, rédaction, imagerie, archivage, patterns."
+default_orchestrator: NEA-Orchestrator

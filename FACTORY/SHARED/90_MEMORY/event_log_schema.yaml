@@ -1,0 +1,17 @@
+schema_version: "1.0"
+generated_at: "2025-12-28T17:19:07Z"
+event_log:
+  request_id: "string"
+  run_id: "string"
+  timestamp: "RFC3339"
+  actor_id: "string"
+  playbook_id: "string"
+  step: "string"
+  tags: ["string"]
+  artifacts:
+    - type: "string"
+      path: "string"
+  log:
+    decisions: ["string"]
+    risks: ["string"]
+    assumptions: ["string"]

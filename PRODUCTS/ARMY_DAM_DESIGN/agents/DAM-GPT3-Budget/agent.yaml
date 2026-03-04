@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: DAM-GPT3-Budget
+display_name: "@DAM-GPT 3 — Budget"
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: "Budget : cadrage coûts, priorisation, impacts."
+intents:
+  - dam
+  - budget
+  - cost
+aliases:
+  - "@DAM-GPT 3 — Budget"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

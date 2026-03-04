@@ -1,0 +1,7 @@
+schema_version: "1.0"
+generated_at: "2025-12-28T17:09:03Z"
+rules:
+  - Chaque playbook.step utilise actor_id existant dans gpt_catalog.yaml
+  - Chaque agent a agent.yaml + contract.yaml + prompt.md
+  - "Aucun ID avec espaces, aucun doublon"
+  - Sortie agents = YAML strict (result/artifacts/next_actions/log)

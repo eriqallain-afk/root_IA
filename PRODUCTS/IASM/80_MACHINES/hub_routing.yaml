@@ -1,0 +1,37 @@
+schema_version: '1.0'
+generated_at: '2026-02-05T12:00:00Z'
+router_actor_id: OPS-RouterIA
+routing_table:
+- match_any_intents:
+  - anger
+  - cbt
+  - couple
+  - emotion
+  - ethics
+  - explain
+  - family
+  - goal
+  - iasm
+  - relationship
+  - risk
+  - safety
+  - sentiment
+  - sm_couple
+  - sm_education
+  - sm_ethics
+  - sm_explain
+  - sm_family
+  - sm_goal
+  - sm_relationship
+  - sm_risk
+  - sm_safety
+  - sm_support
+  - sm_tone
+  - support
+  - tone
+  default_actor_id: IASM-OrchestreurCabinetIA
+  default_playbook_id: IASM_SESSION
+- fallback: null
+  default_actor_id: IASM-OrchestreurCabinetIA
+  default_playbook_id: IASM_SESSION
+  note: "Fallback interne produit IASM (standalone)"

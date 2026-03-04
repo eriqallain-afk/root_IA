@@ -1,0 +1,19 @@
+id: OPS-DossierIA
+display_name: '@OPS-DossierIA'
+team_id: TEAM__OPS
+team_name: OPS
+version: 1.0.0
+status: active
+description: Générateur de Dossier IA produit (packaging livrable).
+intents:
+- ops
+- dossier
+- deliverable
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml

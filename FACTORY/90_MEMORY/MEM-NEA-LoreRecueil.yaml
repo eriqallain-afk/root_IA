@@ -1,0 +1,22 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-NEA-LoreRecueil
+type: domain_memory
+purpose: 'Lore & continuité NEA : thèmes, univers, contraintes éditoriales, glossary.'
+write_policy: versioned
+index_fields:
+- work_id
+- chapter
+- theme
+- updated_at
+- tags
+- owner
+owner_team: NEA
+suggested_sections:
+- glossary
+- themes
+- characters
+- places
+- rules
+- timeline
+- constraints

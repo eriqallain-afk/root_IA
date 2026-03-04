@@ -1,0 +1,203 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.581209'
+agents:
+  IASM-AddictionsCompulsions:
+    display_name: '@IASM - Addictions & comportements compulsifs'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Cadre psychoéducatif addictions/compulsions : déclencheurs, coûts/bénéfices, pistes.'
+    intents:
+    - iasm
+    - addiction
+    - compulsion
+  IASM-AnalysteDiscussion:
+    display_name: '@IASM - ANALYSTE DISCUSSION'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Analyse forme des échanges (ton, mots, tension) pour clarifier dynamiques.
+    intents:
+    - iasm
+    - conversation
+    - analysis
+  IASM-AnalysteSchemasRelationnels:
+    display_name: '@IASM - Analyste de schémas relationnels'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Repère patterns relationnels (cycles, positions, moments de blocage).
+    intents:
+    - iasm
+    - relationships
+    - patterns
+  IASM-ClarificateurObjectifRelationnel:
+    display_name: '@IASM - Clarificateur d''objectif relationnel'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Situation floue -> objectif principal + secondaires.
+    intents:
+    - iasm
+    - goal
+    - clarify
+  IASM-CoachDeVie:
+    display_name: '@IASM - Coach de vie'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Transforme objectif flou en plan d’action (7–30 jours).
+    intents:
+    - iasm
+    - coaching
+    - actions
+  IASM-DirecteurCabinetIA:
+    display_name: '@IASM - Directeur de cabinet IA'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Supervise modules, structure la réponse, valide cohérence et ton.
+    intents:
+    - iasm
+    - orchestrate
+    - qa
+  IASM-GestionColere:
+    display_name: '@IASM - Module Gestion de la colère'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Déclencheurs, signaux, fonction, plan d’apaisement.
+    intents:
+    - iasm
+    - anger
+    - regulation
+  IASM-GestionEmotions:
+    display_name: '@IASM - Module Gestion des émotions'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Cartographie émotions/déclencheurs/réactions, pistes concrètes.
+    intents:
+    - iasm
+    - emotion
+    - regulation
+  IASM-ModuleRelationsConjugalesFamiliales:
+    display_name: '@IASM - Module Relations conjugales & familiales'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Lecture systémique du couple/famille : places, rôles, alliances, cycles.'
+    intents:
+    - iasm
+    - family
+    - systemic
+  IASM-Orchestrator:
+    display_name: '@IASM-Orchestrator'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Coordonne les modules de coaching : accueil, évaluation, orientation'
+    intents:
+    - iasm
+    - coordonne
+  IASM-OrchestreurCabinetIA:
+    display_name: '@IASM - Orchestreur — Cabinet IA'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Porte d’entrée : intake, brief, routage modules, compilation synthèse.'
+    intents:
+    - iasm
+    - intake
+    - route
+  IASM-OutilsTCC:
+    display_name: '@IASM-OutilsTCC'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Techniques de thérapie cognitivo-comportementale : exercices, restructuration'
+    intents:
+    - iasm
+  IASM-Psychoeducateur:
+    display_name: '@IASM - PSYCHOÉDUCATEUR'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Explique notions psycho/relationnelles en langage simple + exemples.
+    intents:
+    - iasm
+    - education
+    - explain
+  IASM-RessentiTonalite:
+    display_name: '@IASM - Analyse de ressenti & tonalité'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: 'Analyse texte : émotions probables, intensité, besoins, vulnérabilités.'
+    intents:
+    - iasm
+    - sentiment
+    - tone
+  IASM-Securite:
+    display_name: '@IASM-Securite'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Évaluation de risque et protocole de sécurité en cas de détresse
+    intents:
+    - iasm
+  IASM-SecuriteRisques:
+    display_name: '@IASM - Sécurité / risques'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Repère signaux danger et propose limites + escalade vers aide pro.
+    intents:
+    - iasm
+    - safety
+    - risk
+  IASM-SpecialisteRelationsCouple:
+    display_name: '@IASM - Spécialiste Relations de couple'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Analyse dynamiques clés, propose pistes de dialogue et limites.
+    intents:
+    - iasm
+    - couple
+    - communication
+  IASM-SuperviseurEthique:
+    display_name: '@IASM - Superviseur / éthique'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Relit sorties, sécurise formulations, retire tout contenu risqué/confus.
+    intents:
+    - iasm
+    - ethics
+    - review
+  IASM-SupportEmotionnel:
+    display_name: '@IASM-SupportEmotionnel'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Écoute active et validation émotionnelle
+    intents:
+    - iasm
+  IASM-TherapiePsychodynamique:
+    display_name: '@IASM - Thérapie psychodynamique'
+    team_id: TEAM__IASM
+    team_name: IASM
+    description: Exploration prudente de schémas profonds (non médical).
+    intents:
+    - iasm
+    - insight
+    - deep_patterns
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Générateur de Dossier IA produit (packaging livrable).
+    intents:
+    - ops
+    - dossier
+    - deliverable

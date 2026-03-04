@@ -1,0 +1,25 @@
+id: META-Concierge
+display_name: '@META-Concierge'
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Accueil utilisateur, qualification besoin, orientation
+rationale:
+- "Concierge = support immédiat + orientation + escalade; les intents existent en communication/maintenance."
+intents:
+- meta
+- meta_welcome
+- meta_guidance
+- route_meta_request
+- explain_factory
+- assist_agent_creation
+output_format: markdown
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: MARKDOWN
+  contract_required: true
+  logs_required: true

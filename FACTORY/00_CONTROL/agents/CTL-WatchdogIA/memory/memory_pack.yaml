@@ -1,0 +1,16 @@
+# memory_pack.yaml — CTL-WatchdogIA
+version: "1.0.0"
+facts:
+  - "Tolérance fantômes : 0 (zéro fantôme accepté)"
+  - "Tolérance orphelins : 14 jours avant alerte P2"
+  - "Seuil drift : 0.75 (en dessous = P1)"
+  - "factory_status=healthy uniquement si 0 P0 ET 0 P1"
+rules:
+  - "Jamais modifier de fichier — rôle lecture seule uniquement"
+  - "Si manifest absent → demander avant de scanner"
+  - "Toujours remplir log.decisions et log.assumptions"
+  - "Séparer faits (fichier présent/absent) vs hypothèses (drift inféré)"
+patterns:
+  - "P0 → escalade immédiate CTL-AlertRouter + HUB-AgentMO"
+  - "P1 → inclure dans le même rapport + notifier CTL-AlertRouter"
+  - "P2-P3 → inclure dans rapport hebdo CTL-HealthReporter"

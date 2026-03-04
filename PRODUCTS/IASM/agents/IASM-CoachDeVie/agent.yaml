@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: IASM-CoachDeVie
+display_name: "@IASM - Coach de vie"
+team_id: TEAM__IASM
+team_name: IASM
+version: 1.0.0
+status: active
+description: Transforme objectif flou en plan d’action (7–30 jours).
+intents:
+  - iasm
+  - coaching
+  - actions
+aliases:
+  - "@IASM - Coach de vie"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

@@ -1,0 +1,1415 @@
+schema_version: '1.0'
+generated_at: '2026-01-04T00:00:00Z'
+memory_id: MEM-AgentsGlobal
+type: registry_memory
+purpose: Index global des agents (metadata + intents + paths).
+source:
+  agents_index: 00_INDEX/agents_index.yaml
+  gpt_catalog: 00_INDEX/gpt_catalog.yaml
+write_policy: regenerated
+index_fields:
+- actor_id
+- team_id
+- intent
+- status
+agents:
+  HUB-AvatarForge:
+    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - brand
+    - avatar
+    - design
+    - assets
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AvatarForge/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AvatarForge/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AvatarForge/prompt.md
+    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction
+      artistique, déclinaisons).
+  HUB-AgentMO-MasterOrchestrator:
+    display_name: '@HUB - AGENT-MO — Master Orchestrator'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - orchestrate
+    - intake
+    - dispatch
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AgentMO-MasterOrchestrator/prompt.md
+    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch,
+      compilation.'
+  HUB-AgentMO2-DeputyOrchestrator:
+    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - orchestrate
+    - qa
+    - brief
+    paths:
+      agent: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-AgentMO2-DeputyOrchestrator/prompt.md
+    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance
+      modules.'
+  HUB-ITCoachIA360:
+    display_name: '@HUB - IT Coach IA 360'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - coach
+    - it
+    - strategy
+    - deployment
+    paths:
+      agent: 20_AGENTS/HUB/HUB-ITCoachIA360/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-ITCoachIA360/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-ITCoachIA360/prompt.md
+    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement,
+      adoption.'
+  HUB-CoachIA360-Strategie-GPTTeams:
+    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - coach
+    - strategy
+    - teams
+    - roadmap
+    paths:
+      agent: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-CoachIA360-Strategie-GPTTeams/prompt.md
+    description: 'Coach stratégie : structuration offres, équipes GPT, roadmap, priorisation.'
+  HUB-IA-ChatBotMaster:
+    display_name: '@HUB - IA-ChatBotMaster'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - chatbot
+    - architecture
+    - conversation
+    paths:
+      agent: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-IA-ChatBotMaster/prompt.md
+    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices,
+      design conversationnel.'
+  HUB-OproEngine:
+    display_name: '@HUB-OproEngine'
+    team_id: TEAM__HUB
+    status: active
+    intents:
+    - prompt
+    - optimize
+    - standardize
+    - qa
+    paths:
+      agent: 20_AGENTS/HUB/HUB-OproEngine/agent.yaml
+      contract: 20_AGENTS/HUB/HUB-OproEngine/contract.yaml
+      prompt: 20_AGENTS/HUB/HUB-OproEngine/prompt.md
+    description: 'Optimisation prompts : supervise, améliore, standardise et teste
+      les prompts.'
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - run_playbook
+    - execute
+    - workflow
+    paths:
+      agent: 20_AGENTS/OPS/OPS-PlaybookRunner/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-PlaybookRunner/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-PlaybookRunner/prompt.md
+    description: Exécuteur de workflows (playbooks) à partir d’un objectif.
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - memory
+    - archive
+    - project_file
+    paths:
+      agent: 20_AGENTS/OPS/OPS-DossierIA/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-DossierIA/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-DossierIA/prompt.md
+    description: 'Hub mémoire projet : contexte, décisions, artefacts, index, traçabilité.'
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - route
+    - dispatch
+    - classify
+    paths:
+      agent: 20_AGENTS/OPS/OPS-RouterIA/agent.yaml
+      contract: 20_AGENTS/OPS/OPS-RouterIA/contract.yaml
+      prompt: 20_AGENTS/OPS/OPS-RouterIA/prompt.md
+    description: 'Dispatcher central : détecte intent/capability et route vers team/agent/playbook.'
+  IAHQ-OrchestreurEntrepriseIA:
+    display_name: '@IAHQ-OrchestreurEntrepriseIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - strategy
+    - company
+    - positioning
+    - portfolio
+    - business
+    - sales
+    - proposal
+    - discovery
+    - transformation
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-OrchestreurEntrepriseIA/prompt.md
+    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres,
+      roadmap, organisation.'
+  IAHQ-SolutionOrchestrator:
+    display_name: '@IAHQ-SolutionOrchestrator'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - solution
+    - architecture
+    - client
+    - blueprint
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-SolutionOrchestrator/prompt.md
+    description: 'Orchestrateur solution client : contexte, process, risques, ROI,
+      vision cible.'
+  IAHQ-Economist:
+    display_name: '@IAHQ-Economist'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - roi
+    - cost
+    - finance
+    - business_case
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-Economist/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-Economist/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-Economist/prompt.md
+    description: Évalue les coûts/gains, construit business case et ROI.
+  IAHQ-ProcessMapper:
+    display_name: '@IAHQ-ProcessMapper'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - process
+    - mapping
+    - workflow
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/prompt.md
+    description: 'Cartographie processus : flux, étapes, exceptions, rôles.'
+  IAHQ-Extractor:
+    display_name: '@IAHQ-Extractor'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - extract
+    - ingest
+    - summarize
+    - structure
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-Extractor/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-Extractor/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-Extractor/prompt.md
+    description: 'Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes.'
+  IAHQ-DevFactoryIA:
+    display_name: '@IAHQ-DevFactoryIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - build
+    - deployment
+    - plan
+    - delivery
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-DevFactoryIA/prompt.md
+    description: 'Plan build & déploiement : packaging, intégrations, gouvernance,
+      livraison.'
+  IAHQ-TechLeadIA:
+    display_name: '@IAHQ-TechLeadIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - cto
+    - architecture
+    - security
+    - data
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/prompt.md
+    description: 'CTO virtuel : architecture technique, briques IA, intégrations,
+      data, sécurité.'
+  IAHQ-AdminManagerIA:
+    display_name: '@IAHQ-AdminManagerIA'
+    team_id: TEAM__IAHQ
+    status: active
+    intents:
+    - admin
+    - operations
+    - offers
+    - governance
+    paths:
+      agent: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/agent.yaml
+      contract: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/contract.yaml
+      prompt: 20_AGENTS/IAHQ/IAHQ-AdminManagerIA/prompt.md
+    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
+  META-OrchestrateurCentral:
+    display_name: '@META-OrchestrateurCentral'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - army_factory
+    - design
+    - orchestrate
+    paths:
+      agent: 20_AGENTS/META/META-OrchestrateurCentral/agent.yaml
+      contract: 20_AGENTS/META/META-OrchestrateurCentral/contract.yaml
+      prompt: 20_AGENTS/META/META-OrchestrateurCentral/prompt.md
+    description: 'Orchestrateur usine à armées : transforme demande en plan complet
+      (teams, agents, runbooks).'
+  META-AnalysteBesoinsEquipes:
+    display_name: '@META-AnalysteBesoinsEquipes'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - requirements
+    - analysis
+    - spec
+    paths:
+      agent: 20_AGENTS/META/META-AnalysteBesoinsEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-AnalysteBesoinsEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-AnalysteBesoinsEquipes/prompt.md
+    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
+  META-CartographeRoles:
+    display_name: '@META-CartographeRoles'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - roles
+    - mapping
+    - army_design
+    paths:
+      agent: 20_AGENTS/META/META-CartographeRoles/agent.yaml
+      contract: 20_AGENTS/META/META-CartographeRoles/contract.yaml
+      prompt: 20_AGENTS/META/META-CartographeRoles/prompt.md
+    description: 'Transforme spec en catalogue de rôles GPT : missions, interfaces,
+      limites.'
+  META-Opromptimizer:
+    display_name: '@META-Opromptimizer'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - prompt
+    - engineering
+    - optimize
+    paths:
+      agent: 20_AGENTS/META/META-Opromptimizer/agent.yaml
+      contract: 20_AGENTS/META/META-Opromptimizer/contract.yaml
+      prompt: 20_AGENTS/META/META-Opromptimizer/prompt.md
+    description: 'Prompt engineering : conçoit/évalue/optimise prompts et standards
+      machine.'
+  META-SuperviseurInvisible:
+    display_name: '@META-SuperviseurInvisible'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - audit
+    - qa
+    - governance
+    - consistency
+    paths:
+      agent: 20_AGENTS/META/META-SuperviseurInvisible/agent.yaml
+      contract: 20_AGENTS/META/META-SuperviseurInvisible/contract.yaml
+      prompt: 20_AGENTS/META/META-SuperviseurInvisible/prompt.md
+    description: 'Audit cohérence : architecture, rôles, prompts, workflows, routing.'
+  NEA-Orchestrator:
+    display_name: '@NEA-Orchestrator'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - orchestrate
+    - book
+    paths:
+      agent: 20_AGENTS/NEA/NEA-Orchestrator/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-Orchestrator/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-Orchestrator/prompt.md
+    description: 'Orchestrateur du livre/recueil : plan, coordination, compilation
+      et qualité.'
+  NEA-RedacteurRecueil:
+    display_name: '@NEA-RedacteurRecueil'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - write
+    - edit
+    paths:
+      agent: 20_AGENTS/NEA/NEA-RedacteurRecueil/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-RedacteurRecueil/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-RedacteurRecueil/prompt.md
+    description: 'Rédacteur : transforme notes/analyses en sections claires.'
+  NEA-Imagier:
+    display_name: '@NEA-Imagier'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - illustration
+    - visual
+    paths:
+      agent: 20_AGENTS/NEA/NEA-Imagier/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-Imagier/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-Imagier/prompt.md
+    description: Idées d’illustrations, schémas, couvertures et prompts visuels.
+  NEA-Cartographe:
+    display_name: '@NEA-Cartographe'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - mapping
+    - structure
+    paths:
+      agent: 20_AGENTS/NEA/NEA-Cartographe/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-Cartographe/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-Cartographe/prompt.md
+    description: 'Cartographe conceptuel : analyses -> plans, cartes, structures.'
+  NEA-Archiviste:
+    display_name: '@NEA-Archiviste'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - archive
+    - normalize
+    paths:
+      agent: 20_AGENTS/NEA/NEA-Archiviste/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-Archiviste/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-Archiviste/prompt.md
+    description: 'Archiviste : nettoie, reformule sans trahir, titre/tags/IDs, cohérence.'
+  NEA-ConseilPatterns:
+    display_name: '@NEA-ConseilPatterns'
+    team_id: TEAM__NEA
+    status: active
+    intents:
+    - nea
+    - patterns
+    - analysis
+    paths:
+      agent: 20_AGENTS/NEA/NEA-ConseilPatterns/agent.yaml
+      contract: 20_AGENTS/NEA/NEA-ConseilPatterns/contract.yaml
+      prompt: 20_AGENTS/NEA/NEA-ConseilPatterns/prompt.md
+    description: Repère patterns cosmos/terre/vivant/symboles/systèmes.
+  IASM-OrchestreurCabinetIA:
+    display_name: '@IASM - Orchestreur — Cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - intake
+    - route
+    paths:
+      agent: 20_AGENTS/IASM/IASM-OrchestreurCabinetIA/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-OrchestreurCabinetIA/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-OrchestreurCabinetIA/prompt.md
+    description: 'Porte d’entrée : intake, brief, routage modules, compilation synthèse.'
+  IASM-DirecteurCabinetIA:
+    display_name: '@IASM - Directeur de cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - orchestrate
+    - qa
+    paths:
+      agent: 20_AGENTS/IASM/IASM-DirecteurCabinetIA/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-DirecteurCabinetIA/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-DirecteurCabinetIA/prompt.md
+    description: Supervise modules, structure la réponse, valide cohérence et ton.
+  IASM-SuperviseurEthique:
+    display_name: '@IASM - Superviseur / éthique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - ethics
+    - review
+    paths:
+      agent: 20_AGENTS/IASM/IASM-SuperviseurEthique/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-SuperviseurEthique/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-SuperviseurEthique/prompt.md
+    description: Relit sorties, sécurise formulations, retire tout contenu risqué/confus.
+  IASM-SecuriteRisques:
+    display_name: '@IASM - Sécurité / risques'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - safety
+    - risk
+    paths:
+      agent: 20_AGENTS/IASM/IASM-SecuriteRisques/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-SecuriteRisques/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-SecuriteRisques/prompt.md
+    description: Repère signaux danger et propose limites + escalade vers aide pro.
+  IASM-AddictionsCompulsions:
+    display_name: '@IASM - Addictions & comportements compulsifs'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - addiction
+    - compulsion
+    paths:
+      agent: 20_AGENTS/IASM/IASM-AddictionsCompulsions/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-AddictionsCompulsions/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-AddictionsCompulsions/prompt.md
+    description: 'Cadre psychoéducatif addictions/compulsions : déclencheurs, coûts/bénéfices,
+      pistes.'
+  IASM-SupportEmotionnel:
+    display_name: '@IASM - Support émotionnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - support
+    - emotion
+    paths:
+      agent: 20_AGENTS/IASM/IASM-SupportEmotionnel/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-SupportEmotionnel/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-SupportEmotionnel/prompt.md
+    description: 'Support émotionnel : accueil, reformulation, micro-actions d’apaisement.'
+  IASM-AnalysteSchemasRelationnels:
+    display_name: '@IASM - Analyste de schémas relationnels'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - relationships
+    - patterns
+    paths:
+      agent: 20_AGENTS/IASM/IASM-AnalysteSchemasRelationnels/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-AnalysteSchemasRelationnels/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-AnalysteSchemasRelationnels/prompt.md
+    description: Repère patterns relationnels (cycles, positions, moments de blocage).
+  IASM-CoachDeVie:
+    display_name: '@IASM - Coach de vie'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - coaching
+    - actions
+    paths:
+      agent: 20_AGENTS/IASM/IASM-CoachDeVie/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-CoachDeVie/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-CoachDeVie/prompt.md
+    description: Transforme objectif flou en plan d’action (7–30 jours).
+  IASM-ModuleRelationsConjugalesFamiliales:
+    display_name: '@IASM - Module Relations conjugales & familiales'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - family
+    - systemic
+    paths:
+      agent: 20_AGENTS/IASM/IASM-ModuleRelationsConjugalesFamiliales/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-ModuleRelationsConjugalesFamiliales/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-ModuleRelationsConjugalesFamiliales/prompt.md
+    description: 'Lecture systémique du couple/famille : places, rôles, alliances,
+      cycles.'
+  IASM-SpecialisteRelationsCouple:
+    display_name: '@IASM - Spécialiste Relations de couple'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - couple
+    - communication
+    paths:
+      agent: 20_AGENTS/IASM/IASM-SpecialisteRelationsCouple/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-SpecialisteRelationsCouple/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-SpecialisteRelationsCouple/prompt.md
+    description: Analyse dynamiques clés, propose pistes de dialogue et limites.
+  IASM-TherapiePsychodynamique:
+    display_name: '@IASM - Thérapie psychodynamique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - insight
+    - deep_patterns
+    paths:
+      agent: 20_AGENTS/IASM/IASM-TherapiePsychodynamique/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-TherapiePsychodynamique/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-TherapiePsychodynamique/prompt.md
+    description: Exploration prudente de schémas profonds (non médical).
+  IASM-AnalysteDiscussion:
+    display_name: '@IASM - ANALYSTE DISCUSSION'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - conversation
+    - analysis
+    paths:
+      agent: 20_AGENTS/IASM/IASM-AnalysteDiscussion/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-AnalysteDiscussion/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-AnalysteDiscussion/prompt.md
+    description: Analyse forme des échanges (ton, mots, tension) pour clarifier dynamiques.
+  IASM-OutilsTCC:
+    display_name: '@IASM - Outils inspirés de la TCC'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - cbt
+    - tools
+    paths:
+      agent: 20_AGENTS/IASM/IASM-OutilsTCC/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-OutilsTCC/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-OutilsTCC/prompt.md
+    description: 'Outils TCC : situation→pensées→émotions→comportements, tests et
+      exercices simples.'
+  IASM-Psychoeducateur:
+    display_name: '@IASM - PSYCHOÉDUCATEUR'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - education
+    - explain
+    paths:
+      agent: 20_AGENTS/IASM/IASM-Psychoeducateur/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-Psychoeducateur/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-Psychoeducateur/prompt.md
+    description: Explique notions psycho/relationnelles en langage simple + exemples.
+  IASM-GestionColere:
+    display_name: '@IASM - Module Gestion de la colère'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - anger
+    - regulation
+    paths:
+      agent: 20_AGENTS/IASM/IASM-GestionColere/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-GestionColere/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-GestionColere/prompt.md
+    description: Déclencheurs, signaux, fonction, plan d’apaisement.
+  IASM-GestionEmotions:
+    display_name: '@IASM - Module Gestion des émotions'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - emotion
+    - regulation
+    paths:
+      agent: 20_AGENTS/IASM/IASM-GestionEmotions/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-GestionEmotions/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-GestionEmotions/prompt.md
+    description: Cartographie émotions/déclencheurs/réactions, pistes concrètes.
+  IASM-RessentiTonalite:
+    display_name: '@IASM - Analyse de ressenti & tonalité'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - sentiment
+    - tone
+    paths:
+      agent: 20_AGENTS/IASM/IASM-RessentiTonalite/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-RessentiTonalite/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-RessentiTonalite/prompt.md
+    description: 'Analyse texte : émotions probables, intensité, besoins, vulnérabilités.'
+  IASM-ClarificateurObjectifRelationnel:
+    display_name: '@IASM - Clarificateur d''objectif relationnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - goal
+    - clarify
+    paths:
+      agent: 20_AGENTS/IASM/IASM-ClarificateurObjectifRelationnel/agent.yaml
+      contract: 20_AGENTS/IASM/IASM-ClarificateurObjectifRelationnel/contract.yaml
+      prompt: 20_AGENTS/IASM/IASM-ClarificateurObjectifRelationnel/prompt.md
+    description: Situation floue -> objectif principal + secondaires.
+  IT-DirecteurGeneral:
+    display_name: '@IT-DirecteurGeneral'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - management
+    - governance
+    paths:
+      agent: 20_AGENTS/IT/IT-DirecteurGeneral/agent.yaml
+      contract: 20_AGENTS/IT/IT-DirecteurGeneral/contract.yaml
+      prompt: 20_AGENTS/IT/IT-DirecteurGeneral/prompt.md
+    description: 'Directeur général MSP : objectifs ops -> priorités & directives.'
+  IT-OrchestratorMSP:
+    display_name: '@IT-OrchestratorMSP'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - audio_broadcast
+    - broadcast
+    - it
+    - msp
+    - orchestrate
+    - script
+    - studio
+    - voiceOver
+    - voice_over
+    - voiceover
+    paths:
+      agent: 20_AGENTS/IT/IT-OrchestratorMSP/agent.yaml
+      contract: 20_AGENTS/IT/IT-OrchestratorMSP/contract.yaml
+      prompt: 20_AGENTS/IT/IT-OrchestratorMSP/prompt.md
+    description: 'Chef d’orchestre MSP : reçoit demandes, mobilise experts, compile
+      livrables.'
+  IT-CTOMaster:
+    display_name: '@IT-CTOMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cto
+    - standards
+    paths:
+      agent: 20_AGENTS/IT/IT-CTOMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-CTOMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-CTOMaster/prompt.md
+    description: 'Directeur technique MSP : architectures, standards, arbitrages.'
+  IT-SupportMaster:
+    display_name: '@IT-SupportMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - support
+    - incident
+    paths:
+      agent: 20_AGENTS/IT/IT-SupportMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-SupportMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-SupportMaster/prompt.md
+    description: 'Support TI N1–N3 : diagnostic, résolution, escalade, standards.'
+  IT-TicketScribe:
+    display_name: '@IT-TicketScribe'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - ticket
+    - writing
+    paths:
+      agent: 20_AGENTS/IT/IT-TicketScribe/agent.yaml
+      contract: 20_AGENTS/IT/IT-TicketScribe/contract.yaml
+      prompt: 20_AGENTS/IT/IT-TicketScribe/prompt.md
+    description: 'Rédacteur ConnectWise : notes brutes -> compte rendu + actions.'
+  IT-CommsMSP:
+    display_name: '@IT-CommsMSP'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - comms
+    - client
+    paths:
+      agent: 20_AGENTS/IT/IT-CommsMSP/agent.yaml
+      contract: 20_AGENTS/IT/IT-CommsMSP/contract.yaml
+      prompt: 20_AGENTS/IT/IT-CommsMSP/prompt.md
+    description: 'Communication client MSP : emails, Teams, SMS maintenance/incidents.'
+  IT-KnowledgeKeeper:
+    display_name: '@IT-KnowledgeKeeper'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - knowledge
+    - kb
+    - runbook
+    paths:
+      agent: 20_AGENTS/IT/IT-KnowledgeKeeper/agent.yaml
+      contract: 20_AGENTS/IT/IT-KnowledgeKeeper/contract.yaml
+      prompt: 20_AGENTS/IT/IT-KnowledgeKeeper/prompt.md
+    description: 'Knowledge MSP : tickets résolus -> KB & runbooks.'
+  IT-Commandare-OPR:
+    display_name: '@IT-Commandare-OPR'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - msp
+    - process
+    - tickets
+    paths:
+      agent: 20_AGENTS/IT/IT-Commandare-OPR/agent.yaml
+      contract: 20_AGENTS/IT/IT-Commandare-OPR/contract.yaml
+      prompt: 20_AGENTS/IT/IT-Commandare-OPR/prompt.md
+    description: 'Orchestrateur back-office : pipeline fermeture ticket, standardisation
+      et contrôle.'
+  IT-AssetMaster:
+    display_name: '@IT-AssetMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cmdb
+    - assets
+    paths:
+      agent: 20_AGENTS/IT/IT-AssetMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-AssetMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-AssetMaster/prompt.md
+    description: 'Inventaire IT & CMDB : structure, maintient et exploite actifs HW/SW.'
+  IT-SoftwMaster:
+    display_name: '@IT-SoftwMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - licenses
+    - software
+    paths:
+      agent: 20_AGENTS/IT/IT-SoftwMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-SoftwMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-SoftwMaster/prompt.md
+    description: 'Logiciels & licences : conformité, coûts, optimisation licences.'
+  IT-MonitoringMaster:
+    display_name: '@IT-MonitoringMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - monitoring
+    - observability
+    paths:
+      agent: 20_AGENTS/IT/IT-MonitoringMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-MonitoringMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-MonitoringMaster/prompt.md
+    description: 'Supervision/observabilité : KPIs, alertes, rapports.'
+  IT-MaintenanceMaster:
+    display_name: '@IT-MaintenanceMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - maintenance
+    - patching
+    paths:
+      agent: 20_AGENTS/IT/IT-MaintenanceMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-MaintenanceMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-MaintenanceMaster/prompt.md
+    description: 'Maintenance & audits : patching, plans, conformité.'
+  IT-BackupDRMaster:
+    display_name: '@IT-BackupDRMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - backup
+    - dr
+    paths:
+      agent: 20_AGENTS/IT/IT-BackupDRMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-BackupDRMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-BackupDRMaster/prompt.md
+    description: 'Sauvegardes & DR : stratégies RPO/RTO, tests, runbooks.'
+  IT-ScriptMaster:
+    display_name: '@IT-ScriptMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - automation
+    - scripting
+    paths:
+      agent: 20_AGENTS/IT/IT-ScriptMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-ScriptMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-ScriptMaster/prompt.md
+    description: 'Scripting & automatisation (PowerShell/Python/Bash) : scripts fiables.'
+  IT-SecurityMaster:
+    display_name: '@IT-SecurityMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - security
+    - risk
+    paths:
+      agent: 20_AGENTS/IT/IT-SecurityMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-SecurityMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-SecurityMaster/prompt.md
+    description: 'Cybersécurité : risques, posture, remédiations.'
+  IT-DevOpsMaster:
+    display_name: '@IT-DevOpsMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - devops
+    - cicd
+    paths:
+      agent: 20_AGENTS/IT/IT-DevOpsMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-DevOpsMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-DevOpsMaster/prompt.md
+    description: 'DevOps/CI-CD : pipelines, environnements, IaC.'
+  IT-VoIPMaster:
+    display_name: '@IT-VoIPMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - voip
+    - uc
+    paths:
+      agent: 20_AGENTS/IT/IT-VoIPMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-VoIPMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-VoIPMaster/prompt.md
+    description: 'Téléphonie IP & UC : design, évolution, optimisation.'
+  IT-CloudMaster:
+    display_name: '@IT-CloudMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - cloud
+    - azure
+    - m365
+    paths:
+      agent: 20_AGENTS/IT/IT-CloudMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-CloudMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-CloudMaster/prompt.md
+    description: 'Cloud Azure/M365/SaaS : architectures, gouvernance, sécurité.'
+  IT-InfrastructureMaster:
+    display_name: '@IT-InfrastructureMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - infrastructure
+    - servers
+    paths:
+      agent: 20_AGENTS/IT/IT-InfrastructureMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-InfrastructureMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-InfrastructureMaster/prompt.md
+    description: 'Serveurs/virtualisation/stockage : design, capacity planning.'
+  IT-NetworkMaster:
+    display_name: '@IT-NetworkMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - it
+    - network
+    - firewall
+    paths:
+      agent: 20_AGENTS/IT/IT-NetworkMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-NetworkMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-NetworkMaster/prompt.md
+    description: 'Réseau : LAN/WAN/VPN/WiFi/routage/QoS/firewalls.'
+  TRAD-CommandCore:
+    display_name: '@TRAD-CommandCore'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - command
+    - dispatch
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-CommandCore/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-CommandCore/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-CommandCore/prompt.md
+    description: 'Noyau commandement TRAD : reçoit ordres, distribue aux modules.'
+  TRAD-Correlator:
+    display_name: '@TRAD-Correlator'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - correlation
+    - signals
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-Correlator/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-Correlator/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-Correlator/prompt.md
+    description: Fusionne signaux, attribue une cote, prépare synthèse.
+  TRAD-VigillIntel:
+    display_name: '@TRAD-VigillIntel'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - intel
+    - geopolitics
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-VigillIntel/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-VigillIntel/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-VigillIntel/prompt.md
+    description: 'Veille mondiale : conflits, ressources, climat, tech, mouvements.'
+  TRAD-AnalytikGlobal:
+    display_name: '@TRAD-AnalytikGlobal'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - analysis
+    - strategy
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-AnalytikGlobal/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-AnalytikGlobal/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-AnalytikGlobal/prompt.md
+    description: 'Analyste stratégique : scénarios & impacts.'
+  TRAD-MarketSentinel:
+    display_name: '@TRAD-MarketSentinel'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - markets
+    - watch
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-MarketSentinel/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-MarketSentinel/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-MarketSentinel/prompt.md
+    description: 'Surveillance marchés : crypto, devises, métaux.'
+  TRAD-FractalMathCrypto:
+    display_name: '@TRAD-FractalMathCrypto'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - crypto
+    - quant
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-FractalMathCrypto/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-FractalMathCrypto/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-FractalMathCrypto/prompt.md
+    description: 'Analyse fractale crypto : BTC/ETH/SOL etc.'
+  TRAD-CosmoPsyWatcher:
+    display_name: '@TRAD-CosmoPsyWatcher'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - cosmos
+    - psycho_collective
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-CosmoPsyWatcher/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-CosmoPsyWatcher/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-CosmoPsyWatcher/prompt.md
+    description: Observateur cosmo/psycho-collectif.
+  TRAD-SocioRadar:
+    display_name: '@TRAD-SocioRadar'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - social
+    - trends
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-SocioRadar/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-SocioRadar/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-SocioRadar/prompt.md
+    description: 'Oreille sociale : tendances virales/forums, signaux panique.'
+  TRAD-CryptoStrategist:
+    display_name: '@TRAD-CryptoStrategist'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - crypto
+    - strategy
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-CryptoStrategist/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-CryptoStrategist/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-CryptoStrategist/prompt.md
+    description: 'Conseiller crypto-stratégique : décisions sur base de synthèses.'
+  TRAD-GlobalReport:
+    display_name: '@TRAD-GlobalReport'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - report
+    - writing
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-GlobalReport/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-GlobalReport/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-GlobalReport/prompt.md
+    description: 'Rédacteur : met en forme infos consolidées en rapport actionnable.'
+  TRAD-CyberWatch:
+    display_name: '@TRAD-CyberWatch'
+    team_id: TEAM__TRAD
+    status: active
+    intents:
+    - trad
+    - cyber
+    - watch
+    paths:
+      agent: 20_AGENTS/TRAD/TRAD-CyberWatch/agent.yaml
+      contract: 20_AGENTS/TRAD/TRAD-CyberWatch/contract.yaml
+      prompt: 20_AGENTS/TRAD/TRAD-CyberWatch/prompt.md
+    description: 'Sentinelle cyber : piratages, ransomwares, pannes d’infras numériques.'
+  DAM-Orchestrator:
+    display_name: '@DAM-Orchestrator'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - orchestrate
+    - project
+    paths:
+      agent: 20_AGENTS/DAM/DAM-Orchestrator/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-Orchestrator/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-Orchestrator/prompt.md
+    description: 'Coordonne GPTs DAM : conformité, budget, planning, produits, inspection,
+      synthèse.'
+  DAM-Superviseur:
+    display_name: '@DAM - Superviseur'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - qa
+    - governance
+    paths:
+      agent: 20_AGENTS/DAM/DAM-Superviseur/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-Superviseur/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-Superviseur/prompt.md
+    description: 'Supervise tous les GPTs DAM : cohérence, sécurité, hiérarchie.'
+  DAM-GPT2-Conformite:
+    display_name: '@DAM-GPT 2 — Conformité'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - compliance
+    - risk
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT2-Conformite/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT2-Conformite/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT2-Conformite/prompt.md
+    description: 'Conformité (Québec/RBQ/municipal) : risques, écarts, correctifs.'
+  DAM-GPT3-Budget:
+    display_name: '@DAM-GPT 3 — Budget'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - budget
+    - cost
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT3-Budget/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT3-Budget/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT3-Budget/prompt.md
+    description: 'Budget : cadrage coûts, priorisation, impacts.'
+  DAM-GPT4-Planification:
+    display_name: '@DAM-GPT 4 — Planification'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - planning
+    - schedule
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT4-Planification/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT4-Planification/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT4-Planification/prompt.md
+    description: 'Planning : calendrier, dépendances, risques, jalons.'
+  DAM-GPT5-SousTraitants:
+    display_name: '@DAM-GPT 5 — Sous-Traitants'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - vendors
+    - procurement
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT5-SousTraitants/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT5-SousTraitants/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT5-SousTraitants/prompt.md
+    description: 'Sous-traitants : soumissions, comparatifs, conformité/disponibilités.'
+  DAM-GPT6-Inspection:
+    display_name: '@DAM-GPT 6 — Inspection'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - inspection
+    - quality
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT6-Inspection/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT6-Inspection/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT6-Inspection/prompt.md
+    description: 'Inspection : défauts/anomalies/risques, rapports.'
+  DAM-GPT7-Archiviste:
+    display_name: '@DAM-GPT 7 — Archiviste'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - archive
+    - docs
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT7-Archiviste/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT7-Archiviste/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT7-Archiviste/prompt.md
+    description: Archivage documents/plans/budgets/rapports/photos.
+  DAM-GPT8-Communication:
+    display_name: '@DAM-GPT 8 — Communication'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - comms
+    - client
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT8-Communication/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT8-Communication/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT8-Communication/prompt.md
+    description: 'Communication client : messages structurés, suivi.'
+  DAM-GPT9-Produits:
+    display_name: '@DAM-GPT 9 — Produits'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - products
+    - selection
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT9-Produits/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT9-Produits/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT9-Produits/prompt.md
+    description: 'Produits/matériaux : sélection, comparatifs, fiches.'
+  DAM-GPT10-Fournisseurs:
+    display_name: '@DAM-GPT 10 — Fournisseurs'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - suppliers
+    - procurement
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT10-Fournisseurs/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT10-Fournisseurs/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT10-Fournisseurs/prompt.md
+    description: 'Fournisseurs : prix, dispo, délais, fiabilité.'
+  DAM-GPT11-Satisfaction:
+    display_name: '@DAM-GPT 11 — Satisfaction'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - customer
+    - satisfaction
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT11-Satisfaction/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT11-Satisfaction/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT11-Satisfaction/prompt.md
+    description: 'Satisfaction client : signaux faibles, risques relationnels.'
+  DAM-GPT12-Legal:
+    display_name: '@DAM-GPT 12 — Légal'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - legal
+    - review
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT12-Legal/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT12-Legal/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT12-Legal/prompt.md
+    description: 'Revue non-juridique : ambiguïtés, clauses à clarifier, risques.'
+  DAM-GPT13-Analytics:
+    display_name: '@DAM-GPT 13 — Analytics'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - analytics
+    - kpi
+    paths:
+      agent: 20_AGENTS/DAM/DAM-GPT13-Analytics/agent.yaml
+      contract: 20_AGENTS/DAM/DAM-GPT13-Analytics/contract.yaml
+      prompt: 20_AGENTS/DAM/DAM-GPT13-Analytics/prompt.md
+    description: 'Analytics : écarts, délais, coûts, risques, dashboards.'
+  PLR-RadioScripteur:
+    display_name: '@PLR - Radio Scripteur'
+    team_id: TEAM__PLR
+    status: active
+    intents:
+    - radio
+    - script
+    - writing
+    paths:
+      agent: 20_AGENTS/PLR/PLR-RadioScripteur/agent.yaml
+      contract: 20_AGENTS/PLR/PLR-RadioScripteur/contract.yaml
+      prompt: 20_AGENTS/PLR/PLR-RadioScripteur/prompt.md
+    description: Transforme textes en scripts radio dynamiques (hooks, transitions,
+      rythme).
+  ESPL-PaulLejeuneRadio:
+    display_name: '@ESPL-GPT-Paul-Lejeune Radio'
+    team_id: TEAM__ESPL
+    status: active
+    intents:
+    - radio
+    - script
+    - adaptation
+    paths:
+      agent: 20_AGENTS/ESPL/ESPL-PaulLejeuneRadio/agent.yaml
+      contract: 20_AGENTS/ESPL/ESPL-PaulLejeuneRadio/contract.yaml
+      prompt: 20_AGENTS/ESPL/ESPL-PaulLejeuneRadio/prompt.md
+    description: 'Assistant radio Paul-Lejeune : adaptation et structure de segments.'
+  META-GouvernanceEtRisques:
+    display_name: '@META-GouvernanceEtRisques'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - governance
+    - risk
+    - quality
+    paths:
+      agent: 20_AGENTS/META/META-GouvernanceEtRisques/agent.yaml
+      contract: 20_AGENTS/META/META-GouvernanceEtRisques/contract.yaml
+      prompt: 20_AGENTS/META/META-GouvernanceEtRisques/prompt.md
+    description: Définit les garde-fous, risques, contrôles et validations humaines
+      pour les équipes/agents.
+  META-PlaybookBuilder:
+    display_name: '@META-PlaybookBuilder'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - playbook
+    - workflow
+    - automation
+    paths:
+      agent: 20_AGENTS/META/META-PlaybookBuilder/agent.yaml
+      contract: 20_AGENTS/META/META-PlaybookBuilder/contract.yaml
+      prompt: 20_AGENTS/META/META-PlaybookBuilder/prompt.md
+    description: Conçoit des playbooks (enchaînements multi-agents) clairs, testables
+      et alignés sur la gouvernance.
+  META-PromptArchitectEquipes:
+    display_name: '@META-PromptArchitectEquipes'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - prompt
+    - architecture
+    - standardization
+    paths:
+      agent: 20_AGENTS/META/META-PromptArchitectEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-PromptArchitectEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-PromptArchitectEquipes/prompt.md
+    description: Structure et standardise les prompts des agents (format machine,
+      constraints, DoD).
+  META-ReversePrompt:
+    display_name: '@META-ReversePrompt'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - reverse_prompt
+    - analysis
+    - extraction
+    paths:
+      agent: 20_AGENTS/META/META-ReversePrompt/agent.yaml
+      contract: 20_AGENTS/META/META-ReversePrompt/contract.yaml
+      prompt: 20_AGENTS/META/META-ReversePrompt/prompt.md
+    description: Déduit un prompt/contrat à partir d’exemples, comportements observés
+      et sorties attendues.
+  META-WorkflowDesignerEquipes:
+    display_name: '@META-WorkflowDesignerEquipes'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - workflow
+    - process
+    - mapping
+    paths:
+      agent: 20_AGENTS/META/META-WorkflowDesignerEquipes/agent.yaml
+      contract: 20_AGENTS/META/META-WorkflowDesignerEquipes/contract.yaml
+      prompt: 20_AGENTS/META/META-WorkflowDesignerEquipes/prompt.md
+    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles,
+      handoffs).
+  IT-Commandare-NOC:
+    display_name: '@IT-Commandare-NOC'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - noc
+    - monitoring
+    - incident
+    - triage
+    paths:
+      agent: 20_AGENTS/IT/IT-Commandare-NOC/agent.yaml
+      contract: 20_AGENTS/IT/IT-Commandare-NOC/contract.yaml
+      prompt: 20_AGENTS/IT/IT-Commandare-NOC/prompt.md
+    description: 'Orchestrateur NOC : triage des alertes, routage et escalade vers
+      TECH/SOC/CTO.'
+  IT-Commandare-TECH:
+    display_name: '@IT-Commandare-TECH'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - troubleshooting
+    - remediation
+    - change
+    - incident
+    paths:
+      agent: 20_AGENTS/IT/IT-Commandare-TECH/agent.yaml
+      contract: 20_AGENTS/IT/IT-Commandare-TECH/contract.yaml
+      prompt: 20_AGENTS/IT/IT-Commandare-TECH/prompt.md
+    description: 'Chef d’exécution technique : diagnostic, remédiation, plan de changement
+      et validation post-fix.'
+  IT-NOCDispatcher:
+    display_name: '@IT-NOCDispatcher'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - dispatch
+    - sla
+    - coordination
+    - incident
+    paths:
+      agent: 20_AGENTS/IT/IT-NOCDispatcher/agent.yaml
+      contract: 20_AGENTS/IT/IT-NOCDispatcher/contract.yaml
+      prompt: 20_AGENTS/IT/IT-NOCDispatcher/prompt.md
+    description: 'Dispatcher NOC : affectation, priorisation, escalade et suivi (SLA)
+      des tickets/alertes.'
+  IT-ReportMaster:
+    display_name: '@IT-ReportMaster'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - report
+    - kpi
+    - sla
+    - communication
+    paths:
+      agent: 20_AGENTS/IT/IT-ReportMaster/agent.yaml
+      contract: 20_AGENTS/IT/IT-ReportMaster/contract.yaml
+      prompt: 20_AGENTS/IT/IT-ReportMaster/prompt.md
+    description: 'Production de rapports MSP : KPI/SLA, tendances incidents, recommandations
+      et synthèses client.'

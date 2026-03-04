@@ -1,0 +1,22 @@
+schema_version: "1.0"
+id: IAHQ-DevFactoryIA
+display_name: "@IAHQ-DevFactoryIA"
+team_id: TEAM__IAHQ
+team_name: IAHQ
+version: 1.0.0
+status: active
+description: "Plan build & déploiement : packaging, intégrations, gouvernance, livraison."
+intents:
+  - build
+  - deployment
+  - plan
+  - delivery
+aliases:
+  - "@IAHQ-DevFactoryIA"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

@@ -1,0 +1,18 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.552844'
+playbooks:
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+
+  ESPL_RADIO_SCRIPT:
+    description: "Générer/adaptater un script radio (Paul-Lejeune)."
+    steps:
+      - step: execute
+        actor_id: ESPL-PaulLejeuneRadio

@@ -1,0 +1,12 @@
+schema_version: '1.0'
+actor_id: OPS-PlaybookRunner
+team_id: TEAM__OPS
+inputs:
+  playbook_id: string
+  inputs: object
+  state: object?
+outputs:
+  execution_plan: object
+  deliverable: object
+rules:
+  must_load_playbooks_file: playbooks/playbooks.yaml

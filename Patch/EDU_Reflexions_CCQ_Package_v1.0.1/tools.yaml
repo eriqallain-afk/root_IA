@@ -1,0 +1,102 @@
+schema_version: 1.0
+name: '@EDU-Reflexions_CCQ tooling'
+operators:
+- id: PDF_TEXT_EXTRACT
+  description: Extrait le texte natif d'un PDF (si présent).
+  inputs:
+  - name: pdf_path
+    type: file
+  outputs:
+  - name: text
+    type: string
+  - name: pages_with_text
+    type: array<int>
+- id: PDF_RENDER_PAGES
+  description: Rend chaque page du PDF en image (PNG) pour OCR.
+  inputs:
+  - name: pdf_path
+    type: file
+  outputs:
+  - name: page_images
+    type: array<file>
+- id: VISION_TRANSCRIBE_PAGES
+  description: Transcrit le texte visible sur les images de pages via un modèle vision
+    (sans moteur OCR externe). Doit produire une transcription fidèle; si illisible,
+    insérer [ILLISIBLE] et ajouter un flag. Retourne texte par page + score de confiance
+    global + flags.
+  inputs:
+  - name: page_images
+    type: array<file>
+  - name: lang
+    type: string
+    default: fr
+  - name: transcription_policy
+    type: string
+    default: verbatim_with_uncertainty
+  outputs:
+  - name: ocr_text_by_page
+    type: array<object>
+  - name: confidence
+    type: number
+  - name: flags
+    type: array<object>
+- id: TEXT_MERGE_NORMALIZE
+  description: Fusionne texte natif + OCR, normalise les espaces, conserve les repères
+    de pages.
+  inputs:
+  - name: native_text
+    type: string
+  - name: ocr_text_by_page
+    type: array<object>
+  outputs:
+  - name: normalized_text
+    type: string
+- id: SECTION_DETECT
+  description: Détecte et extrait les 5 sections (Intro, Synopsis, Tensions, Choix,
+    Conclusion).
+  inputs:
+  - name: normalized_text
+    type: string
+  outputs:
+  - name: sections
+    type: array<object>
+  - name: missing_sections
+    type: array<string>
+- id: RUBRIC_RETRIEVE
+  description: Récupère dans le knowledge les extraits de la grille pertinents à une
+    section donnée.
+  inputs:
+  - name: section_name
+    type: string
+  - name: section_text
+    type: string
+  outputs:
+  - name: rubric_refs
+    type: array<object>
+- id: EVALUATE_SECTION
+  description: Évalue une section sur 20 points selon la grille et les références
+    récupérées.
+  inputs:
+  - name: section_name
+    type: string
+  - name: section_text
+    type: string
+  - name: rubric_refs
+    type: array<object>
+  - name: missing
+    type: boolean
+  outputs:
+  - name: section_result
+    type: object
+- id: SCHEMA_VALIDATE
+  description: Valide la sortie JSON contre OUTPUT_SCHEMA.json.
+  inputs:
+  - name: json
+    type: object
+  - name: schema_path
+    type: file
+  outputs:
+  - name: valid
+    type: boolean
+  - name: errors
+    type: array<string>

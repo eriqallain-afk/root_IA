@@ -1,0 +1,19 @@
+schema_version: 1.0
+team_id: TEAM__EDU
+name: EDU
+mission: "Éducation : assistants pédagogiques, évaluation de travaux, CCQ, ressources et outils enseignants."
+
+# Orchestrateur par défaut (existant dans l’index agents)
+default_orchestrator: HUB-AgentMO-MasterOrchestrator
+
+# Agents rattachés (optionnel mais recommandé)
+agents:
+  - agent_id: EDU-Reflexions_CCQ
+    display_name: "@EDU-Reflexions_CCQ"
+    path: 20_AGENTS/EDU/EDU-Reflexions_CCQ/agent.yaml
+
+owners:
+  - role: "team_owner"
+    name: "EDU"
+notes:
+  - "Si un orchestrateur dédié EDU est créé (EDU-Orchestrator), remplacer default_orchestrator."

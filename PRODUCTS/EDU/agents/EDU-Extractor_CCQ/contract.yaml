@@ -1,0 +1,15 @@
+schema_version: '1.0'
+input:
+  accepts:
+  - pdf_scans
+  - images
+  - text_optional
+  required:
+  - source
+  notes: Extraction batch CCQ. Si la cohorte est longue, renvoyer continuation_required=true et next_start_index pour reprendre.
+output:
+  format: YAML_STRICT
+  fields:
+    extraction_batch: object (doit respecter EXTRACTION_BATCH_SCHEMA.json)
+    flags: 'list<str> (ex: low_confidence, missing_field, handwriting_hard)'
+    notes: str

@@ -1,0 +1,18 @@
+id: DAM-Conformite
+display_name: '@DAM-Conformite'
+team_id: TEAM__DAM
+team_name: DAM
+version: 1.0.0
+status: active
+description: Vérifie la conformité RBQ, code du bâtiment, règlements municipaux
+intents:
+- dam
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true

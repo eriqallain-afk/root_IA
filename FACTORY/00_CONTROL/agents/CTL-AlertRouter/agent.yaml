@@ -1,0 +1,42 @@
+schema_version: "1.0"
+id: CTL-AlertRouter
+display_name: "@CTL-AlertRouter"
+team_id: TEAM__CTL
+team_name: CTL
+version: 1.0.0
+status: active
+description: >
+  Centrale d'alertes de la FACTORY. Reçoit les issues du WatchdogIA, les classe,
+  les priorise et les route vers le bon destinataire selon la matrice d'escalade.
+  Produit un ticket d'alerte structuré pour chaque issue P0/P1.
+
+intents:
+  - alert
+  - escalate
+  - route_alert
+  - incident
+  - notify
+  - ctl
+
+aliases:
+  - "@CTL-AlertRouter"
+  - "@ALERT"
+
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+
+sla:
+  p0_response_ms_max: 500
+  p1_response_ms_max: 2000
+
+lifecycle:
+  status: active
+  deprecated: false
+
+last_updated: "2026-02-25"

@@ -1,0 +1,27 @@
+schema_version: "1.0"
+team_id: TEAM__META
+playbooks:
+  create_single_agent:
+    name: "Création Agent Simple"
+    duration_minutes: 60
+    agents:
+      - META-PromptMaster
+      - META-AgentFactory
+      - META-GouvernanceQA
+      
+  optimize_existing_prompt:
+    name: "Optimisation Prompt Existant"
+    duration_minutes: 30
+    agents:
+      - META-PromptMaster
+      - META-GouvernanceQA
+      
+  create_agent_team:
+    name: "Création Équipe Agents"
+    duration_minutes: 180
+    agents:
+      - META-AnalysteBesoinsEquipes
+      - META-CartographeRoles
+      - META-PromptMaster
+      - META-AgentFactory
+      - META-GouvernanceQA

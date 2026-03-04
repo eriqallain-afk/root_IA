@@ -1,0 +1,146 @@
+schema_version: "contract/v1"
+id: "EDU-Reflexions_CCQ"
+display_name: "@EDU-Reflexions_CCQ"
+version: "1.1.0"
+output_format: "yaml_strict"
+updated_at_utc: "2026-01-13T17:27:32Z"
+
+description: >
+  Contrat I/O pour la correction CCQ (Réflexion éthique) + bloc optionnel memory_patch
+  destiné à mettre à jour une mémoire fichier (anonymisée) cross-session.
+
+output:
+  type: "yaml"
+  strict_yaml_only: truee
+  top_level_required_keys: ["evaluation","feedback","quality_and_risk"]
+  top_level_optional_keys: ["memory_patch"]
+
+  enums:
+    segmentation_confidence: ["high","medium","low","unknown"]
+    ocr_confidence: ["high","medium","low","unknown"]
+    grade: ["A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","E+","E","E-","0"]
+    section_names: ["Introduction","Synopsis","Tensions éthiques","Choix éthiques","Conclusion"]
+
+  schema:
+    memory_patch:
+      type: "object"
+      required: ["apply","updates"]
+      properties:
+        apply: { type: "boolean" }
+        updates:
+          type: "object"
+          required: []
+          properties:
+            rolling_stats:
+              type: "object"
+              required: []
+              properties:
+                append_record:
+                  type: "object"
+                  required: ["timestamp_utc","total_score_on_100","sections_on_20","ocr_confidence"]
+                  properties:
+                    timestamp_utc: { type: "string" }
+                    total_score_on_100: { type: "integer", min: 0, max: 100 }
+                    sections_on_20:
+                      type: "object"
+                      required: ["Introduction","Synopsis","Tensions éthiques","Choix éthiques","Conclusion"]
+                      properties:
+                        "Introduction": { type: "integer", min: 0, max: 20 }
+                        "Synopsis": { type: "integer", min: 0, max: 20 }
+                        "Tensions éthiques": { type: "integer", min: 0, max: 20 }
+                        "Choix éthiques": { type: "integer", min: 0, max: 20 }
+                        "Conclusion": { type: "integer", min: 0, max: 20 }
+                    ocr_confidence: { type: "string", enum_ref: "ocr_confidence" }
+            calibration_profile:
+              type: "object"
+              required: []
+              properties:
+                add_borderline_rule:
+                  type: "array"
+                  items:
+                    type: "object"
+                    required: ["id","rule","applies_to"]
+                    properties:
+                      id: { type: "string" }
+                      status: { type: "string" }
+                      created_at_utc: { type: "string" }
+                      applies_to:
+                        type: "array"
+                        items: { type: "string" }
+                      rule: { type: "string" }
+                      rationale: { type: "string" }
+            annie_guidelines:
+              type: "object"
+              required: []
+              properties:
+                new_entries:
+                  type: "array"
+                  items:
+                    type: "object"
+                    required: ["id","rule","applies_to"]
+                    properties:
+                      id: { type: "string" }
+                      status: { type: "string" }
+                      created_at_utc: { type: "string" }
+                      applies_to:
+                        type: "array"
+                        items: { type: "string" }
+                      rule: { type: "string" }
+                      rationale: { type: "string" }
+                      notes: { type: "string" }
+                feedback_style:
+                  type: "object"
+                  required: []
+                  properties:
+                    tone: { type: "string" }
+                    detail_level: { type: "string" }
+                    include_next_actions: { type: "boolean" }
+                    max_lines_short: { type: "integer", min: 1, max: 50 }
+            local_rules:
+              type: "object"
+              required: []
+              properties:
+                new_rules:
+                  type: "array"
+                  items:
+                    type: "object"
+                    required: ["id","rule","applies_to"]
+                    properties:
+                      id: { type: "string" }
+                      status: { type: "string" }
+                      created_at_utc: { type: "string" }
+                      applies_to:
+                        type: "array"
+                        items: { type: "string" }
+                      rule: { type: "string" }
+
+validation:
+  - id: "yaml_parseable"
+    rule: "must_parse_as_yaml"
+    severity: "error"
+
+  - id: "required_keys"
+    rule: "must_include_keys"
+    params:
+      keys_ref: "output.top_level_required_keys"
+    severity: "error"
+
+  - id: "sections_exact"
+    rule: "array_must_contain_exact_values"
+    path: "$.evaluation.sections[*].name"
+    params:
+      expected_ref: "output.enums.section_names"
+    severity: "error"
+
+  - id: "memory_patch_no_identifiers"
+    rule: "custom_forbidden_patterns_absent"
+    params:
+      scan_paths:
+        - "$.memory_patch"
+      forbidden_patterns:
+        - '(?i)nom\s*:'
+        - '(?i)prénom\s*:'
+        - '(?i)adresse\s*:'
+        - '(?i)téléphone\s*:'
+        - '(?i)email\s*:'
+    severity: "warning"

@@ -1,0 +1,31 @@
+id: OPS-PlaybookRunner
+display_name: '@OPS-PlaybookRunner'
+team_id: TEAM__OPS
+team_name: OPS
+version: 1.0.0
+status: active
+description: Exécuteur de playbooks de la Factory. Il initialise un run, exécute les
+  steps dans l’ordre (ou selon parallélisation autorisée), applique les politiques
+  d’échec (retry/skip/abort), et compile un livrable final. Il supporte l’arrêt et
+  la reprise avec un journal d’exécution complet.
+intents:
+- execute_workflow
+- ops
+- orchestration_runtime
+- run_playbook
+output_format: yaml
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+mission: Exécuteur de playbooks de la Factory.
+sla: {}
+metrics: {}
+lifecycle:
+  status: active
+  deprecated: false
+last_updated: '2026-02-07'
+schema_version: '1.0'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true

@@ -1,0 +1,219 @@
+schema_version: '1.0'
+generated_at: '2026-02-18T00:00:00Z'
+product_id: IT
+router_actor_id: OPS-RouterIA
+
+# ============================================================
+# TABLE DE ROUTAGE — PRODUIT @IT
+# AUTONOME : aucune référence à la FACTORY ou au HUB global
+# Source d'autorité : 00_INDEX/intents.yaml
+# ============================================================
+
+routing_table:
+
+  # ── LIVE ASSIST (priorité haute) ─────────────────────────
+  - match_any_intents:
+      - msp_live
+      - live_assist
+      - live_chat
+      - live_support
+      - remote_assist
+      - screen_share
+      - on_call_help
+      - on_call_assist
+      - call_support
+      - chatbot
+    default_actor_id: IT-MSPLiveAssistant
+    default_playbook_id: IT_MSP_LIVE_ASSIST
+
+  # ── NOC DISPATCH ─────────────────────────────────────────
+  - match_any_intents:
+      - it_noc_dispatch
+      - noc_dispatch
+      - noc_dispatcher
+    default_actor_id: IT-Commandare-NOC
+    default_playbook_id: IT_NOC_DISPATCH
+
+  # ── NOC TRIAGE ───────────────────────────────────────────
+  - match_any_intents:
+      - alert_triage
+      - it_commandare_noc
+      - noc_triage
+      - noc
+      - incident
+      - incident_triage
+    default_actor_id: IT-Commandare-NOC
+    default_playbook_id: IT_COMMANDARE_NOC
+
+  # ── TECH / RCA ───────────────────────────────────────────
+  - match_any_intents:
+      - it_commandare_tech
+      - root_cause
+      - tech_escalation
+      - rca
+      - troubleshoot
+    default_actor_id: IT-Commandare-TECH
+    default_playbook_id: IT_COMMANDARE_TECH
+
+  # ── GOUVERNANCE / CHANGE ─────────────────────────────────
+  - match_any_intents:
+      - it_commandare_opr
+      - it_governance_change
+      - it_ops_control
+      - governance
+      - change_management
+      - change_exec
+    default_actor_id: IT-Commandare-OPR
+    default_playbook_id: IT_COMMANDARE_OPR
+
+  # ── INTERVENTION / COPILOT ───────────────────────────────
+  - match_any_intents:
+      - intervention
+      - live_close
+      - live_intervention
+      - kb
+    default_actor_id: IT-InterventionCopilot
+    default_playbook_id: IT_CW_INTERVENTION_LIVE_CLOSE
+
+  # ── TECHNICIEN GUIDÉ ─────────────────────────────────────
+  - match_any_intents:
+      - cw_ticket
+      - connectwise
+      - triage
+      - diagnostic
+      - guidance
+      - handoff
+      - msp_ops
+    default_actor_id: IT-Technicien
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── SUPPORT / TICKET ─────────────────────────────────────
+  - match_any_intents:
+      - ticket
+      - writing
+      - support
+    default_actor_id: IT-TicketScribe
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── CLOUD ────────────────────────────────────────────────
+  - match_any_intents:
+      - cloud
+      - azure
+      - m365
+      - aws
+      - gcp
+    default_actor_id: IT-CloudMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── INFRA / RÉSEAU ───────────────────────────────────────
+  - match_any_intents:
+      - network
+      - infrastructure
+    default_actor_id: IT-NetworkMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── MAINTENANCE ──────────────────────────────────────────
+  - match_any_intents:
+      - maintenance
+      - patching
+      - health_check
+    default_actor_id: IT-MaintenanceMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── BACKUP / DR ──────────────────────────────────────────
+  - match_any_intents:
+      - dr
+      - backup
+      - disaster_recovery
+    default_actor_id: IT-BackupDRMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── SÉCURITÉ ─────────────────────────────────────────────
+  - match_any_intents:
+      - security
+      - soc
+      - cybersecurity
+    default_actor_id: IT-SecurityMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── MONITORING ───────────────────────────────────────────
+  - match_any_intents:
+      - monitoring
+      - alerting
+    default_actor_id: IT-MonitoringMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── SCRIPTING / DEVOPS ───────────────────────────────────
+  - match_any_intents:
+      - script
+      - powershell
+      - automation
+    default_actor_id: IT-ScriptMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - devops
+    default_actor_id: IT-DevOpsMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── ASSETS / LICENCES ────────────────────────────────────
+  - match_any_intents:
+      - cmdb
+      - assets
+    default_actor_id: IT-AssetMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - licenses
+      - software
+    default_actor_id: IT-SoftwMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── VOIP ─────────────────────────────────────────────────
+  - match_any_intents:
+      - voip
+      - uc
+    default_actor_id: IT-VoIPMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── REPORTING / KNOWLEDGE ────────────────────────────────
+  - match_any_intents:
+      - report
+    default_actor_id: IT-ReportMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - knowledge
+    default_actor_id: IT-KnowledgeKeeper
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── COMMS ────────────────────────────────────────────────
+  - match_any_intents:
+      - comms
+      - client_comms
+    default_actor_id: IT-CommsMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── STRATÉGIE / DIRECTION ────────────────────────────────
+  - match_any_intents:
+      - cto
+      - strategy
+    default_actor_id: IT-CTOMaster
+
+  - match_any_intents:
+      - direction
+    default_actor_id: IT-DirecteurGeneral
+
+  # ── GÉNÉRAL IT / MSP ─────────────────────────────────────
+  - match_any_intents:
+      - it
+      - msp
+    default_actor_id: IT-OrchestratorMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── FALLBACK INTERNE ─────────────────────────────────────
+  # CRITIQUE : jamais vers la FACTORY ou le HUB global
+  - fallback: true
+    default_actor_id: IT-OrchestratorMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+    note: Fallback interne IT — autonome, sans dependance FACTORY

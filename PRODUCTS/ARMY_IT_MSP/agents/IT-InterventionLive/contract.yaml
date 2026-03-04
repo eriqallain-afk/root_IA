@@ -1,0 +1,11 @@
+# Contract I/O — IT-InterventionLive
+# Suit une intervention IT en temps réel et génère les rapports ConnectWise
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: markdown

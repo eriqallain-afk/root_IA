@@ -1,0 +1,36 @@
+schema_version: 1.0
+generated_at: "2026-01-13T18:07:44Z"
+playbooks:
+  EDU_CCQ_EVAL_BATCH_V1:
+    description: "Batch CCQ : évalue N copies, QA contrat, validation enseignant (flagged), maj mémoire cross-session, rapport & archive."
+    steps:
+      - step: dossier
+        actor_id: OPS-DossierIA
+      - step: manifest
+        actor_id: OPS-PlaybookRunner
+      - step: evaluate_batch
+        actor_id: OPS-PlaybookRunner
+      - step: qa_contract
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: teacher_validation
+        actor_id: OPS-DossierIA
+      - step: apply_memory
+        actor_id: OPS-PlaybookRunner
+      - step: compile_report
+        actor_id: OPS-PlaybookRunner
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  EDU_CCQ_EVAL_SINGLE_V1:
+    description: "Single CCQ : évalue 1 copie, QA contrat, option maj mémoire, archive."
+    steps:
+      - step: dossier
+        actor_id: OPS-DossierIA
+      - step: evaluate_one
+        actor_id: EDU-Reflexions_CCQ
+      - step: qa_contract
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: apply_memory
+        actor_id: OPS-PlaybookRunner
+      - step: archive
+        actor_id: OPS-DossierIA

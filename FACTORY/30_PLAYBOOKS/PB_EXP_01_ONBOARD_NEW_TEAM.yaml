@@ -1,0 +1,297 @@
+schema_version: "1.0"
+playbook_id: ONBOARD_NEW_TEAM
+display_name: "Onboard New Team"
+description: >
+  Intégration complète d'une nouvelle équipe dans la FACTORY root_IA.
+  Combine discovery stratégique (IAHQ) + construction technique (META) +
+  validation d'intégration (CTL). Pipeline de référence pour chaque nouveau
+  domaine métier adressé — plus complet que BUILD_TEAM_FROM_SCRATCH car
+  il inclut la validation business et le lancement officiel.
+category: "expansion"
+team_owner: TEAM__IAHQ
+trigger: "new_business_domain | client_project | product_expansion"
+estimated_duration_minutes: 360
+version: "1.0.0"
+last_updated: "2026-02-25"
+
+relationship_to_other_playbooks:
+  calls: BUILD_TEAM_FROM_SCRATCH
+  note: >
+    ONBOARD_NEW_TEAM est le pipeline de haut niveau. Il appelle BUILD_TEAM_FROM_SCRATCH
+    pour la construction technique, puis ajoute les couches stratégique, intégration,
+    et lancement que BUILD_TEAM_FROM_SCRATCH ne couvre pas.
+
+inputs:
+  new_team_brief:
+    type: string
+    required: true
+    description: "Description de la nouvelle équipe en 1-5 phrases. Mission, domaine, valeur attendue."
+  business_context:
+    type: object
+    required: false
+    description: "Contexte business : client, segment marché, objectifs stratégiques, budget, délai."
+  proposed_team_id:
+    type: string
+    required: true
+    description: "ID proposé pour la nouvelle équipe (ex: DAM, ESPL, RBQ). Majuscules, 2-6 caractères."
+  domain:
+    type: string
+    required: true
+    description: "Domaine métier. Ex: construction, finances, formation, juridique."
+  onboarding_mode:
+    type: "full | fast_track"
+    required: false
+    default: "full"
+    description: >
+      full : discovery complète avec toutes les validations (recommandé).
+      fast_track : skip discovery et strategic_review, aller directement à BUILD.
+  existing_knowledge:
+    type: list[string]
+    required: false
+    description: "Documents, processus ou agents existants pertinents pour ce domaine."
+
+steps:
+
+  - step_id: "S1_domain_discovery"
+    name: "Discovery stratégique du domaine"
+    actor_id: IAHQ-OrchestreurEntrepriseIA
+    condition: "onboarding_mode == 'full'"
+    input:
+      objective: "Discovery complète du domaine {{domain}} pour créer TEAM__{{proposed_team_id}}"
+      context:
+        new_team_brief: "{{new_team_brief}}"
+        business_context: "{{business_context | default: {}}}"
+        existing_knowledge: "{{existing_knowledge | default: []}}"
+    output_key: "domain_discovery"
+    delivers:
+      - "Analyse du domaine : acteurs, processus clés, pain points"
+      - "Opportunités IA dans ce domaine (top 5)"
+      - "Contraintes réglementaires ou techniques identifiées"
+      - "Recommandations : équipes FACTORY existantes qui pourraient couvrir certains besoins"
+      - "Go / No-go stratégique avec justification"
+    on_failure: "continue"
+    on_failure_message: "Discovery partielle — continuer avec le brief initial."
+    sla_minutes: 30
+
+  - step_id: "S2_strategic_blueprint"
+    name: "Blueprint stratégique de l'équipe"
+    actor_id: IAHQ-Strategist
+    condition: "onboarding_mode == 'full'"
+    input:
+      objective: "Définir le blueprint stratégique de TEAM__{{proposed_team_id}}"
+      context:
+        domain_discovery: "{{domain_discovery | default: {}}}"
+        new_team_brief: "{{new_team_brief}}"
+        domain: "{{domain}}"
+    output_key: "strategic_blueprint"
+    delivers:
+      - "Mission précise et périmètre de l'équipe"
+      - "KPIs de succès mesurables (3-5)"
+      - "Cas d'usage prioritaires (P1/P2/P3)"
+      - "Risques stratégiques et mitigations"
+      - "Recommandation sur le modèle de déploiement (standalone vs embedded)"
+    on_failure: "continue"
+    sla_minutes: 20
+
+  - step_id: "S3_architecture_design"
+    name: "Conception de l'architecture technique"
+    actor_id: META-ArchitecteChoix
+    input:
+      objective: "Concevoir l'architecture technique optimale pour TEAM__{{proposed_team_id}}"
+      context:
+        domain_discovery: "{{domain_discovery | default: {}}}"
+        strategic_blueprint: "{{strategic_blueprint | default: {}}}"
+        new_team_brief: "{{new_team_brief}}"
+        domain: "{{domain}}"
+        existing_knowledge: "{{existing_knowledge | default: []}}"
+    output_key: "architecture_design"
+    delivers:
+      - "Choix d'architecture : nombre d'agents recommandés, patterns"
+      - "Décision make vs clone vs reuse pour chaque agent"
+      - "Intégrations externes requises (APIs, bases de données, outils)"
+      - "Stack technique recommandée"
+      - "Estimation de complexité par agent"
+    on_failure: "abort"
+    sla_minutes: 20
+
+  - step_id: "S4_build_team"
+    name: "Construction technique complète de l'équipe"
+    actor_id: META-OrchestrateurCentral
+    input:
+      objective: "Construire TEAM__{{proposed_team_id}} via le playbook BUILD_TEAM_FROM_SCRATCH"
+      playbook_delegate: BUILD_TEAM_FROM_SCRATCH
+      playbook_inputs:
+        team_mission: "{{strategic_blueprint.mission | default: new_team_brief}}"
+        team_domain: "{{domain}}"
+        proposed_team_id: "{{proposed_team_id}}"
+        stakeholders: "{{strategic_blueprint.stakeholders | default: []}}"
+        priority_use_cases: "{{strategic_blueprint.priority_use_cases | default: []}}"
+        constraints: "{{architecture_design.constraints | default: []}}"
+    output_key: "build_result"
+    note: >
+      META-OrchestrateurCentral supervise et rapporte le résultat
+      du sous-playbook BUILD_TEAM_FROM_SCRATCH.
+    on_failure: "abort"
+    on_failure_message: "Construction technique échouée. Voir build_result pour détails."
+    sla_minutes: 240
+
+  - step_id: "S5_integration_testing"
+    name: "Tests d'intégration dans la FACTORY"
+    actor_id: META-GouvernanceQA
+    input:
+      scope: "TEAM__{{proposed_team_id}}"
+      test_type: "integration"
+      context:
+        build_result: "{{build_result}}"
+    integration_checks:
+      - test: "Routing vers TEAM__{{proposed_team_id}} fonctionne depuis HUB-AgentMO"
+        method: "Envoyer un intent {{domain}} → vérifier que OPS-RouterIA route vers l'équipe"
+      - test: "Les intents ne chevauchent pas d'autres équipes actives"
+        method: "Vérifier doublons dans intents.yaml global"
+      - test: "OPS-DossierIA peut archiver les outputs de l'équipe"
+        method: "Exécuter 1 step avec l'orchestrateur de l'équipe → vérifier archivage"
+      - test: "CTL-WatchdogIA détecte l'équipe dans son scan"
+        method: "Lancer light_check scope=TEAM__{{proposed_team_id}}"
+      - test: "Au moins 1 playbook de l'équipe est exécutable de bout en bout"
+        method: "Run smoke test du playbook principal"
+    output_key: "integration_tests"
+    on_failure: "continue"
+    on_failure_message: "Tests d'intégration partiellement échoués. Voir integration_tests pour les tests en échec."
+    sla_minutes: 30
+
+  - step_id: "S6_launch_approval"
+    name: "Approbation de lancement officiel"
+    actor_id: IAHQ-QualityGate
+    input:
+      objective: "Approuver le lancement officiel de TEAM__{{proposed_team_id}}"
+      deliverable:
+        build_result: "{{build_result}}"
+        integration_tests: "{{integration_tests}}"
+        governance_score: "{{build_result.governance_score | default: null}}"
+        tests_pass_rate: "{{integration_tests.pass_rate | default: null}}"
+      quality_threshold: 8
+      risk_context:
+        domain: "{{domain}}"
+        agents_failed: "{{build_result.agents_failed | default: []}}"
+        integration_failures: "{{integration_tests.failed_tests | default: []}}"
+    approval_criteria:
+      - "governance_score >= 7/10"
+      - "integration_tests.critical_failures == 0"
+      - "Au moins 1 playbook de l'équipe validé end-to-end"
+    output_key: "launch_approval"
+    on_failure: "abort"
+    on_failure_message: >
+      Lancement refusé par IAHQ-QualityGate.
+      Corriger les issues dans launch_approval.blocking_issues avant de relancer.
+    sla_minutes: 15
+
+  - step_id: "S7_activate_team"
+    name: "Activation officielle dans la FACTORY"
+    actor_id: OPS-RouterIA
+    input:
+      operation: "activate_team"
+      team_id: "TEAM__{{proposed_team_id}}"
+      launch_approval: "{{launch_approval}}"
+    actions:
+      - "Confirmer status: active dans teams.manifest.yaml"
+      - "Activer toutes les règles de routing dans hub_routing.yaml"
+      - "Confirmer que tous les agents de l'équipe sont status: active"
+      - "Mettre à jour capability_map.yaml avec les nouvelles capacités"
+    output_key: "activation_result"
+    on_failure: "abort"
+    sla_minutes: 5
+
+  - step_id: "S8_first_full_health_check"
+    name: "Premier health check complet post-lancement"
+    actor_id: CTL-WatchdogIA
+    input:
+      operation: "full_check"
+      scope: "TEAM__{{proposed_team_id}}"
+    output_key: "launch_health"
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S9_roi_projection"
+    name: "Projection ROI initiale"
+    actor_id: IAHQ-Economist
+    condition: "onboarding_mode == 'full'"
+    input:
+      objective: "Projeter le ROI attendu de TEAM__{{proposed_team_id}}"
+      context:
+        strategic_blueprint: "{{strategic_blueprint | default: {}}}"
+        agents_count: "{{build_result.agents_count | default: 0}}"
+        priority_use_cases: "{{strategic_blueprint.priority_use_cases | default: []}}"
+        domain: "{{domain}}"
+      reference: "90_KNOWLEDGE/ROI/ROI_SCENARIOS.md"
+    output_key: "roi_projection"
+    on_failure: "continue"
+    sla_minutes: 15
+
+  - step_id: "S10_onboarding_report"
+    name: "Rapport d'onboarding complet"
+    actor_id: CTL-HealthReporter
+    input:
+      report_type: "weekly_report"
+      watchdog_reports: ["{{launch_health}}"]
+      run_metrics: [{"run_id": "ONBOARD__{{proposed_team_id}}", "status": "success"}]
+      context:
+        event_type: "team_onboarding"
+        team_id: "TEAM__{{proposed_team_id}}"
+        domain: "{{domain}}"
+        agents_created: "{{build_result.agents_count | default: 0}}"
+        roi_projection: "{{roi_projection | default: null}}"
+    output_key: "onboarding_report"
+    on_failure: "continue"
+    sla_minutes: 10
+
+  - step_id: "S11_archive"
+    name: "Archivage permanent — Acte de naissance officiel"
+    actor_id: OPS-DossierIA
+    input:
+      operation: "create"
+      playbook_id: "ONBOARD_NEW_TEAM"
+      metadata:
+        type: "team_onboarding"
+        team_id: "TEAM__{{proposed_team_id}}"
+        domain: "{{domain}}"
+        onboarding_mode: "{{onboarding_mode}}"
+        agents_created: "{{build_result.agents_count | default: 0}}"
+        playbooks_created: "{{build_result.playbooks_count | default: 0}}"
+        launch_health: "{{launch_health.factory_status | default: null}}"
+        roi_prudent: "{{roi_projection.prudent | default: null}}"
+        roi_median: "{{roi_projection.median | default: null}}"
+      outputs:
+        domain_discovery: "{{domain_discovery | default: null}}"
+        strategic_blueprint: "{{strategic_blueprint | default: null}}"
+        architecture_design: "{{architecture_design}}"
+        integration_tests: "{{integration_tests}}"
+        launch_approval: "{{launch_approval}}"
+        roi_projection: "{{roi_projection | default: null}}"
+        onboarding_report: "{{onboarding_report}}"
+    dossier_name: "ONBOARD__TEAM__{{proposed_team_id}}__{{date_yyyymmdd}}"
+    retention: "permanent"
+    on_failure: "continue"
+    sla_minutes: 5
+
+final_output:
+  primary: "onboarding_report"
+  secondary: ["launch_approval", "roi_projection", "launch_health"]
+  team_id: "TEAM__{{proposed_team_id}}"
+  dossier: "{{S11_archive.result.dossier.id}}"
+
+success_criteria:
+  - "S4_build_team completed (build_result présent)"
+  - "S6_launch_approval approved"
+  - "S7_activate_team completed"
+  - "launch_health.factory_status IN ['healthy', 'degraded']"
+
+notifications:
+  on_launch:
+    message: >
+      🚀 TEAM__{{proposed_team_id}} lancée officiellement dans la FACTORY !
+      Domaine : {{domain}} | Agents : {{build_result.agents_count}} | Health : {{launch_health.factory_status}}
+      ROI médian projeté : {{roi_projection.median | default: 'non calculé'}}
+    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-OrchestreurEntrepriseIA]
+  on_abort:
+    message: "❌ Onboarding TEAM__{{proposed_team_id}} annulé. Étape bloquante : voir launch_approval."
+    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-Strategist]

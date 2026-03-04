@@ -1,0 +1,110 @@
+schema_version: "1.0"
+description: |
+  Contrat d'entrée/sortie pour META-PromptMaster.
+  Expert prompt engineering : design, optimisation, standardisation complète.
+
+input:
+  # Contexte de la demande
+  objective: string  # Objectif du prompt à créer/optimiser
+  context: string|yaml|json  # Contexte métier/technique
+  
+  # Définition de l'agent cible
+  agent_definition:
+    agent_id: string  # ID de l'agent (ex: IT-InfraCore)
+    team_id: string  # Équipe (ex: TEAM__IT)
+    mission: string  # Mission de l'agent
+    responsibilities: list[string]  # Responsabilités
+    intents: list[string]  # Intents gérés
+  
+  # Contrat I/O de l'agent
+  io_contract:
+    inputs: object  # Structure des inputs attendus
+    outputs: object  # Structure des outputs attendus
+    output_format: string  # YAML_STRICT, JSON, markdown, etc.
+  
+  # Mode opératoire
+  mode:
+    type: string  # "create_new" | "optimize_existing" | "standardize" | "test"
+    existing_prompt: string (optional)  # Prompt existant si optimisation
+  
+  # Contraintes & exigences
+  constraints:
+    - string  # Contraintes spécifiques (longueur, style, etc.)
+  
+  quality_requirements:
+    clarity: string  # high | medium | low
+    precision: string  # high | medium | low
+    testability: string  # high | medium | low
+  
+  # Ressources & références
+  resources:
+    - type: string  # "policy" | "template" | "example" | "schema"
+      path: string
+      content: string (optional)
+  
+  # Priorité & deadline
+  priority: low|medium|high
+  deadline: string (optional)
+
+output:
+  result:
+    summary: string  # Résumé 1-3 lignes
+    details: string  # Détails du travail effectué
+  
+  # Prompt produit
+  prompt:
+    version: string  # Version du prompt (ex: "1.0.0", "2.1.0")
+    content: string  # Contenu du prompt complet (markdown)
+    format: string  # Format (markdown | yaml | json)
+    
+  # Standards machine intégrés
+  machine_standards:
+    output_format: string  # Format de sortie requis
+    constraints: list[string]  # Contraintes techniques
+    validation_rules: list[string]  # Règles de validation
+    
+  # Tests & validation
+  tests:
+    - test_name: string
+      test_input: object
+      expected_output: object
+      status: string  # "passed" | "failed" | "pending"
+      notes: string (optional)
+  
+  # Optimisations suggérées
+  optimizations:
+    - category: string  # "clarity" | "precision" | "performance" | "structure"
+      suggestion: string
+      impact: string  # "high" | "medium" | "low"
+      applied: boolean
+  
+  # Library de patterns utilisés
+  patterns_used:
+    - pattern_name: string
+      pattern_description: string
+      rationale: string  # Pourquoi ce pattern
+  
+  # Artifacts complémentaires
+  artifacts:
+    - type: string  # "prompt" | "contract" | "tests" | "checklist" | "standards"
+      title: string
+      path: string
+      content: string
+  
+  # Actions suivantes
+  next_actions:
+    - string
+  
+  # Logs (obligatoire)
+  log:
+    decisions:
+      - string  # Décisions prises durant le design/optimisation
+    risks:
+      - string  # Risques identifiés
+    assumptions:
+      - string  # Hypothèses faites
+    quality_score:
+      clarity: int  # Score 0-10
+      precision: int  # Score 0-10
+      testability: int  # Score 0-10
+      overall: int  # Score global 0-10

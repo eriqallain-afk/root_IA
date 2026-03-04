@@ -1,0 +1,18 @@
+id: EDU-Extractor
+display_name: '@EDU-Extractor'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.0
+status: active
+description: Extrait le texte des copies CCQ (PDF natif + OCR pour scans)
+intents:
+- edu
+output_format: json
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml
+schema_version: '1.0'
+machine:
+  output_format: json
+  contract_required: true
+  logs_required: true

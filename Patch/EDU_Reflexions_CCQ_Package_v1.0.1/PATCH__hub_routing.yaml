@@ -1,0 +1,14 @@
+add_route:
+  match_any_intents:
+  - education
+  - ccq
+  - citoyennete
+  - culture
+  - evaluation
+  - correction
+  - devoir
+  - reflexion
+  - ethique
+  - ocr
+  default_actor_id: EDU-Reflexions_CCQ
+  default_playbook_id: EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE

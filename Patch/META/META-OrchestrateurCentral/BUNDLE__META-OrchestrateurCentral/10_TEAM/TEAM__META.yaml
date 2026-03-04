@@ -1,0 +1,5 @@
+schema_version: "1.0"
+team_id: TEAM__META
+name: META
+mission: "Usine armées GPT : besoins, rôles, prompts, audit."
+default_orchestrator: META-OrchestrateurCentral

@@ -1,0 +1,463 @@
+# playbooks.yaml
+version: 1
+project: "IA-Multiverse"
+description: "Playbooks (Machines) par team, avec liens vers la mémoire."
+
+playbooks:
+
+  # HUB : coordination globale
+  - id: HUB_MACHINE_COORDINATION_V1
+    team: HUB
+    label: "Coordination globale via MO"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-RegistryGPT
+      - MEM-PlaybooksGlobal
+      - MEM-TemplatesPrompts
+    steps:
+      - order: 1
+        gpt: HUB-AgentMO
+        goal: "Comprendre la demande, l’intent et la team cible."
+      - order: 2
+        gpt: OPS-RouterIA
+        goal: "Proposer les playbooks & GPT à appeler."
+      - order: 3
+        gpt: HUB-OproEngine
+        goal: "Optimiser les prompts à utiliser pour les Machines sélectionnées."
+      - order: 4
+        gpt: OPS-PlaybookRunner
+        goal: "Préparer la séquence détaillée (GPT, ordre, messages) pour la Machine cible."
+
+  # IAHQ : vente & blueprint IA
+  - id: IAHQ_MACHINE_VENTE_IA_V1
+    team: IAHQ
+    label: "Vente & blueprint d'une solution IA"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-IAHQ-MethodesVenteIA
+      - MEM-DossiersIA
+      - MEM-TemplatesPrompts
+    steps:
+      - order: 1
+        gpt: IAHQ-OrchestreurEntrepriseIA
+        goal: "Cadrer opportunité & type d’offre IA."
+      - order: 2
+        gpt: IAHQ-AdminManagerIA
+        goal: "Structurer l’offre en phases & livrables."
+      - order: 3
+        gpt: IAHQ-Extractor
+        goal: "Extraire faits, processus & contraintes à partir des docs clients."
+      - order: 4
+        gpt: IAHQ-ProcessMapper
+        goal: "Cartographier le processus actuel As-Is."
+      - order: 5
+        gpt: IAHQ-QARisk
+        goal: "Identifier risques & définir checklists/DoD."
+      - order: 6
+        gpt: IAHQ-Economist
+        goal: "Convertir inefficacités en coûts & ROI prudent."
+      - order: 7
+        gpt: IAHQ-TechLeadIA
+        goal: "Proposer une architecture IA logique."
+      - order: 8
+        gpt: IAHQ-DevFactoryIA
+        goal: "Construire le plan d’implémentation (MVP → extension → optimisation)."
+      - order: 9
+        gpt: IAHQ-SolutionOrchestrator
+        goal: "Assembler la proposition & plan 30-60-90."
+      - order: 10
+        gpt: OPS-DossierIA
+        goal: "Intégrer les outputs dans le Dossier IA du client."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 11
+        gpt: META-SuperviseurInvisible
+        goal: "Valider cohérence & complétude de la proposition."
+        validates_memory:
+          - MEM-DossiersIA
+
+  # META : création d’armées IA
+  - id: META_MACHINE_CREATION_ARMEE_V1
+    team: META
+    label: "Création d'une armée de GPT"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-NomenclatureArméesGPT
+      - MEM-META-DesignArmées
+      - MEM-TemplatesPrompts
+    steps:
+      - order: 1
+        gpt: META-OrchestrateurCentral
+        goal: "Cadrer l’armée (domaine, préfixe, périmètre, phases)."
+      - order: 2
+        gpt: META-AnalysteBesoinsEquipes
+        goal: "Produire le cahier des charges d’équipe IA."
+      - order: 3
+        gpt: META-CartographeRoles
+        goal: "Lister & structurer tous les GPT nécessaires."
+      - order: 4
+        gpt: META-Opromptimizer
+        goal: "Proposer des prompts maîtres pour chaque rôle."
+      - order: 5
+        gpt: META-SuperviseurInvisible
+        goal: "Auditer complétude, cohérence & rôles manquants."
+        validates_memory:
+          - MEM-META-DesignArmées
+      - order: 6
+        gpt: OPS-DossierIA
+        goal: "Mettre à jour le Dossier IA avec la nouvelle armée."
+        writes_memory:
+          - MEM-DossiersIA
+
+  # OPS : routage & mémoire
+  - id: OPS_MACHINE_ROUTAGE_MEMOIRE_V1
+    team: OPS
+    label: "Routage + Dossier IA"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-RegistryGPT
+      - MEM-PlaybooksGlobal
+      - MEM-OPS-ProceduresMachine
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: OPS-RouterIA
+        goal: "Classer la demande & proposer le playbook approprié."
+      - order: 2
+        gpt: OPS-PlaybookRunner
+        goal: "Détailler la séquence GPT/messages pour ce playbook."
+      - order: 3
+        gpt: OPS-DossierIA
+        goal: "Centraliser les outputs après les étapes clés."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 4
+        gpt: META-SuperviseurInvisible
+        goal: "Vérifier cohérence entre registry, playbooks et dossiers IA."
+        validates_memory:
+          - MEM-RegistryGPT
+          - MEM-PlaybooksGlobal
+          - MEM-DossiersIA
+
+  # DAM : machine de projet construction
+  - id: DAM_MACHINE_PROJET_V1
+    team: DAM
+    label: "Machine projet construction"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-DAM-StandardsConstruction
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: DAM-Orchestrator
+        goal: "Cadrer le projet (mandat, objectifs, contraintes)."
+      - order: 2
+        gpt: DAM-GPT3-Budget
+        goal: "Construire ou analyser le budget projet."
+      - order: 3
+        gpt: DAM-GPT4-Planification
+        goal: "Générer un calendrier structuré des travaux."
+      - order: 4
+        gpt: DAM-GPT2-Conformite
+        goal: "Analyser conformité réglementaire & normes."
+      - order: 5
+        gpt: DAM-GPT5-SousTraitants
+        goal: "Structurer la gestion des sous-traitants."
+      - order: 6
+        gpt: DAM-GPT9-Produits
+        goal: "Sélectionner produits & matériaux adaptés."
+      - order: 7
+        gpt: DAM-GPT10-Fournisseurs
+        goal: "Comparer & recommander des fournisseurs."
+      - order: 8
+        gpt: DAM-GPT6-Inspection
+        goal: "Définir inspections & modèles de rapports."
+      - order: 9
+        gpt: DAM-GPT11-Satisfaction
+        goal: "Préparer les points de feedback client."
+      - order: 10
+        gpt: DAM-GPT12-Legal
+        goal: "Revue non-juridique des documents & clauses."
+      - order: 11
+        gpt: DAM-GPT13-Analytics
+        goal: "Produire KPI projet (coûts, délais, risques)."
+        writes_memory:
+          - MEM-DAM-StandardsConstruction
+      - order: 12
+        gpt: DAM-GPT7-Archiviste
+        goal: "Structurer l’archive du projet."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 13
+        gpt: DAM-Superviseur
+        goal: "Audit final de cohérence & complétude."
+        validates_memory:
+          - MEM-DAM-StandardsConstruction
+          - MEM-DossiersIA
+
+  # TRAD : veille & signaux
+  - id: TRAD_MACHINE_VEILLE_V1
+    team: TRAD
+    label: "Machine TRAD veille & signaux"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-TRAD-ModelesSignals
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: TRAD-CommandCore
+        goal: "Cadrer la veille (actifs, horizon, fréquence)."
+      - order: 2
+        gpt: TRAD-CosmoPsyWatcher
+        goal: "Analyser signaux cosmo-psycho."
+      - order: 3
+        gpt: TRAD-VigilIntel
+        goal: "Collecter signaux géopolitiques & macro."
+      - order: 4
+        gpt: TRAD-CyberWatch
+        goal: "Analyser signaux cyber & incidents."
+      - order: 5
+        gpt: TRAD-MarketSentinel
+        goal: "Analyser marchés (prix, volumes, volatilité)."
+      - order: 6
+        gpt: TRAD-FractalMathCrypto
+        goal: "Appliquer analyses fractales sur cryptos cibles."
+      - order: 7
+        gpt: TRAD-SocioRadar
+        goal: "Analyser sentiment & réseaux sociaux."
+      - order: 8
+        gpt: TRAD-Correlator
+        goal: "Fusionner tous les signaux & produire un score."
+        writes_memory:
+          - MEM-TRAD-ModelesSignals
+      - order: 9
+        gpt: TRAD-AnalytikGlobal
+        goal: "Traduire signaux en scénarios & hypothèses."
+      - order: 10
+        gpt: TRAD-CryptoStrategist
+        goal: "Proposer pistes stratégiques prudentes."
+      - order: 11
+        gpt: TRAD-GlobalReport
+        goal: "Produire un rapport consolidé pour décideurs."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 12
+        gpt: META-SuperviseurInvisible
+        goal: "Validation méta de la cohérence des signaux & scénarios."
+        validates_memory:
+          - MEM-TRAD-ModelesSignals
+          - MEM-DossiersIA
+
+  # IT : machine MSP
+  - id: IT_MACHINE_MSP_V1
+    team: IT
+    label: "Machine MSP multi-clients"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-IT-StandardsMSP
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: IT-DirecteurGeneral
+        goal: "Cadrer le client MSP, modèle d’affaires & priorités."
+      - order: 2
+        gpt: IT-CTOMaster
+        goal: "Définir standards techniques & orientations MSP."
+        writes_memory:
+          - MEM-IT-StandardsMSP
+      - order: 3
+        gpt: IT-NetworkMaster
+        goal: "Design réseau cible / revue de l’existant."
+      - order: 4
+        gpt: IT-CloudMaster
+        goal: "Design cloud/M365/SaaS."
+      - order: 5
+        gpt: IT-InfrastructureMaster
+        goal: "Design infra serveurs/stockage."
+      - order: 6
+        gpt: IT-SecurityMaster
+        goal: "Stratégie sécurité & priorités de remédiation."
+      - order: 7
+        gpt: IT-DevOpsMaster
+        goal: "Pipelines & automatisations pour clients dev."
+      - order: 8
+        gpt: IT-VoIPMaster
+        goal: "Architecture VoIP & communications unifiées."
+      - order: 9
+        gpt: IT-MonitoringMaster
+        goal: "Choix KPIs & design supervision."
+      - order: 10
+        gpt: IT-MaintenanceMaster
+        goal: "Plan de maintenance & audits."
+      - order: 11
+        gpt: IT-BackupDRMaster
+        goal: "Stratégies de backup & DR."
+      - order: 12
+        gpt: IT-AssetMaster
+        goal: "Structurer inventaire & CMDB."
+      - order: 13
+        gpt: IT-SoftwMaster
+        goal: "Optimiser licences & coûts logiciels."
+      - order: 14
+        gpt: IT-CommsMSP
+        goal: "Préparer communication client (roadmap, comptes-rendus)."
+      - order: 15
+        gpt: IT-KnowledgeKeeper
+        goal: "Créer KB & runbooks à partir des designs."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 16
+        gpt: IT-OrchestratorMSP
+        goal: "Assembler un plan MSP global et priorisé."
+      - order: 17
+        gpt: OPS-DossierIA
+        goal: "Sauvegarder le blueprint MSP dans le Dossier IA."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 18
+        gpt: HUB-AgentMO
+        goal: "Validation finale et alignement avec la stratégie globale."
+        validates_memory:
+          - MEM-IT-StandardsMSP
+          - MEM-DossiersIA
+
+  # IASM : cabinet psycho IA
+  - id: IASM_MACHINE_CABINET_V1
+    team: IASM
+    label: "Machine Cabinet psycho IA"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-IASM-ProtocolesCabinet
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: IASM-DirecteurCabinet
+        goal: "Clarifier la demande & orienter vers les modules pertinents."
+      - order: 2
+        gpt: IASM-AnalysteDiscussion
+        goal: "Analyser les échanges & styles de communication."
+      - order: 3
+        gpt: IASM-AnalyseRessenti
+        goal: "Repérer émotions, besoins & vulnérabilités."
+      - order: 4
+        gpt: IASM-OutilsTCC
+        goal: "Proposer grilles TCC pour comprendre la situation."
+      - order: 5
+        gpt: IASM-Psychoeducateur
+        goal: "Expliquer les notions importantes avec prudence."
+      - order: 6
+        gpt: IASM-ModuleEmotions
+        goal: "Aider à cartographier & réguler les émotions."
+      - order: 7
+        gpt: IASM-ModuleColere
+        goal: "Approfondir la gestion de la colère si nécessaire."
+      - order: 8
+        gpt: IASM-AnalysteSchemas
+        goal: "Identifier patterns relationnels récurrents."
+      - order: 9
+        gpt: IASM-ClarificateurObjectif
+        goal: "Clarifier objectif principal & secondaires."
+      - order: 10
+        gpt: IASM-CoachDeVie
+        goal: "Transformer en plan d’actions 7–30 jours."
+      - order: 11
+        gpt: IASM-SupportEmotionnel
+        goal: "Assurer un soutien émotionnel prudent."
+      - order: 12
+        gpt: IASM-SpecialisteCouple
+        goal: "Si couple impliqué, analyse ciblée."
+      - order: 13
+        gpt: IASM-TherapiePsychodynamique
+        goal: "Exploration prudente si la personne le souhaite."
+      - order: 14
+        gpt: IASM-OrchestrateurCabinet
+        goal: "Synthèse & recommandations globales."
+      - order: 15
+        gpt: OPS-DossierIA
+        goal: "Archiver la synthèse (usage interne / formation uniquement)."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 16
+        gpt: META-SuperviseurInvisible
+        goal: "Valider respect des protocoles & limites."
+        validates_memory:
+          - MEM-IASM-ProtocolesCabinet
+
+  # NEA : machine livre
+  - id: NEA_MACHINE_LIVRE_V1
+    team: NEA
+    label: "Machine Livre NEA"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-NEA-LoreRecueil
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: NEA-Orchestrator
+        goal: "Cadrer le projet de recueil (public, ton, structure globale)."
+      - order: 2
+        gpt: NEA-Archiviste
+        goal: "Nettoyer & organiser les notes brutes."
+      - order: 3
+        gpt: NEA-Cartographe
+        goal: "Créer une carte des thèmes & chapitres possibles."
+      - order: 4
+        gpt: NEA-ConseilPatterns
+        goal: "Repérer patterns & axes de narration."
+        writes_memory:
+          - MEM-NEA-LoreRecueil
+      - order: 5
+        gpt: NEA-RedacteurRecueil
+        goal: "Rédiger les chapitres / sections à partir des cartes."
+      - order: 6
+        gpt: NEA-Imagier
+        goal: "Proposer idées d’illustrations & univers visuels."
+      - order: 7
+        gpt: NEA-Orchestrator
+        goal: "Assembler table des matières & plan d’édition."
+      - order: 8
+        gpt: OPS-DossierIA
+        goal: "Sauvegarder les versions du recueil dans le Dossier IA."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 9
+        gpt: META-SuperviseurInvisible
+        goal: "Valider cohérence du lore & respect du cadre NEA."
+        validates_memory:
+          - MEM-NEA-LoreRecueil
+          - MEM-DossiersIA
+
+  # RADIO : scripts audio
+  - id: RADIO_MACHINE_SCRIPT_V1
+    team: RADIO
+    label: "Machine Radio / Audio"
+    version: "1.0.0"
+    uses_memory:
+      - MEM-RADIO-FormatsScripts
+      - MEM-DossiersIA
+    steps:
+      - order: 1
+        gpt: PLR-RadioScripteur
+        goal: "Analyser le texte source & le format souhaité."
+      - order: 2
+        gpt: PLR-RadioScripteur
+        goal: "Structurer un premier script (intro, segments, outro)."
+      - order: 3
+        gpt: ESPL-PaulLejeuneRadio
+        goal: "Adapter le ton & le style à la voix / émission cible."
+      - order: 4
+        gpt: PLR-RadioScripteur
+        goal: "Finaliser le script avec repères tempo & intentions."
+        writes_memory:
+          - MEM-RADIO-FormatsScripts
+      - order: 5
+        gpt: OPS-DossierIA
+        goal: "Archiver les scripts & versions dans le Dossier IA."
+        writes_memory:
+          - MEM-DossiersIA
+      - order: 6
+        gpt: HUB-AgentMO
+        goal: "Valider que le script est cohérent avec la ligne éditoriale globale."
+        validates_memory:
+          - MEM-RADIO-FormatsScripts
+          - MEM-DossiersIA

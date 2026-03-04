@@ -1,0 +1,25 @@
+schema_version: '1.0'
+id: META-GouvernanceQA
+display_name: '@META-GouvernanceQA'
+team_id: TEAM__META
+team_name: META
+version: 1.0.0
+status: active
+description: Audite les agents, prompts et playbooks pour qualité et conformité
+intents:
+- meta
+- audit_quality
+- validate_compliance
+- check_standards
+- assess_risk
+- approve_release
+aliases:
+- '@META-GouvernanceQA'
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+last_updated: '2026-02-07'

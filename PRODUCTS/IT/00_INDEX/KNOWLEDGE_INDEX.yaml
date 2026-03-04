@@ -1,0 +1,121 @@
+schema_version: '1.0'
+generated_at: '2026-02-18T00:00:00Z'
+product_id: IT
+
+knowledge_base_path: IT_SHARED/Knowledge/
+
+shared:
+  templates_cw:
+    path: IT_SHARED/Knowledge/01_TEMPLATES_CW/
+    description: Templates ConnectWise Manage (notes, tickets, rapports)
+    consumers:
+      - IT-TicketScribe
+      - IT-InterventionCopilot
+      - IT-CommsMSP
+      - OPS-DossierIA
+
+  runbooks_maintenance:
+    path: IT_SHARED/Knowledge/02_RUNBOOKS_MAINTENANCE/
+    description: Runbooks de maintenance (patching, health check, DR)
+    consumers:
+      - IT-MaintenanceMaster
+      - IT-BackupDRMaster
+      - IT-OrchestratorMSP
+
+  checklists:
+    path: IT_SHARED/Knowledge/03_CHECKLISTS/
+    description: Checklists operationnelles IT MSP
+    consumers:
+      - IT-Technicien
+      - IT-InterventionLive
+      - IT-MSPLiveAssistant
+      - IT-NOC
+
+  powershell_library:
+    path: IT_SHARED/Knowledge/04_POWERSHELL_LIBRARY/
+    description: Librairie de scripts PowerShell valides
+    consumers:
+      - IT-ScriptMaster
+      - IT-MaintenanceMaster
+      - IT-CloudMaster
+
+  troubleshooting:
+    path: IT_SHARED/Knowledge/05_TROUBLESHOOTING/
+    description: Guides de depannage par domaine
+    consumers:
+      - IT-SupportMaster
+      - IT-Commandare-TECH
+      - IT-Technicien
+
+agents:
+  IT-CloudMaster:
+    path: IT_SHARED/Knowledge/IT-CloudMaster/
+    description: Azure AD, M365, cloud governance, Entra ID
+    priority: high
+    auto_load: true
+
+  IT-MaintenanceMaster:
+    path: IT_SHARED/Knowledge/IT-MaintenanceMaster/
+    description: Maintenance MSP complete (patching, DR, health check, WSUS)
+    priority: high
+    auto_load: true
+    pack: IT_SHARED/Knowledge/IT-MaintenanceMaster/IT-MaintenanceMaster_KnowledgePack_v1/
+    contexts:
+      - 01_TEMPLATES_CW
+      - 02_RUNBOOKS_MAINTENANCE
+      - 03_CHECKLISTS
+      - 04_POWERSHELL_LIBRARY
+      - 05_TROUBLESHOOTING
+    context_folders:
+      AUDIT: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/AUDIT/
+      DISASTER_RECOVERY: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/DISASTER_RECOVERY/
+      HEALTH_CHECK: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/HEALTH_CHECK/
+      PATCHING: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/PATCHING/
+
+  IT-CTOMaster:
+    path: agents/IT-CTOMaster/05_KNOWLEDGE/
+    pack: agents/IT-CTOMaster/IT_CTOMaster_KnowledgePack_v1/
+    description: Gouvernance IT, roadmap, strategie CTO
+    priority: medium
+    auto_load: false
+
+  IT-Commandare-NOC:
+    path: agents/IT-Commandare-NOC/05_KNOWLEDGE/
+    pack: agents/IT-Commandare-NOC/IT_Commandare_NOC_KnowledgePack_v1/
+    description: NOC - triage, alertes, severite, runbooks reponse
+    priority: high
+    auto_load: true
+
+  IT-Commandare-OPR:
+    path: agents/IT-Commandare-OPR/05_KNOWLEDGE/
+    pack: agents/IT-Commandare-OPR/IT_Commandare_OPR_KnowledgePack_v1/
+    description: Operations - gouvernance, change, communication
+    priority: high
+    auto_load: true
+
+  IT-Commandare-TECH:
+    path: agents/IT-Commandare-TECH/05_KNOWLEDGE/
+    pack: agents/IT-Commandare-TECH/IT_Commandare_TECH_KnowledgePack_v1/
+    description: Technique - RCA, troubleshooting avance, remediation
+    priority: high
+    auto_load: true
+
+  IT-InterventionLive:
+    path: agents/IT-InterventionLive/05_KNOWLEDGE/
+    legacy_path: agents/IT-InterventionLive/Knowledge/
+    description: Procedures d'intervention live et copilot
+    priority: high
+    auto_load: true
+
+  IT-MSPLiveAssistant:
+    path: agents/IT-MSPLiveAssistant/knowledge/
+    description: Assistance MSP temps reel - diagnostic guide, comms client
+    priority: high
+    auto_load: true
+
+loading_rules:
+  - auto_load agents with auto_load=true on agent startup
+  - load shared.checklists for all agents with live interaction
+  - load shared.templates_cw for all ticket-producing agents
+  - agent-specific pack overrides shared when conflict
+  - context detection determines which context_folder to load

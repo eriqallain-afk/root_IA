@@ -1,0 +1,11 @@
+# Contract I/O — NEA-Redacteur
+# Rédige les textes du recueil selon le plan éditorial et le ton défini
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: yaml

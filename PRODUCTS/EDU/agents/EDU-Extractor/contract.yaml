@@ -1,0 +1,11 @@
+# Contract I/O — EDU-Extractor
+# Extrait le texte des copies CCQ (PDF natif + OCR pour scans)
+
+input:
+  objective: string
+context: string
+
+output:
+  Structured response per instructions below
+
+output_format: json

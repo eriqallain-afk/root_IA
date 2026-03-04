@@ -1,0 +1,24 @@
+schema_version: "1.0"
+description: >
+  Registre des schémas formels de la FACTORY.
+  Tout output structuré doit référencer le schéma applicable.
+last_updated: "2026-02-25"
+
+schemas_registry:
+  - id: run_metrics
+    file: 00_CONTROL/schemas/run_metrics.schema.yaml
+    owner: TEAM__OPS
+    produced_by: [OPS-PlaybookRunner]
+    consumed_by: [CTL-WatchdogIA, CTL-HealthReporter, IAHQ-Economist]
+
+  - id: health_check
+    file: 00_CONTROL/schemas/health_check.schema.yaml
+    owner: TEAM__CTL
+    produced_by: [CTL-WatchdogIA]
+    consumed_by: [CTL-AlertRouter, CTL-HealthReporter, OPS-DossierIA]
+
+  - id: alert
+    file: 00_CONTROL/schemas/alert.schema.yaml
+    owner: TEAM__CTL
+    produced_by: [CTL-AlertRouter]
+    consumed_by: [CTL-HealthReporter, OPS-DossierIA, HUB-AgentMO-MasterOrchestrator]

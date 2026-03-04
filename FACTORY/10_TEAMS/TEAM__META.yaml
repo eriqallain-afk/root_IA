@@ -1,0 +1,49 @@
+schema_version: "1.0"
+team_id: TEAM__META
+name: META
+mission: "Usine armées GPT : besoins, rôles, prompts, audit, gouvernance et formation."
+default_orchestrator: META-OrchestrateurCentral
+
+agents_count: 16
+
+key_agents:
+  - META-OrchestrateurCentral
+  - META-AgentProductFactory
+  - META-AnalysteBesoinsEquipes
+  - META-ArchitecteChoix
+  - META-Concierge
+  - META-ConciergeUX
+  - META-Pedagogie
+  - META-Redaction
+  - META-PromptMaster
+  - META-CartographeRoles
+  - META-GouvernanceQA
+  - META-PlaybookBuilder
+  - META-VisionCreative
+  - META-WorkflowDesignerEquipes
+  - META-ReversePrompt
+
+capabilities:
+  - Orchestration et planification factory (chef d'orchestre)
+  - Création agents complets (3 modes : package / deliverable / validation)
+  - Analyse besoins et cartographie rôles
+  - Architecture décisions (MVP + prod)
+  - Accueil et UX équipe META
+  - Formation MCIA
+  - Rédaction long format
+  - Prompt engineering (score cible >= 9/10)
+  - Design workflows équipes
+  - Audit qualité (grille 5 critères)
+  - Création playbooks exécutables
+  - Création image/vidéo
+  - Reverse engineering GPT existants
+
+policies:
+  - FACTORY/50_POLICIES/META_FACTORY_POLICY.yaml
+  - FACTORY/50_POLICIES/PROMPT_QUALITY_POLICY.yaml
+
+runbooks:
+  - FACTORY/40_RUNBOOKS/RUNBOOK_AGENT_BUILD.md
+  - FACTORY/40_RUNBOOKS/RUNBOOK_PROMPT_OPTIMIZATION.md
+
+last_updated: "2026-03-02"

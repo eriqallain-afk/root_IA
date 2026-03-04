@@ -1,0 +1,81 @@
+schema_version: "1.1"
+agent_id: META-OrchestrateurCentral
+memory_type: operational
+last_updated: "2026-02-26"
+version: "1.2.0"
+
+# ─── CONTEXTE FACTORY ───────────────────────────────────────────────────────
+factory_context:
+  name: "root_IA — Factory d'Armée GPT"
+  mission: "Industrialiser la création, gestion et évolution d'agents IA spécialisés"
+  structure:
+    layer_0_control: ["CTL-AlertRouter", "CTL-HealthReporter", "CTL-WatchdogIA"]
+    layer_1_hub: ["HUB-AgentMO-MasterOrchestrator", "HUB-AgentMO2-DeputyOrchestrator", "HUB-Router", "HUB-Concierge", "HUB-Orchestrator"]
+    layer_2_meta: ["META-OrchestrateurCentral", "META-AgentProductFactory", "META-PlaybookBuilder", "META-GouvernanceQA", "META-PromptMaster"]
+    layer_3_ops: ["OPS-PlaybookRunner", "OPS-RouterIA", "OPS-DossierIA"]
+    layer_4_domain: ["IAHQ-*", "IT-*", "EDU-*", "DAM-*", "TRAD-*", "NEA-*"]
+
+# ─── RÔLE DE CET AGENT ───────────────────────────────────────────────────────
+role_context:
+  primary_role: "Orchestrateur central META — coordonne la création d'armées de GPT"
+  key_responsibilities:
+    - "Analyser un domaine et concevoir la structure équipe/agents optimale"
+    - "Coordonner META-AgentProductFactory pour la génération de dossiers agents"
+    - "Valider la cohérence globale avant livraison via META-GouvernanceQA"
+    - "Maintenir les index factory à jour"
+  escalates_to: "HUB-AgentMO-MasterOrchestrator"
+  escalated_from: ["HUB-AgentMO-MasterOrchestrator", "HUB-Router"]
+
+# ─── PLAYBOOKS ASSOCIÉS ───────────────────────────────────────────────────────
+associated_playbooks:
+  primary:
+    - id: BUILD_TEAM_FROM_SCRATCH
+      trigger: "Créer une nouvelle équipe d'agents"
+      file: "30_PLAYBOOKS/PB_FAB_03_BUILD_TEAM_FROM_SCRATCH.yaml"
+  secondary:
+    - id: ARMY_AUDIT_COMPLETE
+      trigger: "Audit complet de la Factory"
+    - id: CLONE_AND_ADAPT_AGENT
+      trigger: "Dupliquer et adapter un agent existant"
+
+# ─── PATTERNS DE RÉPONSE ─────────────────────────────────────────────────────
+response_patterns:
+  new_team_request:
+    trigger_keywords: ["créer équipe", "nouvelle équipe", "build team", "nouveau domaine"]
+    default_flow:
+      1: "Analyser le domaine (META-AnalysteBesoinsEquipes si disponible)"
+      2: "Cartographier les rôles (META-CartographeRoles)"
+      3: "Concevoir la structure agents (META-ArchitecteChoix)"
+      4: "Générer les dossiers agents (META-AgentProductFactory)"
+      5: "Valider la qualité (META-GouvernanceQA)"
+      6: "Créer les playbooks équipe (META-PlaybookBuilder)"
+
+  add_agent_request:
+    trigger_keywords: ["ajouter agent", "nouvel agent", "add agent", "créer GPT"]
+    default_flow:
+      1: "Recueillir spec agent"
+      2: "Générer dossier complet (META-AgentProductFactory — mode agent_package)"
+      3: "Valider (META-GouvernanceQA — mode agent)"
+      4: "Mettre à jour les index"
+
+# ─── CONTRAINTES OPÉRATIONNELLES ─────────────────────────────────────────────
+operational_constraints:
+  output_format: YAML_STRICT
+  quality_score_minimum: 9
+  sla_simple_minutes: 5
+  sla_complex_minutes: 30
+  never_invent:
+    - "agent_id non présent dans agents_index.yaml"
+    - "team_id non présent dans teams_index.yaml"
+    - "intent non présent dans intents.yaml"
+    - "playbook_id non présent dans playbooks.yaml"
+
+# ─── GLOSSAIRE OPÉRATIONNEL ──────────────────────────────────────────────────
+glossary:
+  Factory: "L'ensemble du système root_IA avec ses agents, équipes, playbooks et runbooks"
+  Armée GPT: "Ensemble cohérent d'agents spécialisés travaillant ensemble sur un domaine"
+  Dossier Agent: "Package complet : agent.yaml + contract.yaml + prompt.md + tests/"
+  Machine: "Playbook exécutable par OPS-PlaybookRunner"
+  MO: "Master Orchestrator (HUB-AgentMO-MasterOrchestrator)"
+  MO2: "Deputy Orchestrator / QA (HUB-AgentMO2-DeputyOrchestrator)"
+  DoD: "Definition of Done — critères de complétude d'une tâche"

@@ -1,0 +1,79 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.499590'
+playbooks:
+  EDU_CCQ_EVALUATE_REFLEXION_ETHIQUE:
+    description: Évaluer une production écrite CCQ (réflexion éthique) à partir d'un PDF, avec extraction/transcription et
+      justification selon la grille.
+    steps:
+    - step: ocr
+      actor_id: EDU-OCR-Extractor_CCQ
+    - step: evaluate
+      actor_id: EDU-Reflexions_CCQ
+    - step: qa
+      actor_id: EDU-Orchestrator_CCQ
+    - step: archive
+      actor_id: OPS-DossierIA
+    - step: execute
+      actor_id: EDU-Reflexions_CCQ
+  EDU_CCQ_EVAL_BATCH_V1:
+    description: 'Batch CCQ : évalue N copies, QA contrat, validation enseignant (flagged), maj mémoire cross-session, rapport
+      & archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: manifest
+      actor_id: OPS-PlaybookRunner
+    - step: evaluate_batch
+      actor_id: OPS-PlaybookRunner
+    - step: qa_contract
+      actor_id: EDU-Orchestrator_CCQ
+    - step: teacher_validation
+      actor_id: OPS-DossierIA
+    - step: apply_memory
+      actor_id: OPS-PlaybookRunner
+    - step: compile_report
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EVAL_SINGLE_V1:
+    description: 'Single CCQ : évalue 1 copie, QA contrat, option maj mémoire, archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: evaluate_one
+      actor_id: EDU-Reflexions_CCQ
+    - step: qa_contract
+      actor_id: EDU-Orchestrator_CCQ
+    - step: apply_memory
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EXTRACT_BATCH_V1:
+    description: 'Batch CCQ : extrait/transcrit N copies (PDF natif+scan), segmentation par élève, QA contrat, archive.'
+    steps:
+    - step: dossier
+      actor_id: OPS-DossierIA
+    - step: extract_batch
+      actor_id: EDU-Extractor_CCQ
+    - step: qa_contract
+      actor_id: EDU-Orchestrator_CCQ
+    - step: archive
+      actor_id: OPS-DossierIA
+  EDU_CCQ_EXTRACT_EVAL_V1:
+    description: 'Pipeline CCQ : extraction/transcription → évaluation/correction → compilation du rapport final (YAML).'
+    steps:
+    - step: extraction
+      actor_id: EDU-Extractor_CCQ
+    - step: eval_ccq
+      actor_id: EDU-Reflexions_CCQ
+    - step: compile_report
+      actor_id: EDU-Orchestrator_CCQ
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA

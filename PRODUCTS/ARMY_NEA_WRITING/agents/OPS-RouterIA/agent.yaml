@@ -1,0 +1,19 @@
+id: OPS-RouterIA
+display_name: '@OPS-RouterIA'
+team_id: TEAM__OPS
+team_name: OPS
+version: 1.0.0
+status: active
+description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+intents:
+- ops
+- router
+- routing
+schema_version: '1.0'
+machine:
+  output_format: yaml
+  contract_required: true
+  logs_required: true
+interfaces:
+  prompt: prompt.md
+  contract: contract.yaml

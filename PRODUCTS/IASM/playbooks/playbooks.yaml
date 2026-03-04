@@ -1,0 +1,25 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.573269'
+playbooks:
+  IASM_SESSION:
+    description: 'Cabinet IA : intake -> risques -> analyse -> plan -> validation'
+    steps:
+    - step: intake
+      actor_id: IASM-OrchestreurCabinetIA
+    - step: risk
+      actor_id: IASM-SecuriteRisques
+    - step: analysis
+      actor_id: IASM-AnalysteSchemasRelationnels
+    - step: plan
+      actor_id: IASM-CoachDeVie
+    - step: director
+      actor_id: IASM-DirecteurCabinetIA
+  INTAKE_ROUTE_EXECUTE:
+    description: 'Flux standard : route -> exécute -> archive'
+    steps:
+    - step: route
+      actor_id: OPS-RouterIA
+    - step: execute
+      actor_id: OPS-PlaybookRunner
+    - step: archive
+      actor_id: OPS-DossierIA

@@ -1,0 +1,38 @@
+schema_version: "1.0"
+team_id: TEAM__HUB
+name: HUB
+mission: "Orchestration globale : intake, routing, coaching, UX, prompts & assets visuels."
+default_orchestrator: HUB-AgentMO-MasterOrchestrator
+
+agents_count: 10
+
+key_agents:
+  - HUB-AgentMO-MasterOrchestrator
+  - HUB-AgentMO2-DeputyOrchestrator
+  - HUB-Router
+  - HUB-Concierge
+  - HUB-OproEngine
+  - HUB-AvatarForge
+  - HUB-CoachIA360-Strategie-GPTTeams
+  - HUB-IA-ChatBotMaster
+  - HUB-ITCoachIA360
+  - HUB-Orchestrator
+
+capabilities:
+  - Intake et qualification des demandes
+  - Routing inter-équipes
+  - Orchestration principale (MasterOrchestrator)
+  - Validation QA des plans (DeputyOrchestrator)
+  - Optimisation prompts (OPRO)
+  - Génération avatars et assets visuels
+  - Coaching stratégie équipes GPT
+  - Architecture chatbots enterprise
+  - Coaching IA spécialisé IT
+
+policies:
+  - FACTORY/50_POLICIES/HUB_ROUTING_POLICY.yaml
+
+runbooks:
+  - FACTORY/40_RUNBOOKS/RUNBOOK_INTAKE_FAILURE.md
+
+last_updated: "2026-03-02"

@@ -1,0 +1,260 @@
+schema_version: '1.0'
+generated_at: '2026-02-10T21:43:32.414529'
+catalog:
+  DAM-Budget:
+    display_name: '@DAM-Budget'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - analyse
+    paths:
+      agent: agents/DAM-Budget/agent.yaml
+      contract: agents/DAM-Budget/contract.yaml
+      prompt: agents/DAM-Budget/prompt.md
+  DAM-Conformite:
+    display_name: '@DAM-Conformite'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    paths:
+      agent: agents/DAM-Conformite/agent.yaml
+      contract: agents/DAM-Conformite/contract.yaml
+      prompt: agents/DAM-Conformite/prompt.md
+  DAM-GPT10-Fournisseurs:
+    display_name: '@DAM-GPT 10 — Fournisseurs'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - suppliers
+    - procurement
+    paths:
+      agent: agents/DAM-GPT10-Fournisseurs/agent.yaml
+      contract: agents/DAM-GPT10-Fournisseurs/contract.yaml
+      prompt: agents/DAM-GPT10-Fournisseurs/prompt.md
+  DAM-GPT11-Satisfaction:
+    display_name: '@DAM-GPT 11 — Satisfaction'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - customer
+    - satisfaction
+    paths:
+      agent: agents/DAM-GPT11-Satisfaction/agent.yaml
+      contract: agents/DAM-GPT11-Satisfaction/contract.yaml
+      prompt: agents/DAM-GPT11-Satisfaction/prompt.md
+  DAM-GPT12-Legal:
+    display_name: '@DAM-GPT 12 — Légal'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - legal
+    - review
+    paths:
+      agent: agents/DAM-GPT12-Legal/agent.yaml
+      contract: agents/DAM-GPT12-Legal/contract.yaml
+      prompt: agents/DAM-GPT12-Legal/prompt.md
+  DAM-GPT13-Analytics:
+    display_name: '@DAM-GPT 13 — Analytics'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - analytics
+    - kpi
+    paths:
+      agent: agents/DAM-GPT13-Analytics/agent.yaml
+      contract: agents/DAM-GPT13-Analytics/contract.yaml
+      prompt: agents/DAM-GPT13-Analytics/prompt.md
+  DAM-GPT2-Conformite:
+    display_name: '@DAM-GPT 2 — Conformité'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - compliance
+    - risk
+    paths:
+      agent: agents/DAM-GPT2-Conformite/agent.yaml
+      contract: agents/DAM-GPT2-Conformite/contract.yaml
+      prompt: agents/DAM-GPT2-Conformite/prompt.md
+  DAM-GPT3-Budget:
+    display_name: '@DAM-GPT 3 — Budget'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - budget
+    - cost
+    paths:
+      agent: agents/DAM-GPT3-Budget/agent.yaml
+      contract: agents/DAM-GPT3-Budget/contract.yaml
+      prompt: agents/DAM-GPT3-Budget/prompt.md
+  DAM-GPT4-Planification:
+    display_name: '@DAM-GPT 4 — Planification'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - planning
+    - schedule
+    paths:
+      agent: agents/DAM-GPT4-Planification/agent.yaml
+      contract: agents/DAM-GPT4-Planification/contract.yaml
+      prompt: agents/DAM-GPT4-Planification/prompt.md
+  DAM-GPT5-SousTraitants:
+    display_name: '@DAM-GPT 5 — Sous-Traitants'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - vendors
+    - procurement
+    paths:
+      agent: agents/DAM-GPT5-SousTraitants/agent.yaml
+      contract: agents/DAM-GPT5-SousTraitants/contract.yaml
+      prompt: agents/DAM-GPT5-SousTraitants/prompt.md
+  DAM-GPT6-Inspection:
+    display_name: '@DAM-GPT 6 — Inspection'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - inspection
+    - quality
+    paths:
+      agent: agents/DAM-GPT6-Inspection/agent.yaml
+      contract: agents/DAM-GPT6-Inspection/contract.yaml
+      prompt: agents/DAM-GPT6-Inspection/prompt.md
+  DAM-GPT7-Archiviste:
+    display_name: '@DAM-GPT 7 — Archiviste'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - archive
+    - docs
+    paths:
+      agent: agents/DAM-GPT7-Archiviste/agent.yaml
+      contract: agents/DAM-GPT7-Archiviste/contract.yaml
+      prompt: agents/DAM-GPT7-Archiviste/prompt.md
+  DAM-GPT8-Communication:
+    display_name: '@DAM-GPT 8 — Communication'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - comms
+    - client
+    paths:
+      agent: agents/DAM-GPT8-Communication/agent.yaml
+      contract: agents/DAM-GPT8-Communication/contract.yaml
+      prompt: agents/DAM-GPT8-Communication/prompt.md
+  DAM-GPT9-Produits:
+    display_name: '@DAM-GPT 9 — Produits'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - products
+    - selection
+    paths:
+      agent: agents/DAM-GPT9-Produits/agent.yaml
+      contract: agents/DAM-GPT9-Produits/contract.yaml
+      prompt: agents/DAM-GPT9-Produits/prompt.md
+  DAM-Inspection:
+    display_name: '@DAM-Inspection'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - cree
+    paths:
+      agent: agents/DAM-Inspection/agent.yaml
+      contract: agents/DAM-Inspection/contract.yaml
+      prompt: agents/DAM-Inspection/prompt.md
+  DAM-Orchestrator:
+    display_name: '@DAM-Orchestrator'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - analyse
+    - coordonne
+    paths:
+      agent: agents/DAM-Orchestrator/agent.yaml
+      contract: agents/DAM-Orchestrator/contract.yaml
+      prompt: agents/DAM-Orchestrator/prompt.md
+  DAM-Planification:
+    display_name: '@DAM-Planification'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    paths:
+      agent: agents/DAM-Planification/agent.yaml
+      contract: agents/DAM-Planification/contract.yaml
+      prompt: agents/DAM-Planification/prompt.md
+  DAM-SousTraitants:
+    display_name: '@DAM-SousTraitants'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - evalue
+    paths:
+      agent: agents/DAM-SousTraitants/agent.yaml
+      contract: agents/DAM-SousTraitants/contract.yaml
+      prompt: agents/DAM-SousTraitants/prompt.md
+  DAM-Superviseur:
+    display_name: '@DAM - Superviseur'
+    team_id: TEAM__DAM
+    status: active
+    intents:
+    - dam
+    - qa
+    - governance
+    paths:
+      agent: agents/DAM-Superviseur/agent.yaml
+      contract: agents/DAM-Superviseur/contract.yaml
+      prompt: agents/DAM-Superviseur/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-DossierIA:
+    display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - dossier
+    - deliverable
+    paths:
+      agent: agents/OPS-DossierIA/agent.yaml
+      contract: agents/OPS-DossierIA/contract.yaml
+      prompt: agents/OPS-DossierIA/prompt.md

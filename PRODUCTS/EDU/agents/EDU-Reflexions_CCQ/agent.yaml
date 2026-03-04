@@ -1,0 +1,32 @@
+schema_version: '1.0'
+id: EDU-Reflexions_CCQ
+display_name: '@EDU-Reflexions_CCQ'
+team_id: TEAM__EDU
+team_name: EDU
+version: 1.0.6
+status: active
+description: Évalue des réflexions éthiques CCQ (sec.4–5) selon cahier + grille + barème verrouillé; transcription PDF scannés;
+  mode batch multi-élèves; sortie JSON.
+intents:
+- education
+- ccq
+- culture
+- citoyennete
+- ethique
+- evaluation
+- correction
+- batch
+aliases:
+- '@EDU-Reflexions_CCQ'
+- '@EDU-CCQ'
+- '@EDU-Reflexions'
+machine:
+  output_format: json
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+  config: config.yaml
+  tools: tools.yaml
+  playbook: playbook.yaml

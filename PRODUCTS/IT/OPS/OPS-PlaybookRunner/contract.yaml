@@ -1,0 +1,159 @@
+contract_version: "2.0.0"
+id: OPS-PlaybookRunner
+team: OPS
+description: >
+  Exécuteur de playbooks de la Factory. Initialise un run, exécute les steps
+  dans l'ordre (ou selon parallélisation autorisée), applique les politiques
+  d'échec (retry/skip/abort), et compile un livrable final.
+  Supporte l'arrêt et la reprise avec un journal d'exécution complet.
+
+input:
+  objective:
+    type: string
+    required: false
+    description: But global du run (optionnel).
+  playbook_id:
+    type: string
+    required: true
+    description: Identifiant du playbook à exécuter.
+  initial_inputs:
+    type: object
+    required: true
+    description: Inputs initiaux injectés au step 1 (et/ou mapés par le playbook).
+  context:
+    type: object
+    required: false
+    description: Contexte d'exécution (session, run précédent, state pour reprise).
+  execution_parameters:
+    type: object
+    required: false
+    description: "Mode (sync/async), parallélisation, limites, politique d'erreur."
+  environment:
+    type: string
+    required: false
+    description: "dev|stage|prod (influence les garde-fous)."
+  constraints:
+    type: object
+    required: false
+    description: "SLA, confidentialité, restrictions outils."
+
+output:
+  output_format: YAML_STRICT
+  result:
+    summary: string
+    status: "success|partial|failed|paused"
+    confidence: "0.0-1.0"
+    outputs: object
+    execution_log:
+      playbook_id: string
+      run_id: string
+      started_at: timestamp
+      ended_at: "timestamp|null"
+      status: "running|paused|success|partial|failed"
+      steps:
+        - step_id: string
+          agent_id: string
+          status: "success|failed|skipped|retried"
+          duration_ms: int
+          success_criteria_met: boolean
+          on_failure: "retry|skip|abort"
+          error: "string|null"
+          artifacts_written:
+            - string
+      errors:
+        - string
+      resources_used:
+        cpu_ms: "int|null"
+        tokens: "int|null"
+  artifacts:
+    - path: "FACTORY/20_AGENTS/OPS/OPS-PlaybookRunner/artifacts/run_<run_id>/execution_log.yaml"
+      type: yaml
+      description: "Journal complet du run (steps, durées, erreurs, décisions)."
+    - path: "FACTORY/20_AGENTS/OPS/OPS-PlaybookRunner/artifacts/run_<run_id>/step_logs/<step_id>.yaml"
+      type: yaml
+      description: "Log par étape (input/output/validation)."
+    - path: "FACTORY/20_AGENTS/OPS/OPS-PlaybookRunner/artifacts/run_<run_id>/deliverable/compiled_output.yaml"
+      type: yaml
+      description: "Livrable compilé final (ou partiel)."
+  next_actions:
+    - "Si playbook introuvable: demander le fichier playbook YAML ou corriger playbook_id."
+    - "Si un step échoue: appliquer on_failure puis documenter la décision; si abort: remonter l'erreur au HUB-Orchestrator."
+    - "Si input initial incomplet: lister missing_fields et proposer un mapping minimal."
+    - "Si paused: fournir resume_instructions (state + prochain step)."
+  log:
+    decisions:
+      - id: string
+        decision: string
+        rationale: string
+    risks:
+      - id: string
+        severity: "low|medium|high"
+        risk: string
+        mitigation: string
+    assumptions:
+      - id: string
+        assumption: string
+        to_confirm: string
+    quality_score: "0-10"
+    timings:
+      total_ms: int
+      validation_ms: int
+      overhead_ms: int
+
+success_criteria:
+  - "Chaque step exécuté respecte son success_criteria OU est géré selon on_failure."
+  - "Traçabilité: un log par step + execution_log global écrits."
+  - "Compilation: output final cohérent et référencé."
+  - "Support pause/resume: état suffisant pour reprise sans perte."
+
+guardrails:
+  - "Respecter l'ordre des steps (sauf parallélisation explicitement autorisée)."
+  - "Ne jamais exécuter un agent marqué inactive/deprecated."
+  - "Ne jamais inclure de secrets dans les logs — rédacter si nécessaire."
+  - "Séparer faits (résultats des steps) et hypothèses (diagnostics)."
+
+constraints:
+  must_consult:
+    - "00_INDEX/agents_index.yaml"
+    - "00_INDEX/playbooks_index.yaml"
+    - "playbooks/<playbook_id>.yaml"
+  latency:
+    minimize: true
+  resume_supported: true
+
+escalation:
+  - when: "step failure severity high or repeated retries"
+    to: HUB-AgentMO2-DeputyOrchestrator
+    how: "return status=failed with risks(high)"
+  - when: "environment=prod and compliance issue detected"
+    to: META-GouvernanceQA
+    how: "pause run + request human validation"
+
+tests:
+  unit_tests:
+    - name: execute_linear_success
+      input:
+        playbook_id: PBK_TEST_LINEAR
+        initial_inputs:
+          objective: test
+      expected:
+        result.status: success
+    - name: on_failure_retry_then_success
+      input:
+        playbook_id: PBK_TEST_RETRY
+        initial_inputs:
+          objective: test
+      expected:
+        result.execution_log.steps[0].status: retried
+    - name: pause_and_resume_supported
+      input:
+        playbook_id: PBK_TEST_PAUSE
+        initial_inputs:
+          objective: test
+        execution_parameters:
+          mode: sync
+          allow_pause: true
+      expected:
+        result.status: paused
+
+last_updated: "2026-02-27"
