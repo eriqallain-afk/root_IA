@@ -1,0 +1,296 @@
+schema_version: '1.0'
+generated_at: '2026-03-02T00:00:00Z'
+product_id: IT
+router_actor_id: OPS-RouterIA
+
+# ============================================================
+# TABLE DE ROUTAGE — PRODUIT @IT  (v2.0)
+# AUTONOME : aucune référence à la FACTORY ou au HUB global
+# Le global intents.yaml route vers IT-OrchestratorMSP ou IT-NOCDispatcher.
+# Ce fichier prend le relais et distribue en interne.
+# ============================================================
+
+routing_table:
+
+  # ── 1. LIVE ASSIST (priorité maximale) ───────────────────
+  - match_any_intents:
+      - msp_live
+      - live_assist
+      - live_chat
+      - live_support
+      - remote_assist
+      - screen_share
+      - on_call_help
+      - on_call_assist
+      - call_support
+      - chatbot
+      - intervention
+      - live_close
+      - live_intervention
+    default_actor_id: IT-MSPLiveAssistant
+    default_playbook_id: IT_MSP_LIVE_ASSIST
+
+  # ── 2. NOC — DISPATCH (1er contact alertes / RMM) ────────
+  - match_any_intents:
+      - it_noc_dispatch
+      - noc_dispatch
+      - noc_dispatcher
+      - noc
+      - rmm_alert
+      - monitoring_alert
+      - sla
+      - coordination
+      - dispatch
+    default_actor_id: IT-NOCDispatcher
+    default_playbook_id: IT_NOC_DISPATCH
+
+  # ── 3. NOC — COMMANDARE (triage avancé / corrélation) ────
+  - match_any_intents:
+      - it_commandare_noc
+      - noc_triage
+      - alert_triage
+      - incident
+      - incident_triage
+      - monitoring
+      - alerting
+      - backup_critical
+      - dr_incident
+      - vpn_incident
+      - network_alert
+      - voip_alert
+    default_actor_id: IT-Commandare-NOC
+    default_playbook_id: IT_COMMANDARE_NOC
+
+  # ── 4. INFRA — COMMANDARE (incidents infra / cloud) ──────
+  - match_any_intents:
+      - it_commandare_infra
+      - infra_incident
+      - infra_alert
+      - server_down
+      - vm_incident
+      - dc_incident
+      - cloud_incident
+      - azure_incident
+      - m365_incident
+      - storage_incident
+      - capacity_critical
+      - resource_exhaustion
+    default_actor_id: IT-Commandare-Infra
+    default_playbook_id: IT_COMMANDARE_INFRA
+
+  # ── 5. TECH — COMMANDARE (support N1-N3 + SOC) ───────────
+  - match_any_intents:
+      - it_commandare_tech
+      - root_cause
+      - tech_escalation
+      - rca
+      - troubleshoot
+      - troubleshooting
+      - remediation
+      - triage
+      - support
+      - helpdesk
+      - soc
+      - soc_alert
+      - cross_dept_support
+    default_actor_id: IT-Commandare-TECH
+    default_playbook_id: IT_COMMANDARE_TECH
+
+  # ── 6. OPR — COMMANDARE (admin / docs / clôture) ─────────
+  - match_any_intents:
+      - it_commandare_opr
+      - it_governance_change
+      - it_ops_control
+      - change_management
+      - change_exec
+      - change_governance
+      - ops_control
+      - governance
+      - process
+      - dod
+      - postmortem
+      - qbr
+      - rapport_mensuel
+      - comms
+      - client_comms
+      - report
+      - knowledge
+      - kb
+      - runbook
+      - cmdb
+      - assets
+      - tickets
+    default_actor_id: IT-Commandare-OPR
+    default_playbook_id: IT_COMMANDARE_OPR
+
+  # ── 7. TECHNICIEN GUIDÉ (billet CW + diagnostic) ─────────
+  - match_any_intents:
+      - cw_ticket
+      - connectwise
+      - diagnostic
+      - guidance
+      - handoff
+      - msp_ops
+    default_actor_id: IT-Technicien
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 8. MAINTENANCE / PATCHING / SNAPSHOTS ────────────────
+  - match_any_intents:
+      - maintenance
+      - patching
+      - health_check
+      - snapshot
+      - script_maint
+      - audit
+      - observability
+    default_actor_id: IT-MaintenanceMaster
+    default_playbook_id: IT_MAINT_PATCH_REBOOT_VALIDATE
+
+  # ── 9. POST-SHUTDOWN / POWER RESTORE ─────────────────────
+  - match_any_intents:
+      - shutdown
+      - shutdown_electrical
+      - power_outage
+      - power_restore
+      - post_shutdown_validation
+      - post_shutdown
+    default_actor_id: IT-MSPLiveAssistant
+    default_playbook_id: IT_POST_SHUTDOWN_VALIDATE
+
+  # ── 10. SÉCURITÉ (incidents + audit) ─────────────────────
+  - match_any_intents:
+      - security
+      - soc
+      - cybersecurity
+      - risk
+    default_actor_id: IT-SecurityMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 11. CLOUD / AZURE / M365 ─────────────────────────────
+  - match_any_intents:
+      - cloud
+      - azure
+      - m365
+      - aws
+      - gcp
+    default_actor_id: IT-CloudMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 12. INFRA / RÉSEAU / VPN ─────────────────────────────
+  - match_any_intents:
+      - network
+      - infrastructure
+      - servers
+      - firewall
+      - vpn
+    default_actor_id: IT-InfrastructureMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 13. BACKUP / DR ──────────────────────────────────────
+  - match_any_intents:
+      - dr
+      - backup
+      - disaster_recovery
+    default_actor_id: IT-BackupDRMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 14. MONITORING ───────────────────────────────────────
+  - match_any_intents:
+      - monitoring
+      - alerting
+    default_actor_id: IT-MonitoringMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 15. SCRIPTING / DEVOPS ───────────────────────────────
+  - match_any_intents:
+      - script
+      - powershell
+      - automation
+      - scripting
+      - cicd
+    default_actor_id: IT-ScriptMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - devops
+    default_actor_id: IT-DevOpsMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 16. ASSETS / LICENCES ────────────────────────────────
+  - match_any_intents:
+      - cmdb
+      - assets
+    default_actor_id: IT-AssetMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - licenses
+      - software
+    default_actor_id: IT-SoftwMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 17. VOIP / UC ────────────────────────────────────────
+  - match_any_intents:
+      - voip
+      - uc
+    default_actor_id: IT-VoIPMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 18. REPORTING / KNOWLEDGE ────────────────────────────
+  - match_any_intents:
+      - report
+      - kpi
+      - sla
+    default_actor_id: IT-ReportMaster
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  - match_any_intents:
+      - knowledge
+      - kb
+      - runbook
+    default_actor_id: IT-KnowledgeKeeper
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 19. COMMS CLIENT ─────────────────────────────────────
+  - match_any_intents:
+      - comms
+      - client_comms
+      - communication
+      - client
+    default_actor_id: IT-CommsMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 20. TICKET / SCRIBE ──────────────────────────────────
+  - match_any_intents:
+      - ticket
+      - writing
+    default_actor_id: IT-TicketScribe
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── 21. STRATÉGIE / DIRECTION ────────────────────────────
+  - match_any_intents:
+      - cto
+      - strategy
+      - standards
+    default_actor_id: IT-CTOMaster
+
+  - match_any_intents:
+      - direction
+      - management
+      - governance
+    default_actor_id: IT-DirecteurGeneral
+
+  # ── 22. GÉNÉRAL IT / MSP ─────────────────────────────────
+  - match_any_intents:
+      - it
+      - msp
+      - orchestrate
+    default_actor_id: IT-OrchestratorMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+
+  # ── FALLBACK INTERNE ─────────────────────────────────────
+  # CRITIQUE : jamais vers la FACTORY ou le HUB global
+  - fallback: true
+    default_actor_id: IT-OrchestratorMSP
+    default_playbook_id: IT_MSP_TICKET_TO_KB
+    note: "Fallback interne IT — autonome, sans dependance FACTORY"

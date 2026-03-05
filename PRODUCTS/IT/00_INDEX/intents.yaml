@@ -212,10 +212,26 @@ cto:
 customer:
 - DAM-GPT11-Satisfaction
 cyber:
-- IT-NOCDispatcher
-
+- TRAD-CyberWatch
+dam:
+- DAM-GPT10-Fournisseurs
+- DAM-GPT11-Satisfaction
+- DAM-GPT12-Legal
+- DAM-GPT13-Analytics
+- DAM-GPT2-Conformite
+- DAM-GPT3-Budget
+- DAM-GPT4-Planification
+- DAM-GPT5-SousTraitants
+- DAM-GPT6-Inspection
+- DAM-GPT7-Archiviste
+- DAM-GPT8-Communication
+- DAM-GPT9-Produits
+- DAM-Orchestrator
+- DAM-Superviseur
 data:
 - IAHQ-TechLeadIA
+deep_patterns:
+- IASM-TherapiePsychodynamique
 delivery:
 - IAHQ-DevFactoryIA
 deployment:
@@ -226,16 +242,33 @@ design:
 - META-OrchestrateurCentral
 devops:
 - IT-OrchestratorMSP
+discovery:
+- IAHQ-OrchestreurEntrepriseIA
 dispatch:
 - HUB-AgentMO-MasterOrchestrator
 - IT-NOCDispatcher
 - OPS-RouterIA
+- TRAD-CommandCore
+docs:
+- DAM-GPT7-Archiviste
 dr:
 - IT-OrchestratorMSP
+edit:
+- NEA-RedacteurRecueil
+education:
+- EDU-Orchestrator_CCQ
+- IASM-Psychoeducateur
+emotion:
+- IASM-GestionEmotions
+- IASM-SupportEmotionnel
 engineering:
 - META-Opromptimizer
+ethics:
+- IASM-SuperviseurEthique
 execute:
 - OPS-PlaybookRunner
+explain:
+- IASM-Psychoeducateur
 extract:
 - IAHQ-Extractor
 - EDU-Extractor_CCQ
@@ -246,12 +279,37 @@ family:
 - IASM-ModuleRelationsConjugalesFamiliales
 finance:
 - IAHQ-Economist
-
+geopolitics:
+- TRAD-VigillIntel
+goal:
+- IASM-ClarificateurObjectifRelationnel
 governance:
+- DAM-Superviseur
 - IAHQ-AdminManagerIA
 - META-GouvernanceEtRisques
 - META-SuperviseurInvisible
 - IT-OrchestratorMSP
+iasm:
+- IASM-AddictionsCompulsions
+- IASM-AnalysteDiscussion
+- IASM-AnalysteSchemasRelationnels
+- IASM-ClarificateurObjectifRelationnel
+- IASM-CoachDeVie
+- IASM-DirecteurCabinetIA
+- IASM-GestionColere
+- IASM-GestionEmotions
+- IASM-ModuleRelationsConjugalesFamiliales
+- IASM-OrchestreurCabinetIA
+- IASM-OutilsTCC
+- IASM-Psychoeducateur
+- IASM-RessentiTonalite
+- IASM-SecuriteRisques
+- IASM-SpecialisteRelationsCouple
+- IASM-SuperviseurEthique
+- IASM-SupportEmotionnel
+- IASM-TherapiePsychodynamique
+illustration:
+- NEA-Imagier
 incident:
 - IT-NOCDispatcher
 infrastructure:
@@ -264,6 +322,9 @@ inspection:
 - DAM-GPT6-Inspection
 intake:
 - HUB-AgentMO-MasterOrchestrator
+- IASM-OrchestreurCabinetIA
+intel:
+- TRAD-VigillIntel
 it:
 - HUB-ITCoachIA360
 - IT-OrchestratorMSP
@@ -284,74 +345,21 @@ mapping:
 - META-CartographeRoles
 - META-WorkflowDesignerEquipes
 - NEA-Cartographe
+markets:
+- TRAD-MarketSentinel
 memory:
 - OPS-DossierIA
 monitoring:
 - IT-NOCDispatcher
 msp:
 - IT-OrchestratorMSP
- - intent: it_commandare_infra
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-    description: Lead incident infrastructure et cloud
-
-  - intent: infra_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: infra_alert
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: server_down
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: vm_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: dc_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: cloud_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: azure_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: m365_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: storage_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: dr_incident
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: backup_critical
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: network_infra
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: capacity_critical
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-  - intent: resource_exhaustion
-    actors: [IT-Commandare-Infra]
-    playbook: IT_COMMANDARE_INFRA
-
-
+nea:
+- NEA-Archiviste
+- NEA-Cartographe
+- NEA-ConseilPatterns
+- NEA-Imagier
+- NEA-Orchestrator
+- NEA-RedacteurRecueil
 network:
 - IT-OrchestratorMSP
 noc:
