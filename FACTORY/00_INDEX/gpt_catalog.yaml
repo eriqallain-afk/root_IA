@@ -1,5 +1,5 @@
 schema_version: '1.0'
-generated_at: '2026-02-26T00:00:00Z'
+generated_at: '2026-03-04T22:01:21.445082'
 catalog:
   HUB-AgentMO-MasterOrchestrator:
     display_name: '@HUB - AGENT-MO — Master Orchestrator'
@@ -57,6 +57,11 @@ catalog:
     status: active
     intents:
     - hub
+    - welcome
+    - intake
+    - route_request
+    - clarify_intent
+    - provide_guidance
     paths:
       agent: 20_AGENTS/HUB/HUB-Concierge/agent.yaml
       contract: 20_AGENTS/HUB/HUB-Concierge/contract.yaml
@@ -102,7 +107,7 @@ catalog:
   HUB-Orchestrator:
     display_name: '@HUB-Orchestrator'
     team_id: TEAM__HUB
-    status: active
+    status: deprecated
     intents:
     - hub
     - coordonne
@@ -122,51 +127,6 @@ catalog:
       agent: 20_AGENTS/HUB/HUB-Router/agent.yaml
       contract: 20_AGENTS/HUB/HUB-Router/contract.yaml
       prompt: 20_AGENTS/HUB/HUB-Router/prompt.md
-  TL-WatchdogIA:
-    display_name: '@CTL-WatchdogIA'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - health_check
-    - monitor
-    - watchdog
-    - drift_detect
-    - factory_status
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
-      contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
-  TL-AlertRouter:
-    display_name: '@CTL-AlertRouter'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - alert
-    - escalate
-    - route_alert
-    - incident
-    - notify
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
-      contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
-  TL-HealthReporter:
-    display_name: '@CTL-HealthReporter'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - report
-    - health_report
-    - digest
-    - weekly_report
-    - post_mortem
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
-      contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md
   IAHQ-AdminManagerIA:
     display_name: '@IAHQ-AdminManagerIA'
     team_id: TEAM__IAHQ
@@ -238,6 +198,11 @@ catalog:
     status: active
     intents:
     - iahq
+    - map_process
+    - identify_workflows
+    - document_steps
+    - analyze_bottlenecks
+    - optimize_flow
     paths:
       agent: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/agent.yaml
       contract: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/contract.yaml
@@ -275,6 +240,11 @@ catalog:
     status: active
     intents:
     - iahq
+    - define_strategy
+    - assess_market
+    - plan_roadmap
+    - evaluate_options
+    - recommend_approach
     paths:
       agent: 20_AGENTS/IAHQ/IAHQ-Strategist/agent.yaml
       contract: 20_AGENTS/IAHQ/IAHQ-Strategist/contract.yaml
@@ -292,17 +262,20 @@ catalog:
       agent: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/agent.yaml
       contract: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/contract.yaml
       prompt: 20_AGENTS/IAHQ/IAHQ-TechLeadIA/prompt.md
-  META-AgentFactory:
-    display_name: '@META-AgentFactory'
+  META-AgentProductFactory:
+    display_name: '@META-AgentProductFactory'
     team_id: TEAM__META
     status: active
     intents:
-    - meta
-    - cree
+    - agent_package_create
+    - deliverable_pack_create
+    - agent_validate
+    - contract_adapt
+    - agent_assemble
     paths:
-      agent: 20_AGENTS/META/META-AgentFactory/agent.yaml
-      contract: 20_AGENTS/META/META-AgentFactory/contract.yaml
-      prompt: 20_AGENTS/META/META-AgentFactory/prompt.md
+      agent: 20_AGENTS/META/META-AgentProductFactory/agent.yaml
+      contract: 20_AGENTS/META/META-AgentProductFactory/contract.yaml
+      prompt: 20_AGENTS/META/META-AgentProductFactory/prompt.md
   META-AnalysteBesoinsEquipes:
     display_name: '@META-AnalysteBesoinsEquipes'
     team_id: TEAM__META
@@ -316,17 +289,13 @@ catalog:
       contract: 20_AGENTS/META/META-AnalysteBesoinsEquipes/contract.yaml
       prompt: 20_AGENTS/META/META-AnalysteBesoinsEquipes/prompt.md
   META-ArchitecteChoix:
-    display_name: MCIA — Architecte (Choix technique)
+    display_name: META-ArchitecteChoix
     team_id: TEAM__META
-    status: active
+    status: production
     intents:
-    - mcia
-    - architecture
-    - ml
-    - llm
-    - rag
-    - agent
-    - design
+    - meta_decision_architect
+    - meta_decision_evaluate
+    - meta_decision_recommend
     paths:
       agent: 20_AGENTS/META/META-ArchitecteChoix/agent.yaml
       contract: 20_AGENTS/META/META-ArchitecteChoix/contract.yaml
@@ -348,44 +317,30 @@ catalog:
     status: active
     intents:
     - meta
+    - meta_welcome
+    - meta_guidance
+    - route_meta_request
+    - explain_factory
+    - assist_agent_creation
     paths:
       agent: 20_AGENTS/META/META-Concierge/agent.yaml
       contract: 20_AGENTS/META/META-Concierge/contract.yaml
       prompt: 20_AGENTS/META/META-Concierge/prompt.md
-  META-GouvernanceEtRisques:
-    display_name: '@META-GouvernanceEtRisques'
-    team_id: TEAM__META
-    status: deprecated
-    intents:
-    - governance
-    - risk
-    - quality
-    paths:
-      agent: 20_AGENTS/META/META-GouvernanceEtRisques/agent.yaml
-      contract: 20_AGENTS/META/META-GouvernanceEtRisques/contract.yaml
-      prompt: 20_AGENTS/META/META-GouvernanceEtRisques/prompt.md
   META-GouvernanceQA:
     display_name: '@META-GouvernanceQA'
     team_id: TEAM__META
     status: active
     intents:
     - meta
+    - audit_quality
+    - validate_compliance
+    - check_standards
+    - assess_risk
+    - approve_release
     paths:
       agent: 20_AGENTS/META/META-GouvernanceQA/agent.yaml
       contract: 20_AGENTS/META/META-GouvernanceQA/contract.yaml
       prompt: 20_AGENTS/META/META-GouvernanceQA/prompt.md
-  META-Opromptimizer:
-    display_name: '@META-Opromptimizer'
-    team_id: TEAM__META
-    status: deprecated
-    intents:
-    - prompt
-    - engineering
-    - optimize
-    paths:
-      agent: 20_AGENTS/META/META-Opromptimizer/agent.yaml
-      contract: 20_AGENTS/META/META-Opromptimizer/contract.yaml
-      prompt: 20_AGENTS/META/META-Opromptimizer/prompt.md
   META-OrchestrateurCentral:
     display_name: '@META-OrchestrateurCentral'
     team_id: TEAM__META
@@ -413,34 +368,27 @@ catalog:
       contract: 20_AGENTS/META/META-Pedagogie/contract.yaml
       prompt: 20_AGENTS/META/META-Pedagogie/prompt.md
   META-PlaybookBuilder:
-    display_name: '@META-PlaybookBuilder'
+    display_name: META-PlaybookBuilder
     team_id: TEAM__META
-    status: active
+    status: production
     intents:
-    - meta
-    - cree
+    - meta_playbook_create
+    - meta_playbook_optimize
+    - meta_playbook_validate
+    - meta_playbook_version
     paths:
       agent: 20_AGENTS/META/META-PlaybookBuilder/agent.yaml
       contract: 20_AGENTS/META/META-PlaybookBuilder/contract.yaml
       prompt: 20_AGENTS/META/META-PlaybookBuilder/prompt.md
-  META-PromptArchitectEquipes:
-    display_name: '@META-PromptArchitectEquipes'
-    team_id: TEAM__META
-    status: deprecated
-    intents:
-    - prompt
-    - architecture
-    - standardization
-    paths:
-      agent: 20_AGENTS/META/META-PromptArchitectEquipes/agent.yaml
-      contract: 20_AGENTS/META/META-PromptArchitectEquipes/contract.yaml
-      prompt: 20_AGENTS/META/META-PromptArchitectEquipes/prompt.md
   META-PromptMaster:
-    display_name: '@META-PromptMaster'
+    display_name: META-PromptMaster
     team_id: TEAM__META
-    status: active
+    status: production
     intents:
-    - meta
+    - meta_prompt_create
+    - meta_prompt_optimize
+    - meta_prompt_validate
+    - meta_prompt_teach
     paths:
       agent: 20_AGENTS/META/META-PromptMaster/agent.yaml
       contract: 20_AGENTS/META/META-PromptMaster/contract.yaml
@@ -471,19 +419,6 @@ catalog:
       agent: 20_AGENTS/META/META-ReversePrompt/agent.yaml
       contract: 20_AGENTS/META/META-ReversePrompt/contract.yaml
       prompt: 20_AGENTS/META/META-ReversePrompt/prompt.md
-  META-SuperviseurInvisible:
-    display_name: '@META-SuperviseurInvisible'
-    team_id: TEAM__META
-    status: deprecated
-    intents:
-    - audit
-    - qa
-    - governance
-    - consistency
-    paths:
-      agent: 20_AGENTS/META/META-SuperviseurInvisible/agent.yaml
-      contract: 20_AGENTS/META/META-SuperviseurInvisible/contract.yaml
-      prompt: 20_AGENTS/META/META-SuperviseurInvisible/prompt.md
   META-VisionCreative:
     display_name: MCIA — Vision & Créatif (Image/Vidéo)
     team_id: TEAM__META
@@ -553,49 +488,3 @@ catalog:
       agent: 20_AGENTS/OPS/OPS-RouterIA/agent.yaml
       contract: 20_AGENTS/OPS/OPS-RouterIA/contract.yaml
       prompt: 20_AGENTS/OPS/OPS-RouterIA/prompt.md
-  CTL-WatchdogIA:
-    display_name: '@CTL-WatchdogIA'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - health_check
-    - monitor
-    - watchdog
-    - drift_detect
-    - factory_status
-    - agent_scan
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
-      contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
-  CTL-AlertRouter:
-    display_name: '@CTL-AlertRouter'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - alert
-    - escalate
-    - route_alert
-    - incident
-    - notify
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
-      contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
-  CTL-HealthReporter:
-    display_name: '@CTL-HealthReporter'
-    team_id: TEAM__CTL
-    status: active
-    intents:
-    - report
-    - health_report
-    - digest
-    - weekly_report
-    - post_mortem
-    - ctl
-    paths:
-      agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
-      contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
-      prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md

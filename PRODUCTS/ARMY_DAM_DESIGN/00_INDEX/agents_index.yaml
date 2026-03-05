@@ -1,5 +1,5 @@
 schema_version: '1.0'
-generated_at: '2026-02-10T21:43:32.414519'
+generated_at: '2026-03-04T22:01:21.741570'
 agents:
   DAM-Budget:
     display_name: '@DAM-Budget'
@@ -165,24 +165,6 @@ agents:
     - dam
     - qa
     - governance
-  OPS-RouterIA:
-    display_name: '@OPS-RouterIA'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
-    intents:
-    - ops
-    - router
-    - routing
-  OPS-PlaybookRunner:
-    display_name: '@OPS-PlaybookRunner'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
-    intents:
-    - ops
-    - runner
-    - playbook
   OPS-DossierIA:
     display_name: '@OPS-DossierIA'
     team_id: TEAM__OPS
@@ -192,3 +174,21 @@ agents:
     - ops
     - dossier
     - deliverable
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
+    intents:
+    - ops
+    - runner
+    - playbook
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
+    intents:
+    - ops
+    - router
+    - routing

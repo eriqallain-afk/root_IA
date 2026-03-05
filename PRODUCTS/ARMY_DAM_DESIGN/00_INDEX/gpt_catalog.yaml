@@ -1,5 +1,5 @@
 schema_version: '1.0'
-generated_at: '2026-02-10T21:43:32.414529'
+generated_at: '2026-03-04T22:01:21.741582'
 catalog:
   DAM-Budget:
     display_name: '@DAM-Budget'
@@ -222,30 +222,6 @@ catalog:
       agent: agents/DAM-Superviseur/agent.yaml
       contract: agents/DAM-Superviseur/contract.yaml
       prompt: agents/DAM-Superviseur/prompt.md
-  OPS-RouterIA:
-    display_name: '@OPS-RouterIA'
-    team_id: TEAM__OPS
-    status: active
-    intents:
-    - ops
-    - router
-    - routing
-    paths:
-      agent: agents/OPS-RouterIA/agent.yaml
-      contract: agents/OPS-RouterIA/contract.yaml
-      prompt: agents/OPS-RouterIA/prompt.md
-  OPS-PlaybookRunner:
-    display_name: '@OPS-PlaybookRunner'
-    team_id: TEAM__OPS
-    status: active
-    intents:
-    - ops
-    - runner
-    - playbook
-    paths:
-      agent: agents/OPS-PlaybookRunner/agent.yaml
-      contract: agents/OPS-PlaybookRunner/contract.yaml
-      prompt: agents/OPS-PlaybookRunner/prompt.md
   OPS-DossierIA:
     display_name: '@OPS-DossierIA'
     team_id: TEAM__OPS
@@ -258,3 +234,27 @@ catalog:
       agent: agents/OPS-DossierIA/agent.yaml
       contract: agents/OPS-DossierIA/contract.yaml
       prompt: agents/OPS-DossierIA/prompt.md
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - runner
+    - playbook
+    paths:
+      agent: agents/OPS-PlaybookRunner/agent.yaml
+      contract: agents/OPS-PlaybookRunner/contract.yaml
+      prompt: agents/OPS-PlaybookRunner/prompt.md
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
+    team_id: TEAM__OPS
+    status: active
+    intents:
+    - ops
+    - router
+    - routing
+    paths:
+      agent: agents/OPS-RouterIA/agent.yaml
+      contract: agents/OPS-RouterIA/contract.yaml
+      prompt: agents/OPS-RouterIA/prompt.md

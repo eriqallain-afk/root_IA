@@ -5,7 +5,7 @@ Runner: refs + naming.
 [CmdletBinding()]
 param(
   [Parameter(Mandatory=$false)]
-  [string]$RootPath = "C:\Intranet_EA\EA4IA\GPT-Enterprise\root_IA\FACTORY"
+  [string]$RootPath = "C:\Intranet_EA\EA4A\GPT-Enterprise\root_IA\FACTORY"
 )
 
 Set-StrictMode -Version Latest

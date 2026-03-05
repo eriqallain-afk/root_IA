@@ -1,4 +1,19 @@
 agents:
+- actor_id: CTL-AlertRouter
+  team_id: TEAM__CTL
+  name: '@CTL-AlertRouter'
+  status: active
+  path: 00_CONTROL/agents/CTL-AlertRouter
+- actor_id: CTL-HealthReporter
+  team_id: TEAM__CTL
+  name: '@CTL-HealthReporter'
+  status: active
+  path: 00_CONTROL/agents/CTL-HealthReporter
+- actor_id: CTL-WatchdogIA
+  team_id: TEAM__CTL
+  name: '@CTL-WatchdogIA'
+  status: active
+  path: 00_CONTROL/agents/CTL-WatchdogIA
 - actor_id: HUB-AgentMO-MasterOrchestrator
   team_id: TEAM__HUB
   name: '@HUB - AGENT-MO — Master Orchestrator'
@@ -42,7 +57,7 @@ agents:
 - actor_id: HUB-Orchestrator
   team_id: TEAM__HUB
   name: '@HUB-Orchestrator'
-  status: active
+  status: deprecated
   path: 20_AGENTS/HUB/HUB-Orchestrator
 - actor_id: HUB-Router
   team_id: TEAM__HUB
@@ -111,14 +126,19 @@ agents:
   path: 20_AGENTS/META/META-AnalysteBesoinsEquipes
 - actor_id: META-ArchitecteChoix
   team_id: TEAM__META
-  name: '@META-ArchitecteChoix'
-  status: active
+  name: META-ArchitecteChoix
+  status: production
   path: 20_AGENTS/META/META-ArchitecteChoix
 - actor_id: META-CartographeRoles
   team_id: TEAM__META
   name: '@META-CartographeRoles'
   status: active
   path: 20_AGENTS/META/META-CartographeRoles
+- actor_id: META-Concierge
+  team_id: TEAM__META
+  name: '@META-Concierge'
+  status: active
+  path: 20_AGENTS/META/META-ConciergeUX
 - actor_id: META-Concierge
   team_id: TEAM__META
   name: '@META-Concierge'
@@ -136,22 +156,22 @@ agents:
   path: 20_AGENTS/META/META-OrchestrateurCentral
 - actor_id: META-Pedagogie
   team_id: TEAM__META
-  name: '@META-Pedagogie'
+  name: MCIA — Prof (Pédagogie)
   status: active
   path: 20_AGENTS/META/META-Pedagogie
 - actor_id: META-PlaybookBuilder
   team_id: TEAM__META
-  name: '@META-PlaybookBuilder'
-  status: active
+  name: META-PlaybookBuilder
+  status: production
   path: 20_AGENTS/META/META-PlaybookBuilder
 - actor_id: META-PromptMaster
   team_id: TEAM__META
-  name: '@META-PromptMaster'
-  status: active
+  name: META-PromptMaster
+  status: production
   path: 20_AGENTS/META/META-PromptMaster
 - actor_id: META-Redaction
   team_id: TEAM__META
-  name: '@META-Redaction'
+  name: MCIA — Rédaction (Long format)
   status: active
   path: 20_AGENTS/META/META-Redaction
 - actor_id: META-ReversePrompt
@@ -161,7 +181,7 @@ agents:
   path: 20_AGENTS/META/META-ReversePrompt
 - actor_id: META-VisionCreative
   team_id: TEAM__META
-  name: '@META-VisionCreative'
+  name: MCIA — Vision & Créatif (Image/Vidéo)
   status: active
   path: 20_AGENTS/META/META-VisionCreative
 - actor_id: META-WorkflowDesignerEquipes

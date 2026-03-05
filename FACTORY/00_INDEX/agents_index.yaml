@@ -1,499 +1,321 @@
+schema_version: '1.0'
+generated_at: '2026-03-04T22:01:21.445056'
 agents:
-  CTL-AlertRouter:
-    intents:
-    - alert
-    - escalate
-    - route_alert
-    - incident
-    - notify
-    - ctl
-    path: 00_CONTROL/agents/CTL-AlertRouter
-    status: active
-    team: CTL
-  CTL-HealthReporter:
-    intents:
-    - report
-    - health_report
-    - digest
-    - weekly_report
-    - post_mortem
-    - ctl
-    path: 00_CONTROL/agents/CTL-HealthReporter
-    status: active
-    team: CTL
-  CTL-WatchdogIA:
-    intents:
-    - health_check
-    - monitor
-    - watchdog
-    - drift_detect
-    - factory_status
-    - agent_scan
-    - ctl
-    path: 00_CONTROL/agents/CTL-WatchdogIA
-    status: active
-    team: CTL
-  DAM-Budget:
-    description: Estimation budgetaire et analyse des couts en construction/renovation.
-    display_name: DAM-Budget
-    intents:
-    - budget
-    - cout
-    - soumission
-    - estimation
-    status: active
-    team_id: TEAM__DAM
-    team_name: DAM
-  DAM-Conformite:
-    description: Conformite reglementaire (RBQ, code batiment, permis, zonage).
-    display_name: DAM-Conformite
-    intents:
-    - conformite
-    - rbq
-    - code_batiment
-    - permis
-    - zonage
-    status: active
-    team_id: TEAM__DAM
-    team_name: DAM
-  DAM-Orchestrator:
-    description: Orchestrateur equipe DAM - projets construction et renovation.
-    display_name: DAM-Orchestrator
-    intents:
-    - dam
-    - construction
-    - renovation
-    - domiciliaire
-    - projet_maison
-    status: active
-    team_id: TEAM__DAM
-    team_name: DAM
-  EDU-Orchestrator:
-    description: Orchestrateur equipe EDU - evaluation et correction pedagogique.
-    display_name: EDU-Orchestrator
-    intents:
-    - education
-    - ccq
-    - evaluation
-    - correction
-    - reflexion
-    - ethique
-    - devoir
-    status: active
-    team_id: TEAM__EDU
-    team_name: EDU
-  ESPL-PaulLejeuneRadio:
-    description: Chroniques radio Paul Lejeune - histoire du Quebec.
-    display_name: ESPL-PaulLejeuneRadio
-    intents:
-    - paul_lejeune
-    - chronique
-    - histoire_quebec
-    status: active
-    team_id: TEAM__ESPL
-    team_name: ESPL
   HUB-AgentMO-MasterOrchestrator:
-    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch,
-      compilation.'
     display_name: '@HUB - AGENT-MO — Master Orchestrator'
+    team_id: TEAM__HUB
+    team_name: HUB
+    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch, compilation.'
     intents:
     - orchestrate
     - intake
     - dispatch
+  HUB-AgentMO2-DeputyOrchestrator:
+    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-AgentMO2-DeputyOrchestrator:
-    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance
-      modules.'
-    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
+    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance modules.'
     intents:
     - orchestrate
     - qa
     - brief
+  HUB-AvatarForge:
+    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-AvatarForge:
-    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction
-      artistique, déclinaisons).
-    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
+    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction artistique, déclinaisons).
     intents:
     - brand
     - avatar
     - design
     - assets
+  HUB-CoachIA360-Strategie-GPTTeams:
+    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-CoachIA360-Strategie-GPTTeams:
     description: 'Coach stratégie : structuration offres, équipes GPT, roadmap, priorisation.'
-    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
     intents:
     - coach
     - strategy
     - teams
     - roadmap
+  HUB-Concierge:
+    display_name: '@HUB-Concierge'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-Concierge:
     description: Accueil utilisateur, qualification besoin, orientation
-    display_name: '@HUB-Concierge'
     intents:
     - hub
+    - welcome
+    - intake
+    - route_request
+    - clarify_intent
+    - provide_guidance
+  HUB-IA-ChatBotMaster:
+    display_name: '@HUB - IA-ChatBotMaster'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-IA-ChatBotMaster:
-    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices,
-      design conversationnel.'
-    display_name: '@HUB - IA-ChatBotMaster'
+    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices, design conversationnel.'
     intents:
     - chatbot
     - architecture
     - conversation
+  HUB-ITCoachIA360:
+    display_name: '@HUB - IT Coach IA 360'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-ITCoachIA360:
-    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement,
-      adoption.'
-    display_name: '@HUB - IT Coach IA 360'
+    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement, adoption.'
     intents:
     - coach
     - it
     - strategy
     - deployment
+  HUB-OproEngine:
+    display_name: '@HUB-OproEngine'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-OproEngine:
-    description: 'Optimisation prompts : supervise, améliore, standardise et teste
-      les prompts.'
-    display_name: '@HUB-OproEngine'
+    description: 'Optimisation prompts : supervise, améliore, standardise et teste les prompts.'
     intents:
     - prompt
     - optimize
     - standardize
     - qa
+  HUB-Orchestrator:
+    display_name: '@HUB-Orchestrator'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-Orchestrator:
     description: Coordonne les playbooks multi-étapes entre équipes
-    display_name: '@HUB-Orchestrator'
     intents:
     - hub
     - coordonne
+  HUB-Router:
+    display_name: '@HUB-Router'
     team_id: TEAM__HUB
     team_name: HUB
-  HUB-Router:
     description: Analyse l'intent utilisateur et route vers le bon agent/playbook
-    display_name: '@HUB-Router'
     intents:
     - hub
     - analyse
     - route
-    team_id: TEAM__HUB
-    team_name: HUB
   IAHQ-AdminManagerIA:
-    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
     display_name: '@IAHQ-AdminManagerIA'
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
     intents:
     - admin
     - operations
     - offers
     - governance
+  IAHQ-DevFactoryIA:
+    display_name: '@IAHQ-DevFactoryIA'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-DevFactoryIA:
-    description: 'Plan build & déploiement : packaging, intégrations, gouvernance,
-      livraison.'
-    display_name: '@IAHQ-DevFactoryIA'
+    description: 'Plan build & déploiement : packaging, intégrations, gouvernance, livraison.'
     intents:
     - build
     - deployment
     - plan
     - delivery
+  IAHQ-Economist:
+    display_name: '@IAHQ-Economist'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-Economist:
     description: Évalue les coûts/gains, construit business case et ROI.
-    display_name: '@IAHQ-Economist'
     intents:
     - roi
     - cost
     - finance
     - business_case
+  IAHQ-Extractor:
+    display_name: '@IAHQ-Extractor'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-Extractor:
     description: 'Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes.'
-    display_name: '@IAHQ-Extractor'
     intents:
     - extract
     - ingest
     - summarize
     - structure
+  IAHQ-OrchestreurEntrepriseIA:
+    display_name: '@IAHQ-OrchestreurEntrepriseIA'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-OrchestreurEntrepriseIA:
-    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres,
-      roadmap, organisation.'
-    display_name: '@IAHQ-OrchestreurEntrepriseIA'
+    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres, roadmap, organisation.'
     intents:
     - strategy
     - company
     - positioning
     - portfolio
+  IAHQ-ProcessMapper:
+    display_name: '@IAHQ-ProcessMapper'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-ProcessMapper:
-    description: Cartographie les processus métier pour identifier les opportunités
-      d'automatisation IA
-    display_name: '@IAHQ-ProcessMapper'
+    description: Cartographie les processus métier pour identifier les opportunités d'automatisation. Documenter le processus,
+      structurer l’output, optimiser les workflows. IA
     intents:
     - iahq
+    - map_process
+    - identify_workflows
+    - document_steps
+    - analyze_bottlenecks
+    - optimize_flow
+  IAHQ-QualityGate:
+    display_name: '@IAHQ-QualityGate'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-QualityGate:
-    description: 'Porte de qualité de la Factory : vérifie conformité contrat, cohérence,
-      risques et propose correctifs/escalades.'
-    display_name: '@IAHQ-QualityGate'
+    description: 'Porte de qualité de la Factory : vérifie conformité contrat, cohérence, risques et propose correctifs/escalades.'
     intents:
     - qa
     - quality_gate
     - review
     - conformity
     - iahq
+  IAHQ-SolutionOrchestrator:
+    display_name: '@IAHQ-SolutionOrchestrator'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-SolutionOrchestrator:
-    description: 'Orchestrateur solution client : contexte, process, risques, ROI,
-      vision cible.'
-    display_name: '@IAHQ-SolutionOrchestrator'
+    description: 'Orchestrateur solution client : contexte, process, risques, ROI, vision cible.'
     intents:
     - solution
     - architecture
     - client
     - blueprint
+  IAHQ-Strategist:
+    display_name: '@IAHQ-Strategist'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-Strategist:
-    description: Design d'offres et business cases pour projets de transformation
-      IA
-    display_name: '@IAHQ-Strategist'
+    description: Design d'offres et business cases pour projets de transformation IA
     intents:
     - iahq
+    - define_strategy
+    - assess_market
+    - plan_roadmap
+    - evaluate_options
+    - recommend_approach
+  IAHQ-TechLeadIA:
+    display_name: '@IAHQ-TechLeadIA'
     team_id: TEAM__IAHQ
     team_name: IAHQ
-  IAHQ-TechLeadIA:
-    description: 'CTO virtuel : architecture technique, briques IA, intégrations,
-      data, sécurité.'
-    display_name: '@IAHQ-TechLeadIA'
+    description: 'CTO virtuel : architecture technique, briques IA, intégrations, data, sécurité.'
     intents:
     - cto
     - architecture
     - security
     - data
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-  IASM-Orchestrator:
-    description: Orchestrateur IASM - coaching et soutien en sante mentale.
-    display_name: IASM-Orchestrator
-    intents:
-    - coaching
-    - support_emotionnel
-    - aide
-    - ecoute
-    - stress
-    - anxiete
-    status: active
-    team_id: TEAM__IASM
-    team_name: IASM
-  IASM-OutilsTCC:
-    description: Outils TCC - exercices et restructuration cognitive.
-    display_name: IASM-OutilsTCC
-    intents:
-    - tcc
-    - exercice
-    - pensee
-    - restructuration
-    status: active
-    team_id: TEAM__IASM
-    team_name: IASM
-  IASM-Securite:
-    description: Agent de securite pour crises et situations a risque eleve.
-    display_name: IASM-Securite
-    intents:
-    - urgence
-    - crise
-    - danger
-    - suicidaire
-    - automutilation
-    status: active
-    team_id: TEAM__IASM
-    team_name: IASM
-  IT-InterventionLive:
-    description: Suivi en temps reel des interventions techniques sur site.
-    display_name: IT-InterventionLive
-    intents:
-    - intervention_live
-    - suivi_intervention
-    - technicien
-    status: active
-    team_id: TEAM__IT
-    team_name: IT
-  IT-Orchestrator:
-    description: Orchestrateur equipe IT - triage incidents et tickets ConnectWise.
-    display_name: IT-Orchestrator
-    intents:
-    - it
-    - ticket
-    - incident
-    - alerte
-    - noc
-    - support
-    - intervention
-    status: active
-    team_id: TEAM__IT
-    team_name: IT
-  IT-ReportMaster:
-    description: Rapports IT - post-mortem, mensuel, QBR.
-    display_name: IT-ReportMaster
-    intents:
-    - rapport_it
-    - postmortem
-    - mensuel
-    - qbr
-    status: active
-    team_id: TEAM__IT
-    team_name: IT
-  IT-ScriptMaster:
-    description: Generation de scripts PowerShell, Bash et automatisations IT.
-    display_name: IT-ScriptMaster
-    intents:
-    - script
-    - powershell
-    - bash
-    - automation
-    status: active
-    team_id: TEAM__IT
-    team_name: IT
-  META-AgentFactory:
-    description: 'Crée de nouveaux agents complets : agent.yaml + prompt + contrat'
-    display_name: '@META-AgentFactory'
-    intents:
-    - meta
-    - cree
+  META-AgentProductFactory:
+    display_name: '@META-AgentProductFactory'
     team_id: TEAM__META
     team_name: META
+    description: 'Usine à agents root_IA. Industrialise la création de dossiers agents complets (agent.yaml + contract.yaml
+      + prompt.md + tests) à partir d''une spec ou d''un catalogue de rôles. Produit également des Deliverable Packs réutilisables
+      (templates + runbooks + checklists + golden samples) pour tous domaines.
+
+      '
+    intents:
+    - agent_package_create
+    - deliverable_pack_create
+    - agent_validate
+    - contract_adapt
+    - agent_assemble
   META-AnalysteBesoinsEquipes:
-    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
     display_name: '@META-AnalysteBesoinsEquipes'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
     intents:
     - requirements
     - analysis
     - spec
-    team_id: TEAM__META
-    team_name: META
   META-ArchitecteChoix:
-    description: Choisit approche (ML/LLM/RAG/Agent) + MVP vs Prod.
-    display_name: MCIA — Architecte (Choix technique)
+    display_name: META-ArchitecteChoix
+    team_id: TEAM__META
+    team_name: null
+    description: Architecte décisions complexes. Structurer choix avec frameworks, critères pondérés, matrices, scénarios,
+      trade-offs explicites.
     intents:
-    - mcia
-    - architecture
-    - ml
-    - llm
-    - rag
-    - agent
-    - design
+    - meta_decision_architect
+    - meta_decision_evaluate
+    - meta_decision_recommend
+  META-CartographeRoles:
+    display_name: '@META-CartographeRoles'
     team_id: TEAM__META
     team_name: META
-  META-CartographeRoles:
     description: Analyse un domaine et identifie les rôles/agents nécessaires
-    display_name: '@META-CartographeRoles'
     intents:
     - meta
     - analyse
-    team_id: TEAM__META
-    team_name: META
   META-Concierge:
-    description: Accueil utilisateur, qualification besoin, orientation
     display_name: '@META-Concierge'
+    team_id: TEAM__META
+    team_name: META
+    description: Accueil utilisateur, qualification besoin, orientation
     intents:
     - meta
-    team_id: TEAM__META
-    team_name: META
-  META-GouvernanceEtRisques:
-    description: Définit les garde-fous, risques, contrôles et validations humaines
-      pour les équipes/agents.
-    display_name: '@META-GouvernanceEtRisques'
-    intents:
-    - governance
-    - risk
-    - quality
-    team_id: TEAM__META
-    team_name: META
+    - meta_welcome
+    - meta_guidance
+    - route_meta_request
+    - explain_factory
+    - assist_agent_creation
   META-GouvernanceQA:
-    description: Audite les agents, prompts et playbooks pour qualité et conformité
     display_name: '@META-GouvernanceQA'
+    team_id: TEAM__META
+    team_name: META
+    description: Audite les agents, prompts et playbooks pour qualité et conformité
     intents:
     - meta
-    team_id: TEAM__META
-    team_name: META
-  META-Opromptimizer:
-    description: 'Prompt engineering : conçoit/évalue/optimise prompts et standards
-      machine.'
-    display_name: '@META-Opromptimizer'
-    intents:
-    - prompt
-    - engineering
-    - optimize
-    team_id: TEAM__META
-    team_name: META
+    - audit_quality
+    - validate_compliance
+    - check_standards
+    - assess_risk
+    - approve_release
   META-OrchestrateurCentral:
-    description: 'Orchestrateur usine à armées : transforme demande en plan complet
-      (teams, agents, runbooks).'
     display_name: '@META-OrchestrateurCentral'
+    team_id: TEAM__META
+    team_name: META
+    description: 'Orchestrateur usine à armées : transforme demande en plan complet (teams, agents, runbooks).'
     intents:
     - army_factory
     - design
     - orchestrate
+  META-Pedagogie:
+    display_name: MCIA — Prof (Pédagogie)
     team_id: TEAM__META
     team_name: META
-  META-Pedagogie:
     description: Explique en ordre + exemples + exercices + tests.
-    display_name: MCIA — Prof (Pédagogie)
     intents:
     - mcia
     - education
     - teach_ai
     - course
     - exercise
-    team_id: TEAM__META
-    team_name: META
   META-PlaybookBuilder:
-    description: Crée et maintient les playbooks (workflows multi-agents)
-    display_name: '@META-PlaybookBuilder'
-    intents:
-    - meta
-    - cree
+    display_name: META-PlaybookBuilder
     team_id: TEAM__META
-    team_name: META
-  META-PromptArchitectEquipes:
-    description: Structure et standardise les prompts des agents (format machine,
-      constraints, DoD).
-    display_name: '@META-PromptArchitectEquipes'
+    team_name: null
+    description: Créer playbooks opérationnels professionnels. Transforme workflows conceptuels en guides étape par étape
+      exécutables.
     intents:
-    - prompt
-    - architecture
-    - standardization
-    team_id: TEAM__META
-    team_name: META
+    - meta_playbook_create
+    - meta_playbook_optimize
+    - meta_playbook_validate
+    - meta_playbook_version
   META-PromptMaster:
-    description: 'Expert prompt engineering : design, optimisation, test de prompts'
-    display_name: '@META-PromptMaster'
+    display_name: META-PromptMaster
+    team_id: TEAM__META
+    team_name: null
+    description: Expert absolu prompt engineering. Crée, optimise et valide prompts professionnels quality 9+. Fusion excellence
+      pédagogique MCIA + rigueur META.
     intents:
-    - meta
+    - meta_prompt_create
+    - meta_prompt_optimize
+    - meta_prompt_validate
+    - meta_prompt_teach
+  META-Redaction:
+    display_name: MCIA — Rédaction (Long format)
     team_id: TEAM__META
     team_name: META
-  META-Redaction:
     description: Produit contenu long structuré + glossaire + ton constant.
-    display_name: MCIA — Rédaction (Long format)
     intents:
     - mcia
     - writing
@@ -501,29 +323,19 @@ agents:
     - book
     - email
     - documentation
+  META-ReversePrompt:
+    display_name: '@META-ReversePrompt'
     team_id: TEAM__META
     team_name: META
-  META-ReversePrompt:
     description: Analyse un GPT existant et en extrait le prompt/la logique
-    display_name: '@META-ReversePrompt'
     intents:
     - meta
     - analyse
-    team_id: TEAM__META
-    team_name: META
-  META-SuperviseurInvisible:
-    description: 'Audit cohérence : architecture, rôles, prompts, workflows, routing.'
-    display_name: '@META-SuperviseurInvisible'
-    intents:
-    - audit
-    - qa
-    - governance
-    - consistency
-    team_id: TEAM__META
-    team_name: META
   META-VisionCreative:
-    description: Pipeline créatif (diffusion/contrôle) + itération.
     display_name: MCIA — Vision & Créatif (Image/Vidéo)
+    team_id: TEAM__META
+    team_name: META
+    description: Pipeline créatif (diffusion/contrôle) + itération.
     intents:
     - mcia
     - assets
@@ -531,47 +343,22 @@ agents:
     - image
     - video
     - creative
+  META-WorkflowDesignerEquipes:
+    display_name: '@META-WorkflowDesignerEquipes'
     team_id: TEAM__META
     team_name: META
-  META-WorkflowDesignerEquipes:
-    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles,
-      handoffs).
-    display_name: '@META-WorkflowDesignerEquipes'
+    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles, handoffs).
     intents:
     - workflow
     - process
     - mapping
-    team_id: TEAM__META
-    team_name: META
-  NEA-Imagier:
-    description: Illustration et brief image pour publications NEA.
-    display_name: NEA-Imagier
-    intents:
-    - illustration
-    - image
-    - visuel
-    - brief_image
-    status: active
-    team_id: TEAM__NEA
-    team_name: NEA
-  NEA-Orchestrator:
-    description: Orchestrateur NEA - livres, recueils et publications.
-    display_name: NEA-Orchestrator
-    intents:
-    - livre
-    - recueil
-    - publishing
-    - ecriture
-    - redaction
-    status: active
-    team_id: TEAM__NEA
-    team_name: NEA
   OPS-DossierIA:
-    description: Hub mémoire persistant de la Factory. Il crée et maintient des dossiers
-      d’exécution structurés, archive les inputs/outputs/logs à chaque step et produit
-      un export audit-ready. Il supporte aussi une recherche sur l’historique des
-      dossiers avec score de pertinence.
     display_name: '@OPS-DossierIA'
+    team_id: TEAM__OPS
+    team_name: OPS
+    description: Hub mémoire persistant de la Factory. Il crée et maintient des dossiers d’exécution structurés, archive les
+      inputs/outputs/logs à chaque step et produit un export audit-ready. Il supporte aussi une recherche sur l’historique
+      des dossiers avec score de pertinence.
     intents:
     - archive
     - audit
@@ -579,92 +366,28 @@ agents:
     - memory
     - ops
     - search
+  OPS-PlaybookRunner:
+    display_name: '@OPS-PlaybookRunner'
     team_id: TEAM__OPS
     team_name: OPS
-  OPS-PlaybookRunner:
-    description: Exécuteur de playbooks de la Factory. Il initialise un run, exécute
-      les steps dans l’ordre (ou selon parallélisation autorisée), applique les politiques
-      d’échec (retry/skip/abort), et compile un livrable final. Il supporte l’arrêt
-      et la reprise avec un journal d’exécution complet.
-    display_name: '@OPS-PlaybookRunner'
+    description: Exécuteur de playbooks de la Factory. Il initialise un run, exécute les steps dans l’ordre (ou selon parallélisation
+      autorisée), applique les politiques d’échec (retry/skip/abort), et compile un livrable final. Il supporte l’arrêt et
+      la reprise avec un journal d’exécution complet.
     intents:
     - execute_workflow
     - ops
     - orchestration_runtime
     - run_playbook
+  OPS-RouterIA:
+    display_name: '@OPS-RouterIA'
     team_id: TEAM__OPS
     team_name: OPS
-  OPS-RouterIA:
-    description: Moteur de routage technique de la Factory. Il détecte l’intent d’une
-      requête et la route vers l’agent ou le playbook adéquat en s’appuyant sur la
-      table de routage et l’index d’agents. Il fournit une décision de routage traçable
+    description: Moteur de routage technique de la Factory. Il détecte l’intent d’une requête et la route vers l’agent ou
+      le playbook adéquat en s’appuyant sur la table de routage et l’index d’agents. Il fournit une décision de routage traçable
       avec un niveau de confiance et un mécanisme de fallback.
-    display_name: '@OPS-RouterIA'
     intents:
     - classify
     - dispatch
     - intent_detection
     - ops
     - route
-    team_id: TEAM__OPS
-    team_name: OPS
-  PLR-Orchestrator:
-    description: Orchestrateur PLR - radio, podcast et episodes.
-    display_name: PLR-Orchestrator
-    intents:
-    - radio
-    - podcast
-    - episode
-    - script_radio
-    status: active
-    team_id: TEAM__PLR
-    team_name: PLR
-  TRAD-CommandCore:
-    description: Intelligence strategique - analyse marche, cyber, geopolitique.
-    display_name: TRAD-CommandCore
-    intents:
-    - intel
-    - intelligence
-    - marche
-    - crypto
-    - cyber
-    - geopolitique
-    - analyse_strategique
-    status: active
-    team_id: TEAM__TRAD
-    team_name: TRAD
-  TRAD-CryptoAnalyst:
-    description: Analyse crypto, Bitcoin, DeFi, blockchain.
-    display_name: TRAD-CryptoAnalyst
-    intents:
-    - crypto
-    - bitcoin
-    - defi
-    - blockchain
-    status: active
-    team_id: TEAM__TRAD
-    team_name: TRAD
-  TRAD-CyberWatch:
-    description: Surveillance cybersecurite - menaces, vulnerabilites, ransomware.
-    display_name: TRAD-CyberWatch
-    intents:
-    - cybersecurite
-    - menace
-    - vulnerability
-    - ransomware
-    status: active
-    team_id: TEAM__TRAD
-    team_name: TRAD
-  TRAD-MarketAnalyst:
-    description: Analyse marches financiers, bourse, economie.
-    display_name: TRAD-MarketAnalyst
-    intents:
-    - marche
-    - bourse
-    - finance
-    - economie
-    status: active
-    team_id: TEAM__TRAD
-    team_name: TRAD
-generated_at: '2026-02-26T23:25:49.301212'
-schema_version: '1.0'
