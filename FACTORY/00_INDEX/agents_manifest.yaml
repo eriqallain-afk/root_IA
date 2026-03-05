@@ -46,6 +46,11 @@ agents:
   name: ITCoach IA360
   status: active
   path: FACTORY/20_AGENTS/HUB/HUB-ITCoachIA360
+  - actor_id: HUB-Concierge
+  team_id: TEAM__HUB
+  name: Concierge
+  status: active
+  path: FACTORY/20_AGENTS/HUB/HUB-concierge
 - actor_id: HUB-OproEngine
   team_id: TEAM__HUB
   name: Opro Engine
