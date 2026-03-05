@@ -80,23 +80,6 @@ agents:
     - optimize
     - standardize
     - qa
-  HUB-Orchestrator:
-    display_name: '@HUB-Orchestrator'
-    team_id: TEAM__HUB
-    team_name: HUB
-    description: Coordonne les playbooks multi-étapes entre équipes
-    intents:
-    - hub
-    - coordonne
-  HUB-Router:
-    display_name: '@HUB-Router'
-    team_id: TEAM__HUB
-    team_name: HUB
-    description: Analyse l'intent utilisateur et route vers le bon agent/playbook
-    intents:
-    - hub
-    - analyse
-    - route
   IAHQ-AdminManagerIA:
     display_name: '@IAHQ-AdminManagerIA'
     team_id: TEAM__IAHQ
