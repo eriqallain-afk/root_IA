@@ -66,6 +66,11 @@ agents:
   name: Dev Factory IA
   status: active
   path: FACTORY/20_AGENTS/IAHQ/IAHQ-DevFactoryIA
+  - actor_id: IAHQ-QualityGate
+  team_id: TEAM__IAHQ
+  name: Quality Gate
+  status: active
+  path: FACTORY/20_AGENTS/IAHQ/IAHQ-QualityGate
 - actor_id: IAHQ-Economist
   team_id: TEAM__IAHQ
   name: Economist
