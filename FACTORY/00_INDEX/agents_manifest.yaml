@@ -16,6 +16,7 @@ agents:
   name: Health Reporter
   status: active
   path: 00_CONTROL/agents/CTL-HealthReporter
+
 - actor_id: HUB-AgentMO-MasterOrchestrator
   team_id: TEAM__HUB
   name: Master Orchestrator
@@ -43,14 +44,14 @@ agents:
   path: FACTORY/20_AGENTS/HUB/HUB-IA-ChatBotMaster
 - actor_id: HUB-ITCoachIA360
   team_id: TEAM__HUB
-  name: ITCoach IA360
+  name: IT Coach IA360
   status: active
   path: FACTORY/20_AGENTS/HUB/HUB-ITCoachIA360
-  - actor_id: HUB-Concierge
+- actor_id: HUB-Concierge
   team_id: TEAM__HUB
   name: Concierge
   status: active
-  path: FACTORY/20_AGENTS/HUB/HUB-concierge
+  path: FACTORY/20_AGENTS/HUB/HUB-Concierge
 - actor_id: HUB-OproEngine
   team_id: TEAM__HUB
   name: Opro Engine
@@ -66,7 +67,7 @@ agents:
   name: Dev Factory IA
   status: active
   path: FACTORY/20_AGENTS/IAHQ/IAHQ-DevFactoryIA
-  - actor_id: IAHQ-QualityGate
+- actor_id: IAHQ-QualityGate
   team_id: TEAM__IAHQ
   name: Quality Gate
   status: active
@@ -102,6 +103,84 @@ agents:
   status: active
   path: FACTORY/20_AGENTS/IAHQ/IAHQ-TechLeadIA
 
+- actor_id: META-ArchitecteChoix
+  team_id: TEAM__META
+  name: Architecte Choix
+  status: active
+  path: FACTORY/20_AGENTS/META/META-ArchitecteChoix
+- actor_id: META-Pedagogie
+  team_id: TEAM__META
+  name: Pedagogie
+  status: active
+  path: FACTORY/20_AGENTS/META/META-Pedagogie
+- actor_id: META-PromptMaster
+  team_id: TEAM__META
+  name: Prompting
+  status: active
+  path: FACTORY/20_AGENTS/META/META-PromptMaster
+- actor_id: META-Redaction
+  team_id: TEAM__META
+  name: Redaction
+  status: active
+  path: FACTORY/20_AGENTS/META/META-Redaction
+
+
+- actor_id: META-VisionCreative
+  team_id: TEAM__META
+  name: Vision Creative
+  status: active
+  path: FACTORY/20_AGENTS/META/META-VisionCreative
+- actor_id: META-AnalysteBesoinsEquipes
+  team_id: TEAM__META
+  name: Analyste Besoins Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-AnalysteBesoinsEquipes
+- actor_id: META-CartographeRoles
+  team_id: TEAM__META
+  name: Cartographe Roles
+  status: active
+  path: FACTORY/20_AGENTS/META/META-CartographeRoles
+- actor_id: META-GouvernanceQA
+  team_id: TEAM__META
+  name: Gouvernance Et Risques
+  status: active
+  path: FACTORY/20_AGENTS/META/META-GouvernanceQA
+- actor_id: META-Concierge
+  team_id: TEAM__META
+  name: Concierge
+  status: active
+  path: FACTORY/20_AGENTS/META/META-Concierge
+- actor_id: META-ConciergeUX
+  team_id: TEAM__META
+  name: ConciergeUX
+  status: active
+  path: FACTORY/20_AGENTS/META/META-ConciergeUX  
+- actor_id: META-OrchestrateurCentral
+  team_id: TEAM__META
+  name: Orchestrateur Central
+  status: active
+  path: FACTORY/20_AGENTS/META/META-OrchestrateurCentral
+- actor_id: META-PlaybookBuilder
+  team_id: TEAM__META
+  name: Playbook Builder
+  status: active
+  path: FACTORY/20_AGENTS/META/META-PlaybookBuilder
+- actor_id: META-PromptArchitectEquipes
+  team_id: TEAM__META
+  name: Prompt Architect Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-PromptArchitectEquipes
+- actor_id: META-ReversePrompt
+  team_id: TEAM__META
+  name: Reverse Prompt
+  status: active
+  path: FACTORY/20_AGENTS/META/META-ReversePrompt
+- actor_id: META-WorkflowDesignerEquipes
+  team_id: TEAM__META
+  name: Workflow Designer Equipes
+  status: active
+  path: FACTORY/20_AGENTS/META/META-WorkflowDesignerEquipes
+ 
 - actor_id: IT-AssetMaster
   team_id: TEAM__IT
   name: Asset Master
@@ -227,86 +306,7 @@ agents:
   name: Vo IPMaster
   status: active
   path: FACTORY/20_AGENTS/IT/IT-VoIPMaster
-- actor_id: MCIA-Architecte
-  team_id: TEAM__MCIA
-  name: Architecte
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Architecte
-- actor_id: MCIA-Prof
-  team_id: TEAM__MCIA
-  name: Prof
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Prof
-- actor_id: MCIA-Prompting
-  team_id: TEAM__MCIA
-  name: Prompting
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Prompting
-- actor_id: MCIA-Redaction
-  team_id: TEAM__MCIA
-  name: Redaction
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Redaction
-- actor_id: MCIA-Verificateur
-  team_id: TEAM__MCIA
-  name: Verificateur
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Verificateur
-- actor_id: MCIA-Vision
-  team_id: TEAM__MCIA
-  name: Vision
-  status: active
-  path: FACTORY/20_AGENTS/MCIA/MCIA-Vision
-- actor_id: META-AnalysteBesoinsEquipes
-  team_id: TEAM__META
-  name: Analyste Besoins Equipes
-  status: active
-  path: FACTORY/20_AGENTS/META/META-AnalysteBesoinsEquipes
-- actor_id: META-CartographeRoles
-  team_id: TEAM__META
-  name: Cartographe Roles
-  status: active
-  path: FACTORY/20_AGENTS/META/META-CartographeRoles
-- actor_id: META-GouvernanceEtRisques
-  team_id: TEAM__META
-  name: Gouvernance Et Risques
-  status: active
-  path: FACTORY/20_AGENTS/META/META-GouvernanceEtRisques
-- actor_id: META-Opromptimizer
-  team_id: TEAM__META
-  name: Opromptimizer
-  status: active
-  path: FACTORY/20_AGENTS/META/META-Opromptimizer
-- actor_id: META-OrchestrateurCentral
-  team_id: TEAM__META
-  name: Orchestrateur Central
-  status: active
-  path: FACTORY/20_AGENTS/META/META-OrchestrateurCentral
-- actor_id: META-PlaybookBuilder
-  team_id: TEAM__META
-  name: Playbook Builder
-  status: active
-  path: FACTORY/20_AGENTS/META/META-PlaybookBuilder
-- actor_id: META-PromptArchitectEquipes
-  team_id: TEAM__META
-  name: Prompt Architect Equipes
-  status: active
-  path: FACTORY/20_AGENTS/META/META-PromptArchitectEquipes
-- actor_id: META-ReversePrompt
-  team_id: TEAM__META
-  name: Reverse Prompt
-  status: active
-  path: FACTORY/20_AGENTS/META/META-ReversePrompt
-- actor_id: META-SuperviseurInvisible
-  team_id: TEAM__META
-  name: Superviseur Invisible
-  status: active
-  path: FACTORY/20_AGENTS/META/META-SuperviseurInvisible
-- actor_id: META-WorkflowDesignerEquipes
-  team_id: TEAM__META
-  name: Workflow Designer Equipes
-  status: active
-  path: FACTORY/20_AGENTS/META/META-WorkflowDesignerEquipes
+ 
 - actor_id: NEA-Archiviste
   team_id: TEAM__NEA
   name: Archiviste

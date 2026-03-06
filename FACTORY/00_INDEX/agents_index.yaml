@@ -193,8 +193,6 @@ agents:
     description: 'Usine à agents root_IA. Industrialise la création de dossiers agents complets (agent.yaml + contract.yaml
       + prompt.md + tests) à partir d''une spec ou d''un catalogue de rôles. Produit également des Deliverable Packs réutilisables
       (templates + runbooks + checklists + golden samples) pour tous domaines.
-
-      '
     intents:
     - agent_package_create
     - deliverable_pack_create
@@ -213,7 +211,7 @@ agents:
   META-ArchitecteChoix:
     display_name: META-ArchitecteChoix
     team_id: TEAM__META
-    team_name: null
+    team_name: META
     description: Architecte décisions complexes. Structurer choix avec frameworks, critères pondérés, matrices, scénarios,
       trade-offs explicites.
     intents:
@@ -233,6 +231,18 @@ agents:
     team_id: TEAM__META
     team_name: META
     description: Accueil utilisateur, qualification besoin, orientation
+    intents:
+    - meta
+    - meta_welcome
+    - meta_guidance
+    - route_meta_request
+    - explain_factory
+    - assist_agent_creation
+  META-ConciergeUX:
+    display_name: '@META-ConciergeUX'
+    team_id: TEAM__META
+    team_name: META
+    description: Accueil utilisateur nFriendly, qualification besoin, orientation
     intents:
     - meta
     - meta_welcome
@@ -262,7 +272,7 @@ agents:
     - design
     - orchestrate
   META-Pedagogie:
-    display_name: MCIA — Prof (Pédagogie)
+    display_name: '@META-Pedagogie'
     team_id: TEAM__META
     team_name: META
     description: Explique en ordre + exemples + exercices + tests.
@@ -273,9 +283,9 @@ agents:
     - course
     - exercise
   META-PlaybookBuilder:
-    display_name: META-PlaybookBuilder
+    display_name: '@META-PlaybookBuilder'
     team_id: TEAM__META
-    team_name: null
+    team_name: META
     description: Créer playbooks opérationnels professionnels. Transforme workflows conceptuels en guides étape par étape
       exécutables.
     intents:
@@ -284,9 +294,9 @@ agents:
     - meta_playbook_validate
     - meta_playbook_version
   META-PromptMaster:
-    display_name: META-PromptMaster
+    display_name: '@META-PromptMaster'
     team_id: TEAM__META
-    team_name: null
+    team_name: META
     description: Expert absolu prompt engineering. Crée, optimise et valide prompts professionnels quality 9+. Fusion excellence
       pédagogique MCIA + rigueur META.
     intents:
@@ -295,7 +305,7 @@ agents:
     - meta_prompt_validate
     - meta_prompt_teach
   META-Redaction:
-    display_name: MCIA — Rédaction (Long format)
+    display_name: '@META-Redaction'
     team_id: TEAM__META
     team_name: META
     description: Produit contenu long structuré + glossaire + ton constant.
@@ -315,7 +325,7 @@ agents:
     - meta
     - analyse
   META-VisionCreative:
-    display_name: MCIA — Vision & Créatif (Image/Vidéo)
+    display_name: '@META-VisionCreative'
     team_id: TEAM__META
     team_name: META
     description: Pipeline créatif (diffusion/contrôle) + itération.
