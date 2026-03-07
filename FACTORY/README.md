@@ -26,9 +26,10 @@ FACTORY/
 ├── 00_INDEX/            ← 13 fichiers index (source de vérité)
 ├── 10_TEAMS/            ← Définitions des 4 équipes core
 ├── 20_AGENTS/           ← 39 agents organisés par équipe
-│   ├── HUB/             ← 10 agents — Orchestration centrale
+│   ├── HUB/             ← 8 agents — Orchestration centrale
 │   ├── IAHQ/            ← 10 agents — Stratégie entreprise
-│   ├── META/            ← 16 agents — Fabrication d'agents
+│   ├── META/            ← 15 agents — Fabrication d'agents
+│   ├── CTL/             ← 3 agents — Surveillance en continu
 │   └── OPS/             ←  3 agents — Opérations & routage
 ├── 30_PLAYBOOKS/        ← Pipelines d'exécution multi-agents
 ├── 40_ROUTING/          ← Table de routage intents → acteurs
@@ -53,7 +54,7 @@ Standard de structure → `FACTORY/90_KNOWLEDGE/TEMPLATES/META-PROMPT-STYLE-GUID
 
 ---
 
-## Les 4 équipes core
+## Les 5 équipes core
 
 ### TEAM__HUB — Orchestration centrale (10 agents)
 
@@ -85,6 +86,7 @@ Standard de structure → `FACTORY/90_KNOWLEDGE/TEMPLATES/META-PROMPT-STYLE-GUID
 | `META-ArchitecteChoix` | Aide à la décision architecturale |
 | `META-ReversePrompt` | Rétro-ingénierie de GPTs existants |
 | `META-Concierge` | Accueil spécialisé demandes META |
+| `META-ConciergeUX` | Accueil conversationnel spécialisé demandes META |
 | `META-Pedagogie` | Contenu pédagogique et formation |
 | `META-Redaction` | Rédaction documents et livrables |
 | `META-VisionCreative` | Vision créative et storytelling IA |
@@ -111,8 +113,16 @@ Standard de structure → `FACTORY/90_KNOWLEDGE/TEMPLATES/META-PROMPT-STYLE-GUID
 | `OPS-RouterIA` | Intent → dispatch vers agent/playbook adéquat |
 | `OPS-PlaybookRunner` | Exécution séquentielle des playbooks |
 | `OPS-DossierIA` | Mémoire persistante, archivage, traçabilité |
-
 > Ces 3 agents sont invoqués dans **chaque** pipeline. Leur prompt est critique.
+
+### TEAM__OPS — Moteur d'exécution (3 agents) — critiques
+
+| Agent | Mission |
+|-------|---------|
+| `CTL-AlertRouter` | Centrale d'alertes de la FACTORY |
+| `CTL-HealthReporter` | Journaliste de la FACTORY |
+| `OCTL-WatchdogIA` | Gardien de la FACTORY |
+
 
 ---
 

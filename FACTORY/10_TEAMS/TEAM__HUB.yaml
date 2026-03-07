@@ -9,14 +9,13 @@ agents_count: 10
 key_agents:
   - HUB-AgentMO-MasterOrchestrator
   - HUB-AgentMO2-DeputyOrchestrator
-  - HUB-Router
   - HUB-Concierge
   - HUB-OproEngine
   - HUB-AvatarForge
   - HUB-CoachIA360-Strategie-GPTTeams
   - HUB-IA-ChatBotMaster
   - HUB-ITCoachIA360
-  - HUB-Orchestrator
+ 
 
 capabilities:
   - Intake et qualification des demandes

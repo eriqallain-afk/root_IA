@@ -57,6 +57,7 @@ agents:
   name: Opro Engine
   status: active
   path: FACTORY/20_AGENTS/HUB/HUB-OproEngine
+
 - actor_id: IAHQ-AdminManagerIA
   team_id: TEAM__IAHQ
   name: Admin Manager IA
@@ -123,8 +124,6 @@ agents:
   name: Redaction
   status: active
   path: FACTORY/20_AGENTS/META/META-Redaction
-
-
 - actor_id: META-VisionCreative
   team_id: TEAM__META
   name: Vision Creative

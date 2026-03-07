@@ -1,4 +1,6 @@
-# Playbooks — Root IA v3
+# Pschema_version: '1.0'
+generated_at: '2026-02-01T18:47:04Z'
+playbooks:laybooks — Root IA v3
 # Chaque playbook est un workflow multi-agents
 
 playbooks:

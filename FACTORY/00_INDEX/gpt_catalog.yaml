@@ -104,29 +104,7 @@ catalog:
       agent: 20_AGENTS/HUB/HUB-OproEngine/agent.yaml
       contract: 20_AGENTS/HUB/HUB-OproEngine/contract.yaml
       prompt: 20_AGENTS/HUB/HUB-OproEngine/prompt.md
-  HUB-Orchestrator:
-    display_name: '@HUB-Orchestrator'
-    team_id: TEAM__HUB
-    status: deprecated
-    intents:
-    - hub
-    - coordonne
-    paths:
-      agent: 20_AGENTS/HUB/HUB-Orchestrator/agent.yaml
-      contract: 20_AGENTS/HUB/HUB-Orchestrator/contract.yaml
-      prompt: 20_AGENTS/HUB/HUB-Orchestrator/prompt.md
-  HUB-Router:
-    display_name: '@HUB-Router'
-    team_id: TEAM__HUB
-    status: active
-    intents:
-    - hub
-    - analyse
-    - route
-    paths:
-      agent: 20_AGENTS/HUB/HUB-Router/agent.yaml
-      contract: 20_AGENTS/HUB/HUB-Router/contract.yaml
-      prompt: 20_AGENTS/HUB/HUB-Router/prompt.md
+
   IAHQ-AdminManagerIA:
     display_name: '@IAHQ-AdminManagerIA'
     team_id: TEAM__IAHQ
