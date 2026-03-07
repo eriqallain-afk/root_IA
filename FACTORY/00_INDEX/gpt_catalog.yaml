@@ -1,6 +1,44 @@
 schema_version: '1.0'
 generated_at: '2026-03-04T22:01:21.445082'
 catalog:
+  CTL-AlertRouter:
+    display_name: '@CTL-AlertRouter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - alert
+    - escalate
+    - route_alert
+    paths:
+      agent: 00_CONTROL\agents\CTL-AlertRouter/agent.yaml
+      contract: 00_CONTROL\agents\CTL-AlertRouter/contract.yaml
+      prompt: 00_CONTROL\agents\CTL-AlertRouter/prompt.md
+  CTL-HealthReporter:
+    display_name: '@CTL-HealthReporter'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - report
+    - health_report
+    - digest
+    paths:
+      agent: 00_CONTROL\agents\CTL-HealthReporter/agent.yaml
+      contract: 00_CONTROL\agents\CTL-HealthReporter/contract.yaml
+      prompt: 00_CONTROL\agents\CTL-HealthReporter/prompt.md
+  CTL-WatchdogIA:
+    display_name: '@CTL-WatchdogIA'
+    team_id: TEAM__CTL
+    status: active
+    intents:
+    - health_check
+    - monitor
+    - watchdog
+    - drift_detect
+    - factory_status
+    paths:
+      agent: 00_CONTROL\agents\CTL-WatchdogIA/agent.yaml
+      contract: 00_CONTROL\agents\CTL-WatchdogIA/contract.yaml
+      prompt: 00_CONTROL\agents\CTL-WatchdogIA/prompt.md
   HUB-AgentMO-MasterOrchestrator:
     display_name: '@HUB - AGENT-MO — Master Orchestrator'
     team_id: TEAM__HUB
@@ -104,7 +142,6 @@ catalog:
       agent: 20_AGENTS/HUB/HUB-OproEngine/agent.yaml
       contract: 20_AGENTS/HUB/HUB-OproEngine/contract.yaml
       prompt: 20_AGENTS/HUB/HUB-OproEngine/prompt.md
-
   IAHQ-AdminManagerIA:
     display_name: '@IAHQ-AdminManagerIA'
     team_id: TEAM__IAHQ
@@ -304,6 +341,22 @@ catalog:
       agent: 20_AGENTS/META/META-Concierge/agent.yaml
       contract: 20_AGENTS/META/META-Concierge/contract.yaml
       prompt: 20_AGENTS/META/META-Concierge/prompt.md
+  META-ConciergeUX:
+    display_name: '@META-ConciergeUX'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - conversational_design
+    - meta_welcome
+    - meta_guidance
+    - route_meta_request
+    - explain_factory
+    - assist_agent_creation
+    paths:
+      agent: 20_AGENTS/META/META-ConciergeUX/agent.yaml
+      contract: 20_AGENTS/META/META-ConciergeUX/contract.yaml
+      prompt: 20_AGENTS/META/META-ConciergeUX/prompt.md
   META-GouvernanceQA:
     display_name: '@META-GouvernanceQA'
     team_id: TEAM__META

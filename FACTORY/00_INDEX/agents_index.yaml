@@ -1,357 +1,127 @@
 schema_version: '1.0'
-generated_at: '2026-03-04T22:01:21.445056'
+generated_at: '2026-03-07T13:54:21.445056'
 agents:
+  CTL-AlertRouter:
+    intents:
+    - alert
+    - escalate
+    - route_alert
+    - incident
+    - notify
+    - ctl
+    path: 00_CONTROL/agents/CTL-AlertRouter
+    status: active
+    team: CTL
+  CTL-HealthReporter:
+    intents:
+    - report
+    - health_report
+    - digest
+    - weekly_report
+    - post_mortem
+    - ctl
+    path: 00_CONTROL/agents/CTL-HealthReporter
+    status: active
+    team: CTL
+  CTL-WatchdogIA:
+    intents:
+    - health_check
+    - monitor
+    - watchdog
+    - drift_detect
+    - factory_status
+    - agent_scan
+    - ctl
+    path: 00_CONTROL/agents/CTL-WatchdogIA
+    status: active
+    team: CTL
+
   HUB-AgentMO-MasterOrchestrator:
+    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch,
+      compilation.'
     display_name: '@HUB - AGENT-MO — Master Orchestrator'
-    team_id: TEAM__HUB
-    team_name: HUB
-    description: 'Orchestrateur central des équipes IA : intake, mapping, dispatch, compilation.'
     intents:
     - orchestrate
     - intake
     - dispatch
-  HUB-AgentMO2-DeputyOrchestrator:
-    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
     team_id: TEAM__HUB
     team_name: HUB
-    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance modules.'
+  HUB-AgentMO2-DeputyOrchestrator:
+    description: 'Adjoint orchestration : préparation brief, QA cohérence, relance
+      modules.'
+    display_name: '@HUB - AGENT-MO2 — Deputy Orchestrator'
     intents:
     - orchestrate
     - qa
     - brief
-  HUB-AvatarForge:
-    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
     team_id: TEAM__HUB
     team_name: HUB
-    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction artistique, déclinaisons).
+  HUB-AvatarForge:
+    description: Crée avatars & assets visuels cohérents pour une armée de GPT (direction
+      artistique, déclinaisons).
+    display_name: '@HUB - AvatarForge (Avatars & Brand GPT)'
     intents:
     - brand
     - avatar
     - design
     - assets
-  HUB-CoachIA360-Strategie-GPTTeams:
-    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
     team_id: TEAM__HUB
     team_name: HUB
+  HUB-CoachIA360-Strategie-GPTTeams:
     description: 'Coach stratégie : structuration offres, équipes GPT, roadmap, priorisation.'
+    display_name: '@HUB - Coach IA 360 (Stratégie, GPT-TEAMS)'
     intents:
     - coach
     - strategy
     - teams
     - roadmap
-  HUB-Concierge:
-    display_name: '@HUB-Concierge'
     team_id: TEAM__HUB
     team_name: HUB
+  HUB-Concierge:
     description: Accueil utilisateur, qualification besoin, orientation
+    display_name: '@HUB-Concierge'
     intents:
     - hub
-    - welcome
-    - intake
-    - route_request
-    - clarify_intent
-    - provide_guidance
-  HUB-IA-ChatBotMaster:
-    display_name: '@HUB - IA-ChatBotMaster'
     team_id: TEAM__HUB
     team_name: HUB
-    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices, design conversationnel.'
+  HUB-IA-ChatBotMaster:
+    description: 'Architecte chatbots & GPT interconnectés : patterns, best practices,
+      design conversationnel.'
+    display_name: '@HUB - IA-ChatBotMaster'
     intents:
     - chatbot
     - architecture
     - conversation
-  HUB-ITCoachIA360:
-    display_name: '@HUB - IT Coach IA 360'
     team_id: TEAM__HUB
     team_name: HUB
-    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement, adoption.'
+  HUB-ITCoachIA360:
+    description: 'Coach IA 360 pour pros IT : compréhension, conception, déploiement,
+      adoption.'
+    display_name: '@HUB - IT Coach IA 360'
     intents:
     - coach
     - it
     - strategy
     - deployment
-  HUB-OproEngine:
-    display_name: '@HUB-OproEngine'
     team_id: TEAM__HUB
     team_name: HUB
-    description: 'Optimisation prompts : supervise, améliore, standardise et teste les prompts.'
+  HUB-OproEngine:
+    description: 'Optimisation prompts : supervise, améliore, standardise et teste
+      les prompts.'
+    display_name: '@HUB-OproEngine'
     intents:
     - prompt
     - optimize
     - standardize
     - qa
-  IAHQ-AdminManagerIA:
-    display_name: '@IAHQ-AdminManagerIA'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
-    intents:
-    - admin
-    - operations
-    - offers
-    - governance
-  IAHQ-DevFactoryIA:
-    display_name: '@IAHQ-DevFactoryIA'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'Plan build & déploiement : packaging, intégrations, gouvernance, livraison.'
-    intents:
-    - build
-    - deployment
-    - plan
-    - delivery
-  IAHQ-Economist:
-    display_name: '@IAHQ-Economist'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: Évalue les coûts/gains, construit business case et ROI.
-    intents:
-    - roi
-    - cost
-    - finance
-    - business_case
-  IAHQ-Extractor:
-    display_name: '@IAHQ-Extractor'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes.'
-    intents:
-    - extract
-    - ingest
-    - summarize
-    - structure
-  IAHQ-OrchestreurEntrepriseIA:
-    display_name: '@IAHQ-OrchestreurEntrepriseIA'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres, roadmap, organisation.'
-    intents:
-    - strategy
-    - company
-    - positioning
-    - portfolio
-  IAHQ-ProcessMapper:
-    display_name: '@IAHQ-ProcessMapper'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: Cartographie les processus métier pour identifier les opportunités d'automatisation. Documenter le processus,
-      structurer l’output, optimiser les workflows. IA
-    intents:
-    - iahq
-    - map_process
-    - identify_workflows
-    - document_steps
-    - analyze_bottlenecks
-    - optimize_flow
-  IAHQ-QualityGate:
-    display_name: '@IAHQ-QualityGate'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'Porte de qualité de la Factory : vérifie conformité contrat, cohérence, risques et propose correctifs/escalades.'
-    intents:
-    - qa
-    - quality_gate
-    - review
-    - conformity
-    - iahq
-  IAHQ-SolutionOrchestrator:
-    display_name: '@IAHQ-SolutionOrchestrator'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'Orchestrateur solution client : contexte, process, risques, ROI, vision cible.'
-    intents:
-    - solution
-    - architecture
-    - client
-    - blueprint
-  IAHQ-Strategist:
-    display_name: '@IAHQ-Strategist'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: Design d'offres et business cases pour projets de transformation IA
-    intents:
-    - iahq
-    - define_strategy
-    - assess_market
-    - plan_roadmap
-    - evaluate_options
-    - recommend_approach
-  IAHQ-TechLeadIA:
-    display_name: '@IAHQ-TechLeadIA'
-    team_id: TEAM__IAHQ
-    team_name: IAHQ
-    description: 'CTO virtuel : architecture technique, briques IA, intégrations, data, sécurité.'
-    intents:
-    - cto
-    - architecture
-    - security
-    - data
-  META-AgentProductFactory:
-    display_name: '@META-AgentProductFactory'
-    team_id: TEAM__META
-    team_name: META
-    description: 'Usine à agents root_IA. Industrialise la création de dossiers agents complets (agent.yaml + contract.yaml
-      + prompt.md + tests) à partir d''une spec ou d''un catalogue de rôles. Produit également des Deliverable Packs réutilisables
-      (templates + runbooks + checklists + golden samples) pour tous domaines.
-    intents:
-    - agent_package_create
-    - deliverable_pack_create
-    - agent_validate
-    - contract_adapt
-    - agent_assemble
-  META-AnalysteBesoinsEquipes:
-    display_name: '@META-AnalysteBesoinsEquipes'
-    team_id: TEAM__META
-    team_name: META
-    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
-    intents:
-    - requirements
-    - analysis
-    - spec
-  META-ArchitecteChoix:
-    display_name: META-ArchitecteChoix
-    team_id: TEAM__META
-    team_name: META
-    description: Architecte décisions complexes. Structurer choix avec frameworks, critères pondérés, matrices, scénarios,
-      trade-offs explicites.
-    intents:
-    - meta_decision_architect
-    - meta_decision_evaluate
-    - meta_decision_recommend
-  META-CartographeRoles:
-    display_name: '@META-CartographeRoles'
-    team_id: TEAM__META
-    team_name: META
-    description: Analyse un domaine et identifie les rôles/agents nécessaires
-    intents:
-    - meta
-    - analyse
-  META-Concierge:
-    display_name: '@META-Concierge'
-    team_id: TEAM__META
-    team_name: META
-    description: Accueil utilisateur, qualification besoin, orientation
-    intents:
-    - meta
-    - meta_welcome
-    - meta_guidance
-    - route_meta_request
-    - explain_factory
-    - assist_agent_creation
-  META-ConciergeUX:
-    display_name: '@META-ConciergeUX'
-    team_id: TEAM__META
-    team_name: META
-    description: Accueil utilisateur nFriendly, qualification besoin, orientation
-    intents:
-    - meta
-    - meta_welcome
-    - meta_guidance
-    - route_meta_request
-    - explain_factory
-    - assist_agent_creation
-  META-GouvernanceQA:
-    display_name: '@META-GouvernanceQA'
-    team_id: TEAM__META
-    team_name: META
-    description: Audite les agents, prompts et playbooks pour qualité et conformité
-    intents:
-    - meta
-    - audit_quality
-    - validate_compliance
-    - check_standards
-    - assess_risk
-    - approve_release
-  META-OrchestrateurCentral:
-    display_name: '@META-OrchestrateurCentral'
-    team_id: TEAM__META
-    team_name: META
-    description: 'Orchestrateur usine à armées : transforme demande en plan complet (teams, agents, runbooks).'
-    intents:
-    - army_factory
-    - design
-    - orchestrate
-  META-Pedagogie:
-    display_name: '@META-Pedagogie'
-    team_id: TEAM__META
-    team_name: META
-    description: Explique en ordre + exemples + exercices + tests.
-    intents:
-    - mcia
-    - education
-    - teach_ai
-    - course
-    - exercise
-  META-PlaybookBuilder:
-    display_name: '@META-PlaybookBuilder'
-    team_id: TEAM__META
-    team_name: META
-    description: Créer playbooks opérationnels professionnels. Transforme workflows conceptuels en guides étape par étape
-      exécutables.
-    intents:
-    - meta_playbook_create
-    - meta_playbook_optimize
-    - meta_playbook_validate
-    - meta_playbook_version
-  META-PromptMaster:
-    display_name: '@META-PromptMaster'
-    team_id: TEAM__META
-    team_name: META
-    description: Expert absolu prompt engineering. Crée, optimise et valide prompts professionnels quality 9+. Fusion excellence
-      pédagogique MCIA + rigueur META.
-    intents:
-    - meta_prompt_create
-    - meta_prompt_optimize
-    - meta_prompt_validate
-    - meta_prompt_teach
-  META-Redaction:
-    display_name: '@META-Redaction'
-    team_id: TEAM__META
-    team_name: META
-    description: Produit contenu long structuré + glossaire + ton constant.
-    intents:
-    - mcia
-    - writing
-    - docs
-    - book
-    - email
-    - documentation
-  META-ReversePrompt:
-    display_name: '@META-ReversePrompt'
-    team_id: TEAM__META
-    team_name: META
-    description: Analyse un GPT existant et en extrait le prompt/la logique
-    intents:
-    - meta
-    - analyse
-  META-VisionCreative:
-    display_name: '@META-VisionCreative'
-    team_id: TEAM__META
-    team_name: META
-    description: Pipeline créatif (diffusion/contrôle) + itération.
-    intents:
-    - mcia
-    - assets
-    - vision
-    - image
-    - video
-    - creative
-  META-WorkflowDesignerEquipes:
-    display_name: '@META-WorkflowDesignerEquipes'
-    team_id: TEAM__META
-    team_name: META
-    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles, handoffs).
-    intents:
-    - workflow
-    - process
-    - mapping
-  OPS-DossierIA:
+    team_id: TEAM__HUB
+    team_name: HUB
+    OPS-DossierIA:
+    description: Hub mémoire persistant de la Factory. Il crée et maintient des dossiers
+      d’exécution structurés, archive les inputs/outputs/logs à chaque step et produit
+      un export audit-ready. Il supporte aussi une recherche sur l’historique des
+      dossiers avec score de pertinence.
     display_name: '@OPS-DossierIA'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Hub mémoire persistant de la Factory. Il crée et maintient des dossiers d’exécution structurés, archive les
-      inputs/outputs/logs à chaque step et produit un export audit-ready. Il supporte aussi une recherche sur l’historique
-      des dossiers avec score de pertinence.
     intents:
     - archive
     - audit
@@ -359,28 +129,1015 @@ agents:
     - memory
     - ops
     - search
-  OPS-PlaybookRunner:
-    display_name: '@OPS-PlaybookRunner'
     team_id: TEAM__OPS
     team_name: OPS
-    description: Exécuteur de playbooks de la Factory. Il initialise un run, exécute les steps dans l’ordre (ou selon parallélisation
-      autorisée), applique les politiques d’échec (retry/skip/abort), et compile un livrable final. Il supporte l’arrêt et
-      la reprise avec un journal d’exécution complet.
+  OPS-PlaybookRunner:
+    description: Exécuteur de playbooks de la Factory. Il initialise un run, exécute
+      les steps dans l’ordre (ou selon parallélisation autorisée), applique les politiques
+      d’échec (retry/skip/abort), et compile un livrable final. Il supporte l’arrêt
+      et la reprise avec un journal d’exécution complet.
+    display_name: '@OPS-PlaybookRunner'
     intents:
     - execute_workflow
     - ops
     - orchestration_runtime
     - run_playbook
-  OPS-RouterIA:
-    display_name: '@OPS-RouterIA'
     team_id: TEAM__OPS
     team_name: OPS
-    description: Moteur de routage technique de la Factory. Il détecte l’intent d’une requête et la route vers l’agent ou
-      le playbook adéquat en s’appuyant sur la table de routage et l’index d’agents. Il fournit une décision de routage traçable
+  OPS-RouterIA:
+    description: Moteur de routage technique de la Factory. Il détecte l’intent d’une
+      requête et la route vers l’agent ou le playbook adéquat en s’appuyant sur la
+      table de routage et l’index d’agents. Il fournit une décision de routage traçable
       avec un niveau de confiance et un mécanisme de fallback.
+    display_name: '@OPS-RouterIA'
     intents:
     - classify
     - dispatch
     - intent_detection
     - ops
     - route
+    team_id: TEAM__OPS
+    team_name: OPS
+  IAHQ-AdminManagerIA:
+    description: 'Admin & gestion : offres, devis, contrats, gouvernance, opérations.'
+    display_name: '@IAHQ-AdminManagerIA'
+    intents:
+    - admin
+    - operations
+    - offers
+    - governance
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-DevFactoryIA:
+    description: 'Plan build & déploiement : packaging, intégrations, gouvernance,
+      livraison.'
+    display_name: '@IAHQ-DevFactoryIA'
+    intents:
+    - build
+    - deployment
+    - plan
+    - delivery
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-Economist:
+    description: Évalue les coûts/gains, construit business case et ROI.
+    display_name: '@IAHQ-Economist'
+    intents:
+    - roi
+    - cost
+    - finance
+    - business_case
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-Extractor:
+    description: 'Ingestion docs/emails/CR : extrait faits, étapes, acteurs, contraintes.'
+    display_name: '@IAHQ-Extractor'
+    intents:
+    - extract
+    - ingest
+    - summarize
+    - structure
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-OrchestreurEntrepriseIA:
+    description: 'CEO virtuel IA-factory : stratégie, segmentation clients, offres,
+      roadmap, organisation.'
+    display_name: '@IAHQ-OrchestreurEntrepriseIA'
+    intents:
+    - strategy
+    - company
+    - positioning
+    - portfolio
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-ProcessMapper:
+    description: Cartographie les processus métier pour identifier les opportunités
+      d'automatisation IA
+    display_name: '@IAHQ-ProcessMapper'
+    intents:
+    - iahq
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-QualityGate:
+    description: 'Porte de qualité de la Factory : vérifie conformité contrat, cohérence,
+      risques et propose correctifs/escalades.'
+    display_name: '@IAHQ-QualityGate'
+    intents:
+    - qa
+    - quality_gate
+    - review
+    - conformity
+    - iahq
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-SolutionOrchestrator:
+    description: 'Orchestrateur solution client : contexte, process, risques, ROI,
+      vision cible.'
+    display_name: '@IAHQ-SolutionOrchestrator'
+    intents:
+    - solution
+    - architecture
+    - client
+    - blueprint
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-Strategist:
+    description: Design d'offres et business cases pour projets de transformation
+      IA
+    display_name: '@IAHQ-Strategist'
+    intents:
+    - iahq
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+  IAHQ-TechLeadIA:
+    description: 'CTO virtuel : architecture technique, briques IA, intégrations,
+      data, sécurité.'
+    display_name: '@IAHQ-TechLeadIA'
+    intents:
+    - cto
+    - architecture
+    - security
+    - data
+    team_id: TEAM__IAHQ
+    team_name: IAHQ
+
+  META-AgentFactory:
+    description: 'Crée de nouveaux agents complets : agent.yaml + prompt + contrat'
+    display_name: '@META-AgentFactory'
+    intents:
+    - meta
+    - cree
+    - AgentFactory
+    - NewAgent
+    team_id: TEAM__META
+    team_name: META
+  META-AnalysteBesoinsEquipes:
+    description: 'Analyse besoins : produit spec claire, priorisée et testable.'
+    display_name: '@META-AnalysteBesoinsEquipes'
+    intents:
+    - meta
+    - requirements
+    - analysis
+    - spec
+    team_id: TEAM__META
+    team_name: META
+  META-ArchitecteChoix:
+    description: Choisit approche (ML/LLM/RAG/Agent) + MVP vs Prod.
+    display_name: '@META-ArchitecteChoix (Choix technique)'
+    intents:
+    - meta
+    - architecture
+    - ml
+    - llm
+    - rag
+    - agent
+    - design
+    team_id: TEAM__META
+    team_name: META
+  META-CartographeRoles:
+    description: Analyse un domaine et identifie les rôles/agents nécessaires
+    display_name: '@META-CartographeRoles'
+    intents:
+    - meta
+    - analyse
+    - roles
+    - mapping
+    - integration
+    team_id: TEAM__META
+    team_name: META
+  META-Concierge:
+    description: Accueil utilisateur, qualification besoin, orientation
+    display_name: '@META-Concierge'
+    intents:
+    - meta
+    - concierge
+    - orientation
+    - user_needs
+    team_id: TEAM__META
+    team_name: META
+  META-ConciergeUX:
+    description: Accueil utilisateur, agent conversationnel, qualification besoin, orientation
+    display_name: '@META-ConciergeUX'
+    intents:
+    - meta
+    - ux
+    - Conversational
+    - accueil
+    team_id: TEAM__META
+    team_name: META
+  META-GouvernanceQA:
+    description: Audite les agents, prompts et playbooks pour qualité et conformité
+    display_name: '@META-GouvernanceQA'
+    intents:
+    - meta
+    - gouvernance
+    - quality_assurance
+    - audit
+    - compliance
+    team_id: TEAM__META
+    team_name: META
+  META-OrchestrateurCentral:
+    description: 'Orchestrateur usine à armées : transforme demande en plan complet
+      (teams, agents, runbooks).'
+    display_name: '@META-OrchestrateurCentral'
+    intents:
+    - army_factory
+    - design
+    - orchestrate
+    - meta
+    team_id: TEAM__META
+    team_name: META
+  META-Pedagogie:
+    description: Explique en ordre + exemples + exercices + tests.
+    display_name: '@META-Pedagogie (prof)'
+    intents:
+    - meta
+    - education
+    - teach_ai
+    - course
+    - exercise
+    team_id: TEAM__META
+    team_name: META
+  META-PlaybookBuilder:
+    description: Crée et maintient les playbooks (workflows multi-agents)
+    display_name: '@META-PlaybookBuilder'
+    intents:
+    - meta
+    - cree
+    - playbooks
+    - workflows
+    - runbooks
+    team_id: TEAM__META
+    team_name: META
+  META-PromptMaster:
+    description: 'Expert prompt engineering : design, optimisation, test de prompts'
+    display_name: '@META-PromptMaster'
+    intents:
+    - meta
+    - prompt
+    - engineering
+    - instruction_internal
+    team_id: TEAM__META
+    team_name: META
+  META-Redaction:
+    description: Produit contenu long structuré + glossaire + ton constant.
+    display_name: '@META-Redaction (Long format)'
+    intents:
+    - mcia
+    - writing
+    - docs
+    - book
+    - email
+    - documentation
+    team_id: TEAM__META
+    team_name: META
+  META-ReversePrompt:
+    description: Analyse un GPT existant et en extrait le prompt/la logique
+    display_name: '@META-ReversePrompt'
+    intents:
+    - meta
+    - analyse
+    - reverse_engineering
+    - prompt
+    - Logic
+    - precision
+    team_id: TEAM__META
+    team_name: META
+
+  META-VisionCreative:
+    description: Pipeline créatif (diffusion/contrôle) + itération.
+    display_name: '@META-VisionCreative (Image/Vidéo)'
+    intents:
+    - meta
+    - assets
+    - vision
+    - image
+    - video
+    - creative
+    team_id: TEAM__META
+    team_name: META
+  META-WorkflowDesignerEquipes:
+    description: Modélise des workflows opérationnels (entrées/sorties, étapes, contrôles,
+      handoffs).
+    display_name: '@META-WorkflowDesignerEquipes'
+    intents:
+    - workflow
+    - process
+    - mapping
+    - schema
+    team_id: TEAM__META
+    team_name: META
+  
+   # ═══════════════════════════════════════════════════════════════════════════
+  # TEAM: IT - Services MSP
+  # ═══════════════════════════════════════════════════════════════════════════
+  IT-AssetMaster:
+    description:  Maintient l'inventaire IT & CMDB, recommande des nomenclatures, la classification et les liens entre les objets. Il joue un rôle clé dans la gestion des actifs IT, en assurant une vision claire et à jour de l'infrastructure, ce qui est essentiel pour la planification, la maintenance et la sécurité. Il collabore étroitement avec les équipes de support et d'infrastructure pour garantir que les données d'inventaire sont précises et complètes, et fournit des insights pour l'optimisation des ressources IT.
+     Participe à la formation continue des équipes sur les meilleures pratiques de gestion des actifs IT et l'utilisation de la CMDB. Joue un rôle central dans la définition des processus de gestion des actifs et l'accompagnement des clients dans leur stratégie de gestion des actifs IT.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans la gestion des actifs IT. Fournit un support de haut niveau pour les projets complexes de gestion des actifs et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de la gestion des actifs IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de gestion des actifs IT.
+     Joue un rôle clé dans la gestion des incidents liés à la gestion des actifs IT complexes et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de gestion des actifs IT proposés par l'entreprise.
+     Recommande des stratégies d'optimisation de l'inventaire IT pour améliorer l'efficacité opérationnelle et réduire les coûts.
+    display_name: '@IT-AssetMaster'
+    intents: 
+    - it
+    - cmdb
+    - assets
+    - nomemclature
+    - classification
+    team_id: TEAM__IT
+    team_name: IT
+  IT-BackupDRMaster:
+    display_name: '@IT-BackupDRMaster'  
+    description: Expert en Sauvegardes & DR. Recommande stratégies, outils, tests de restauration.Expert VEEAM, Datto, Azure Backup, etc. Rôle clé pour assurer la résilience
+     des données et la continuité des activités des clients MSP. Participe à la formation continue des équipes sur les meilleures pratiques de sauvegarde et de reprise après sinistre.
+     Joue un rôle central dans la définition des offres de sauvegarde et de DR et l'accompagnement des clients dans leur stratégie de protection des données. Collabore étroitement avec les équipes
+     de sécurité pour assurer une posture de sécurité robuste dans les stratégies de sauvegarde et de DR. Fournit un support de haut niveau pour les projets complexes de
+     sauvegarde et de DR et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché de la sauvegarde et du DR et adapter
+     les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de sauvegarde et de DR.
+     Joue un rôle clé dans la gestion des incidents liés à la sauvegarde et au DR complexes et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique
+     et de guides de meilleures pratiques pour les services de sauvegarde et de DR proposés par l'entreprise.
+    intents: 
+    - it
+    - backup
+    - dr
+    - VEEAM
+    - datto
+    - azure_backup
+    team_id: TEAM__IT
+    team_name: IT
+  IT-CTOMaster:
+    display_name: '@IT-CTOMaster'    
+    description: Directeur technique MSP. Expert en architecture IT, intégration de solutions, et alignement technologique avec les besoins business. Rôle clé pour guider la vision technologique de l'entreprise et assurer une offre compétitive et innovante.
+     Participe à la formation continue des équipes sur les évolutions technologiques et les meilleures pratiques du secteur. Joue un rôle central dans la définition des offres MSP et l'accompagnement des clients dans leur transformation digitale.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions proposées. Fournit un support de haut niveau pour les projets complexes et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services MSP.
+     Joue un rôle clé dans la gestion des incidents techniques complexes et la résolution de problèmes de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services IT proposés par l'entreprise.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur MSP.
+    intents: 
+    - it
+    - cto
+    - standards
+    - architecture
+    - technology_strategy
+    team_id: TEAM__IT
+    team_name: IT
+  IT-CloudMaster:
+    display_name: '@IT-CloudMaster'
+    description: Expert en infrastructure Cloud Azure/M365/SaaS,AWS,Goole. Recommande architectures, outils, stratégies de migration et d'adoption.
+     Expert Azure (IaaS/PaaS), M365, AWS, Google Cloud, etc.
+     Rôle clé pour guider les clients dans leur transformation cloud et assurer une adoption réussie des technologies cloud.
+     Participe à la formation continue des équipes sur les meilleures pratiques cloud et les évolutions du marché.
+     Joue un rôle central dans la définition des offres cloud et l'accompagnement des clients dans leur stratégie cloud.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans les environnements cloud.
+     Fournit un support de haut niveau pour les projets de migration cloud et les architectures hybrides.
+     Assure une veille technologique constante pour anticiper les évolutions du marché cloud et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services cloud.
+     Joue un rôle clé dans la gestion des incidents cloud complexes et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services cloud proposés par l'entreprise.
+    intents: 
+    - it
+    - cloud
+    - azure
+    - m365
+    team_id: TEAM__IT
+    team_name: IT
+  IT-Commandare-NOC:
+    display_name: '@IT-Commandare-NOC'
+    description:  Orchestrateur NOC, directeur du département (Network Operation Center - NOC) triage, routage, escalade. Il supervise les opérations de 
+     surveillance réseau, s'assure de la qualité du service et de la satisfaction client. Il recommande des améliorations de processus et de formation.
+     Il collabore étroitement avec le Commandare OPR pour assurer une coordination fluide entre le front-office et le back-office.
+     Expert en gestion d'incidents, ITIL, et outils de ticketing comme ConnectWise. Rôle clé pour assurer l'efficacité opérationnelle et la satisfaction client dans un environnement MSP.
+     Participe à la formation continue des équipes sur les meilleures pratiques opérationnelles et les standards de l'industrie. Joue un rôle central dans la gestion
+     de la qualité et l'amélioration continue des services IT.
+    intents: 
+    - noc
+    - monitoring
+    - incident
+    - triage
+    - RMM
+    team_id: TEAM__IT
+    team_name: IT
+  IT-Commandare-OPR:
+    display_name: '@IT-Commandare-OPR'
+    description: Orchestrateur back-office, directeur des opérations. Fermeture ticket, standardisation.
+     Supervise les processus IT, s'assure de la qualité des livrables et de la satisfaction client.
+     Recommande des améliorations de processus et de formation.
+     Collabore étroitement avec le Commandare NOC pour assurer une coordination fluide entre le front-office et le back-office.
+     Expert en ITIL, gestion de services MSP, et outils de ticketing comme ConnectWise.
+     Rôle clé pour assurer l'efficacité opérationnelle et la satisfaction client dans un environnement MSP.
+     Participe à la formation continue des équipes sur les meilleures pratiques opérationnelles et les standards de l'industrie.
+     Joue un rôle central dans la gestion de la qualité et l'amélioration continue des services IT.
+    intents:
+    - it
+    - msp
+    - process
+    - tickets
+    team_id: TEAM__IT
+    team_name: IT
+  IT-Commandare-TECH:
+    display_name: '@IT-Commandare-TECH'
+    description: Chef d'exécution technique.  Diagnostic, remédiation. Il supervise les interventions techniques, s'assure de la qualité des solutions mises en œuvre et de la satisfaction client. Il recommande des améliorations de processus et de formation pour les équipes techniques.
+     Collabore étroitement avec le Commandare NOC pour assurer une coordination fluide entre le front-office et le back-office.
+     Expert en diagnostic technique, gestion d'incidents complexes, et outils de ticketing comme ConnectWise. Rôle clé pour assurer l'efficacité opérationnelle et la satisfaction client dans un environnement MSP.
+     Participe à la formation continue des équipes sur les meilleures pratiques techniques et les standards de l'industrie. Joue un rôle central dans la gestion de la qualité et l'amélioration continue des services IT.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur MSP.
+     Joue un rôle clé dans la gestion des incidents techniques complexes et la résolution de problèmes de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services IT proposés par l'entreprise.
+     Assure une veille technologique constante pour anticiper les évolutions du marché IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services IT.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions proposées.
+    intents: 
+    - troubleshooting
+    - remediation
+    - change
+    - incident
+    team_id: TEAM__IT
+    team_name: IT
+  IT-CommsMSP:
+    display_name: '@IT-CommsMSP'
+    description: Communication client MSP. Rapports, conseils, alignement attentes. Rôle clé pour assurer une communication claire et efficace avec les clients MSP, renforcer les relations client et améliorer la satisfaction client.
+     Participe à la formation continue des équipes sur les meilleures pratiques de communication et de gestion des relations client dans un environnement MSP. Joue un rôle central dans la gestion de la qualité de la communication client et l'amélioration continue des services IT.
+     Recommande des stratégies d'amélioration de la communication client pour renforcer les relations client et améliorer la satisfaction client. Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client en assurant une communication efficace et empathique.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les communications avec les clients MSP proposés par l'entreprise.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services IT, en s'assurant que les communications reflètent fidèlement les offres et les avantages pour les clients.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les communications avec les clients, en veillant à ce que les informations sensibles soient protégées et que les communications respectent les normes
+    intents: 
+    - it
+    - comms
+    - client
+    - advise
+    - rapport
+    team_id: TEAM__IT
+    team_name: IT
+  IT-DevOpsMaster:
+    display_name: '@IT-DevOpsMaster'
+    description: DevOps/CI-CD. Recommande pipelines, outils, stratégies d'automatisation du développement à la production. Rôle clé pour guider les clients dans leur transformation DevOps et assurer une adoption réussie des pratiques DevOps.
+     Expert en CI/CD, pipelines d'automatisation, et outils comme Jenkins, GitLab CI, Azure DevOps, etc. Participe à la formation continue des équipes sur les meilleures pratiques DevOps et les évolutions du marché.
+     Joue un rôle central dans la définition des offres DevOps et l'accompagnement des clients dans leur stratégie DevOps. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans les pipelines de développement et de déploiement.
+     Fournit un support de haut niveau pour les projets de transformation DevOps et les architectures hybrides. Assure une veille technologique constante pour anticiper les évolutions du marché DevOps et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services DevOps. Joue un rôle clé dans la gestion des incidents liés aux pipelines de développement et de déploiement complexes et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services DevOps proposés par l'entreprise.
+     Recommande des stratégies d'optimisation des pipelines CI/CD pour améliorer l'efficacité opérationnelle et réduire les délais de mise sur le marché.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques DevOps dans le cycle de vie du développement logiciel.
+     Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques DevOps au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché DevOps et adapter les offres en conséquence.
+    intents: 
+    - it
+    - devops
+    - cicd
+    - automation
+    - pipeline
+    team_id: TEAM__IT
+    team_name: IT
+  IT-DirecteurGeneral:
+    display_name: '@IT-DirecteurGeneral'
+    description: Directeur général MSP. Vision, stratégie, gouvernance, relations clients clés. Rôle clé pour guider la vision stratégique de l'entreprise MSP, assurer une gouvernance efficace et renforcer les relations avec les clients clés.
+     Participe à la formation continue des équipes sur les meilleures pratiques de gestion d'entreprise et de leadership dans un environnement MSP. Joue un rôle central dans la définition de la vision stratégique de l'entreprise et l'accompagnement des clients dans leur transformation digitale.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions proposées. Fournit un support de haut niveau pour les projets complexes et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services MSP.
+     Joue un rôle clé dans la gestion des incidents techniques complexes et la résolution de problèmes de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services IT proposés par l'entreprise.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur MSP. Joue un rôle clé dans la gestion des relations avec les clients clés et la négociation de contrats importants pour l'entreprise.
+     Collabore étroitement avec les équipes financières pour assurer une gestion financière saine et alignée sur la stratégie globale de l'entreprise.
+     Joue un rôle central dans la gestion de la qualité et l'amélioration continue des services IT, en veillant à ce que l'entreprise maintienne des standards élevés de service et de satisfaction client.
+     Recommande des stratégies de croissance et d'expansion pour l'entreprise MSP, en identifiant de nouvelles opportunités de marché et en développant des partenariats stratégiques.
+     Joue un rôle clé dans la gestion du changement organisationnel nécessaire pour soutenir la croissance et l'évolution de l'entreprise MSP dans un marché en constante évolution.
+     Assure une veille technologique constante pour anticiper les évolutions du marché IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+      Collabore étroitement avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services MSP, en s'assurant que les offres reflètent fidèlement la vision stratégique de l'entreprise et les besoins des clients.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents techniques complexes et la résolution de problèmes de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur MSP, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+    intents: 
+    - it
+    - management
+    - governance
+    - strategy
+    - leadership
+    team_id: TEAM__IT
+    team_name: IT
+  IT-InfrastructureMaster:
+    display_name: '@IT-InfrastructureMaster'
+    description: Expert en gestion et intervention sur des Serveurs de virtualisation et périphériques de stockage. Recommande des architectures, outils, et stratégies de gestion d'infrastructure.
+     Expert en gestion de serveurs physiques et virtuels, solutions de virtualisation comme VMware, Hyper-V, et périphériques de stockage SAN/NAS. Rôle clé pour assurer la performance, la fiabilité et la sécurité de l'infrastructure IT des clients MSP.
+     Participe à la formation continue des équipes sur les meilleures pratiques de gestion d'infrastructure et les évolutions du marché. Joue un rôle central dans la définition des offres d'infrastructure et l'accompagnement des clients dans leur stratégie d'infrastructure IT.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans la gestion de l'infrastructure IT. Fournit un support de haut niveau pour les projets complexes d'infrastructure et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'infrastructure IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services d'infrastructure IT.
+     Joue un rôle clé dans la gestion des incidents liés à l'infrastructure IT complexes et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'infrastructure IT proposés par l'entreprise.
+     Recommande des stratégies d'optimisation de l'infrastructure IT pour améliorer l'efficacité opérationnelle, réduire les coûts et assurer une évolutivité future.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques d'infrastructure dans le cycle de vie du développement logiciel.
+     Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes d'infrastructure IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'infrastructure IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions d'infrastructure proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à l'infrastructure IT complexes et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'infrastructure IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur de l'infrastructure IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+    display_name: '@IT-InfrastructureMaster'
+    intents: 
+    - it
+    - infrastructure
+    - servers
+    - virtualization
+    - storage
+    team_id: TEAM__IT
+    team_name: IT
+  IT-InterventionCopilot:
+    display_name: '@IT-InterventionCopilot'
+    description: Copilote d intervention LIVE. Fournit support en temps réel aux techniciens sur le terrain pour le diagnostic, la remédiation, et la documentation des interventions techniques. Rôle clé pour améliorer l'efficacité et la qualité des interventions techniques dans un environnement MSP.
+     Participe à la formation continue des équipes sur les meilleures pratiques d'intervention technique et les évolutions du marché. Joue un rôle central dans la définition des processus d'intervention et l'accompagnement des clients dans leur stratégie de gestion des interventions techniques.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les interventions techniques proposées. Fournit un support de haut niveau pour les projets d'intervention complexes et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'intervention technique et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services d'intervention technique.
+     Joue un rôle clé dans la gestion des incidents liés aux interventions techniques complexes et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'intervention technique proposés par l'entreprise.
+     Recommande des stratégies d'optimisation des processus d'intervention technique pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques d'intervention technique dans le cycle de vie du développement logiciel.
+     Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes d'intervention technique au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'intervention technique et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions d'intervention technique proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés aux interventions techniques complexes et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'intervention technique proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes.
+     Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur de l'intervention technique, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées aux interventions techniques en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution.
+    intents: 
+    - it
+    - msp
+    - intervention
+    - ticket_live
+    - support
+    team_id: TEAM__IT
+    team_name: IT
+  IT-KnowledgeKeeper:
+    display_name: '@IT-KnowledgeKeeper'
+    description: Knowledge MSP, tickets -> KB.
+    intents: 
+    - it
+    - knowledge
+    - kb
+    - runbook
+    team_id: TEAM__IT
+    team_name: IT
+  IT-MaintenanceMaster:
+    display_name: '@IT-MaintenanceMaster'    
+    description: Maintenance & audits. Recommande stratégies de maintenance préventive, audits de sécurité, et patching pour assurer la stabilité et la sécurité des environnements IT des clients MSP.
+     Rôle clé pour guider les clients dans la mise en place de stratégies de maintenance efficaces et assurer la résilience de leur infrastructure IT. Participe à la formation continue des équipes sur les meilleures pratiques de maintenance et d'audit dans un environnement MSP.
+     Joue un rôle central dans la définition des offres de maintenance et d'audit et l'accompagnement des clients dans leur stratégie de maintenance IT. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans les stratégies de maintenance et d'audit.
+     Fournit un support de haut niveau pour les projets de maintenance complexes et les audits de sécurité. Assure une veille technologique constante pour anticiper les évolutions du marché de la maintenance IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de maintenance et d'audit. Joue un rôle clé dans la gestion des incidents liés à la maintenance et aux audits complexes et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de maintenance et d'audit proposés par l'entreprise. Recommande des stratégies d'optimisation des processus de maintenance pour améliorer l'efficacité opérationnelle et réduire les risques liés à la maintenance IT.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de maintenance dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques de maintenance préventive et d'audit au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de la maintenance IT et adapter les offres en conséquence.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de maintenance et d'audit proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à la maintenance et aux audits complexes et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de maintenance et d'audit proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour 
+     maintenir l'entreprise à la pointe du secteur de la maintenance IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeqat des clients et du marché. 
+    intents: 
+    - it
+    - maintenance
+    - patching
+    - audit
+    - compliance
+    - preventive
+    team_id: TEAM__IT
+    team_name: IT
+  IT-MonitoringMaster:
+    display_name: '@IT-MonitoringMaster'    
+    description: Supervision et observabilité. Recommande stratégies, outils, et meilleures pratiques de monitoring pour assurer la performance, la fiabilité et la sécurité des environnements IT des clients MSP.
+     Rôle clé pour guider les clients dans la mise en place de stratégies de monitoring efficaces et assurer une visibilité complète sur leur infrastructure IT. Participe à la formation continue des équipes sur les meilleures pratiques de monitoring et d'observabilité dans un environnement MSP.
+     Joue un rôle central dans la définition des offres de monitoring et d'observabilité et l'accompagnement des clients dans leur stratégie de monitoring IT. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans les stratégies de monitoring.
+     Fournit un support de haut niveau pour les projets de monitoring complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché du monitoring IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de monitoring IT. Joue un rôle clé dans la gestion des incidents liés au monitoring et à l'observabilité complexes et la résolution de problèmes techniques de haut niveau.
+    intents: 
+    - it
+    - monitoring
+    - observability
+    - alerting
+    - rmm
+    team_id: TEAM__IT
+    team_name: IT
+  IT-NOCDispatcher:
+    display_name: '@IT-NOCDispatcher'    
+    description: Dispatcher NOC. Recoit les alertes et fait le triage vers les bons départements. Rôle clé pour assurer une gestion efficace des alertes et des incidents dans un environnement MSP, en veillant à ce que les incidents soient dirigés vers les équipes appropriées pour une résolution rapide et efficace.
+     Participe à la formation continue des équipes sur les meilleures pratiques de triage et de gestion des alertes dans un environnement MSP. Joue un rôle central dans la définition des processus de triage et l'accompagnement des clients dans leur stratégie de gestion des alertes et des incidents.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de triage et de gestion des alertes proposées. Fournit un support de haut niveau pour les projets de triage complexes et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché du triage et de la gestion des alertes IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de triage et de gestion des alertes IT.
+     Joue un rôle clé dans la gestion des incidents liés au triage et à la gestion des alertes complexes et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de triage et de gestion des alertes IT proposés par l'entreprise.
+     Recommande des stratégies d'optimisation du processus de triage pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de triage dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de triage au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché du triage IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions de triage proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés au triage et à la gestion des alertes complexes et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de triage et de gestion des alertes IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur du triage IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées au triage et à la gestion des alertes en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution.
+     Recommande des stratégies d'amélioration de la communication client pour renforcer les relations client et améliorer la satisfaction client dans le contexte du triage et de la gestion des alertes, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+    intents: 
+    - dispatch
+    - sla
+    - coordination
+    - incident
+    team_id: TEAM__IT
+    team_name: IT
+  IT-NetworkMaster:
+    display_name: '@IT-NetworkMaster'    
+    description:  Réseau, LAN/WAN/VPN/WiFi. Recommande architectures, outils, stratégies de gestion et de sécurisation des réseaux d'entreprise pour les clients MSP.
+     Rôle clé pour assurer la performance, la fiabilité et la sécurité des réseaux d'entreprise des clients MSP. Participe à la formation continue des équipes sur les meilleures pratiques de gestion des réseaux et les évolutions du marché.
+     Joue un rôle central dans la définition des offres de gestion de réseau et l'accompagnement des clients dans leur stratégie de gestion de réseau IT. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans les stratégies de gestion de réseau.
+     Fournit un support de haut niveau pour les projets complexes de gestion de réseau et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché de la gestion de réseau IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de gestion de réseau IT. Joue un rôle clé dans la gestion des incidents liés à la gestion de réseau complexes et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de gestion de réseau IT proposés par l'entreprise. Recommande des stratégies d'optimisation des réseaux d'entreprise pour améliorer l'efficacité opérationnelle, réduire les coûts et assurer une évolutivité future.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de gestion de réseau dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de gestion de réseau au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de la gestion de réseau IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions de gestion de réseau proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à la gestion de réseau complexes et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de gestion de réseau IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur de la gestion de réseau IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées à la gestion de réseau en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution. Recommande des stratégies d'amélioration de la communication client pour renforcer les relations client et améliorer la satisfaction client dans le contexte de la gestion de réseau, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+    intents:
+    - it
+    - network
+    - firewall
+    - vpn
+    - wifi
+    team_id: TEAM__IT
+    team_name: IT
+  IT-OrchestratorMSP:
+    display_name: '@IT-OrchestratorMSP'    
+    description: Chef d orchestre MSP. Triage, coordination, et suivi des incidents et tickets ConnectWise. Rôle clé pour assurer une gestion efficace des incidents et des tickets dans un environnement MSP, en veillant à ce que les incidents soient triés, coordonnés et suivis de manière efficace pour une résolution rapide et une satisfaction client élevée.
+     Participe à la formation continue des équipes sur les meilleures pratiques de triage, de coordination et de suivi des incidents dans un environnement MSP. Joue un rôle central dans la définition des processus d'orchestration et l'accompagnement des clients dans leur stratégie de gestion des incidents et des tickets.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies d'orchestration proposées. Fournit un support de haut niveau pour les projets d'orchestration complexes et les défis techniques rencontrés par les clients.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'orchestration IT et adapter les offres en conséquence. Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services d'orchestration IT.
+     Joue un rôle clé dans la gestion des incidents liés à l'orchestration complexe et la résolution de problèmes techniques de haut niveau. Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'orchestration IT proposés par l'entreprise.
+     Recommande des stratégies d'optimisation du processus d'orchestration pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques d'orchestration dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes d'orchestration au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'orchestration IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions d'orchestration proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à l'orchestration complexe et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'orchestration IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur de l'orchestration IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées à l'orchestration en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution. Recommande des stratégies d'amélioration de la communication client pour renforcer les relations client et améliorer la satisfaction client dans le contexte de l'orchestration, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+     Joue un rôle clé dans la coordination entre les différentes équipes techniques et les clients pour assurer une gestion fluide des incidents et des tickets, en veillant à ce que les communications soient efficaces et que les équipes soient alignées sur les objectifs de résolution des incidents et de satisfaction client.
+     Recommande des stratégies d'amélioration de la collaboration inter-équipes pour renforcer la coordination et l'efficacité dans la gestion des incidents et des tickets, en veillant à ce que les équipes travaillent de manière cohésive et efficace pour atteindre les objectifs de résolution des incidents et de satisfaction client.
+     Joue un rôle clé dans la gestion des escalades d'incidents et de tickets, en veillant à ce que les escalades soient gérées de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Recommande des stratégies d'amélioration de la gestion des escalades pour renforcer la satisfaction client et améliorer la réputation de l'entreprise, en veillant à ce que les escalades soient gérées de manière efficace, professionnelle et alignée sur les attentes des clients en matière de gestion des incidents et des tickets.
+     Joue un rôle clé dans la gestion de la qualité et l'amélioration continue des processus d'orchestration, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client.
+     Recommande des stratégies d'amélioration continue pour renforcer la qualité et l'efficacité des processus d'orchestration, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client.
+     Joue un rôle clé dans la gestion du changement organisationnel nécessaire pour soutenir la croissance et l'évolution de l'entreprise MSP dans un marché en constante évolution, en veillant à ce que les changements soient gérés de manière efficace et alignés sur les objectifs stratégiques de l'entreprise.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de l'orchestration IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP. Collabore étroitement avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services d'orchestration.
+    intents: 
+    - it
+    - msp
+    - orchestrate
+    - process
+    - coordination
+    team_id: TEAM__IT
+    team_name: IT
+  IT-ReportMaster:
+    display_name: '@IT-ReportMaster'    
+    description: Production de rapports MSP. Recommande stratégies, outils, et meilleures pratiques pour la production de rapports IT, y compris les rapports post-mortem, mensuels, et QBR, pour assurer une communication efficace des performances et des résultats aux clients MSP.
+     Rôle clé pour guider les clients dans la mise en place de stratégies de reporting efficaces et assurer une communication transparente et informative sur les performances IT. Participe à la formation continue des équipes sur les meilleures pratiques de reporting dans un environnement MSP.
+     Joue un rôle central dans la définition des offres de reporting IT et l'accompagnement des clients dans leur stratégie de reporting. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de reporting proposées.
+     Fournit un support de haut niveau pour les projets de reporting complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché du reporting IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de reporting IT. Joue un rôle clé dans la gestion des incidents liés au reporting complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de reporting IT proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de reporting pour améliorer l'efficacité opérationnelle, réduire les délais de production et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de reporting dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de reporting IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché du reporting IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions de reporting proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés au reporting complexe et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de reporting IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe du secteur du reporting IT, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées au reporting en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution. Recommande des stratégies d'amélioration de la communication client pour renforcer les relations client et améliorer la satisfaction client dans le contexte du reporting, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+     Joue un rôle clé dans la gestion de la qualité et l'amélioration continue des processus de reporting, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client. Recommande des stratégies d'amélioration continue pour renforcer la qualité et l'efficacité des processus de reporting, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client.
+    intents: 
+    - report
+    - kpi
+    - sla
+    - communication
+    team_id: TEAM__IT
+    team_name: IT
+  IT-ScriptMaster:
+    display_name: '@IT-ScriptMaster'    
+    description: Scripting & automatisation. Recommande stratégies, outils, et meilleures pratiques pour la génération de scripts PowerShell, Bash et autres automatisations IT pour les clients MSP, afin d'améliorer l'efficacité opérationnelle et réduire les tâches manuelles répétitives.
+     Rôle clé pour guider les clients dans la mise en place de stratégies de scripting efficaces et assurer une automatisation intelligente des processus IT. Participe à la formation continue des équipes sur les meilleures pratiques de scripting et d'automatisation dans un environnement MSP.
+     Joue un rôle central dans la définition des offres de scripting et d'automatisation IT et l'accompagnement des clients dans leur stratégie de scripting. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de scripting proposées.
+     Fournit un support de haut niveau pour les projets de scripting complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché du scripting IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de scripting IT. Joue un rôle clé dans la gestion des incidents liés au scripting complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de scripting IT proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de scripting pour améliorer l'efficacité opérationnelle, réduire les délais de développement et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de scripting dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de scripting IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché du scripting IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions de scripting proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés au scripting complexe et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de scripting IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes.
+    intents: 
+    - it
+    - automation
+    - scripting
+    - powershell
+    - bash
+    team_id: TEAM__IT
+    team_name: IT
+  IT-SecurityMaster:
+    display_name: '@IT-SecurityMaster'    
+    description:  Expert en Cybersécurité et ethical hacker. Recommande stratégies, outils, et meilleures pratiques pour la sécurisation des environnements IT des clients MSP, y compris la gestion des risques, la conformité réglementaire, et la réponse aux incidents de sécurité.
+     Rôle clé pour assurer une posture de sécurité robuste pour les clients MSP et les aider à naviguer dans le paysage complexe de la cybersécurité. Participe à la formation continue des équipes sur les meilleures pratiques de sécurité et les évolutions du marché de la cybersécurité.
+     Joue un rôle central dans la définition des offres de sécurité IT et l'accompagnement des clients dans leur stratégie de sécurité. Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de sécurité dans le cycle de vie du développement logiciel.
+     Fournit un support de haut niveau pour les projets de sécurité complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché de la cybersécurité et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de sécurité IT. Joue un rôle clé dans la gestion des incidents liés à la sécurité complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de sécurité IT proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de sécurité pour améliorer l'efficacité opérationnelle, réduire les risques et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de sécurité dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de sécurité IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de la cybersécurité et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à la sécurité complexe et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de sécurité IT proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe
+     du secteur de la cybersécurité, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées à la sécurité en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution. Recommande des stratégies d'amélioration de la communication client pour renforcer
+     les relations client et améliorer la satisfaction client dans le contexte de la sécurité, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+     Joue un rôle clé dans la gestion de la qualité et l'amélioration continue des processus de sécurité, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client. Recommande des stratégies d'amélioration continue pour renforcer la qualité et l'efficacité
+     des processus de sécurité, en veillant à ce que les processus soient régulièrement évalués et améliorés pour maintenir des standards élevés de service et de satisfaction client.
+    intents: 
+    - it
+    - security
+    - risk
+    - compliance
+    team_id: TEAM__IT
+    team_name: IT
+  IT-SoftwMaster:
+    display_name: '@IT-SoftwMaster'    
+    description: Logiciels & licences. Recommande stratégies, outils, et meilleures pratiques pour la gestion des logiciels et des licences IT pour les clients MSP, y compris la sélection de logiciels, la gestion des licences, et l'optimisation des coûts logiciels.
+     Rôle clé pour guider les clients dans la mise en place de stratégies efficaces de gestion des logiciels et des licences IT. Participe à la formation continue des équipes sur les meilleures pratiques de gestion des logiciels et des licences dans un environnement MSP.
+     Joue un rôle central dans la définition des offres de gestion des logiciels et des licences IT et l'accompagnement des clients dans leur stratégie de gestion des logiciels. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de gestion des logiciels proposées.
+     Fournit un support de haut niveau pour les projets complexes de gestion des logiciels et des licences et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché de la gestion des logiciels et des licences IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de gestion des logiciels et des licences IT. Joue un rôle clé dans la gestion des incidents liés à la gestion des logiciels et des licences complexes et la résolution de problèmes techniques de haut niveau.
+    intents: 
+    - it
+    - licenses
+    - software
+    - asset_management
+    - procurement
+    team_id: TEAM__IT
+    team_name: IT
+  IT-SupportMaster:
+    display_name: '@IT-SupportMaster'   
+    description: Spécialiste de support TI N1–N3. Recommande stratégies, outils, et meilleures pratiques pour la gestion du support technique IT, y compris le triage des incidents, la résolution de problèmes, et la communication avec les clients pour assurer une satisfaction client élevée dans un environnement MSP.
+     Rôle clé pour assurer une gestion efficace du support technique IT pour les clients MSP et les aider à naviguer dans les défis techniques courants. Participe à la formation continue des équipes sur les meilleures pratiques de support technique et les évolutions du marché du support IT.
+     Joue un rôle central dans la définition des offres de support technique IT et l'accompagnement des clients dans leur stratégie de support. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de support proposées.
+     Fournit un support de haut niveau pour les projets de support technique complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché du support technique IT et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de support technique IT. Joue un rôle clé dans la gestion des incidents liés au support technique complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de support technique IT proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de support technique pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de support technique dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de support technique IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché du support technique IT et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+    intents: 
+    - it
+    - support
+    - incident
+    - troubleshooting
+    - customer_service
+    team_id: TEAM__IT
+    team_name: IT
+  IT-Technicien:
+    display_name: '@IT-Technicien'    
+    description: Technicien de terrain. Recommande stratégies, outils, et meilleures pratiques pour les interventions techniques sur site, y compris l'installation, la maintenance, et la résolution de problèmes pour assurer une satisfaction client élevée dans un environnement MSP.
+     Rôle clé pour assurer une gestion efficace des interventions techniques sur site pour les clients MSP et les aider à naviguer dans les défis techniques courants. Participe à la formation continue des équipes sur les meilleures pratiques d'intervention technique et les évolutions du marché des services techniques sur site.
+     Joue un rôle central dans la définition des offres d'intervention technique sur site et l'accompagnement des clients dans leur stratégie d'intervention. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies d'intervention proposées.
+     Fournit un support de haut niveau pour les projets d'intervention technique complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché des services techniques sur site et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services d'intervention technique sur site. Joue un rôle clé dans la gestion des incidents liés à l'intervention technique complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'intervention technique sur site proposés par l'entreprise. Recommande des stratégies d'optimisation du processus d'intervention pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques d'intervention technique dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes d'intervention technique IT au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché des services techniques sur site et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions d'intervention proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+     Joue un rôle clé dans la gestion des incidents liés à l'intervention technique complexe et la résolution de problèmes techniques de haut niveau, en fournissant un support de haut niveau pour les clients et en veillant à ce que les incidents soient gérés de manière efficace et professionnelle pour maintenir la satisfaction client et la réputation de l'entreprise.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services d'intervention technique sur site proposés par l'entreprise, en veillant à ce que les ressources soient de haute qualité et utiles pour les clients et les équipes internes. Recommande des stratégies d'innovation technologique pour maintenir l'entreprise à la pointe
+     du secteur des services techniques sur site, en identifiant les tendances émergentes et en développant des offres innovantes pour répondre aux besoins changeants des clients et du marché.
+     Joue un rôle clé dans la gestion des situations de crise ou de mécontentement client liées à l'intervention technique en assurant une communication efficace et empathique, et en veillant à ce que les clients soient informés et soutenus tout au long du processus de résolution. Recommande des stratégies d'amélioration de la communication
+     client pour renforcer les relations client et améliorer la satisfaction client dans le contexte de l'intervention technique, en veillant à ce que les communications soient claires, transparentes et répondent aux attentes des clients en matière de communication.
+    intents: 
+    - it
+    - support
+    - field
+    - intervention
+    - technician
+    team_id: TEAM__IT
+    team_name: IT
+  IT-TicketScribe:
+    display_name: '@IT-TicketScribe'    
+    description: Rédacteur ConnectWise. Recommande stratégies, outils, et meilleures pratiques pour la rédaction efficace de tickets ConnectWise, y compris la collecte d'informations, la rédaction claire et concise, et la communication avec les clients pour assurer une résolution rapide et une satisfaction client élevée dans un environnement MSP.
+     Rôle clé pour assurer une gestion efficace des tickets ConnectWise pour les clients MSP et les aider à naviguer dans les défis liés à la rédaction de tickets. Participe à la formation continue des équipes sur les meilleures pratiques de rédaction de tickets et les évolutions du marché du support IT.
+     Joue un rôle central dans la définition des offres de rédaction de tickets ConnectWise et l'accompagnement des clients dans leur stratégie de gestion des tickets. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de rédaction de tickets proposées.
+     Fournit un support de haut niveau pour les projets de rédaction de tickets complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché du support IT et adapter les offres de rédaction de tickets en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de rédaction de tickets ConnectWise. Joue un rôle clé dans la gestion des incidents liés à la rédaction de tickets complexe et la résolution de problèmes techniques de haut niveau.
+    intents: 
+    - it
+    - ticket
+    - writing
+    - documentation
+    - connectwise
+    team_id: TEAM__IT
+    team_name: IT
+  IT-VoIPMaster:
+    display_name: '@IT-VoIPMaster'    
+    description: SPécialiste en téléphonie IP & UC. Recommande stratégies, outils, et meilleures pratiques pour la gestion des systèmes de téléphonie IP et de communication unifiée (UC) pour les clients MSP, y compris la configuration, la maintenance, et la résolution de problèmes pour assurer une satisfaction client élevée.
+     Rôle clé pour assurer une gestion efficace des systèmes de téléphonie IP et de communication unifiée pour les clients MSP et les aider à naviguer dans les défis techniques courants liés à ces technologies. Participe à la formation continue des équipes sur les meilleures pratiques de gestion des systèmes de téléphonie IP et de communication unifiée.
+     Joue un rôle central dans la définition des offres de téléphonie IP et de communication unifiée et l'accompagnement des clients dans leur stratégie de gestion de ces systèmes. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de gestion des systèmes de téléphonie IP et de communication unifiée proposées.
+     Fournit un support de haut niveau pour les projets complexes liés à la téléphonie IP et à la communication unifiée, ainsi que les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché de la téléphonie IP et de la communication unifiée et adapter les offres en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de téléphonie IP et de communication unifiée. Joue un rôle clé dans la gestion des incidents liés à la téléphonie IP et à la communication unifiée complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de téléphonie IP et de communication unifiée proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de gestion des systèmes de téléphonie IP et de communication unifiée pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de gestion des systèmes de téléphonie IP et de communication unifiée dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de gestion des systèmes de téléphonie IP et de communication unifiée au sein des organisations clientes.
+     Assure une veille technologique constante pour anticiper les évolutions du marché de la téléphonie IP et de la communication unifiée et adapter les offres en conséquence, en veillant à ce que l'entreprise reste compétitive et innovante dans le secteur MSP.
+     Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les solutions de téléphonie IP et de communication unifiée proposées, en veillant à ce que les offres respectent les normes de sécurité les plus élevées et répondent aux attentes des clients en matière de sécurité.
+    intents: 
+    - it
+    - voip
+    - uc
+    - telephony
+    - sip
+    team_id: TEAM__IT
+    team_name: IT
+  IT-InterventionLive:
+    display_name: '@IT-InterventionLive'
+    description: Suivi en temps reel des interventions techniques sur site. Recommande stratégies, outils, et meilleures pratiques pour le suivi en temps réel des interventions techniques sur site, y compris la communication avec les techniciens, la coordination avec les équipes de support, et la gestion des attentes des clients pour assurer une satisfaction client élevée dans un environnement MSP.
+     Rôle clé pour assurer une gestion efficace du suivi en temps réel des interventions techniques sur site pour les clients MSP et les aider à naviguer dans les défis liés à la coordination des interventions. Participe à la formation continue des équipes sur les meilleures pratiques de suivi en temps réel des interventions techniques et les évolutions du marché des services techniques sur site.
+     Joue un rôle central dans la définition des offres de suivi en temps réel des interventions techniques sur site et l'accompagnement des clients dans leur stratégie de gestion des interventions. Collabore étroitement avec les équipes de sécurité pour assurer une posture de sécurité robuste dans toutes les stratégies de suivi en temps réel proposées.
+     Fournit un support de haut niveau pour les projets de suivi en temps réel complexes et les défis techniques rencontrés par les clients. Assure une veille technologique constante pour anticiper les évolutions du marché des services techniques sur site et adapter les offres de suivi en temps réel en conséquence.
+     Travaille en étroite collaboration avec les équipes de vente pour élaborer des propositions commerciales convaincantes pour les services de suivi en temps réel des interventions techniques sur site. Joue un rôle clé dans la gestion des incidents liés au suivi en temps réel complexe et la résolution de problèmes techniques de haut niveau.
+     Participe à la création de documentation technique et de guides de meilleures pratiques pour les services de suivi en temps réel des interventions techniques sur site proposés par l'entreprise. Recommande des stratégies d'optimisation du processus de suivi en temps réel pour améliorer l'efficacité opérationnelle, réduire les délais de résolution et assurer une satisfaction client élevée.
+     Collabore étroitement avec les équipes de développement pour assurer une intégration fluide des pratiques de suivi en temps réel des interventions techniques dans le cycle de vie du développement logiciel. Joue un rôle clé dans la gestion du changement culturel nécessaire à l'adoption réussie des pratiques modernes de suivi en temps réel des interventions techniques IT au sein des organisations clientes.
+    intents:
+    - intervention_live
+    - suivi_intervention
+    - technicien
+    status: active
+    team_id: TEAM__IT
+    team_name: IT
+       # ═══════════════════════════════════════════════════════════════════════════
+  # TEAM: IASM - Cabinet en santé mentale 
+  # ═══════════════════════════════════════════════════════════════════════════
+  IASM-Orchestrator:
+    description: Orchestrateur IASM - coaching et soutien en sante mentale.
+    display_name: IASM-Orchestrator
+    intents:
+    - coaching
+    - support_emotionnel
+    - aide
+    - ecoute
+    - stress
+    - anxiete
+    status: active
+    team_id: TEAM__IASM
+    team_name: IASM
+  IASM-OutilsTCC:
+    description: Outils TCC - exercices et restructuration cognitive.
+    display_name: IASM-OutilsTCC
+    intents:
+    - tcc
+    - exercice
+    - pensee
+    - restructuration
+    status: active
+    team_id: TEAM__IASM
+    team_name: IASM
+  IASM-Securite:
+    description: Agent de securite pour crises et situations a risque eleve.
+    display_name: IASM-Securite
+    intents:
+    - urgence
+    - crise
+    - danger
+    - suicidaire
+    - automutilation
+    status: active
+    team_id: TEAM__IASM
+    team_name: IASM
+  NEA-Imagier:
+    description: Illustration et brief image pour publications NEA.
+    display_name: NEA-Imagier
+    intents:
+    - illustration
+    - image
+    - visuel
+    - brief_image
+    status: active
+    team_id: TEAM__NEA
+    team_name: NEA
+  NEA-Orchestrator:
+    description: Orchestrateur NEA - livres, recueils et publications.
+    display_name: NEA-Orchestrator
+    intents:
+    - livre
+    - recueil
+    - publishing
+    - ecriture
+    - redaction
+    status: active
+    team_id: TEAM__NEA
+    team_name: NEA
+  TRAD-CommandCore:
+    description: Intelligence strategique - analyse marche, cyber, geopolitique.
+    display_name: TRAD-CommandCore
+    intents:
+    - intel
+    - intelligence
+    - marche
+    - crypto
+    - cyber
+    - geopolitique
+    - analyse_strategique
+    status: active
+    team_id: TEAM__TRAD
+    team_name: TRAD
+  TRAD-CryptoAnalyst:
+    description: Analyse crypto, Bitcoin, DeFi, blockchain.
+    display_name: TRAD-CryptoAnalyst
+    intents:
+    - crypto
+    - bitcoin
+    - defi
+    - blockchain
+    status: active
+    team_id: TEAM__TRAD
+    team_name: TRAD
+  TRAD-CyberWatch:
+    description: Surveillance cybersecurite - menaces, vulnerabilites, ransomware.
+    display_name: TRAD-CyberWatch
+    intents:
+    - cybersecurite
+    - menace
+    - vulnerability
+    - ransomware
+    status: active
+    team_id: TEAM__TRAD
+    team_name: TRAD
+  TRAD-MarketAnalyst:
+    description: Analyse marches financiers, bourse, economie.
+    display_name: TRAD-MarketAnalyst
+    intents:
+    - marche
+    - bourse
+    - finance
+    - economie
+    status: active
+    team_id: TEAM__TRAD
+    team_name: TRAD
+  DAM-Orchestrator:
+    description: Orchestrateur equipe DAM - projets construction et renovation.
+    display_name: DAM-Orchestrator
+    intents:
+    - dam
+    - construction
+    - renovation
+    - domiciliaire
+    - projet_maison
+    status: active
+    team_id: TEAM__DAM
+    team_name: DAM
+  DAM-Budget:
+    description: Estimation budgetaire et analyse des couts en construction/renovation.
+    display_name: DAM-Budget
+    intents:
+    - budget
+    - cout
+    - soumission
+    - estimation
+    status: active
+    team_id: TEAM__DAM
+    team_name: DAM
+  DAM-Conformite:
+    description: Conformite reglementaire (RBQ, code batiment, permis, zonage).
+    display_name: DAM-Conformite
+    intents:
+    - conformite
+    - rbq
+    - code_batiment
+    - permis
+    - zonage
+    status: active
+    team_id: TEAM__DAM
+    team_name: DAM
+  EDU-Orchestrator:
+    description: Orchestrateur equipe EDU - evaluation et correction pedagogique.
+    display_name: EDU-Orchestrator
+    intents:
+    - education
+    - ccq
+    - evaluation
+    - correction
+    - reflexion
+    - ethique
+    - devoir
+    status: active
+    team_id: TEAM__EDU
+    team_name: EDU
+  ESPL-PaulLejeuneRadio:
+    description: Chroniques radio Paul Lejeune - histoire du Quebec.
+    display_name: ESPL-PaulLejeuneRadio
+    intents:
+    - paul_lejeune
+    - chronique
+    - histoire_quebec
+    status: active
+    team_id: TEAM__ESPL
+    team_name: ESPL
+  PLR-Orchestrator:
+    description: Orchestrateur PLR - radio, podcast et episodes.
+    display_name: PLR-Orchestrator
+    intents:
+    - radio
+    - podcast
+    - episode
+    - script_radio
+    status: active
+    team_id: TEAM__PLR
+    team_name: PLR

@@ -1,6 +1,6 @@
 schema_version: '1.0'
 generated_at: '2026-02-27T00:00:00Z'
-intents: null
+intents:
 lifecycle:
 - CTL-WatchdogIA
 activate_agent:
