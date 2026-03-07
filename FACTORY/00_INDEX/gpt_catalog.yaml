@@ -267,7 +267,7 @@ catalog:
       contract: 20_AGENTS/META/META-AnalysteBesoinsEquipes/contract.yaml
       prompt: 20_AGENTS/META/META-AnalysteBesoinsEquipes/prompt.md
   META-ArchitecteChoix:
-    display_name: META-ArchitecteChoix
+    display_name: '@META-ArchitecteChoix'
     team_id: TEAM__META
     status: production
     intents:
@@ -332,11 +332,11 @@ catalog:
       contract: 20_AGENTS/META/META-OrchestrateurCentral/contract.yaml
       prompt: 20_AGENTS/META/META-OrchestrateurCentral/prompt.md
   META-Pedagogie:
-    display_name: MCIA — Prof (Pédagogie)
+    display_name: '@META-Pedagogie'
     team_id: TEAM__META
     status: active
     intents:
-    - mcia
+    - meta
     - education
     - teach_ai
     - course
@@ -346,7 +346,7 @@ catalog:
       contract: 20_AGENTS/META/META-Pedagogie/contract.yaml
       prompt: 20_AGENTS/META/META-Pedagogie/prompt.md
   META-PlaybookBuilder:
-    display_name: META-PlaybookBuilder
+    display_name: '@META-PlaybookBuilder'
     team_id: TEAM__META
     status: production
     intents:
@@ -359,7 +359,7 @@ catalog:
       contract: 20_AGENTS/META/META-PlaybookBuilder/contract.yaml
       prompt: 20_AGENTS/META/META-PlaybookBuilder/prompt.md
   META-PromptMaster:
-    display_name: META-PromptMaster
+    display_name: '@META-PromptMaster'
     team_id: TEAM__META
     status: production
     intents:
@@ -372,11 +372,11 @@ catalog:
       contract: 20_AGENTS/META/META-PromptMaster/contract.yaml
       prompt: 20_AGENTS/META/META-PromptMaster/prompt.md
   META-Redaction:
-    display_name: MCIA — Rédaction (Long format)
+    display_name: '@META-Redaction'
     team_id: TEAM__META
     status: active
     intents:
-    - mcia
+    - meta
     - writing
     - docs
     - book
@@ -398,11 +398,11 @@ catalog:
       contract: 20_AGENTS/META/META-ReversePrompt/contract.yaml
       prompt: 20_AGENTS/META/META-ReversePrompt/prompt.md
   META-VisionCreative:
-    display_name: MCIA — Vision & Créatif (Image/Vidéo)
+    display_name: 'META-VisionCreative (Image/Vidéo)'
     team_id: TEAM__META
     status: active
     intents:
-    - mcia
+    - meta
     - assets
     - vision
     - image

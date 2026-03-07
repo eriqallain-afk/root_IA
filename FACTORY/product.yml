@@ -1,0 +1,296 @@
+schema_version: '2.0'
+generated_at: '2026-03-07T00:00:00Z'
+generated_by: 'Claude Sonnet 4.6 — Refonte complète v2'
+
+# ════════════════════════════════════════════════════════════════
+# MANIFESTE PRODUIT — @IT MSP INTELLIGENCE PLATFORM
+# ════════════════════════════════════════════════════════════════
+product_id: IT
+display_name: '@IT — MSP Intelligence Platform'
+tagline: 'Intelligence artificielle pour opérations MSP de niveau enterprise'
+version: '4.0'
+status: active
+standalone: true            # Indépendant de la FACTORY et du HUB global
+
+description: >
+  Plateforme IA d'opérations MSP complète. Couvre support technique (N1-N3),
+  NOC, cloud (Azure/M365/AWS/GCP), cybersécurité, maintenance, scripting,
+  reporting et gouvernance IT. Opère en autonomie totale — aucune dépendance
+  vers la FACTORY ou le HUB global. 31 agents spécialisés coordonnés par
+  OPS-RouterIA via une table de routage basée sur les intents.
+
+# ── PROPRIÉTÉ & GOUVERNANCE ──────────────────────────────────────
+owner: TEAM__IT_OPS
+activation_authority: EA
+languages:
+  primary: fr
+  secondary: en
+
+teams:
+  - id: TEAM__IT
+    name: IT — Agents métier
+    role: Agents spécialisés opérations MSP (28 agents)
+    member_count: 28
+
+  - id: TEAM__IT_OPS
+    name: IT-OPS — Équipe interne
+    role: Routing, exécution, archivage (3 agents OPS)
+    member_count: 3
+
+# ── STATISTIQUES PRODUIT ─────────────────────────────────────────
+stats:
+  version: '4.0'
+  total_agents: 31
+  ops_agents: 3
+  metier_agents: 28
+  active_playbooks: 10
+  knowledge_packs: 8
+  shared_knowledge_folders: 5
+  total_runbooks_shared: 17
+  intents_covered: 67
+  intents_gap: 9
+  supported_integrations: 6
+  last_update: '2026-03-07'
+
+# ── POINT D'ENTRÉE ───────────────────────────────────────────────
+entry_point:
+  actor_id: OPS-RouterIA
+  file: 80_MACHINES/hub_routing.yaml
+  description: >
+    Tout flux entre par OPS-RouterIA qui analyse l'intent et sélectionne
+    l'agent métier + playbook. Un seul point d'entrée pour 31 agents.
+
+# ── CHEMINS DU PRODUIT ───────────────────────────────────────────
+paths:
+  agents: 20_Agents/
+  ops_agents: OPS/
+  playbooks: playbooks/playbooks.yaml
+  routing: 80_MACHINES/hub_routing.yaml
+  knowledge_shared: IT_SHARED/Knowledge/
+  knowledge_index: 00_INDEX/KNOWLEDGE_INDEX.yaml
+  factory_manifest: FACTORY_MANIFEST.yaml
+  intents: 00_INDEX/intents.yaml
+  agents_index: 00_INDEX/agents_index.yaml
+  bundle_ctl: 00_INDEX/BUNDLE__CTL_UPLOAD.yaml
+  staging: 99_STAGING/INCOMING/
+  memory_shared: IT_SHARED/IT-MSP/
+
+# ── POLITIQUES D'ESCALADE ────────────────────────────────────────
+escalation_policy:
+  internal_fallback: IT-OrchestratorMSP     # Tout ce qui n'est pas routé
+  technical_escalation: IT-CTOMaster        # Escalade technique produit
+  strategic_escalation: IT-DirecteurGeneral # Escalade direction
+  never_escalate_to:
+    - FACTORY
+    - HUB-AgentMO
+    - HUB global
+
+# ── ARCHITECTURE DES FLUX ────────────────────────────════════════
+architecture:
+  pattern: intent-based-routing
+  description: >
+    Chaque requête est analysée par OPS-RouterIA → intent détecté →
+    agent métier sélectionné + playbook déclenché → OPS-PlaybookRunner
+    exécute → OPS-DossierIA archive le livrable.
+
+  flux_standard:
+    - step: 1_intake
+      actor: OPS-RouterIA
+      action: Analyse intent + sélection agent + playbook
+
+    - step: 2_execute
+      actor: OPS-PlaybookRunner
+      action: Déroule les étapes du playbook sélectionné
+
+    - step: 3_archive
+      actor: OPS-DossierIA
+      action: Package le livrable en Dossier IA
+
+  watchdog_integration:
+    position: AVANT OPS-RouterIA
+    actor: CTL-Watchdog (à créer)
+    role: Supervision, audit, conformité, alertes
+
+  commandare_layer:
+    description: Couche d'orchestration entre routing et agents terrain
+    actors:
+      - IT-Commandare-NOC    # NOC — triage et escalade
+      - IT-Commandare-TECH   # TECH — RCA et remédiation
+      - IT-Commandare-OPR    # OPR — gouvernance et change
+
+# ── INTÉGRATIONS ACTIVES ─────────────────────────────────────────
+integrations:
+  - id: connectwise_manage
+    type: PSA / Ticketing
+    version: current
+    consumers_count: 8
+    consumers: [IT-TicketScribe, IT-InterventionCopilot, IT-MSPLiveAssistant,
+                IT-Technicien, IT-NOCDispatcher, IT-CommsMSP, IT-Commandare-NOC,
+                OPS-DossierIA]
+    status: active
+
+  - id: azure_ad_entra
+    type: Identity / Directory
+    consumers_count: 3
+    consumers: [IT-CloudMaster, IT-SecurityMaster, IT-InfrastructureMaster]
+    status: active
+
+  - id: microsoft_365
+    type: Productivity Cloud
+    consumers_count: 3
+    consumers: [IT-CloudMaster, IT-CommsMSP, IT-SecurityMaster]
+    status: active
+
+  - id: azure_cloud
+    type: IaaS / PaaS
+    consumers_count: 2
+    consumers: [IT-CloudMaster, IT-InfrastructureMaster]
+    status: active
+
+  - id: n_able_rmm
+    type: RMM / Monitoring
+    consumers_count: 4
+    consumers: [IT-MaintenanceMaster, IT-MonitoringMaster, IT-NOC, IT-Commandare-NOC]
+    status: active
+
+  - id: datto_bcdr
+    type: Backup / DR
+    consumers_count: 2
+    consumers: [IT-BackupDRMaster, IT-MaintenanceMaster]
+    status: active
+
+# ── REGISTRE AGENTS (résumé par tier) ───────────────────────────
+agents_by_tier:
+
+  ops:
+    count: 3
+    agents: [OPS-RouterIA, OPS-PlaybookRunner, OPS-DossierIA]
+
+  commandare:
+    count: 4
+    agents: [IT-Commandare-NOC, IT-Commandare-OPR, IT-Commandare-TECH, IT-OrchestratorMSP]
+
+  terrain:
+    count: 10
+    agents: [IT-MSPLiveAssistant, IT-Technicien, IT-InterventionCopilot,
+             IT-InterventionLive, IT-NOC, IT-NOCDispatcher, IT-TicketScribe,
+             IT-SupportMaster, IT-CommsMSP, IT-KnowledgeKeeper]
+
+  infrastructure:
+    count: 10
+    agents: [IT-CloudMaster, IT-NetworkMaster, IT-InfrastructureMaster,
+             IT-MaintenanceMaster, IT-MonitoringMaster, IT-BackupDRMaster,
+             IT-SecurityMaster, IT-ScriptMaster, IT-DevOpsMaster,
+             IT-MSPLiveAssistant]
+
+  governance:
+    count: 7
+    agents: [IT-CTOMaster, IT-DirecteurGeneral, IT-AssetMaster, IT-SoftwMaster,
+             IT-ReportMaster, IT-VoIPMaster, IT-MSPLiveAssistant]
+
+# ── PLAYBOOKS (résumé) ───────────────────────────────────────────
+playbooks_summary:
+  source: playbooks/playbooks.yaml
+  count: 10
+  ids:
+    - IT_MSP_LIVE_ASSIST
+    - IT_COMMANDARE_NOC
+    - IT_COMMANDARE_TECH
+    - IT_COMMANDARE_OPR
+    - IT_INCIDENT_TRIAGE
+    - IT_CHANGE_EXEC
+    - IT_NOC_DISPATCH
+    - IT_CW_INTERVENTION_LIVE_CLOSE
+    - IT_MSP_TICKET_TO_KB
+    - INTAKE_ROUTE_EXECUTE
+
+# ── KNOWLEDGE ARCHITECTURE ───────────────────────────────────────
+knowledge_architecture:
+  description: >
+    Deux niveaux : shared (IT_SHARED/Knowledge/) pour le commun à tous,
+    et packs agent-spécifiques (agents/*/KnowledgePack/) pour le métier.
+    Le pack agent-spécifique prend toujours priorité sur le shared.
+
+  levels:
+    level_1_shared:
+      path: IT_SHARED/Knowledge/
+      categories: [templates_cw, runbooks_maintenance, checklists,
+                   powershell_library, troubleshooting]
+
+    level_2_agent_packs:
+      count: 8
+      agents: [IT-Commandare-NOC, IT-Commandare-OPR, IT-Commandare-TECH,
+               IT-CTOMaster, IT-MaintenanceMaster, IT-CloudMaster,
+               IT-MSPLiveAssistant, IT-InterventionLive]
+
+    level_3_memory:
+      path: IT_SHARED/IT-MSP/
+      description: Mémoire versionnée partagée (MEM-IT-*)
+
+# ── ROADMAP — ÉVOLUTIONS PLANIFIÉES ──────────────────────────────
+roadmap:
+  phase_current:
+    version: '4.0'
+    focus: Enrichissement agents incomplets + Watchdog
+    status: in_progress
+
+  phase_next:
+    version: '4.1'
+    focus: Combler les intents_gaps prioritaires
+    planned_agents:
+      - IT-OnboardingMaster     # Gap: onboarding_client
+      - IT-ComplianceMaster     # Gap: compliance_audit
+      - IT-CABMaster            # Gap: itsm_change_advisory
+    planned_playbooks:
+      - IT_CLIENT_ONBOARDING
+      - IT_COMPLIANCE_AUDIT
+      - IT_CAB_CHANGE_REVIEW
+
+  phase_future:
+    version: '5.0'
+    focus: Automatisation et intégration directe PSA/RMM
+    themes:
+      - Connexion API directe ConnectWise
+      - Webhooks N-Able → NOC automatique
+      - Rapports QBR automatisés
+      - CTL-Watchdog actif avec alertes Slack/Teams
+
+# ── CONTRÔLE DE QUALITÉ ──────────────────────────────────────────
+quality_control:
+  min_agent_completeness: 90%
+  target_agent_completeness: 95%
+  review_cycle: quarterly
+  last_review: '2026-03-07'
+  reviewer: EA
+
+  standards:
+    prompt_min_lines: 50
+    must_have_contract: true
+    must_have_readme: true
+    must_have_tests: recommended
+    sla_definition_required: true
+    bilingual_required: true      # FR + EN
+
+  current_avg_completeness: 82%
+  agents_at_target: 7
+  agents_needs_work: 12
+  agents_incomplete: 4
+
+# ── SÉCURITÉ ET ISOLATION ────────────────────────────────────────
+security:
+  isolation:
+    agent_prompts: private      # prompt.md jamais exposé aux autres agents
+    contracts: visible          # contract.yaml lisible par CTL/Watchdog
+    knowledge_packs: visible    # Knowledge lisible par agents autorisés
+    routing_table: visible      # hub_routing.yaml lisible pour supervision
+
+  access_control:
+    can_read_all_contracts: [CTL-Watchdog, OPS-RouterIA, IT-CTOMaster]
+    can_modify_routing: [EA]    # Exclusive — validation manuelle requise
+    can_activate_agent: [EA]    # Exclusive — jamais automatique
+
+  forbidden:
+    - Exposer prompt.md d'un agent à un autre agent
+    - Activation automatique d'un agent (auto_activation=false)
+    - Fallback vers FACTORY ou HUB global
+    - Modification routing sans validation EA

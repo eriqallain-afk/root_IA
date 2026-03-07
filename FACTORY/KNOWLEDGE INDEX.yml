@@ -1,0 +1,481 @@
+schema_version: '2.0'
+generated_at: '2026-03-07T00:00:00Z'
+generated_by: 'Claude Sonnet 4.6 — Refonte complète v2'
+product_id: IT
+display_name: '@IT — MSP Intelligence Platform'
+description: >
+  Index central et source de vérité de toute la base de connaissance du produit @IT.
+  Ce fichier est chargé par CTL-Watchdog, OPS-RouterIA, OPS-PlaybookRunner et tout
+  agent nécessitant une vision transversale du savoir disponible.
+
+# ════════════════════════════════════════════════════════════════
+# STATISTIQUES
+# ════════════════════════════════════════════════════════════════
+stats:
+  total_agents: 31
+  agents_with_knowledge_pack: 8
+  shared_knowledge_folders: 5
+  total_runbooks: 17
+  total_templates_cw: 12
+  total_checklists: 8
+  total_powershell_scripts: 3
+  last_full_review: '2026-03-07'
+
+# ════════════════════════════════════════════════════════════════
+# BASE DE CONNAISSANCE PARTAGÉE — IT_SHARED/Knowledge/
+# ════════════════════════════════════════════════════════════════
+shared:
+
+  # ── 01 · TEMPLATES CONNECTWISE ───────────────────────────────
+  templates_cw:
+    path: IT_SHARED/Knowledge/01_TEMPLATES_CW/
+    description: >
+      Templates ConnectWise Manage complets : notes internes, discussions STAR,
+      emails client, Teams notices. Format opérationnel prêt à coller dans CW.
+    priority: critical
+    consumers:
+      - IT-TicketScribe
+      - IT-InterventionCopilot
+      - IT-InterventionLive
+      - IT-MSPLiveAssistant
+      - IT-CommsMSP
+      - IT-MaintenanceMaster
+      - OPS-DossierIA
+    files:
+      - TEMPLATE__CW_DISCUSSION.md          # Discussion ticket standard
+      - TEMPLATE__CW_DISCUSSION_STAR.md     # Discussion STAR (Situation-Task-Action-Result)
+      - CW_DISCUSSION_STAR.md               # Variante courte STAR
+      - TEMPLATE__CW_NOTE_INTERNE.md        # Note interne technicien
+      - TEMPLATE__CW_NOTE_INTERNE__TIMELINE.md  # Note avec timeline événements
+      - TEMPLATE__EMAIL_CLIENT.md           # Email client professionnel
+      - TEMPLATE__EMAIL_CLIENT__MAINTENANCE.md  # Email maintenance planifiée
+      - TEMPLATE__TEAMS_NOTICE.md           # Notification Teams (maintenance/incident)
+    sub_folders:
+      cloud:
+        path: IT_SHARED/Knowledge/01_TEMPLATES_CW/Cloud/
+        description: Templates spécifiques Azure/M365 (onboarding, health report, configs)
+        files:
+          - CHECKLIST__M365_Configuration.md
+          - REFERENCE__Cloud_Admin_Portals.md
+          - RUNBOOK__M365_User_Onboarding.md
+          - TEMPLATE__Cloud_Health_Report.md
+          - GUIDE_IMPLEMENTATION.md
+          - INSTRUCTIONS_KNOWLEDGE_PACK.md
+
+  # ── 02 · RUNBOOKS MAINTENANCE ────────────────────────────────
+  runbooks_maintenance:
+    path: IT_SHARED/Knowledge/02_RUNBOOKS_MAINTENANCE/
+    description: >
+      Runbooks de maintenance opérationnels : patching Windows, validation DC/DNS,
+      SQL, PrintServer, reboot séquentiel, validation post-coupure électrique.
+    priority: critical
+    consumers:
+      - IT-MaintenanceMaster
+      - IT-BackupDRMaster
+      - IT-MSPLiveAssistant
+      - IT-OrchestratorMSP
+      - IT-Commandare-TECH
+    files:
+      - RUNBOOK__Windows_Patching_CW_RMM_OneByOne.md
+      - RUNBOOK__PendingReboot_OneByOne.md
+      - RUNBOOK__DC_PrePost_Validation.md
+      - RUNBOOK__SQL_PrePost_Validation.md
+      - RUNBOOK__PrintServer_PrePost_Validation.md
+      - RUNBOOK__Post_Shutdown_Electrical_Validation.md
+
+  # ── 03 · CHECKLISTS ──────────────────────────────────────────
+  checklists:
+    path: IT_SHARED/Knowledge/03_CHECKLISTS/
+    description: >
+      Checklists opérationnelles MSP : démarrage ticket, pré-vérification,
+      post-vérification générique, fermeture CW.
+    priority: high
+    consumers:
+      - IT-Technicien
+      - IT-InterventionLive
+      - IT-InterventionCopilot
+      - IT-MSPLiveAssistant
+      - IT-NOC
+      - IT-Commandare-NOC
+    files:
+      - CHECKLIST__KICKOFF_TICKET.md        # Démarrage et cadrage intervention
+      - CHECKLIST__PRECHECK_GENERIC.md      # Validation avant toute action
+      - CHECKLIST__POSTCHECK_GENERIC.md     # Validation post-action
+      - CHECKLIST__CLOSEOUT_CW.md           # Fermeture ticket ConnectWise
+
+  # ── 04 · LIBRAIRIE POWERSHELL ────────────────────────────────
+  powershell_library:
+    path: IT_SHARED/Knowledge/04_POWERSHELL_LIBRARY/
+    description: >
+      Scripts et librairies PowerShell validés pour environnements MSP Windows :
+      analyse event logs, gestion serveurs, collecte health check.
+    priority: high
+    consumers:
+      - IT-ScriptMaster
+      - IT-MaintenanceMaster
+      - IT-CloudMaster
+      - IT-InfrastructureMaster
+      - IT-MonitoringMaster
+    files:
+      - POWERSHELL__Event_Log_Analysis.md   # Analyse des journaux Windows
+      - POWERSHELL__Server_Management.md    # Gestion et santé serveurs
+      - PS__Collect_Server_Check.ps1        # Script collecte health check complet
+
+  # ── 05 · TROUBLESHOOTING ─────────────────────────────────────
+  troubleshooting:
+    path: IT_SHARED/Knowledge/05_TROUBLESHOOTING/
+    description: >
+      Guides de dépannage par domaine technologique. Arbres de décision,
+      causes racines fréquentes, procédures de remédiation validées.
+    priority: high
+    consumers:
+      - IT-SupportMaster
+      - IT-Commandare-TECH
+      - IT-Technicien
+      - IT-NetworkMaster
+      - IT-InfrastructureMaster
+
+# ════════════════════════════════════════════════════════════════
+# KNOWLEDGE PACKS PAR AGENT
+# ════════════════════════════════════════════════════════════════
+agents:
+
+  # ── COMMANDARE (orchestrateurs opérationnels) ─────────────────
+  IT-Commandare-NOC:
+    pack_id: IT_Commandare_NOC_KnowledgePack_v1
+    pack_path: agents/IT-Commandare-NOC/IT_Commandare_NOC_KnowledgePack_v1/
+    description: >
+      Pack NOC complet : matrice de sévérité, règles de routage, playbook d'escalade,
+      templates comms, glossaire ITIL, exemples incidents & changes.
+    priority: critical
+    auto_load: true
+    version: v1
+    files:
+      - README__IT_KNOWLEDGE_PACK.md        # Guide d'utilisation du pack
+      - IT__Severity_Matrix.md              # Matrice sévérité P1→P4 avec SLA
+      - IT__Routing_Rules.md               # Règles de routage NOC → TECH/SOC/CTO
+      - IT__Escalation_Playbook.md         # Procédures escalade temps réel
+      - IT__Comms_Templates.md             # Templates comms client/interne NOC
+      - IT__Glossary.md                    # Glossaire ITIL/MSP
+      - EXAMPLES__Incident_and_Change.md   # Exemples incidents P1/P2 et changes
+
+  IT-Commandare-OPR:
+    pack_id: IT_Commandare_OPR_KnowledgePack_v1
+    pack_path: agents/IT-Commandare-OPR/IT_Commandare_OPR_KnowledgePack_v1/
+    description: >
+      Pack OPR : gouvernance ops, CMDB standards, KPIs, postmortem, RFC light,
+      routing rules, communications back-office.
+    priority: high
+    auto_load: true
+    version: v1
+    files:
+      - README.md
+      - IT__CMDB_Standards.md              # Standards CMDB et inventaire
+      - IT__KPI_Definitions.md             # Définitions et calculs KPIs MSP
+      - IT__Postmortem_Template.md         # Template postmortem structuré
+      - IT__RFC_Light_Template.md          # Template RFC change léger
+      - IT__Routing_Rules.md
+      - IT__Severity_Matrix.md
+      - IT__Comms_Templates.md
+      - IT__Glossary.md
+
+  IT-Commandare-TECH:
+    pack_id: IT_Commandare_TECH_KnowledgePack_v1
+    pack_path: agents/IT-Commandare-TECH/IT_Commandare_TECH_KnowledgePack_v1/
+    description: >
+      Pack TECH : RCA, KPIs techniques, postmortem, escalade, glossaire,
+      matrice sévérité, exemples incidents complexes.
+    priority: critical
+    auto_load: true
+    version: v1
+    files:
+      - README.md
+      - IT__Severity_Matrix.md
+      - IT__Escalation_Playbook.md
+      - IT__KPI_Definitions.md
+      - IT__Postmortem_Template.md
+      - IT__Routing_Rules.md
+      - IT__Glossary.md
+      - EXAMPLES__Incident_and_Change.md
+
+  IT-CTOMaster:
+    pack_id: IT_CTOMaster_KnowledgePack_v1
+    pack_path: agents/IT-CTOMaster/IT_CTOMaster_KnowledgePack_v1/
+    description: >
+      Pack CTO : gouvernance IT, roadmap, CMDB standards, KPIs exécutifs,
+      matrice sévérité, postmortem stratégique, RFC, escalades.
+    priority: high
+    auto_load: false
+    version: v1
+    files:
+      - README__IT_KNOWLEDGE_PACK.md
+      - IT__CMDB_Standards.md
+      - IT__KPI_Definitions.md
+      - IT__Postmortem_Template.md
+      - IT__RFC_Light_Template.md
+      - IT__Routing_Rules.md
+      - IT__Severity_Matrix.md
+      - IT__Comms_Templates.md
+      - IT__Escalation_Playbook.md
+      - IT__Glossary.md
+      - EXAMPLES__Incident_and_Change.md
+
+  # ── MAINTENANCE ───────────────────────────────────────────────
+  IT-MaintenanceMaster:
+    pack_id: IT_MaintenanceMaster_KnowledgePack_v1
+    pack_path: IT_SHARED/Knowledge/IT-MaintenanceMaster/
+    description: >
+      Pack maintenance MSP complet : templates CW, PowerShell, runbooks
+      patching/health-check/DC/SQL/PrintServer.
+    priority: critical
+    auto_load: true
+    version: v1
+    context_aware: true
+    contexts:
+      HEALTH_CHECK:
+        path: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/HEALTH_CHECK/
+        files:
+          - TEMPLATE__Health_Check.md
+          - TEMPLATE__Server_Health_Check.md
+      PATCHING:
+        path: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/PATCHING/
+        files:
+          - RUNBOOK__Patching_Process.md
+          - RUNBOOK__Windows_Patching.md
+      SHARED:
+        path: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/SHARED/
+        files:
+          - CHECKLIST__Pre_Maintenance.md
+          - GUIDE__Troubleshooting.md
+    deliverables:
+      path: agents/IT-MaintenanceMaster/02_TEMPLATES/DELIVERABLES/
+      files:
+        - TEMPLATE__CW_DISCUSSION__STAR.md
+        - TEMPLATE__CW_NOTE_INTERNE__PER_ASSET.md
+    powershell:
+      path: agents/IT-MaintenanceMaster/02_TEMPLATES/04_POWERSHELL_LIBRARY/
+      files:
+        - POWERSHELL__Event_Log_Analysis.md
+        - POWERSHELL__Server_Management.md
+
+  # ── CLOUD ─────────────────────────────────────────────────────
+  IT-CloudMaster:
+    pack_id: IT_CloudMaster_shared
+    pack_path: IT_SHARED/Knowledge/IT-CloudMaster/
+    description: >
+      Knowledge cloud : M365 onboarding, Azure AD/Entra ID, portails admin,
+      health reports, configuration best practices.
+    priority: high
+    auto_load: true
+    files:
+      - RUNBOOK__M365_User_Onboarding.md
+    additional_paths:
+      - agents/IT-CloudMaster/02_TEMPLATES/CHECKLIST__Azure_VM_Deployment.md
+      - agents/IT-CloudMaster/02_TEMPLATES/CHECKLIST__Best_Practices.md
+      - agents/IT-CloudMaster/02_TEMPLATES/CHECKLIST__M365_Configuration.md
+      - agents/IT-CloudMaster/02_TEMPLATES/GUIDE__Azure_Troubleshooting.md
+      - agents/IT-CloudMaster/02_TEMPLATES/REFERENCE__Cloud_Admin_Portals.md
+      - agents/IT-CloudMaster/02_TEMPLATES/REFERENCE__Common_Cloud_Commands.md
+      - agents/IT-CloudMaster/02_TEMPLATES/RUNBOOK__M365_User_Management.md
+      - agents/IT-CloudMaster/02_TEMPLATES/TEMPLATE__Cloud_Health_Report.md
+      - agents/IT-CloudMaster/02_TEMPLATES/TEMPLATE__Azure_Health_Report.md
+
+  # ── INTERVENTION LIVE ─────────────────────────────────────────
+  IT-InterventionLive:
+    pack_path: agents/IT-InterventionLive/05_KNOWLEDGE/
+    description: >
+      Knowledge intervention terrain : troubleshooting guide, best practices MSP,
+      exemples interventions typiques, patching serveurs.
+    priority: high
+    auto_load: true
+    files:
+      - troubleshooting_guide.md
+      - best_practices_msp.md
+      - exemples_interventions.md
+    additional:
+      - agents/IT-InterventionLive/exemple_patching_serveurs.md
+
+  # ── MSP LIVE ASSISTANT ────────────────────────────────────────
+  IT-MSPLiveAssistant:
+    pack_path: agents/IT-MSPLiveAssistant/knowledge/templates/
+    description: >
+      Templates live : CW Discussion, CW Discussion STAR, CW Note Interne,
+      Email Client. Utilisé en temps réel pendant les appels/interventions.
+    priority: critical
+    auto_load: true
+    files:
+      - TEMPLATE__CW_DISCUSSION.md
+      - TEMPLATE__CW_DISCUSSION_STAR.md
+      - CW_DISCUSSION_STAR.md
+      - TEMPLATE__CW_NOTE_INTERNE.md
+      - TEMPLATE__EMAIL_CLIENT.md
+    memory_index: agents/IT-MSPLiveAssistant/00_INDEX/MEMORY_INDEX.yaml
+
+# ════════════════════════════════════════════════════════════════
+# RUNBOOKS IT_SHARED — RÉFÉRENCE CROISÉE
+# ════════════════════════════════════════════════════════════════
+runbooks_shared:
+  path: IT_SHARED/IT-MSP/02_TEMPLATES/
+  description: >
+    Runbooks MSP transversaux validés. Chaque runbook est mappé à un agent
+    principal et à des agents secondaires consommateurs.
+  runbooks:
+    - id: RUNBOOK__IT_INTERVENTION_LIVE
+      file: RUNBOOK__IT_INTERVENTION_LIVE.md
+      primary_agent: IT-InterventionCopilot
+      consumers: [IT-MSPLiveAssistant, IT-Technicien]
+
+    - id: RUNBOOK__IT_CW_INTERVENTION_LIVE_CLOSE
+      file: RUNBOOK__IT_CW_INTERVENTION_LIVE_CLOSE.md
+      primary_agent: IT-InterventionCopilot
+      consumers: [IT-KnowledgeKeeper, IT-TicketScribe]
+
+    - id: RUNBOOK__IT_COMMANDARE_NOC
+      file: RUNBOOK__IT_COMMANDARE_NOC.md
+      primary_agent: IT-Commandare-NOC
+      consumers: [IT-NOCDispatcher, IT-Commandare-TECH]
+
+    - id: RUNBOOK__IT_COMMANDARE_TECH
+      file: RUNBOOK__IT_COMMANDARE_TECH.md
+      primary_agent: IT-Commandare-TECH
+      consumers: [IT-OrchestratorMSP, OPS-DossierIA]
+
+    - id: RUNBOOK__IT_COMMANDARE_OPR
+      file: RUNBOOK__IT_COMMANDARE_OPR.md
+      primary_agent: IT-Commandare-OPR
+      consumers: []
+
+    - id: RUNBOOK__IT_NOC_COMMAND_CENTER
+      file: RUNBOOK__IT_NOC_COMMAND_CENTER.md
+      primary_agent: IT-Commandare-NOC
+      consumers: [IT-NOC, IT-NOCDispatcher]
+
+    - id: RUNBOOK__IT_NOC_DISPATCH
+      file: RUNBOOK__IT_NOC_DISPATCH.md
+      primary_agent: IT-NOCDispatcher
+      consumers: [IT-Commandare-NOC]
+
+    - id: RUNBOOK__IT_INCIDENT_COMMAND_V1
+      file: RUNBOOK__IT_INCIDENT_COMMAND_V1.md
+      primary_agent: IT-Commandare-NOC
+      consumers: [IT-Commandare-TECH, IT-ReportMaster]
+
+    - id: RUNBOOK__IT_SECURITY_ALERT_TRIAGE_V1
+      file: RUNBOOK__IT_SECURITY_ALERT_TRIAGE_V1.md
+      primary_agent: IT-SecurityMaster
+      consumers: [IT-Commandare-NOC, IT-Commandare-TECH]
+
+    - id: RUNBOOK__IT_NETWORK_DIAGNOSTIC_V1
+      file: RUNBOOK__IT_NETWORK_DIAGNOSTIC_V1.md
+      primary_agent: IT-NetworkMaster
+      consumers: [IT-Commandare-TECH, IT-InfrastructureMaster]
+
+    - id: RUNBOOK__IT_BACKUP_DR_TEST_V1
+      file: RUNBOOK__IT_BACKUP_DR_TEST_V1.md
+      primary_agent: IT-BackupDRMaster
+      consumers: [IT-MaintenanceMaster]
+
+    - id: RUNBOOK__IT_CLOUD_ARCHITECTURE_V1
+      file: RUNBOOK__IT_CLOUD_ARCHITECTURE_V1.md
+      primary_agent: IT-CloudMaster
+      consumers: [IT-InfrastructureMaster, IT-CTOMaster]
+
+    - id: RUNBOOK__IT_ASSET_LIFECYCLE_V1
+      file: RUNBOOK__IT_ASSET_LIFECYCLE_V1.md
+      primary_agent: IT-AssetMaster
+      consumers: [IT-SoftwMaster, IT-CTOMaster]
+
+    - id: RUNBOOK__IT_DEVOPS_PIPELINE_V1
+      file: RUNBOOK__IT_DEVOPS_PIPELINE_V1.md
+      primary_agent: IT-DevOpsMaster
+      consumers: [IT-ScriptMaster]
+
+    - id: RUNBOOK__IT_MSP_CONNECTWISE_DISPATCH_V1
+      file: RUNBOOK__IT_MSP_CONNECTWISE_DISPATCH_V1.md
+      primary_agent: IT-NOCDispatcher
+      consumers: [IT-TicketScribe, IT-SupportMaster]
+
+    - id: RUNBOOK__IT_MSP_TICKET_TO_KB
+      file: RUNBOOK__IT_MSP_TICKET_TO_KB.md
+      primary_agent: IT-KnowledgeKeeper
+      consumers: [IT-TicketScribe, IT-SupportMaster, IT-CommsMSP]
+
+    - id: RUNBOOK__IT_NOC_FRONTDOOR
+      file: IT_SHARED/RUNBOOK__IT_NOC_FRONTDOOR.md
+      primary_agent: IT-NOC
+      consumers: [IT-Commandare-NOC, IT-NOCDispatcher]
+
+# ════════════════════════════════════════════════════════════════
+# MÉMOIRE PARTAGÉE MSP — IT_SHARED/IT-MSP/
+# ════════════════════════════════════════════════════════════════
+memory_shared:
+  base_path: IT_SHARED/IT-MSP/
+  description: >
+    Mémoire partagée MSP versionnée (MEM-IT-*). Chargée par les agents de
+    gouvernance (CTOMaster, Commandare-OPR, OrchestratorMSP).
+
+  reference:
+    path: IT_SHARED/IT-MSP/00_REFERENCE/
+    files:
+      - MEM-IT-Conventions.md              # Conventions MSP (nommage, format, langue)
+      - MEM-IT-REFERENCE-ONEPAGER.md       # One-pager référence rapide IT MSP
+
+  run:
+    path: IT_SHARED/IT-MSP/10_RUN/
+    files:
+      - MEM-IT-Comms-Templates.md          # Templates communications opérationnelles
+      - MEM-IT-Routing-Rules.md            # Règles de routage validées
+      - MEM-IT-Severity-Matrix.md          # Matrice sévérité canonique
+
+  change:
+    path: IT_SHARED/IT-MSP/20_CHANGE/
+    files:
+      - MEM-IT-RFC-Light-Template.md
+
+  postmortem:
+    path: IT_SHARED/IT-MSP/30_POSTMORTEM/
+    files:
+      - MEM-IT-Postmortem-Template.md
+
+  data:
+    path: IT_SHARED/IT-MSP/40_DATA/
+    files:
+      - MEM-IT-CMDB-Standards.md
+      - MEM-IT-KB-Index.md
+
+  governance:
+    path: IT_SHARED/IT-MSP/90_GOVERNANCE/
+    files:
+      - INDEX__MEMPACK_IT_MSP_v1.md        # Index complet du memory pack
+      - MEM-IT-Versioning-Policy.md        # Politique de versioning des MEMs
+
+# ════════════════════════════════════════════════════════════════
+# RÈGLES DE CHARGEMENT
+# ════════════════════════════════════════════════════════════════
+loading_rules:
+  - rule: auto_load
+    description: Charger automatiquement au démarrage les agents avec auto_load=true
+    agents_concerned: [IT-Commandare-NOC, IT-Commandare-OPR, IT-Commandare-TECH,
+                       IT-MaintenanceMaster, IT-CloudMaster, IT-MSPLiveAssistant,
+                       IT-InterventionLive]
+
+  - rule: shared_cw_templates
+    description: Charger shared.templates_cw pour tout agent produisant des tickets CW
+    trigger_intents: [ticket, intervention, live_assist, kb, comms]
+
+  - rule: shared_checklists
+    description: Charger shared.checklists pour tout agent avec interaction live
+    trigger_intents: [live_intervention, intervention, triage, diagnostic]
+
+  - rule: context_detection
+    description: MaintenanceMaster charge le context_folder selon détection du contexte
+    contexts: [HEALTH_CHECK, PATCHING, SHARED]
+
+  - rule: pack_override
+    description: Le knowledge pack agent-spécifique prend priorité sur le shared en cas de conflit
+
+  - rule: watchdog_visibility
+    description: >
+      CTL-Watchdog charge ce fichier complet + FACTORY_MANIFEST.yaml +
+      hub_routing.yaml pour avoir visibilité totale sur le produit.
+      Ne charge PAS les prompt.md des agents (isolation sécurité).
