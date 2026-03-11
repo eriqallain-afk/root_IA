@@ -1,2 +1,115 @@
-﻿---
+schema_version: "1.0"
+generated_at: "2026-03-11T17:50:49"
+description: "Index de tous les runbooks opérationnels FACTORY EA4AI."
+owner: TEAM__CTL
+total_runbooks: 18
 
+runbooks:
+
+  - runbook_id: ADD_AGENT
+    file: "40_RUNBOOKS/RUNBOOK__ADD_AGENT.md"
+    title: "RUNBOOK — Ajouter un nouvel agent (standard root_IA)"
+    owner: TEAM__META
+    status: active
+
+  - runbook_id: ADD_TEAM_COMPLETE
+    file: "40_RUNBOOKS/RUNBOOK__ADD_TEAM_COMPLETE.md"
+    title: "RUNBOOK — Ajouter une nouvelle équipe dans la FACTORY"
+    owner: TEAM__META
+    status: active
+
+  - runbook_id: HUB_INTAKE_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__HUB_INTAKE_FAILURE.md"
+    title: "RUNBOOK — HUB : Échec d'intake et de qualification"
+    owner: TEAM__HUB
+    status: active
+
+  - runbook_id: IAHQ_FRONTDOOR_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__IAHQ_FRONTDOOR_FAILURE.md"
+    title: "RUNBOOK — IAHQ : Échec Pipeline FrontDoor Client"
+    owner: TEAM__IAHQ
+    status: active
+
+  - runbook_id: INCIDENT_REGISTRY
+    file: "40_RUNBOOKS/RUNBOOK__INCIDENT_REGISTRY.md"
+    title: "RUNBOOK — Incidents Registry & Routing"
+    owner: TEAM__CTL
+    status: active
+
+  - runbook_id: INDEX_SYNC_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__INDEX_SYNC_FAILURE.md"
+    title: "RUNBOOK — FACTORY : Désynchronisation des Indexes"
+    owner: TEAM__CTL
+    status: active
+
+  - runbook_id: META_AGENT_BUILD_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__META_AGENT_BUILD_FAILURE.md"
+    title: "RUNBOOK — META : Échec de Construction d'Agent / Armée GPT"
+    owner: TEAM__META
+    status: active
+
+  - runbook_id: META_PROMPT_OPTIMIZATION_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__META_PROMPT_OPTIMIZATION_FAILURE.md"
+    title: "RUNBOOK — META : Échec Cycle d'Optimisation Prompt"
+    owner: TEAM__META
+    status: active
+
+  - runbook_id: NEW_PRODUCT_INTEGRATION
+    file: "40_RUNBOOKS/RUNBOOK__NEW_PRODUCT_INTEGRATION.md"
+    title: "RUNBOOK — FACTORY : Intégration d'un Nouveau PRODUCT"
+    owner: TEAM__META
+    status: active
+
+  - runbook_id: OPS_DOSSIER_CORRUPTION
+    file: "40_RUNBOOKS/RUNBOOK__OPS_DOSSIER_CORRUPTION.md"
+    title: "RUNBOOK — OPS : Corruption Dossier IA"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: OPS_PLAYBOOK_RUNNER_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__OPS_PLAYBOOK_RUNNER_FAILURE.md"
+    title: "RUNBOOK — OPS : Résolution des pannes PlaybookRunner"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: OPS_ROUTER_FAILURE
+    file: "40_RUNBOOKS/RUNBOOK__OPS_ROUTER_FAILURE.md"
+    title: "RUNBOOK — OPS : Panne OPS-RouterIA"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
+    file: "40_RUNBOOKS/RUNBOOK__PB_HUB_01_ORCHESTRATE_AND_DISPATCH.md"
+    title: "RUNBOOK — PB_HUB_01_ORCHESTRATE_AND_DISPATCH"
+    owner: TEAM__HUB
+    status: active
+
+  - runbook_id: QUALITY_GATE_REJECTION
+    file: "40_RUNBOOKS/RUNBOOK__QUALITY_GATE_REJECTION.md"
+    title: "RUNBOOK — Quality Gate : Rejet de Livrable"
+    owner: TEAM__CTL
+    status: active
+
+  - runbook_id: add_team
+    file: "40_RUNBOOKS/RUNBOOK__add_team.md"
+    title: "RUNBOOK — Ajouter une équipe"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: incident
+    file: "40_RUNBOOKS/RUNBOOK__incident.md"
+    title: "RUNBOOK — Incident (Registry / Routing)"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: DISPATCH_MATRIX
+    file: "40_RUNBOOKS/dispatch_matrix.yaml"
+    title: "dispatch_matrix.yaml"
+    owner: TEAM__OPS
+    status: active
+
+  - runbook_id: PLAYBOOKS
+    file: "40_RUNBOOKS/playbooks.yaml"
+    title: "playbooks.yaml"
+    owner: TEAM__OPS
+    status: active

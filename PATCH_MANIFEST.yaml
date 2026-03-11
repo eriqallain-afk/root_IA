@@ -1,0 +1,40 @@
+generated_at: '2026-03-11T20:30:47.113150+00:00'
+source_zip: root_IA_FIXED.zip
+patch_zip: PATCH_12FILES_PERFECT.zip
+files:
+- path: Draft/IT-UpdaterMaster/01_CONTRACT.yaml
+  sha256: cb4651635825547ed3187e59f6892cf0af8924d67f8ae67c1c13dc80f3508377
+  bytes: 2416
+- path: FACTORY/00_CONTROL/schemas/health_check.schema.yaml
+  sha256: 198de670b01fd5a262b321c4b4a9b1f7f1d877b25c2de16521c1a0e89ee013cc
+  bytes: 4056
+- path: FACTORY/20_AGENTS/OPS/OPS-DossierIA/contract.yaml
+  sha256: e5c8b4f8ea405e61b0659370ce5b7eea84890961d814fb20c852c5f292c862ff
+  bytes: 5883
+- path: FACTORY/20_AGENTS/OPS/OPS-RouterIA/contract.yaml
+  sha256: 4ec34d0f2140dba4a958f00d7e73d1a6c2a400682f0073c92b7e77426c6c3f27
+  bytes: 5627
+- path: FACTORY/30_PLAYBOOKS/playbooks.yaml
+  sha256: 41d8bb6ffae526bce5ba57bbcf23890fc42c766f3154f281e6b1209acd135410
+  bytes: 8729
+- path: FACTORY/SHARED/90_MEMORY/memory.yaml
+  sha256: d46c0683ea9725032744418d21aac7d3e32bc7543c9c5f02d9c382d00f115d29
+  bytes: 3492
+- path: PRODUCTS/ARMY_IT_MSP/agents/IT-BackupDRMaster/01_CONTRACT.yaml
+  sha256: 039faa321af24092ed0ada71c6c3cb30088331496d06962d63233384eab941c3
+  bytes: 2432
+- path: PRODUCTS/ARMY_IT_MSP/agents/IT-MSPLiveAssistant/contract.yaml
+  sha256: 5210a926d4b98bf6affc2644fa30217c955c8ce2159ff9233af4571d5abf8240
+  bytes: 5364
+- path: PRODUCTS/IT/20_Agents/IT-BackupDRMaster/01_CONTRACT.yaml
+  sha256: 039faa321af24092ed0ada71c6c3cb30088331496d06962d63233384eab941c3
+  bytes: 2432
+- path: PRODUCTS/IT/20_Agents/IT-MSPLiveAssistant/contract.yaml
+  sha256: 5210a926d4b98bf6affc2644fa30217c955c8ce2159ff9233af4571d5abf8240
+  bytes: 5364
+- path: PRODUCTS/IT/OPS/OPS-DossierIA/contract.yaml
+  sha256: e5c8b4f8ea405e61b0659370ce5b7eea84890961d814fb20c852c5f292c862ff
+  bytes: 5883
+- path: PRODUCTS/IT/OPS/OPS-RouterIA/contract.yaml
+  sha256: 4ec34d0f2140dba4a958f00d7e73d1a6c2a400682f0073c92b7e77426c6c3f27
+  bytes: 5627

@@ -28,7 +28,7 @@ contract:
         fields:
           - { name: name, type: string }
           - { name: vip, type: enum, values: [Oui, Non, Unknown] }
-      - name: maintenance_window
+          - name: maintenance_window
         type: object
         fields:
           - { name: date, type: string, description: "JJ/MM/AAAA ou ISO" }
@@ -41,7 +41,7 @@ contract:
           - { name: objectives, type: array, items: string }
           - { name: followup_channel, type: string, description: "Ex: #canal-Teams / téléphone" }
           - { name: technician_name, type: string }
-      - name: servers
+          - name: servers
         type: array
         description: "Liste des serveurs ciblés (nom + rôle)."
         items: object
@@ -50,7 +50,7 @@ contract:
           - { name: role, type: string }
           - { name: patch_allowed, type: enum, values: [yes, no, unknown] }
           - { name: criticality, type: enum, values: [low, medium, high, critical, unknown] }
-      - name: ticket
+          - name: ticket
         type: object
         fields:
           - { name: number, type: string }
@@ -69,7 +69,7 @@ contract:
       required_prefixes_for_cw:
         - "Prendre connaissance de la demande et connexion à la documentation de l'entreprise."
         - "Préparation et découverte. Consultation de la documentation."
-    - id: close
+        - id: close
       trigger: "/close"
       format_rules:
         - "Répondre en Markdown."
@@ -81,7 +81,7 @@ contract:
       required_prefixes_for_cw:
         - "Prendre connaissance de la demande et connexion à la documentation de l'entreprise."
         - "Préparation et découverte. Consultation de la documentation."
-    - id: collecte
+        - id: collecte
       trigger: "default"
       format_rules:
         - "1–3 lignes max."
@@ -97,5 +97,5 @@ contract:
   quality_checks:
     - "Formats H2 exacts selon le mode."
     - "CW_NOTE_INTERNE et CW_DISCUSSION commencent par une phrase imposée."
-    - "Aucune IP présente (regex simple: \b\d{1,3}(?:\.\d{1,3}){3}\b doit être absent)."
+    - 'Aucune IP présente (regex simple: \b\d{1,3}(?:\.\d{1,3}){3}\b doit être absent).'
     - "Aucun secret demandé/répété."

@@ -100,12 +100,12 @@ fields:
     type: object
     required: false
     fields:
-      deprecated_ready_to_archive: {type: list[string], default: []}
-      draft_stale: {type: list[string], default: []}
-      teams_without_orchestrator: {type: list[string], default: []}
+      deprecated_ready_to_archive: {type: "list[string]", default: []}
+      draft_stale: {type: "list[string]", default: []}
+      teams_without_orchestrator: {type: "list[string]", default: []}
 
   recommendations:
-    type: list[object]
+    type: "list[object]"
     required: false
     default: []
     item_schema:
@@ -117,9 +117,9 @@ fields:
     type: object
     required: true
     fields:
-      decisions: {type: list[string], required: true}
-      risks: {type: list[object], required: true}
-      assumptions: {type: list[object], required: true}
+      decisions: {type: "list[string]", required: true}
+      risks: {type: "list[object]", required: true}
+      assumptions: {type: "list[object]", required: true}
       quality_score:
         type: integer
         range: [0, 10]

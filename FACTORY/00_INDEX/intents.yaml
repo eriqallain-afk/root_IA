@@ -71,6 +71,8 @@ drift_detect:
 - CTL-WatchdogIA
 factory_status:
 - CTL-WatchdogIA
+agent_scan:
+- CTL-WatchdogIA
 alert:
 - CTL-AlertRouter
 escalate:

@@ -1,5 +1,7 @@
-schema_version: '1.0'
-generated_at: '2026-03-04T22:01:21.445082'
+schema_version: '1.1'
+generated_at: '2026-03-11T18:04:31'
+description: Catalogue unifié FACTORY + PRODUCTS — source de vérité pour validate_refs.py
+total_agents: 140
 catalog:
   CTL-AlertRouter:
     display_name: '@CTL-AlertRouter'
@@ -7,38 +9,46 @@ catalog:
     status: active
     intents:
     - alert
+    - ctl
     - escalate
+    - incident
+    - notify
     - route_alert
     paths:
-      agent: 00_CONTROL\agents\CTL-AlertRouter/agent.yaml
-      contract: 00_CONTROL\agents\CTL-AlertRouter/contract.yaml
-      prompt: 00_CONTROL\agents\CTL-AlertRouter/prompt.md
+      agent: 00_CONTROL/agents/CTL-AlertRouter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-AlertRouter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-AlertRouter/prompt.md
   CTL-HealthReporter:
     display_name: '@CTL-HealthReporter'
     team_id: TEAM__CTL
     status: active
     intents:
-    - report
-    - health_report
+    - ctl
     - digest
+    - health_report
+    - post_mortem
+    - report
+    - weekly_report
     paths:
-      agent: 00_CONTROL\agents\CTL-HealthReporter/agent.yaml
-      contract: 00_CONTROL\agents\CTL-HealthReporter/contract.yaml
-      prompt: 00_CONTROL\agents\CTL-HealthReporter/prompt.md
+      agent: 00_CONTROL/agents/CTL-HealthReporter/agent.yaml
+      contract: 00_CONTROL/agents/CTL-HealthReporter/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-HealthReporter/prompt.md
   CTL-WatchdogIA:
     display_name: '@CTL-WatchdogIA'
     team_id: TEAM__CTL
     status: active
     intents:
+    - agent_scan
+    - ctl
+    - drift_detect
+    - factory_status
     - health_check
     - monitor
     - watchdog
-    - drift_detect
-    - factory_status
     paths:
-      agent: 00_CONTROL\agents\CTL-WatchdogIA/agent.yaml
-      contract: 00_CONTROL\agents\CTL-WatchdogIA/contract.yaml
-      prompt: 00_CONTROL\agents\CTL-WatchdogIA/prompt.md
+      agent: 00_CONTROL/agents/CTL-WatchdogIA/agent.yaml
+      contract: 00_CONTROL/agents/CTL-WatchdogIA/contract.yaml
+      prompt: 00_CONTROL/agents/CTL-WatchdogIA/prompt.md
   HUB-AgentMO-MasterOrchestrator:
     display_name: '@HUB - AGENT-MO — Master Orchestrator'
     team_id: TEAM__HUB
@@ -94,12 +104,12 @@ catalog:
     team_id: TEAM__HUB
     status: active
     intents:
-    - hub
-    - welcome
-    - intake
-    - route_request
     - clarify_intent
+    - hub
+    - intake
     - provide_guidance
+    - route_request
+    - welcome
     paths:
       agent: 20_AGENTS/HUB/HUB-Concierge/agent.yaml
       contract: 20_AGENTS/HUB/HUB-Concierge/contract.yaml
@@ -134,10 +144,16 @@ catalog:
     team_id: TEAM__HUB
     status: active
     intents:
-    - prompt
+    - archive
+    - audit
+    - gere
+    - memory
+    - ops
     - optimize
-    - standardize
+    - prompt
     - qa
+    - search
+    - standardize
     paths:
       agent: 20_AGENTS/HUB/HUB-OproEngine/agent.yaml
       contract: 20_AGENTS/HUB/HUB-OproEngine/contract.yaml
@@ -212,11 +228,11 @@ catalog:
     team_id: TEAM__IAHQ
     status: active
     intents:
-    - iahq
-    - map_process
-    - identify_workflows
-    - document_steps
     - analyze_bottlenecks
+    - document_steps
+    - iahq
+    - identify_workflows
+    - map_process
     - optimize_flow
     paths:
       agent: 20_AGENTS/IAHQ/IAHQ-ProcessMapper/agent.yaml
@@ -254,11 +270,11 @@ catalog:
     team_id: TEAM__IAHQ
     status: active
     intents:
-    - iahq
-    - define_strategy
     - assess_market
-    - plan_roadmap
+    - define_strategy
     - evaluate_options
+    - iahq
+    - plan_roadmap
     - recommend_approach
     paths:
       agent: 20_AGENTS/IAHQ/IAHQ-Strategist/agent.yaml
@@ -296,8 +312,9 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - requirements
     - analysis
+    - meta
+    - requirements
     - spec
     paths:
       agent: 20_AGENTS/META/META-AnalysteBesoinsEquipes/agent.yaml
@@ -308,9 +325,16 @@ catalog:
     team_id: TEAM__META
     status: production
     intents:
+    - agent
+    - architecture
+    - design
+    - llm
+    - meta
     - meta_decision_architect
     - meta_decision_evaluate
     - meta_decision_recommend
+    - ml
+    - rag
     paths:
       agent: 20_AGENTS/META/META-ArchitecteChoix/agent.yaml
       contract: 20_AGENTS/META/META-ArchitecteChoix/contract.yaml
@@ -320,8 +344,11 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - meta
     - analyse
+    - integration
+    - mapping
+    - meta
+    - roles
     paths:
       agent: 20_AGENTS/META/META-CartographeRoles/agent.yaml
       contract: 20_AGENTS/META/META-CartographeRoles/contract.yaml
@@ -331,12 +358,15 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - meta
-    - meta_welcome
-    - meta_guidance
-    - route_meta_request
-    - explain_factory
     - assist_agent_creation
+    - concierge
+    - explain_factory
+    - meta
+    - meta_guidance
+    - meta_welcome
+    - orientation
+    - route_meta_request
+    - user_needs
     paths:
       agent: 20_AGENTS/META/META-Concierge/agent.yaml
       contract: 20_AGENTS/META/META-Concierge/contract.yaml
@@ -346,13 +376,16 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - meta
-    - conversational_design
-    - meta_welcome
-    - meta_guidance
-    - route_meta_request
-    - explain_factory
+    - Conversational
+    - accueil
     - assist_agent_creation
+    - conversational_design
+    - explain_factory
+    - meta
+    - meta_guidance
+    - meta_welcome
+    - route_meta_request
+    - ux
     paths:
       agent: 20_AGENTS/META/META-ConciergeUX/agent.yaml
       contract: 20_AGENTS/META/META-ConciergeUX/contract.yaml
@@ -362,12 +395,16 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - meta
-    - audit_quality
-    - validate_compliance
-    - check_standards
-    - assess_risk
     - approve_release
+    - assess_risk
+    - audit
+    - audit_quality
+    - check_standards
+    - compliance
+    - gouvernance
+    - meta
+    - quality_assurance
+    - validate_compliance
     paths:
       agent: 20_AGENTS/META/META-GouvernanceQA/agent.yaml
       contract: 20_AGENTS/META/META-GouvernanceQA/contract.yaml
@@ -379,6 +416,7 @@ catalog:
     intents:
     - army_factory
     - design
+    - meta
     - orchestrate
     paths:
       agent: 20_AGENTS/META/META-OrchestrateurCentral/agent.yaml
@@ -403,10 +441,15 @@ catalog:
     team_id: TEAM__META
     status: production
     intents:
+    - cree
+    - meta
     - meta_playbook_create
     - meta_playbook_optimize
     - meta_playbook_validate
     - meta_playbook_version
+    - playbooks
+    - runbooks
+    - workflows
     paths:
       agent: 20_AGENTS/META/META-PlaybookBuilder/agent.yaml
       contract: 20_AGENTS/META/META-PlaybookBuilder/contract.yaml
@@ -416,10 +459,14 @@ catalog:
     team_id: TEAM__META
     status: production
     intents:
+    - engineering
+    - instruction_internal
+    - meta
     - meta_prompt_create
     - meta_prompt_optimize
-    - meta_prompt_validate
     - meta_prompt_teach
+    - meta_prompt_validate
+    - prompt
     paths:
       agent: 20_AGENTS/META/META-PromptMaster/agent.yaml
       contract: 20_AGENTS/META/META-PromptMaster/contract.yaml
@@ -429,12 +476,13 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
+    - book
+    - docs
+    - documentation
+    - email
+    - mcia
     - meta
     - writing
-    - docs
-    - book
-    - email
-    - documentation
     paths:
       agent: 20_AGENTS/META/META-Redaction/agent.yaml
       contract: 20_AGENTS/META/META-Redaction/contract.yaml
@@ -444,14 +492,18 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - meta
+    - Logic
     - analyse
+    - meta
+    - precision
+    - prompt
+    - reverse_engineering
     paths:
       agent: 20_AGENTS/META/META-ReversePrompt/agent.yaml
       contract: 20_AGENTS/META/META-ReversePrompt/contract.yaml
       prompt: 20_AGENTS/META/META-ReversePrompt/prompt.md
   META-VisionCreative:
-    display_name: 'META-VisionCreative (Image/Vidéo)'
+    display_name: META-VisionCreative (Image/Vidéo)
     team_id: TEAM__META
     status: active
     intents:
@@ -470,9 +522,10 @@ catalog:
     team_id: TEAM__META
     status: active
     intents:
-    - workflow
-    - process
     - mapping
+    - process
+    - schema
+    - workflow
     paths:
       agent: 20_AGENTS/META/META-WorkflowDesignerEquipes/agent.yaml
       contract: 20_AGENTS/META/META-WorkflowDesignerEquipes/contract.yaml
@@ -519,3 +572,1349 @@ catalog:
       agent: 20_AGENTS/OPS/OPS-RouterIA/agent.yaml
       contract: 20_AGENTS/OPS/OPS-RouterIA/contract.yaml
       prompt: 20_AGENTS/OPS/OPS-RouterIA/prompt.md
+  DAM-Budget:
+    display_name: '@DAM-Budget'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - analyse
+    - budget
+    - cout
+    - dam
+    - estimation
+    - soumission
+    paths:
+      agent: agents/DAM-Budget/agent.yaml
+      contract: agents/DAM-Budget/contract.yaml
+      prompt: agents/DAM-Budget/prompt.md
+  DAM-Conformite:
+    display_name: '@DAM-Conformite'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - code_batiment
+    - conformite
+    - dam
+    - permis
+    - rbq
+    - zonage
+    paths:
+      agent: agents/DAM-Conformite/agent.yaml
+      contract: agents/DAM-Conformite/contract.yaml
+      prompt: agents/DAM-Conformite/prompt.md
+  DAM-GPT10-Fournisseurs:
+    display_name: '@DAM-GPT 10 — Fournisseurs'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - suppliers
+    - procurement
+    paths:
+      agent: agents/DAM-GPT10-Fournisseurs/agent.yaml
+      contract: agents/DAM-GPT10-Fournisseurs/contract.yaml
+      prompt: agents/DAM-GPT10-Fournisseurs/prompt.md
+  DAM-GPT11-Satisfaction:
+    display_name: '@DAM-GPT 11 — Satisfaction'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - customer
+    - satisfaction
+    paths:
+      agent: agents/DAM-GPT11-Satisfaction/agent.yaml
+      contract: agents/DAM-GPT11-Satisfaction/contract.yaml
+      prompt: agents/DAM-GPT11-Satisfaction/prompt.md
+  DAM-GPT12-Legal:
+    display_name: '@DAM-GPT 12 — Légal'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - legal
+    - review
+    paths:
+      agent: agents/DAM-GPT12-Legal/agent.yaml
+      contract: agents/DAM-GPT12-Legal/contract.yaml
+      prompt: agents/DAM-GPT12-Legal/prompt.md
+  DAM-GPT13-Analytics:
+    display_name: '@DAM-GPT 13 — Analytics'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - analytics
+    - kpi
+    paths:
+      agent: agents/DAM-GPT13-Analytics/agent.yaml
+      contract: agents/DAM-GPT13-Analytics/contract.yaml
+      prompt: agents/DAM-GPT13-Analytics/prompt.md
+  DAM-GPT2-Conformite:
+    display_name: '@DAM-GPT 2 — Conformité'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - compliance
+    - risk
+    paths:
+      agent: agents/DAM-GPT2-Conformite/agent.yaml
+      contract: agents/DAM-GPT2-Conformite/contract.yaml
+      prompt: agents/DAM-GPT2-Conformite/prompt.md
+  DAM-GPT3-Budget:
+    display_name: '@DAM-GPT 3 — Budget'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - budget
+    - cost
+    paths:
+      agent: agents/DAM-GPT3-Budget/agent.yaml
+      contract: agents/DAM-GPT3-Budget/contract.yaml
+      prompt: agents/DAM-GPT3-Budget/prompt.md
+  DAM-GPT4-Planification:
+    display_name: '@DAM-GPT 4 — Planification'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - planning
+    - schedule
+    paths:
+      agent: agents/DAM-GPT4-Planification/agent.yaml
+      contract: agents/DAM-GPT4-Planification/contract.yaml
+      prompt: agents/DAM-GPT4-Planification/prompt.md
+  DAM-GPT5-SousTraitants:
+    display_name: '@DAM-GPT 5 — Sous-Traitants'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - vendors
+    - procurement
+    paths:
+      agent: agents/DAM-GPT5-SousTraitants/agent.yaml
+      contract: agents/DAM-GPT5-SousTraitants/contract.yaml
+      prompt: agents/DAM-GPT5-SousTraitants/prompt.md
+  DAM-GPT6-Inspection:
+    display_name: '@DAM-GPT 6 — Inspection'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - inspection
+    - quality
+    paths:
+      agent: agents/DAM-GPT6-Inspection/agent.yaml
+      contract: agents/DAM-GPT6-Inspection/contract.yaml
+      prompt: agents/DAM-GPT6-Inspection/prompt.md
+  DAM-GPT7-Archiviste:
+    display_name: '@DAM-GPT 7 — Archiviste'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - archive
+    - docs
+    paths:
+      agent: agents/DAM-GPT7-Archiviste/agent.yaml
+      contract: agents/DAM-GPT7-Archiviste/contract.yaml
+      prompt: agents/DAM-GPT7-Archiviste/prompt.md
+  DAM-GPT8-Communication:
+    display_name: '@DAM-GPT 8 — Communication'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - comms
+    - client
+    paths:
+      agent: agents/DAM-GPT8-Communication/agent.yaml
+      contract: agents/DAM-GPT8-Communication/contract.yaml
+      prompt: agents/DAM-GPT8-Communication/prompt.md
+  DAM-GPT9-Produits:
+    display_name: '@DAM-GPT 9 — Produits'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - products
+    - selection
+    paths:
+      agent: agents/DAM-GPT9-Produits/agent.yaml
+      contract: agents/DAM-GPT9-Produits/contract.yaml
+      prompt: agents/DAM-GPT9-Produits/prompt.md
+  DAM-Inspection:
+    display_name: '@DAM-Inspection'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - cree
+    paths:
+      agent: agents/DAM-Inspection/agent.yaml
+      contract: agents/DAM-Inspection/contract.yaml
+      prompt: agents/DAM-Inspection/prompt.md
+  DAM-Orchestrator:
+    display_name: '@DAM-Orchestrator'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - analyse
+    - construction
+    - coordonne
+    - dam
+    - domiciliaire
+    - projet_maison
+    - renovation
+    paths:
+      agent: agents/DAM-Orchestrator/agent.yaml
+      contract: agents/DAM-Orchestrator/contract.yaml
+      prompt: agents/DAM-Orchestrator/prompt.md
+  DAM-Planification:
+    display_name: '@DAM-Planification'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    paths:
+      agent: agents/DAM-Planification/agent.yaml
+      contract: agents/DAM-Planification/contract.yaml
+      prompt: agents/DAM-Planification/prompt.md
+  DAM-SousTraitants:
+    display_name: '@DAM-SousTraitants'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - evalue
+    paths:
+      agent: agents/DAM-SousTraitants/agent.yaml
+      contract: agents/DAM-SousTraitants/contract.yaml
+      prompt: agents/DAM-SousTraitants/prompt.md
+  DAM-Superviseur:
+    display_name: '@DAM - Superviseur'
+    team_id: TEAM__ARMY_DAM_DESIGN
+    status: active
+    intents:
+    - dam
+    - qa
+    - governance
+    paths:
+      agent: agents/DAM-Superviseur/agent.yaml
+      contract: agents/DAM-Superviseur/contract.yaml
+      prompt: agents/DAM-Superviseur/prompt.md
+  IT-MSPLiveAssistant:
+    display_name: '@IT-MSPLiveAssistant'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    - msp
+    - tickets
+    - triage
+    - incident
+    - support
+    - comms
+    - communication
+    - chatbot
+    paths:
+      agent: 20_AGENTS/IT/IT-MSPLiveAssistant/agent.yaml
+      contract: 20_AGENTS/IT/IT-MSPLiveAssistant/contract.yaml
+      prompt: 20_AGENTS/IT/IT-MSPLiveAssistant/prompt.md
+  IT-AssetMaster:
+    display_name: '@IT-AssetMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - assets
+    - classification
+    - cmdb
+    - it
+    - nomemclature
+    paths:
+      agent: agents/IT-AssetMaster/agent.yaml
+      contract: agents/IT-AssetMaster/contract.yaml
+      prompt: agents/IT-AssetMaster/prompt.md
+  IT-BackupDRMaster:
+    display_name: '@IT-BackupDRMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - VEEAM
+    - azure_backup
+    - backup
+    - datto
+    - dr
+    - it
+    paths:
+      agent: agents/IT-BackupDRMaster/agent.yaml
+      contract: agents/IT-BackupDRMaster/contract.yaml
+      prompt: agents/IT-BackupDRMaster/prompt.md
+  IT-CTOMaster:
+    display_name: '@IT-CTOMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - architecture
+    - cto
+    - it
+    - standards
+    - technology_strategy
+    paths:
+      agent: agents/IT-CTOMaster/agent.yaml
+      contract: agents/IT-CTOMaster/contract.yaml
+      prompt: agents/IT-CTOMaster/prompt.md
+  IT-CloudMaster:
+    display_name: '@IT-CloudMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    - cloud
+    - azure
+    - m365
+    paths:
+      agent: agents/IT-CloudMaster/agent.yaml
+      contract: agents/IT-CloudMaster/contract.yaml
+      prompt: agents/IT-CloudMaster/prompt.md
+  IT-Commandare-NOC:
+    display_name: '@IT-Commandare-NOC'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - RMM
+    - incident
+    - it_commandare_noc
+    - monitoring
+    - noc
+    - noc_triage
+    - triage
+    paths:
+      agent: agents/IT-Commandare-NOC/agent.yaml
+      contract: agents/IT-Commandare-NOC/contract.yaml
+      prompt: agents/IT-Commandare-NOC/prompt.md
+  IT-Commandare-OPR:
+    display_name: '@IT-Commandare-OPR'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    - it_commandare_opr
+    - msp
+    - ops_control
+    - process
+    - tickets
+    paths:
+      agent: agents/IT-Commandare-OPR/agent.yaml
+      contract: agents/IT-Commandare-OPR/contract.yaml
+      prompt: agents/IT-Commandare-OPR/prompt.md
+  IT-Commandare-TECH:
+    display_name: '@IT-Commandare-TECH'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - change
+    - incident
+    - it_commandare_tech
+    - remediation
+    - tech_escalation
+    - troubleshooting
+    paths:
+      agent: agents/IT-Commandare-TECH/agent.yaml
+      contract: agents/IT-Commandare-TECH/contract.yaml
+      prompt: agents/IT-Commandare-TECH/prompt.md
+  IT-CommsMSP:
+    display_name: '@IT-CommsMSP'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - advise
+    - client
+    - comms
+    - it
+    - rapport
+    paths:
+      agent: agents/IT-CommsMSP/agent.yaml
+      contract: agents/IT-CommsMSP/contract.yaml
+      prompt: agents/IT-CommsMSP/prompt.md
+  IT-DevOpsMaster:
+    display_name: '@IT-DevOpsMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - automation
+    - cicd
+    - devops
+    - it
+    - pipeline
+    paths:
+      agent: agents/IT-DevOpsMaster/agent.yaml
+      contract: agents/IT-DevOpsMaster/contract.yaml
+      prompt: agents/IT-DevOpsMaster/prompt.md
+  IT-DirecteurGeneral:
+    display_name: '@IT-DirecteurGeneral'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - governance
+    - it
+    - leadership
+    - management
+    - strategy
+    paths:
+      agent: agents/IT-DirecteurGeneral/agent.yaml
+      contract: agents/IT-DirecteurGeneral/contract.yaml
+      prompt: agents/IT-DirecteurGeneral/prompt.md
+  IT-InfrastructureMaster:
+    display_name: '@IT-InfrastructureMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - infrastructure
+    - it
+    - servers
+    - storage
+    - virtualization
+    paths:
+      agent: agents/IT-InfrastructureMaster/agent.yaml
+      contract: agents/IT-InfrastructureMaster/contract.yaml
+      prompt: agents/IT-InfrastructureMaster/prompt.md
+  IT-InterventionCopilot:
+    display_name: '@IT-InterventionCopilot'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - closeout
+    - intervention
+    - it
+    - msp
+    - support
+    - ticket_live
+    paths:
+      agent: agents/IT-InterventionCopilot/agent.yaml
+      contract: agents/IT-InterventionCopilot/contract.yaml
+      prompt: agents/IT-InterventionCopilot/prompt.md
+  IT-InterventionLive:
+    display_name: '@IT-InterventionLive'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - genere
+    - intervention_live
+    - it
+    - suivi_intervention
+    - technicien
+    paths:
+      agent: agents/IT-InterventionLive/agent.yaml
+      contract: agents/IT-InterventionLive/contract.yaml
+      prompt: agents/IT-InterventionLive/prompt.md
+  IT-KnowledgeKeeper:
+    display_name: '@IT-KnowledgeKeeper'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    - knowledge
+    - kb
+    - runbook
+    paths:
+      agent: agents/IT-KnowledgeKeeper/agent.yaml
+      contract: agents/IT-KnowledgeKeeper/contract.yaml
+      prompt: agents/IT-KnowledgeKeeper/prompt.md
+  IT-MaintenanceMaster:
+    display_name: '@IT-MaintenanceMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - audit
+    - compliance
+    - it
+    - maintenance
+    - patching
+    - preventive
+    paths:
+      agent: agents/IT-MaintenanceMaster/agent.yaml
+      contract: agents/IT-MaintenanceMaster/contract.yaml
+      prompt: agents/IT-MaintenanceMaster/prompt.md
+  IT-MonitoringMaster:
+    display_name: '@IT-MonitoringMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - alerting
+    - it
+    - monitoring
+    - observability
+    - rmm
+    paths:
+      agent: agents/IT-MonitoringMaster/agent.yaml
+      contract: agents/IT-MonitoringMaster/contract.yaml
+      prompt: agents/IT-MonitoringMaster/prompt.md
+  IT-NOC:
+    display_name: '@IT-NOC'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    paths:
+      agent: agents/IT-NOC/agent.yaml
+      contract: agents/IT-NOC/contract.yaml
+      prompt: agents/IT-NOC/prompt.md
+  IT-NOCDispatcher:
+    display_name: '@IT-NOCDispatcher'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - coordination
+    - dispatch
+    - incident
+    - it_noc_dispatch
+    - noc_dispatch
+    - sla
+    paths:
+      agent: agents/IT-NOCDispatcher/agent.yaml
+      contract: agents/IT-NOCDispatcher/contract.yaml
+      prompt: agents/IT-NOCDispatcher/prompt.md
+  IT-NetworkMaster:
+    display_name: '@IT-NetworkMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - firewall
+    - it
+    - network
+    - vpn
+    - wifi
+    paths:
+      agent: agents/IT-NetworkMaster/agent.yaml
+      contract: agents/IT-NetworkMaster/contract.yaml
+      prompt: agents/IT-NetworkMaster/prompt.md
+  IT-OrchestratorMSP:
+    display_name: '@IT-OrchestratorMSP'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - coordination
+    - it
+    - msp
+    - orchestrate
+    - process
+    paths:
+      agent: agents/IT-OrchestratorMSP/agent.yaml
+      contract: agents/IT-OrchestratorMSP/contract.yaml
+      prompt: agents/IT-OrchestratorMSP/prompt.md
+  IT-ReportMaster:
+    display_name: '@IT-ReportMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - communication
+    - genere
+    - it
+    - kpi
+    - report
+    - sla
+    paths:
+      agent: agents/IT-ReportMaster/agent.yaml
+      contract: agents/IT-ReportMaster/contract.yaml
+      prompt: agents/IT-ReportMaster/prompt.md
+  IT-ScriptMaster:
+    display_name: '@IT-ScriptMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - automation
+    - bash
+    - genere
+    - it
+    - powershell
+    - scripting
+    paths:
+      agent: agents/IT-ScriptMaster/agent.yaml
+      contract: agents/IT-ScriptMaster/contract.yaml
+      prompt: agents/IT-ScriptMaster/prompt.md
+  IT-SecurityMaster:
+    display_name: '@IT-SecurityMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - compliance
+    - it
+    - risk
+    - security
+    paths:
+      agent: agents/IT-SecurityMaster/agent.yaml
+      contract: agents/IT-SecurityMaster/contract.yaml
+      prompt: agents/IT-SecurityMaster/prompt.md
+  IT-SoftwMaster:
+    display_name: '@IT-SoftwMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - asset_management
+    - it
+    - licenses
+    - procurement
+    - software
+    paths:
+      agent: agents/IT-SoftwMaster/agent.yaml
+      contract: agents/IT-SoftwMaster/contract.yaml
+      prompt: agents/IT-SoftwMaster/prompt.md
+  IT-SupportMaster:
+    display_name: '@IT-SupportMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - customer_service
+    - incident
+    - it
+    - support
+    - troubleshooting
+    paths:
+      agent: agents/IT-SupportMaster/agent.yaml
+      contract: agents/IT-SupportMaster/contract.yaml
+      prompt: agents/IT-SupportMaster/prompt.md
+  IT-Technicien:
+    display_name: '@IT-Technicien'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - connectwise
+    - cw_ticket
+    - diagnostic
+    - field
+    - guidance
+    - handoff
+    - intervention
+    - it
+    - msp_ops
+    - noc
+    - soc
+    - support
+    - technician
+    - triage
+    paths:
+      agent: agents/IT-Technicien/agent.yaml
+      contract: agents/IT-Technicien/contract.yaml
+      prompt: agents/IT-Technicien/prompt.md
+  IT-TicketScribe:
+    display_name: '@IT-TicketScribe'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - connectwise
+    - documentation
+    - it
+    - ticket
+    - writing
+    paths:
+      agent: agents/IT-TicketScribe/agent.yaml
+      contract: agents/IT-TicketScribe/contract.yaml
+      prompt: agents/IT-TicketScribe/prompt.md
+  IT-VoIPMaster:
+    display_name: '@IT-VoIPMaster'
+    team_id: TEAM__ARMY_IT_MSP
+    status: active
+    intents:
+    - it
+    - sip
+    - telephony
+    - uc
+    - voip
+    paths:
+      agent: agents/IT-VoIPMaster/agent.yaml
+      contract: agents/IT-VoIPMaster/contract.yaml
+      prompt: agents/IT-VoIPMaster/prompt.md
+  NEA-Archiviste:
+    display_name: '@NEA-Archiviste'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - nea
+    - archive
+    - normalize
+    paths:
+      agent: agents/NEA-Archiviste/agent.yaml
+      contract: agents/NEA-Archiviste/contract.yaml
+      prompt: agents/NEA-Archiviste/prompt.md
+  NEA-Cartographe:
+    display_name: '@NEA-Cartographe'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - nea
+    - mapping
+    - structure
+    paths:
+      agent: agents/NEA-Cartographe/agent.yaml
+      contract: agents/NEA-Cartographe/contract.yaml
+      prompt: agents/NEA-Cartographe/prompt.md
+  NEA-ConseilPatterns:
+    display_name: '@NEA-ConseilPatterns'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - nea
+    - patterns
+    - analysis
+    paths:
+      agent: agents/NEA-ConseilPatterns/agent.yaml
+      contract: agents/NEA-ConseilPatterns/contract.yaml
+      prompt: agents/NEA-ConseilPatterns/prompt.md
+  NEA-Imagier:
+    display_name: '@NEA-Imagier'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - brief_image
+    - cree
+    - illustration
+    - image
+    - nea
+    - visuel
+    paths:
+      agent: agents/NEA-Imagier/agent.yaml
+      contract: agents/NEA-Imagier/contract.yaml
+      prompt: agents/NEA-Imagier/prompt.md
+  NEA-Orchestrator:
+    display_name: '@NEA-Orchestrator'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - coordonne
+    - ecriture
+    - livre
+    - nea
+    - publishing
+    - recueil
+    - redaction
+    paths:
+      agent: agents/NEA-Orchestrator/agent.yaml
+      contract: agents/NEA-Orchestrator/contract.yaml
+      prompt: agents/NEA-Orchestrator/prompt.md
+  NEA-Redacteur:
+    display_name: '@NEA-Redacteur'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - nea
+    - redige
+    paths:
+      agent: agents/NEA-Redacteur/agent.yaml
+      contract: agents/NEA-Redacteur/contract.yaml
+      prompt: agents/NEA-Redacteur/prompt.md
+  NEA-RedacteurRecueil:
+    display_name: '@NEA-RedacteurRecueil'
+    team_id: TEAM__ARMY_NEA_WRITING
+    status: active
+    intents:
+    - nea
+    - write
+    - edit
+    paths:
+      agent: agents/NEA-RedacteurRecueil/agent.yaml
+      contract: agents/NEA-RedacteurRecueil/contract.yaml
+      prompt: agents/NEA-RedacteurRecueil/prompt.md
+  TRAD-AnalytikGlobal:
+    display_name: '@TRAD-AnalytikGlobal'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - analysis
+    - strategy
+    paths:
+      agent: agents/TRAD-AnalytikGlobal/agent.yaml
+      contract: agents/TRAD-AnalytikGlobal/contract.yaml
+      prompt: agents/TRAD-AnalytikGlobal/prompt.md
+  TRAD-CommandCore:
+    display_name: '@TRAD-CommandCore'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - analyse_strategique
+    - coordonne
+    - crypto
+    - cyber
+    - geopolitique
+    - intel
+    - intelligence
+    - marche
+    - trad
+    paths:
+      agent: agents/TRAD-CommandCore/agent.yaml
+      contract: agents/TRAD-CommandCore/contract.yaml
+      prompt: agents/TRAD-CommandCore/prompt.md
+  TRAD-Correlator:
+    display_name: '@TRAD-Correlator'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - correlation
+    - signals
+    paths:
+      agent: agents/TRAD-Correlator/agent.yaml
+      contract: agents/TRAD-Correlator/contract.yaml
+      prompt: agents/TRAD-Correlator/prompt.md
+  TRAD-CosmoPsyWatcher:
+    display_name: '@TRAD-CosmoPsyWatcher'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - cosmos
+    - psycho_collective
+    paths:
+      agent: agents/TRAD-CosmoPsyWatcher/agent.yaml
+      contract: agents/TRAD-CosmoPsyWatcher/contract.yaml
+      prompt: agents/TRAD-CosmoPsyWatcher/prompt.md
+  TRAD-CryptoAnalyst:
+    display_name: '@TRAD-CryptoAnalyst'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - bitcoin
+    - blockchain
+    - crypto
+    - defi
+    - trad
+    paths:
+      agent: agents/TRAD-CryptoAnalyst/agent.yaml
+      contract: agents/TRAD-CryptoAnalyst/contract.yaml
+      prompt: agents/TRAD-CryptoAnalyst/prompt.md
+  TRAD-CryptoStrategist:
+    display_name: '@TRAD-CryptoStrategist'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - crypto
+    - strategy
+    paths:
+      agent: agents/TRAD-CryptoStrategist/agent.yaml
+      contract: agents/TRAD-CryptoStrategist/contract.yaml
+      prompt: agents/TRAD-CryptoStrategist/prompt.md
+  TRAD-CyberWatch:
+    display_name: '@TRAD-CyberWatch'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - cybersecurite
+    - menace
+    - ransomware
+    - trad
+    - veille
+    - vulnerability
+    paths:
+      agent: agents/TRAD-CyberWatch/agent.yaml
+      contract: agents/TRAD-CyberWatch/contract.yaml
+      prompt: agents/TRAD-CyberWatch/prompt.md
+  TRAD-FractalMathCrypto:
+    display_name: '@TRAD-FractalMathCrypto'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - crypto
+    - quant
+    paths:
+      agent: agents/TRAD-FractalMathCrypto/agent.yaml
+      contract: agents/TRAD-FractalMathCrypto/contract.yaml
+      prompt: agents/TRAD-FractalMathCrypto/prompt.md
+  TRAD-GeoAnalyst:
+    display_name: '@TRAD-GeoAnalyst'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    paths:
+      agent: agents/TRAD-GeoAnalyst/agent.yaml
+      contract: agents/TRAD-GeoAnalyst/contract.yaml
+      prompt: agents/TRAD-GeoAnalyst/prompt.md
+  TRAD-GlobalReport:
+    display_name: '@TRAD-GlobalReport'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - report
+    - writing
+    paths:
+      agent: agents/TRAD-GlobalReport/agent.yaml
+      contract: agents/TRAD-GlobalReport/contract.yaml
+      prompt: agents/TRAD-GlobalReport/prompt.md
+  TRAD-MarketAnalyst:
+    display_name: '@TRAD-MarketAnalyst'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - analyse
+    - bourse
+    - economie
+    - finance
+    - marche
+    - trad
+    paths:
+      agent: agents/TRAD-MarketAnalyst/agent.yaml
+      contract: agents/TRAD-MarketAnalyst/contract.yaml
+      prompt: agents/TRAD-MarketAnalyst/prompt.md
+  TRAD-MarketSentinel:
+    display_name: '@TRAD-MarketSentinel'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - markets
+    - watch
+    paths:
+      agent: agents/TRAD-MarketSentinel/agent.yaml
+      contract: agents/TRAD-MarketSentinel/contract.yaml
+      prompt: agents/TRAD-MarketSentinel/prompt.md
+  TRAD-SocioRadar:
+    display_name: '@TRAD-SocioRadar'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - social
+    - trends
+    paths:
+      agent: agents/TRAD-SocioRadar/agent.yaml
+      contract: agents/TRAD-SocioRadar/contract.yaml
+      prompt: agents/TRAD-SocioRadar/prompt.md
+  TRAD-VigillIntel:
+    display_name: '@TRAD-VigillIntel'
+    team_id: TEAM__ARMY_TRAD_INTEL
+    status: active
+    intents:
+    - trad
+    - intel
+    - geopolitics
+    paths:
+      agent: agents/TRAD-VigillIntel/agent.yaml
+      contract: agents/TRAD-VigillIntel/contract.yaml
+      prompt: agents/TRAD-VigillIntel/prompt.md
+  EDU-Evaluator:
+    display_name: '@EDU-Evaluator'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - edu
+    - evalue
+    paths:
+      agent: agents/EDU-Evaluator/agent.yaml
+      contract: agents/EDU-Evaluator/contract.yaml
+      prompt: agents/EDU-Evaluator/prompt.md
+  EDU-Extractor:
+    display_name: '@EDU-Extractor'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - edu
+    paths:
+      agent: agents/EDU-Extractor/agent.yaml
+      contract: agents/EDU-Extractor/contract.yaml
+      prompt: agents/EDU-Extractor/prompt.md
+  EDU-Extractor_CCQ:
+    display_name: '@EDU-Extractor_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - education
+    - ccq
+    - extract
+    - extraction
+    - transcription
+    - transcrire
+    - ocr
+    - scan
+    - pdf_scan
+    - batch_extract
+    paths:
+      agent: agents/EDU-Extractor_CCQ/agent.yaml
+      contract: agents/EDU-Extractor_CCQ/contract.yaml
+      prompt: agents/EDU-Extractor_CCQ/prompt.md
+  EDU-OCR-Extractor_CCQ:
+    display_name: '@EDU-OCR-Extractor_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - ocr
+    - transcription
+    - scan
+    - photo
+    - ccq
+    - education
+    - batch
+    paths:
+      agent: agents/EDU-OCR-Extractor_CCQ/agent.yaml
+      contract: agents/EDU-OCR-Extractor_CCQ/contract.yaml
+      prompt: agents/EDU-OCR-Extractor_CCQ/prompt.md
+  EDU-Orchestrator:
+    display_name: '@EDU-Orchestrator'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - ccq
+    - coordonne
+    - correction
+    - devoir
+    - edu
+    - education
+    - ethique
+    - evaluation
+    - reflexion
+    paths:
+      agent: agents/EDU-Orchestrator/agent.yaml
+      contract: agents/EDU-Orchestrator/contract.yaml
+      prompt: agents/EDU-Orchestrator/prompt.md
+  EDU-Orchestrator_CCQ:
+    display_name: '@EDU-Orchestrator_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - batch
+    - batch_eval
+    - ccq
+    - correction
+    - education
+    - evaluation
+    - extract
+    - extraction
+    - ocr
+    - orchestration
+    - transcription
+    - workflow
+    paths:
+      agent: agents/EDU-Orchestrator_CCQ/agent.yaml
+      contract: agents/EDU-Orchestrator_CCQ/contract.yaml
+      prompt: agents/EDU-Orchestrator_CCQ/prompt.md
+  EDU-Reflexions_CCQ:
+    display_name: '@EDU-Reflexions_CCQ'
+    team_id: TEAM__EDU
+    status: active
+    intents:
+    - education
+    - ccq
+    - culture
+    - citoyennete
+    - ethique
+    - evaluation
+    - correction
+    - batch
+    paths:
+      agent: agents/EDU-Reflexions_CCQ/agent.yaml
+      contract: agents/EDU-Reflexions_CCQ/contract.yaml
+      prompt: agents/EDU-Reflexions_CCQ/prompt.md
+  ESPL-PaulLejeuneRadio:
+    display_name: '@ESPL-PaulLejeuneRadio'
+    team_id: TEAM__ESPL
+    status: active
+    intents:
+    - chronique
+    - espl
+    - histoire_quebec
+    - paul_lejeune
+    paths:
+      agent: agents/ESPL-PaulLejeuneRadio/agent.yaml
+      contract: agents/ESPL-PaulLejeuneRadio/contract.yaml
+      prompt: agents/ESPL-PaulLejeuneRadio/prompt.md
+  IASM-AddictionsCompulsions:
+    display_name: '@IASM - Addictions & comportements compulsifs'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - addiction
+    - compulsion
+    paths:
+      agent: agents/IASM-AddictionsCompulsions/agent.yaml
+      contract: agents/IASM-AddictionsCompulsions/contract.yaml
+      prompt: agents/IASM-AddictionsCompulsions/prompt.md
+  IASM-AnalysteDiscussion:
+    display_name: '@IASM - ANALYSTE DISCUSSION'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - conversation
+    - analysis
+    paths:
+      agent: agents/IASM-AnalysteDiscussion/agent.yaml
+      contract: agents/IASM-AnalysteDiscussion/contract.yaml
+      prompt: agents/IASM-AnalysteDiscussion/prompt.md
+  IASM-AnalysteSchemasRelationnels:
+    display_name: '@IASM - Analyste de schémas relationnels'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - relationships
+    - patterns
+    paths:
+      agent: agents/IASM-AnalysteSchemasRelationnels/agent.yaml
+      contract: agents/IASM-AnalysteSchemasRelationnels/contract.yaml
+      prompt: agents/IASM-AnalysteSchemasRelationnels/prompt.md
+  IASM-ClarificateurObjectifRelationnel:
+    display_name: '@IASM - Clarificateur d''objectif relationnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - goal
+    - clarify
+    paths:
+      agent: agents/IASM-ClarificateurObjectifRelationnel/agent.yaml
+      contract: agents/IASM-ClarificateurObjectifRelationnel/contract.yaml
+      prompt: agents/IASM-ClarificateurObjectifRelationnel/prompt.md
+  IASM-CoachDeVie:
+    display_name: '@IASM - Coach de vie'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - coaching
+    - actions
+    paths:
+      agent: agents/IASM-CoachDeVie/agent.yaml
+      contract: agents/IASM-CoachDeVie/contract.yaml
+      prompt: agents/IASM-CoachDeVie/prompt.md
+  IASM-DirecteurCabinetIA:
+    display_name: '@IASM - Directeur de cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - orchestrate
+    - qa
+    paths:
+      agent: agents/IASM-DirecteurCabinetIA/agent.yaml
+      contract: agents/IASM-DirecteurCabinetIA/contract.yaml
+      prompt: agents/IASM-DirecteurCabinetIA/prompt.md
+  IASM-GestionColere:
+    display_name: '@IASM - Module Gestion de la colère'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - anger
+    - regulation
+    paths:
+      agent: agents/IASM-GestionColere/agent.yaml
+      contract: agents/IASM-GestionColere/contract.yaml
+      prompt: agents/IASM-GestionColere/prompt.md
+  IASM-GestionEmotions:
+    display_name: '@IASM - Module Gestion des émotions'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - emotion
+    - regulation
+    paths:
+      agent: agents/IASM-GestionEmotions/agent.yaml
+      contract: agents/IASM-GestionEmotions/contract.yaml
+      prompt: agents/IASM-GestionEmotions/prompt.md
+  IASM-ModuleRelationsConjugalesFamiliales:
+    display_name: '@IASM - Module Relations conjugales & familiales'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - family
+    - systemic
+    paths:
+      agent: agents/IASM-ModuleRelationsConjugalesFamiliales/agent.yaml
+      contract: agents/IASM-ModuleRelationsConjugalesFamiliales/contract.yaml
+      prompt: agents/IASM-ModuleRelationsConjugalesFamiliales/prompt.md
+  IASM-Orchestrator:
+    display_name: '@IASM-Orchestrator'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - aide
+    - anxiete
+    - coaching
+    - coordonne
+    - ecoute
+    - iasm
+    - stress
+    - support_emotionnel
+    paths:
+      agent: agents/IASM-Orchestrator/agent.yaml
+      contract: agents/IASM-Orchestrator/contract.yaml
+      prompt: agents/IASM-Orchestrator/prompt.md
+  IASM-OrchestreurCabinetIA:
+    display_name: '@IASM - Orchestreur — Cabinet IA'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - intake
+    - route
+    paths:
+      agent: agents/IASM-OrchestreurCabinetIA/agent.yaml
+      contract: agents/IASM-OrchestreurCabinetIA/contract.yaml
+      prompt: agents/IASM-OrchestreurCabinetIA/prompt.md
+  IASM-OutilsTCC:
+    display_name: '@IASM-OutilsTCC'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - exercice
+    - iasm
+    - pensee
+    - restructuration
+    - tcc
+    paths:
+      agent: agents/IASM-OutilsTCC/agent.yaml
+      contract: agents/IASM-OutilsTCC/contract.yaml
+      prompt: agents/IASM-OutilsTCC/prompt.md
+  IASM-Psychoeducateur:
+    display_name: '@IASM - PSYCHOÉDUCATEUR'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - education
+    - explain
+    paths:
+      agent: agents/IASM-Psychoeducateur/agent.yaml
+      contract: agents/IASM-Psychoeducateur/contract.yaml
+      prompt: agents/IASM-Psychoeducateur/prompt.md
+  IASM-RessentiTonalite:
+    display_name: '@IASM - Analyse de ressenti & tonalité'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - sentiment
+    - tone
+    paths:
+      agent: agents/IASM-RessentiTonalite/agent.yaml
+      contract: agents/IASM-RessentiTonalite/contract.yaml
+      prompt: agents/IASM-RessentiTonalite/prompt.md
+  IASM-Securite:
+    display_name: '@IASM-Securite'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - automutilation
+    - crise
+    - danger
+    - iasm
+    - suicidaire
+    - urgence
+    paths:
+      agent: agents/IASM-Securite/agent.yaml
+      contract: agents/IASM-Securite/contract.yaml
+      prompt: agents/IASM-Securite/prompt.md
+  IASM-SecuriteRisques:
+    display_name: '@IASM - Sécurité / risques'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - safety
+    - risk
+    paths:
+      agent: agents/IASM-SecuriteRisques/agent.yaml
+      contract: agents/IASM-SecuriteRisques/contract.yaml
+      prompt: agents/IASM-SecuriteRisques/prompt.md
+  IASM-SpecialisteRelationsCouple:
+    display_name: '@IASM - Spécialiste Relations de couple'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - couple
+    - communication
+    paths:
+      agent: agents/IASM-SpecialisteRelationsCouple/agent.yaml
+      contract: agents/IASM-SpecialisteRelationsCouple/contract.yaml
+      prompt: agents/IASM-SpecialisteRelationsCouple/prompt.md
+  IASM-SuperviseurEthique:
+    display_name: '@IASM - Superviseur / éthique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - ethics
+    - review
+    paths:
+      agent: agents/IASM-SuperviseurEthique/agent.yaml
+      contract: agents/IASM-SuperviseurEthique/contract.yaml
+      prompt: agents/IASM-SuperviseurEthique/prompt.md
+  IASM-SupportEmotionnel:
+    display_name: '@IASM-SupportEmotionnel'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    paths:
+      agent: agents/IASM-SupportEmotionnel/agent.yaml
+      contract: agents/IASM-SupportEmotionnel/contract.yaml
+      prompt: agents/IASM-SupportEmotionnel/prompt.md
+  IASM-TherapiePsychodynamique:
+    display_name: '@IASM - Thérapie psychodynamique'
+    team_id: TEAM__IASM
+    status: active
+    intents:
+    - iasm
+    - insight
+    - deep_patterns
+    paths:
+      agent: agents/IASM-TherapiePsychodynamique/agent.yaml
+      contract: agents/IASM-TherapiePsychodynamique/contract.yaml
+      prompt: agents/IASM-TherapiePsychodynamique/prompt.md
+  PLR-Orchestrator:
+    display_name: '@PLR-Orchestrator'
+    team_id: TEAM__PLR
+    status: active
+    intents:
+    - coordonne
+    - episode
+    - plr
+    - podcast
+    - radio
+    - script_radio
+    paths:
+      agent: agents/PLR-Orchestrator/agent.yaml
+      contract: agents/PLR-Orchestrator/contract.yaml
+      prompt: agents/PLR-Orchestrator/prompt.md
+  PLR-RadioScripteur:
+    display_name: '@PLR - Radio Scripteur'
+    team_id: TEAM__PLR
+    status: active
+    intents:
+    - radio
+    - script
+    - writing
+    paths:
+      agent: agents/PLR-RadioScripteur/agent.yaml
+      contract: agents/PLR-RadioScripteur/contract.yaml
+      prompt: agents/PLR-RadioScripteur/prompt.md
+  PLR-Scripteur:
+    display_name: '@PLR-Scripteur'
+    team_id: TEAM__PLR
+    status: active
+    intents:
+    - plr
+    - redige
+    paths:
+      agent: agents/PLR-Scripteur/agent.yaml
+      contract: agents/PLR-Scripteur/contract.yaml
+      prompt: agents/PLR-Scripteur/prompt.md
+  META-AgentFactory:
+    display_name: '@META-AgentFactory'
+    team_id: TEAM__META
+    status: active
+    intents:
+    - meta
+    - cree
+    - AgentFactory
+    - NewAgent

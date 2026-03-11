@@ -1,2 +1,147 @@
-﻿---
+schema_version: "1.0"
+generated_at: "2026-03-11T17:51:05"
+description: "Index des artefacts FACTORY : schemas, machines, integration packages, templates."
+owner: TEAM__CTL
+total_artifacts: 20
 
+artifacts:
+
+  - artifact_id: AGENT_SCHEMA_JSON
+    file: "SHARED/70_INTEGRATION_PACKAGES/SCHEMAS/agent.schema.json"
+    type: schema
+    description: "Schema de validation: agent.schema.json"
+    owner: TEAM__CTL
+    status: active
+
+  - artifact_id: CONTRACT_SCHEMA_JSON
+    file: "SHARED/70_INTEGRATION_PACKAGES/SCHEMAS/contract.schema.json"
+    type: schema
+    description: "Schema de validation: contract.schema.json"
+    owner: TEAM__CTL
+    status: active
+
+  - artifact_id: MEMORY_INDEX_SCHEMA_JSON
+    file: "SHARED/70_INTEGRATION_PACKAGES/SCHEMAS/memory_index.schema.json"
+    type: schema
+    description: "Schema de validation: memory_index.schema.json"
+    owner: TEAM__CTL
+    status: active
+
+  - artifact_id: PLAYBOOKS_SCHEMA_JSON
+    file: "SHARED/70_INTEGRATION_PACKAGES/SCHEMAS/playbooks.schema.json"
+    type: schema
+    description: "Schema de validation: playbooks.schema.json"
+    owner: TEAM__CTL
+    status: active
+
+  - artifact_id: ROUTING_SCHEMA_JSON
+    file: "SHARED/70_INTEGRATION_PACKAGES/SCHEMAS/routing.schema.json"
+    type: schema
+    description: "Schema de validation: routing.schema.json"
+    owner: TEAM__CTL
+    status: active
+
+  - artifact_id: INTEGRATION__CONNECTWISE
+    file: "SHARED/70_INTEGRATION_PACKAGES/connectwise/"
+    type: integration_package
+    description: "Package intégration connectwise"
+    owner: TEAM__OPS
+    status: active
+
+  - artifact_id: INTEGRATION__GDRIVE
+    file: "SHARED/70_INTEGRATION_PACKAGES/gdrive/"
+    type: integration_package
+    description: "Package intégration gdrive"
+    owner: TEAM__OPS
+    status: active
+
+  - artifact_id: INTEGRATION__M365
+    file: "SHARED/70_INTEGRATION_PACKAGES/m365/"
+    type: integration_package
+    description: "Package intégration m365"
+    owner: TEAM__OPS
+    status: active
+
+  - artifact_id: INTEGRATION__NOTION
+    file: "SHARED/70_INTEGRATION_PACKAGES/notion/"
+    type: integration_package
+    description: "Package intégration notion"
+    owner: TEAM__OPS
+    status: active
+
+  - artifact_id: INTEGRATION__SLACK
+    file: "SHARED/70_INTEGRATION_PACKAGES/slack/"
+    type: integration_package
+    description: "Package intégration slack"
+    owner: TEAM__OPS
+    status: active
+
+  - artifact_id: MACHINE__META_ORCHESTRATOR_V2
+    file: "80_MACHINES/META_ORCHESTRATOR_V2.yaml"
+    type: machine
+    description: "Machine orchestration"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: MACHINE__CREATE_ARMY_GPT
+    file: "80_MACHINES/create_army_gpt.yaml"
+    type: machine
+    description: "Machine orchestration"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: MACHINE__PRODUCTS_ROUTING
+    file: "80_MACHINES/products_routing.yaml"
+    type: machine
+    description: "Machine orchestration"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__30_60_90
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__30_60_90.md"
+    type: template
+    description: "Template: 30_60_90"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__AGENT
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__AGENT.md"
+    type: template
+    description: "Template: AGENT"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__PLAYBOOK
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__PLAYBOOK.md"
+    type: template
+    description: "Template: PLAYBOOK"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__PROPOSITION_IAHQ
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__PROPOSITION_IAHQ.md"
+    type: template
+    description: "Template: PROPOSITION_IAHQ"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__TEAM
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__TEAM.yaml"
+    type: template
+    description: "Template: TEAM"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__MACHINE_FLOW
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__machine_flow.md"
+    type: template
+    description: "Template: MACHINE_FLOW"
+    owner: TEAM__META
+    status: active
+
+  - artifact_id: TEMPLATE__PLAYBOOK_UNIVERSEL
+    file: "90_KNOWLEDGE/TEMPLATES/TEMPLATE__playbook_universel.md"
+    type: template
+    description: "Template: PLAYBOOK_UNIVERSEL"
+    owner: TEAM__META
+    status: active
