@@ -2,7 +2,7 @@ schema_version: "1.0"
 dashboard_id: FACTORY_HEALTH
 description: "Santé globale de la Factory — agents actifs, drift, alertes en cours"
 owner: TEAM__CTL
-updated_at: "2026-02-28"
+updated_at: "2026-03-08"
 
 # ============================================================
 # SNAPSHOT SANTÉ ACTUEL — mis à jour par CTL-WatchdogIA
@@ -14,6 +14,7 @@ factory_summary:
   agents_no_data: 40      # Aucun run encore logué
   teams_active: 5         # CTL, HUB, IAHQ, META, OPS
   playbooks_active: 11
+  agents_in_playbooks: 27 # Agents réellement référencés dans les 11 playbooks
   intents_registered: 281
   last_full_check: null
   health_status: "unknown"  # unknown | healthy | degraded | critical
@@ -24,26 +25,123 @@ per_team_health:
     active: 3
     status: "✅ Complet"
     last_check: null
+    agents_list:
+      - CTL-WatchdogIA
+      - CTL-AlertRouter
+      - CTL-HealthReporter
   HUB:
     agents: 10
     active: 9
     status: "🟡 MO2 partiel (68L)"
     last_check: null
+    agents_list:
+      - HUB-AgentMO-MasterOrchestrator
+      - HUB-AgentMO2-DeputyOrchestrator    # ⚠️ prompt partiel 68L
+      - HUB-Router
+      - HUB-Concierge
+      - HUB-OproEngine
+      - HUB-AvatarForge
+      - HUB-CoachIA360-Strategie-GPTTeams
+      - HUB-IA-ChatBotMaster
+      - HUB-ITCoachIA360
+      - HUB-AvatarForge
   IAHQ:
     agents: 10
     active: 10
     status: "✅ Complet"
     last_check: null
+    agents_list:
+      - IAHQ-OrchestreurEntrepriseIA
+      - IAHQ-QualityGate
+      - IAHQ-TechLeadIA
+      - IAHQ-Economist
+      - IAHQ-Strategist
+      - IAHQ-ProcessMapper
+      - IAHQ-SolutionOrchestrator
+      - IAHQ-Advisor
+      - IAHQ-DataAnalyst
+      - IAHQ-ProjectManager
   META:
     agents: 14
     active: 14
     status: "✅ Complet"
     last_check: null
+    agents_list:
+      - META-AgentProductFactory
+      - META-GouvernanceQA
+      - META-OrchestrateurCentral
+      - META-ArchitecteChoix
+      - META-AnalysteBesoinsEquipes
+      - META-CartographeRoles
+      - META-WorkflowDesignerEquipes
+      - META-PlaybookBuilder
+      - META-PromptMaster
+      - META-ReversePrompt
+      - META-Documentaliste
+      - META-TestEngineer
+      - META-DevOpsIA
+      - META-SecurityReviewer
   OPS:
     agents: 3
     active: 3
     status: "✅ Complet"
     last_check: null
+    agents_list:
+      - OPS-RouterIA
+      - OPS-PlaybookRunner
+      - OPS-DossierIA
+
+# ============================================================
+# CROSS-RÉFÉRENCE PLAYBOOKS ↔ AGENTS
+# Agents réellement utilisés dans les 11 playbooks actifs
+# ============================================================
+playbook_agents_coverage:
+  agents_in_playbooks: 27
+  agents_not_yet_in_playbooks: 13
+  # Les 27 agents référencés dans au moins 1 playbook :
+  covered:
+    - CTL-WatchdogIA
+    - CTL-AlertRouter
+    - CTL-HealthReporter
+    - HUB-Router
+    - HUB-Concierge
+    - HUB-AgentMO-MasterOrchestrator
+    - HUB-AgentMO2-DeputyOrchestrator
+    - HUB-OproEngine
+    - IAHQ-OrchestreurEntrepriseIA
+    - IAHQ-ProcessMapper
+    - IAHQ-SolutionOrchestrator
+    - IAHQ-TechLeadIA
+    - IAHQ-Economist
+    - IAHQ-Strategist
+    - IAHQ-QualityGate
+    - META-AgentProductFactory
+    - META-GouvernanceQA
+    - META-OrchestrateurCentral
+    - META-ArchitecteChoix
+    - META-AnalysteBesoinsEquipes
+    - META-CartographeRoles
+    - META-WorkflowDesignerEquipes
+    - META-PlaybookBuilder
+    - META-PromptMaster
+    - META-ReversePrompt
+    - OPS-RouterIA
+    - OPS-DossierIA
+  # Agents existants mais pas encore dans les playbooks :
+  not_covered:
+    - HUB-AvatarForge
+    - HUB-CoachIA360-Strategie-GPTTeams
+    - HUB-IA-ChatBotMaster
+    - HUB-ITCoachIA360
+    - IAHQ-Advisor
+    - IAHQ-DataAnalyst
+    - IAHQ-ProjectManager
+    - META-Documentaliste
+    - META-TestEngineer
+    - META-DevOpsIA
+    - META-SecurityReviewer
+    - OPS-PlaybookRunner
+    - HUB-AvatarForge  # dup à clarifier
 
 active_alerts: []
 
@@ -61,5 +159,14 @@ known_issues:
     severity: "low"
     description: "OPS-RouterIA timings.total_ms/match_ms non mesurables en contexte GPT — champs null + note ajoutée"
     status: "resolved"
+  - id: "ISS-004"
+    severity: "low"
+    description: "PB_HUB_01_ORCHESTRATE_AND_DISPATCH.yaml — schéma ancien format (id: au lieu de playbook_id:, step: au lieu de step_id:). Réécrit au schéma standard v1.1.0 le 2026-03-08."
+    status: "resolved"
+  - id: "ISS-005"
+    severity: "info"
+    description: "13 agents existants non référencés dans les playbooks actifs — à intégrer lors des prochains sprints FAB."
+    status: "open"
+    owner: "META-PlaybookBuilder"
 
 drift_detected: false

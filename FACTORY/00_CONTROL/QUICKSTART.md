@@ -11,5 +11,5 @@
 3. Passer l'output de chaque step comme input du suivant
 
 ## Pour créer un nouvel agent
-1. Utiliser META-AgentFactory
+1. Utiliser META-AgentProductFactory
 2. Ou copier un agent existant et personnaliser TOUT (pas de copier-coller!)

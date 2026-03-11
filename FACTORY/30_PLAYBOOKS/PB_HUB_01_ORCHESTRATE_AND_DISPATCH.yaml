@@ -1,110 +1,189 @@
-id: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
+schema_version: "1.0"
+playbook_id: ORCHESTRATE_AND_DISPATCH
 display_name: "Orchestrate and Dispatch"
-version: "1.0.0"
-category: orchestration
-team_owner: TEAM__HUB
-trigger: "any_request | manual | intake"
-sla_minutes: 30
 description: >
   Playbook d'entrée universel HUB. Prend toute requête utilisateur, la cadre,
   détecte l'intent, route vers le bon agent/équipe, et compile le résultat.
   Point d'entrée standard pour toutes les demandes non spécifiquement routées.
+category: "orchestration"
+team_owner: TEAM__HUB
+trigger: "any_request | manual | intake"
+estimated_duration_minutes: 30
+version: "1.1.0"
+last_updated: "2026-03-08"
+
+inputs:
+  user_input:
+    type: string
+    required: true
+    description: "Requête brute de l'utilisateur ou du système appelant."
+  context:
+    type: object
+    required: false
+    description: "Contexte additionnel : historique, dossier en cours, agent source."
+  priority:
+    type: "P0 | P1 | P2 | normal"
+    required: false
+    default: "normal"
+    description: "Niveau de priorité de la requête."
 
 steps:
-  - step: intake_and_route
-    order: 1
+
+  - step_id: "S1_intake_and_route"
+    name: "Intake et routage de l'intent"
     actor_id: HUB-Router
-    description: "Détecter l'intent et choisir la destination optimale"
     input:
-      from: user
-      fields: [user_input, context]
-    output:
-      artifacts: [routing_decision.yaml]
-      passes_to: qualify_if_ambiguous
-    success_criteria:
-      - "routing_decision.confidence IN [high, medium]"
-      - "routing_decision.target_agent existe dans agents_index"
-    on_failure: escalate
-    escalation_target: HUB-Concierge
+      operation: "detect_intent"
+      user_input: "{{user_input}}"
+      context: "{{context}}"
+      agents_index: "00_INDEX/agents_index.yaml"
+      intents_map: "00_INDEX/intents.yaml"
+    action: >
+      Analyser la requête, détecter l'intent principal et les intents secondaires,
+      sélectionner l'agent ou l'équipe cible optimale avec un score de confiance.
+      Identifier si la requête est ambiguë (confiance < 0.6).
+    output_key: "routing_decision"
+    format:
+      intent_primary: "<intent_id>"
+      intent_secondary: ["<intent_id>"]
+      target_agent: "<agent_id>"
+      target_team: "<team_id>"
+      confidence: "<float 0.0-1.0>"
+      ambiguous: "<bool>"
+      routing_reason: "<explication courte>"
+    on_failure: "abort"
+    on_failure_message: "Routage impossible — aucun agent cible identifiable. Escalade vers HUB-Concierge."
+    sla_minutes: 3
 
-  - step: qualify_if_ambiguous
-    order: 2
+  - step_id: "S2_qualify_if_ambiguous"
+    name: "Qualification si requête ambiguë"
     actor_id: HUB-Concierge
-    description: "Si confiance faible, qualifier le besoin (max 3 questions)"
-    condition: "routing_decision.confidence == low"
+    condition: "routing_decision.ambiguous == true OR routing_decision.confidence < 0.6"
     input:
-      from: step_intake_and_route
-      fields: [routing_decision, user_input]
-    output:
-      artifacts: [qualified_request.yaml]
-      passes_to: orchestrate
-    success_criteria:
-      - "qualified_request.user_need défini"
-      - "qualified_request.suggested_team défini"
-    on_failure: retry_once
+      operation: "qualify_request"
+      user_input: "{{user_input}}"
+      routing_decision: "{{routing_decision}}"
+      max_questions: 3
+    action: >
+      Engager l'utilisateur pour clarifier le besoin. Maximum 3 questions ciblées.
+      Reformuler la requête qualifiée avec le vrai besoin et l'équipe suggérée.
+    output_key: "qualified_request"
+    format:
+      user_need: "<besoin précis reformulé>"
+      suggested_team: "<team_id>"
+      suggested_agent: "<agent_id>"
+      clarification_obtained: "<bool>"
+      questions_asked: "<int 0-3>"
+    on_failure: "continue"
+    on_failure_message: "Qualification échouée — continuer avec le routage initial."
+    sla_minutes: 5
 
-  - step: orchestrate
-    order: 3
+  - step_id: "S3_orchestrate"
+    name: "Orchestration et dispatch"
     actor_id: HUB-AgentMO-MasterOrchestrator
-    description: "Cadrer, planifier et dispatcher vers l'équipe cible"
     input:
-      from: step_intake_and_route
-      fields: [routing_decision, qualified_request, user_input, context]
-    output:
-      artifacts: [orchestration_plan.yaml, report.md]
-      passes_to: qa_review
-    success_criteria:
-      - "result.status IN [ok, partial]"
-      - "result.confidence >= 0.7"
-      - "artifacts non vides"
-      - "log.quality_score >= 9"
-    on_failure: escalate
-    escalation_target: HUB-AgentMO2-DeputyOrchestrator
+      operation: "orchestrate"
+      user_input: "{{user_input}}"
+      context: "{{context}}"
+      routing_decision: "{{routing_decision}}"
+      qualified_request: "{{qualified_request | default: null}}"
+      priority: "{{priority}}"
+    action: >
+      Cadrer la mission, élaborer le plan d'exécution, dispatcher vers l'agent/équipe cible.
+      Compiler le résultat final et définir les next_actions pour l'opérateur.
+    output_key: "orchestration_result"
+    format:
+      status: "ok | partial | failed"
+      confidence: "<float 0.0-1.0>"
+      quality_score: "<float 0.0-10.0>"
+      plan_executed: "<bool>"
+      target_agent_used: "<agent_id>"
+      result_summary: "<résumé exécution>"
+      artifacts_produced: ["<artifact_name>"]
+      next_actions: ["<action recommandée>"]
+    on_failure: "abort"
+    on_failure_message: "Orchestration échouée. Escalade vers HUB-AgentMO2-DeputyOrchestrator."
+    sla_minutes: 15
 
-  - step: qa_review
-    order: 4
+  - step_id: "S4_qa_review"
+    name: "Révision qualité (si score < 9 ou partiel)"
     actor_id: HUB-AgentMO2-DeputyOrchestrator
-    description: "Vérifier cohérence, qualité et complétude du plan"
-    condition: "orchestration_plan.log.quality_score < 9 OR result.status == partial"
+    condition: "orchestration_result.quality_score < 9 OR orchestration_result.status == 'partial'"
     input:
-      from: step_orchestrate
-      fields: [orchestration_plan, report]
-    output:
-      artifacts: [qa_report.yaml, corrected_plan.yaml]
-      passes_to: archive
-    success_criteria:
-      - "qa_report.overall_status IN [pass, pass_with_warnings]"
-    on_failure: abort
+      operation: "qa_review"
+      orchestration_result: "{{orchestration_result}}"
+      user_input: "{{user_input}}"
+      quality_threshold: 9
+    action: >
+      Vérifier cohérence, qualité et complétude du plan produit par MasterOrchestrator.
+      Corriger les lacunes, compléter les points manquants, valider le résultat final.
+    output_key: "qa_result"
+    format:
+      overall_status: "pass | pass_with_warnings | fail"
+      issues_found: ["<issue>"]
+      corrections_applied: ["<correction>"]
+      final_quality_score: "<float 0.0-10.0>"
+    on_failure: "abort"
+    on_failure_message: "QA échouée — run bloqué. Créer ticket CTL-AlertRouter."
+    sla_minutes: 10
 
-  - step: archive
-    order: 5
+  - step_id: "S5_archive"
+    name: "Archivage Dossier IA"
     actor_id: OPS-DossierIA
-    description: "Archiver le run complet dans le Dossier IA"
     input:
-      from: step_orchestrate
-      fields: [orchestration_plan, qa_report, execution_context]
-    output:
-      artifacts: [dossier_id, archive_confirmation.yaml]
-      passes_to: final
-    success_criteria:
-      - "dossier_id non null"
-    on_failure: skip
+      operation: "create"
+      playbook_id: "ORCHESTRATE_AND_DISPATCH"
+      metadata:
+        type: "orchestration_run"
+        priority: "{{priority}}"
+        intent_primary: "{{routing_decision.intent_primary}}"
+        target_agent: "{{routing_decision.target_agent}}"
+        final_status: "{{orchestration_result.status}}"
+        quality_score: "{{qa_result.final_quality_score | default: orchestration_result.quality_score}}"
+      outputs:
+        routing_decision: "{{routing_decision}}"
+        qualified_request: "{{qualified_request | default: null}}"
+        orchestration_result: "{{orchestration_result}}"
+        qa_result: "{{qa_result | default: null}}"
+    dossier_name: "ORCHESTRATION__{{routing_decision.intent_primary | upper}}__{{date_yyyymmdd}}"
+    on_failure: "continue"
+    sla_minutes: 2
+
+final_output:
+  primary: "orchestration_result"
+  secondary: ["routing_decision", "qa_result"]
+  dossier: "{{S5_archive.result.dossier.id}}"
+
+success_criteria:
+  - "S1_intake_and_route completed (routing_decision.target_agent présent)"
+  - "S3_orchestrate completed (orchestration_result.status IN [ok, partial])"
+  - "orchestration_result.quality_score >= 9.0"
+  - "S5_archive completed"
+
+failure_conditions:
+  - "S1_intake_and_route échoue (abort)"
+  - "S3_orchestrate échoue après S2 (abort)"
+  - "S4_qa_review overall_status = fail (abort)"
 
 escalation_policy:
-  trigger: on_failure_abort
-  target: HUB-AgentMO-MasterOrchestrator
+  trigger: "on_failure_abort"
+  target: "HUB-AgentMO-MasterOrchestrator"
   notification: "Log dans OPS-DossierIA + alerte CTL-AlertRouter"
 
-definition_of_done:
-  - "Intent détecté avec confiance >= medium"
-  - "Plan d'exécution produit (orchestration_plan.yaml)"
-  - "Score qualité >= 9/10"
-  - "Run archivé dans OPS-DossierIA"
-  - "next_actions définis pour l'opérateur"
+notifications:
+  on_complete_ok:
+    message: "✅ Run orchestré — intent={{routing_decision.intent_primary}} | agent={{routing_decision.target_agent}} | score={{orchestration_result.quality_score}}"
+    route_to: [OPS-DossierIA]
+  on_qa_triggered:
+    message: "⚡ QA review déclenchée — score initial < 9 ou résultat partiel."
+    route_to: [HUB-AgentMO-MasterOrchestrator]
+  on_abort:
+    message: "⚠️ Orchestration échouée — voir S3/S4. Escalade requise."
+    route_to: [HUB-AgentMO-MasterOrchestrator, CTL-AlertRouter]
 
 references:
   runbook: "40_RUNBOOKS/RUNBOOK__PB_HUB_01_ORCHESTRATE_AND_DISPATCH.md"
-  playbooks_index: "30_PLAYBOOKS/playbooks.yaml"
+  playbooks_index: "30_PLAYBOOKS/playbooks_index.yaml"
   agents_consulted:
     - HUB-Router
     - HUB-Concierge
