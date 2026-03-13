@@ -1,0 +1,258 @@
+schema_version: "1.0"
+generated_at: '2026-02-01T18:47:04Z'
+title: "Playbooks — Root IA v3"
+# Chaque playbook est un workflow multi-agents
+
+playbooks:
+  BUILD_TEAM_FROM_SCRATCH:
+     display_name: "Build Team From Scratch"
+     category: fabrication
+     team_owner: TEAM__META
+     trigger: "manual | onboard_new_team"
+     duration_minutes: 240
+     steps_count: 12
+     file: 30_PLAYBOOKS/PB_FAB_03_BUILD_TEAM_FROM_SCRATCH.yaml
+
+  CLONE_AND_ADAPT_AGENT:
+     display_name: "Clone and Adapt Agent"
+     category: fabrication
+     team_owner: TEAM__META
+     trigger: "manual"
+     duration_minutes: 45
+     steps_count: 10
+     file: 30_PLAYBOOKS/PB_FAB_04_CLONE_AND_ADAPT_AGENT.yaml
+
+  ONBOARD_NEW_TEAM:
+     display_name: "Onboard New Team"
+     category: expansion
+     team_owner: TEAM__IAHQ
+     trigger: "new_business_domain | client_project"
+     duration_minutes: 360
+     steps_count: 11
+     file: 30_PLAYBOOKS/PB_EXP_01_ONBOARD_NEW_TEAM.yaml
+     calls: [BUILD_TEAM_FROM_SCRATCH]
+
+  ARMY_AUDIT_COMPLETE:
+     display_name: "Army Audit Complete"
+     category: optimisation
+     team_owner: TEAM__META
+     trigger: "quarterly | pre_delivery | on_demand"
+     duration_minutes: 120
+     steps_count: 11
+     maturity_model: [L1, L2, L3, L4, L5]
+     file: 30_PLAYBOOKS/PB_OPT_02_ARMY_AUDIT_COMPLETE.yaml
+
+  # ─── META : Créer une armée d'agents ───
+  BUILD_ARMY:
+    description: "Analyse un domaine et crée une équipe d'agents complète"
+    trigger: "Besoin de créer une nouvelle équipe d'agents"
+    steps:
+      - step: analyse_besoins
+        actor_id: META-CartographeRoles
+        input_from: user
+        success_criteria: "Blueprint avec agents identifiés et justifiés"
+        on_failure: retry
+      - step: create_agents
+        actor_id: META-AgentFactory
+        input_from: analyse_besoins
+        success_criteria: "Package complet pour chaque agent (yaml + prompt + contract)"
+        on_failure: retry
+      - step: create_playbooks
+        actor_id: META-PlaybookBuilder
+        input_from: create_agents
+        success_criteria: "Au moins 1 playbook par workflow identifié"
+        on_failure: retry
+      - step: qa_audit
+        actor_id: META-GouvernanceQA
+        input_from: create_agents
+        success_criteria: "Tous les agents passent l'audit qualité"
+        on_failure: retry
+    deliverable:
+      format: yaml
+      contains: [agents, playbooks, audit_report]
+
+  PB_HUB_01_ORCHESTRATE_AND_DISPATCH:
+    display_name: "Orchestrate and Dispatch"
+    category: orchestration
+    team_owner: TEAM__HUB
+    trigger: "any_request | manual | intake"
+    duration_minutes: 30
+    steps_count: 5
+    version: "1.0.0"
+    file: "30_PLAYBOOKS/PB_HUB_01_ORCHESTRATE_AND_DISPATCH.yaml"
+
+  # ─── DAM : Analyse projet domiciliaire ───
+  DAM_PROJECT_ANALYSIS:
+    description: "Analyse complète d'un projet domiciliaire"
+    trigger: "Nouveau projet de construction/rénovation"
+    steps:
+      - step: conformite
+        actor_id: DAM-Conformite
+        input_from: user
+        success_criteria: "Check conformité complété avec status par catégorie"
+        on_failure: abort
+      - step: budget
+        actor_id: DAM-Budget
+        input_from: user
+        success_criteria: "Analyse budgétaire avec ventilation et risques"
+        on_failure: retry
+      - step: planning
+        actor_id: DAM-Planification
+        input_from: user
+        success_criteria: "Calendrier avec jalons et chemin critique"
+        on_failure: retry
+      - step: vendors
+        actor_id: DAM-SousTraitants
+        input_from: user
+        success_criteria: "Évaluation des soumissions si disponibles"
+        on_failure: skip
+      - step: inspection
+        actor_id: DAM-Inspection
+        input_from: conformite
+        success_criteria: "Plan d'inspection avec checklists"
+        on_failure: retry
+      - step: synthese
+        actor_id: DAM-Orchestrator
+        input_from: all_previous
+        success_criteria: "Synthèse exécutive complète"
+        on_failure: retry
+    deliverable:
+      format: yaml
+      contains: [conformity_check, budget_analysis, project_schedule, inspection_plan, project_analysis]
+
+   # ─── EDU : Évaluation CCQ ───
+  EDU_CCQ_EVALUATE:
+    description: "Évaluer une réflexion éthique CCQ (single)"
+    trigger: "Copie CCQ à évaluer"
+    steps:
+      - step: extract
+        actor_id: EDU-Extractor
+        input_from: user
+        success_criteria: "Texte extrait avec sections identifiées"
+        on_failure: retry
+      - step: evaluate
+        actor_id: EDU-Evaluator
+        input_from: extract
+        success_criteria: "Évaluation avec scores, justifications et preuves textuelles"
+        on_failure: retry
+    deliverable:
+      format: json
+      contains: [extraction, evaluation]
+
+  EDU_CCQ_BATCH:
+    description: "Évaluer un lot de copies CCQ"
+    trigger: "Lot de copies CCQ à évaluer"
+    steps:
+      - step: extract_batch
+        actor_id: EDU-Extractor
+        input_from: user
+        success_criteria: "Toutes les copies extraites et segmentées"
+        on_failure: retry
+      - step: evaluate_batch
+        actor_id: EDU-Evaluator
+        input_from: extract_batch
+        success_criteria: "Toutes les copies évaluées"
+        on_failure: retry
+      - step: compile
+        actor_id: EDU-Orchestrator
+        input_from: evaluate_batch
+        success_criteria: "Rapport compilé avec statistiques"
+        on_failure: retry
+    deliverable:
+      format: json
+      contains: [extractions, evaluations, summary_report]
+
+  # ─── IT : Intervention Live ───
+  IT_INTERVENTION_LIVE:
+    description: "Suivre une intervention IT en temps réel"
+    trigger: "Technicien démarre une intervention"
+    steps:
+      - step: open
+        actor_id: IT-InterventionLive
+        input_from: user
+        success_criteria: "Intervention ouverte avec contexte capturé"
+        on_failure: retry
+      - step: follow
+        actor_id: IT-InterventionLive
+        input_from: user
+        success_criteria: "Suivi en cours (boucle interactive)"
+        on_failure: retry
+      - step: close
+        actor_id: IT-InterventionLive
+        input_from: user
+        success_criteria: "Rapports CW générés (interne + discussion)"
+        on_failure: retry
+    deliverable:
+      format: markdown
+      contains: [internal_note, discussion_note, intervention_summary]
+
+  IT_INCIDENT_TRIAGE:
+    description: "Trier et dispatcher un incident IT"
+    trigger: "Alerte ou ticket incident reçu"
+    steps:
+      - step: triage
+        actor_id: IT-NOC
+        input_from: user
+        success_criteria: "Sévérité classifiée, agent assigné"
+        on_failure: retry
+      - step: dispatch
+        actor_id: IT-Orchestrator
+        input_from: triage
+        success_criteria: "Ticket dispatché avec SLA défini"
+        on_failure: retry
+    deliverable:
+      format: yaml
+      contains: [triage_result, dispatch_decision]
+
+  # ─── TRAD : Brief intelligence ───
+  TRAD_INTEL_BRIEF:
+    description: "Produire un brief d'intelligence stratégique"
+    trigger: "Besoin d'analyse stratégique sur un sujet"
+    steps:
+      - step: assign
+        actor_id: TRAD-CommandCore
+        input_from: user
+        success_criteria: "Analystes assignés avec angles définis"
+        on_failure: retry
+      - step: market
+        actor_id: TRAD-MarketAnalyst
+        input_from: assign
+        success_criteria: "Analyse marchés complétée"
+        on_failure: skip
+      - step: cyber
+        actor_id: TRAD-CyberWatch
+        input_from: assign
+        success_criteria: "Brief cyber complété"
+        on_failure: skip
+      - step: geo
+        actor_id: TRAD-GeoAnalyst
+        input_from: assign
+        success_criteria: "Analyse géopolitique complétée"
+        on_failure: skip
+      - step: compile
+        actor_id: TRAD-CommandCore
+        input_from: all_previous
+        success_criteria: "Brief unifié avec recommandations"
+        on_failure: retry
+    deliverable:
+      format: yaml
+      contains: [intel_brief]
+
+  # ─── IASM : Session coaching ───
+  IASM_SESSION:
+    description: "Session de coaching IA (accueil → module → suivi)"
+    trigger: "Utilisateur demande du support/coaching"
+    steps:
+      - step: intake
+        actor_id: IASM-Orchestrator
+        input_from: user
+        success_criteria: "Besoin qualifié, module identifié, sécurité vérifiée"
+        on_failure: retry
+      - step: session
+        actor_id: dynamic
+        input_from: intake
+        success_criteria: "Session complétée avec l'utilisateur"
+        on_failure: retry
+    deliverable:
+      format: markdown
+      contains: [session_notes]

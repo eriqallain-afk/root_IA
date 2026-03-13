@@ -1,0 +1,413 @@
+schema_version: "1.0"
+index_id: PLAYBOOKS_INDEX
+description: "Index maître de tous les playbooks de la FACTORY EA4AI. Source de vérité pour OPS-RouterIA et OPS-PlaybookRunner."
+owner: TEAM__CTL
+updated_at: "2026-03-08"
+total_playbooks: 11
+total_agents_referenced: 27
+
+# ============================================================
+# REGISTRE DES PLAYBOOKS
+# ============================================================
+
+playbooks:
+
+  # ── TEAM CTL — Contrôle & Monitoring ─────────────────────
+
+  - playbook_id: FACTORY_HEALTH_CHECK
+    file: "CTL/PB_CTL_01_FACTORY_HEALTH_CHECK.yaml"
+    team_owner: TEAM__CTL
+    category: monitoring
+    trigger: "scheduled_weekly | on_demand | post_incident"
+    estimated_sla_minutes: 15
+    steps_count: 5
+    actors:
+      - CTL-WatchdogIA
+      - CTL-AlertRouter
+      - OPS-DossierIA
+      - CTL-HealthReporter
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Audit de santé complet de la FACTORY. Scan agents, détecte anomalies, émet alertes, produit rapport."
+
+  - playbook_id: AGENT_LIFECYCLE_MANAGEMENT
+    file: "CTL/PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT.yaml"
+    team_owner: TEAM__CTL
+    category: monitoring
+    trigger: "on_demand | on_watchdog_recommendation | scheduled_review"
+    estimated_sla_minutes: 20
+    steps_count: 7
+    actors:
+      - CTL-WatchdogIA
+      - IAHQ-QualityGate
+      - META-GouvernanceQA
+      - META-AgentProductFactory
+      - OPS-RouterIA
+      - CTL-AlertRouter
+      - OPS-DossierIA
+    has_rollback: true
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Cycle de vie complet d'un agent : activation, dégradation, dépréciation, archivage, restauration."
+
+  - playbook_id: POST_MORTEM_ANALYSIS
+    file: "CTL/PB_CTL_03_POST_MORTEM_ANALYSIS.yaml"
+    team_owner: TEAM__CTL
+    category: monitoring
+    trigger: "post_incident | on_demand | scheduled_after_P0"
+    estimated_sla_minutes: 45
+    steps_count: 9
+    actors:
+      - OPS-DossierIA
+      - CTL-WatchdogIA
+      - IAHQ-TechLeadIA
+      - IAHQ-Economist
+      - META-GouvernanceQA
+      - IAHQ-Strategist
+      - CTL-HealthReporter
+      - META-AgentProductFactory
+    has_rollback: false
+    has_quality_gates: true
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Analyse post-mortem blameless : collecte preuves, 5 Whys, impact, actions correctives, capitalisation."
+
+  # ── TEAM HUB — Orchestration centrale ────────────────────
+
+  - playbook_id: ORCHESTRATE_AND_DISPATCH
+    file: "HUB/PB_HUB_01_ORCHESTRATE_AND_DISPATCH.yaml"
+    team_owner: TEAM__HUB
+    category: orchestration
+    trigger: "any_request | manual | intake"
+    estimated_sla_minutes: 30
+    steps_count: 5
+    actors:
+      - HUB-Router
+      - HUB-Concierge
+      - HUB-AgentMO-MasterOrchestrator
+      - HUB-AgentMO2-DeputyOrchestrator
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.1.0"
+    last_updated: "2026-03-08"
+    description: "Point d'entrée universel HUB. Détecte intent, route, orchestre, archive."
+
+  # ── TEAM IAHQ — Intelligence Artificielle HQ ─────────────
+
+  - playbook_id: IAHQ_FRONTDOOR
+    file: "IAHQ/PB_IAHQ_01_FRONTDOOR.yaml"
+    team_owner: TEAM__IAHQ
+    category: orchestration
+    trigger: "new_client_request | new_project | manual"
+    estimated_sla_minutes: 30
+    steps_count: 7
+    actors:
+      - IAHQ-OrchestreurEntrepriseIA
+      - IAHQ-ProcessMapper
+      - IAHQ-SolutionOrchestrator
+      - IAHQ-TechLeadIA
+      - IAHQ-Economist
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Porte d'entrée IAHQ : qualification client, mapping processus, solution architecture, estimation."
+
+  - playbook_id: ONBOARD_NEW_TEAM
+    file: "EXP/PB_EXP_01_ONBOARD_NEW_TEAM.yaml"
+    team_owner: TEAM__IAHQ
+    category: onboarding
+    trigger: "new_business_domain | client_project | product_expansion"
+    estimated_sla_minutes: 60
+    steps_count: 11
+    actors:
+      - IAHQ-OrchestreurEntrepriseIA
+      - IAHQ-Strategist
+      - META-ArchitecteChoix
+      - META-OrchestrateurCentral
+      - META-GouvernanceQA
+      - IAHQ-QualityGate
+      - OPS-RouterIA
+      - CTL-WatchdogIA
+      - IAHQ-Economist
+      - CTL-HealthReporter
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Onboarding complet d'une nouvelle équipe GPT dans la FACTORY."
+
+  # ── TEAM META / FAB — Fabrication d'agents ───────────────
+
+  - playbook_id: BUILD_ARMY_FACTORY
+    file: "FAB/PB_FAB_01_BUILD_ARMY_FACTORY.yaml"
+    team_owner: TEAM__META
+    category: fabrication
+    trigger: "manual | onboard_new_team"
+    estimated_sla_minutes: 90
+    steps_count: 8
+    actors:
+      - META-AnalysteBesoinsEquipes
+      - META-CartographeRoles
+      - IAHQ-OrchestreurEntrepriseIA
+      - META-AgentProductFactory
+      - META-WorkflowDesignerEquipes
+      - META-PlaybookBuilder
+      - META-GouvernanceQA
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Construire une armée d'agents complète pour une FACTORY depuis zéro."
+
+  - playbook_id: BUILD_TEAM_FROM_SCRATCH
+    file: "FAB/PB_FAB_03_BUILD_TEAM_FROM_SCRATCH.yaml"
+    team_owner: TEAM__META
+    category: fabrication
+    trigger: "manual | onboard_new_team"
+    estimated_sla_minutes: 60
+    steps_count: 12
+    actors:
+      - META-AnalysteBesoinsEquipes
+      - META-CartographeRoles
+      - IAHQ-OrchestreurEntrepriseIA
+      - META-AgentProductFactory
+      - META-WorkflowDesignerEquipes
+      - META-PlaybookBuilder
+      - META-GouvernanceQA
+      - IAHQ-QualityGate
+      - OPS-RouterIA
+      - CTL-WatchdogIA
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Construire une équipe GPT complète avec agents, workflows et playbooks."
+
+  - playbook_id: CLONE_AND_ADAPT_AGENT
+    file: "FAB/PB_FAB_04_CLONE_AND_ADAPT_AGENT.yaml"
+    team_owner: TEAM__META
+    category: fabrication
+    trigger: "manual"
+    estimated_sla_minutes: 30
+    steps_count: 10
+    actors:
+      - OPS-DossierIA
+      - META-ReversePrompt
+      - META-PromptMaster
+      - META-AgentProductFactory
+      - META-GouvernanceQA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Cloner un agent existant et l'adapter à un nouveau rôle ou contexte."
+
+  # ── TEAM OPT — Optimisation ───────────────────────────────
+
+  - playbook_id: PROMPT_OPTIMIZATION_CYCLE
+    file: "OPT/PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE.yaml"
+    team_owner: TEAM__META
+    category: optimization
+    trigger: "drift_detected | performance_low | manual | scheduled_quarterly"
+    estimated_sla_minutes: 45
+    steps_count: 10
+    actors:
+      - CTL-WatchdogIA
+      - OPS-DossierIA
+      - META-ReversePrompt
+      - HUB-OproEngine
+      - META-PromptMaster
+      - META-AgentProductFactory
+      - META-GouvernanceQA
+    has_rollback: false
+    has_quality_gates: false
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Cycle complet d'optimisation de prompt : analyse drift, reverse, réécriture, validation, déploiement."
+
+  - playbook_id: ARMY_AUDIT_COMPLETE
+    file: "OPT/PB_OPT_02_ARMY_AUDIT_COMPLETE.yaml"
+    team_owner: TEAM__META
+    category: optimization
+    trigger: "quarterly | post_major_change | pre_delivery | on_demand"
+    estimated_sla_minutes: 120
+    steps_count: 11
+    actors:
+      - META-GouvernanceQA
+      - CTL-WatchdogIA
+      - META-AnalysteBesoinsEquipes
+      - META-WorkflowDesignerEquipes
+      - CTL-HealthReporter
+      - IAHQ-TechLeadIA
+      - IAHQ-Strategist
+      - META-OrchestrateurCentral
+      - CTL-HealthReporter
+      - OPS-DossierIA
+    has_rollback: false
+    has_quality_gates: true
+    status: active
+    version: "1.0.0"
+    last_updated: "2026-02-25"
+    description: "Audit complet de toute l'armée d'agents : conformité, performance, alignement stratégique."
+
+# ============================================================
+# INDEX AGENTS RÉFÉRENCÉS — 27 agents uniques
+# ============================================================
+agents_referenced:
+
+  CTL:
+    - id: CTL-WatchdogIA
+      playbooks_count: 6
+      playbooks: [FACTORY_HEALTH_CHECK, AGENT_LIFECYCLE_MANAGEMENT, POST_MORTEM_ANALYSIS, BUILD_TEAM_FROM_SCRATCH, PROMPT_OPTIMIZATION_CYCLE, ARMY_AUDIT_COMPLETE, ONBOARD_NEW_TEAM]
+    - id: CTL-AlertRouter
+      playbooks_count: 2
+      playbooks: [FACTORY_HEALTH_CHECK, AGENT_LIFECYCLE_MANAGEMENT]
+    - id: CTL-HealthReporter
+      playbooks_count: 4
+      playbooks: [FACTORY_HEALTH_CHECK, POST_MORTEM_ANALYSIS, ONBOARD_NEW_TEAM, ARMY_AUDIT_COMPLETE]
+
+  HUB:
+    - id: HUB-Router
+      playbooks_count: 1
+      playbooks: [ORCHESTRATE_AND_DISPATCH]
+    - id: HUB-Concierge
+      playbooks_count: 1
+      playbooks: [ORCHESTRATE_AND_DISPATCH]
+    - id: HUB-AgentMO-MasterOrchestrator
+      playbooks_count: 1
+      playbooks: [ORCHESTRATE_AND_DISPATCH]
+    - id: HUB-AgentMO2-DeputyOrchestrator
+      playbooks_count: 1
+      playbooks: [ORCHESTRATE_AND_DISPATCH]
+    - id: HUB-OproEngine
+      playbooks_count: 1
+      playbooks: [PROMPT_OPTIMIZATION_CYCLE]
+
+  IAHQ:
+    - id: IAHQ-OrchestreurEntrepriseIA
+      playbooks_count: 3
+      playbooks: [IAHQ_FRONTDOOR, BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH, ONBOARD_NEW_TEAM]
+    - id: IAHQ-ProcessMapper
+      playbooks_count: 1
+      playbooks: [IAHQ_FRONTDOOR]
+    - id: IAHQ-SolutionOrchestrator
+      playbooks_count: 1
+      playbooks: [IAHQ_FRONTDOOR]
+    - id: IAHQ-TechLeadIA
+      playbooks_count: 2
+      playbooks: [POST_MORTEM_ANALYSIS, ARMY_AUDIT_COMPLETE]
+    - id: IAHQ-Economist
+      playbooks_count: 3
+      playbooks: [POST_MORTEM_ANALYSIS, IAHQ_FRONTDOOR, ONBOARD_NEW_TEAM]
+    - id: IAHQ-Strategist
+      playbooks_count: 3
+      playbooks: [POST_MORTEM_ANALYSIS, ONBOARD_NEW_TEAM, ARMY_AUDIT_COMPLETE]
+    - id: IAHQ-QualityGate
+      playbooks_count: 2
+      playbooks: [AGENT_LIFECYCLE_MANAGEMENT, BUILD_TEAM_FROM_SCRATCH, ONBOARD_NEW_TEAM]
+
+  META:
+    - id: META-AgentProductFactory
+      playbooks_count: 5
+      playbooks: [AGENT_LIFECYCLE_MANAGEMENT, POST_MORTEM_ANALYSIS, BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH, CLONE_AND_ADAPT_AGENT, PROMPT_OPTIMIZATION_CYCLE]
+    - id: META-GouvernanceQA
+      playbooks_count: 6
+      playbooks: [POST_MORTEM_ANALYSIS, AGENT_LIFECYCLE_MANAGEMENT, BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH, CLONE_AND_ADAPT_AGENT, PROMPT_OPTIMIZATION_CYCLE, ARMY_AUDIT_COMPLETE, ONBOARD_NEW_TEAM]
+    - id: META-OrchestrateurCentral
+      playbooks_count: 2
+      playbooks: [ONBOARD_NEW_TEAM, ARMY_AUDIT_COMPLETE]
+    - id: META-ArchitecteChoix
+      playbooks_count: 1
+      playbooks: [ONBOARD_NEW_TEAM]
+    - id: META-AnalysteBesoinsEquipes
+      playbooks_count: 3
+      playbooks: [BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH, ARMY_AUDIT_COMPLETE]
+    - id: META-CartographeRoles
+      playbooks_count: 2
+      playbooks: [BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH]
+    - id: META-WorkflowDesignerEquipes
+      playbooks_count: 3
+      playbooks: [BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH, ARMY_AUDIT_COMPLETE]
+    - id: META-PlaybookBuilder
+      playbooks_count: 2
+      playbooks: [BUILD_ARMY_FACTORY, BUILD_TEAM_FROM_SCRATCH]
+    - id: META-PromptMaster
+      playbooks_count: 2
+      playbooks: [CLONE_AND_ADAPT_AGENT, PROMPT_OPTIMIZATION_CYCLE]
+    - id: META-ReversePrompt
+      playbooks_count: 2
+      playbooks: [CLONE_AND_ADAPT_AGENT, PROMPT_OPTIMIZATION_CYCLE]
+
+  OPS:
+    - id: OPS-RouterIA
+      playbooks_count: 3
+      playbooks: [AGENT_LIFECYCLE_MANAGEMENT, BUILD_TEAM_FROM_SCRATCH, ONBOARD_NEW_TEAM]
+    - id: OPS-DossierIA
+      playbooks_count: 11
+      playbooks: [ALL]
+
+# ============================================================
+# RUNBOOKS ASSOCIÉS
+# ============================================================
+runbooks_index:
+  RB-CTL-001:
+    file: "40_RUNBOOKS/RUNBOOK_AGENT_FAILURE.md"
+    used_by: [FACTORY_HEALTH_CHECK, AGENT_LIFECYCLE_MANAGEMENT]
+  RB-CTL-002:
+    file: "40_RUNBOOKS/RUNBOOK_DRIFT_DETECTED.md"
+    used_by: [FACTORY_HEALTH_CHECK, PROMPT_OPTIMIZATION_CYCLE]
+  RB-CTL-003:
+    file: "40_RUNBOOKS/RUNBOOK_FACTORY_DOWN.md"
+    used_by: [FACTORY_HEALTH_CHECK]
+
+# ============================================================
+# STATISTIQUES GLOBALES
+# ============================================================
+stats:
+  by_team:
+    TEAM__CTL:  3
+    TEAM__HUB:  1
+    TEAM__IAHQ: 2
+    TEAM__META: 5
+  by_category:
+    monitoring:     3
+    orchestration:  2
+    fabrication:    3
+    optimization:   2
+    onboarding:     1
+  total_steps: 100
+  total_sla_minutes: 555
+  playbooks_with_rollback: 1
+  playbooks_with_quality_gates: 3
+  most_used_agent: "OPS-DossierIA (11/11 playbooks)"
+  cross_team_agents:
+    # Agents d'une équipe utilisés dans des playbooks d'autres équipes
+    - CTL-WatchdogIA   # utilisé dans FAB, OPT, EXP
+    - CTL-HealthReporter # utilisé dans EXP
+    - OPS-DossierIA    # utilisé dans TOUS
+    - OPS-RouterIA     # utilisé dans CTL, FAB, EXP
+    - IAHQ-QualityGate # utilisé dans CTL, FAB
+    - IAHQ-Economist   # utilisé dans CTL, IAHQ
+    - IAHQ-Strategist  # utilisé dans CTL, EXP
+    - META-GouvernanceQA  # utilisé dans CTL, FAB, OPT
+    - META-AgentProductFactory # utilisé dans CTL, FAB, OPT
+    - IAHQ-OrchestreurEntrepriseIA # utilisé dans FAB, EXP

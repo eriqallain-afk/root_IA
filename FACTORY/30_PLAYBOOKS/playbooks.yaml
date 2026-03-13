@@ -1,258 +1,894 @@
 schema_version: "1.0"
-generated_at: '2026-02-01T18:47:04Z'
-title: "Playbooks — Root IA v3"
-# Chaque playbook est un workflow multi-agents
+document_id: PLAYBOOKS_REGISTRY
+description: "Registre complet des 11 playbooks actifs de la Factory — définitions, agents, étapes, seuils et références runbooks"
+owner: TEAM__CTL
+updated_at: "2026-03-08"
+total_playbooks: 11
+
+# ============================================================
+# LÉGENDE STATUTS
+#   draft      → en cours de rédaction
+#   active     → opérationnel et utilisable
+#   deprecated → remplacé ou retiré
+# LÉGENDE SÉVÉRITÉS on_failure
+#   skip       → ignorer l'étape et continuer
+#   retry_once → réessayer une fois puis continuer
+#   abort      → arrêter le playbook proprement
+#   escalate   → stopper et notifier l'agent désigné
+# ============================================================
 
 playbooks:
-  BUILD_TEAM_FROM_SCRATCH:
-     display_name: "Build Team From Scratch"
-     category: fabrication
-     team_owner: TEAM__META
-     trigger: "manual | onboard_new_team"
-     duration_minutes: 240
-     steps_count: 12
-     file: 30_PLAYBOOKS/PB_FAB_03_BUILD_TEAM_FROM_SCRATCH.yaml
 
-  CLONE_AND_ADAPT_AGENT:
-     display_name: "Clone and Adapt Agent"
-     category: fabrication
-     team_owner: TEAM__META
-     trigger: "manual"
-     duration_minutes: 45
-     steps_count: 10
-     file: 30_PLAYBOOKS/PB_FAB_04_CLONE_AND_ADAPT_AGENT.yaml
+  # ─────────────────────────────────────────────────────────
+  # FACTORY — Construction & Déploiement
+  # ─────────────────────────────────────────────────────────
 
-  ONBOARD_NEW_TEAM:
-     display_name: "Onboard New Team"
-     category: expansion
-     team_owner: TEAM__IAHQ
-     trigger: "new_business_domain | client_project"
-     duration_minutes: 360
-     steps_count: 11
-     file: 30_PLAYBOOKS/PB_EXP_01_ONBOARD_NEW_TEAM.yaml
-     calls: [BUILD_TEAM_FROM_SCRATCH]
-
-  ARMY_AUDIT_COMPLETE:
-     display_name: "Army Audit Complete"
-     category: optimisation
-     team_owner: TEAM__META
-     trigger: "quarterly | pre_delivery | on_demand"
-     duration_minutes: 120
-     steps_count: 11
-     maturity_model: [L1, L2, L3, L4, L5]
-     file: 30_PLAYBOOKS/PB_OPT_02_ARMY_AUDIT_COMPLETE.yaml
-
-  # ─── META : Créer une armée d'agents ───
-  BUILD_ARMY:
-    description: "Analyse un domaine et crée une équipe d'agents complète"
-    trigger: "Besoin de créer une nouvelle équipe d'agents"
-    steps:
-      - step: analyse_besoins
-        actor_id: META-CartographeRoles
-        input_from: user
-        success_criteria: "Blueprint avec agents identifiés et justifiés"
-        on_failure: retry
-      - step: create_agents
-        actor_id: META-AgentFactory
-        input_from: analyse_besoins
-        success_criteria: "Package complet pour chaque agent (yaml + prompt + contract)"
-        on_failure: retry
-      - step: create_playbooks
-        actor_id: META-PlaybookBuilder
-        input_from: create_agents
-        success_criteria: "Au moins 1 playbook par workflow identifié"
-        on_failure: retry
-      - step: qa_audit
-        actor_id: META-GouvernanceQA
-        input_from: create_agents
-        success_criteria: "Tous les agents passent l'audit qualité"
-        on_failure: retry
-    deliverable:
-      format: yaml
-      contains: [agents, playbooks, audit_report]
-
-  PB_HUB_01_ORCHESTRATE_AND_DISPATCH:
-    display_name: "Orchestrate and Dispatch"
-    category: orchestration
-    team_owner: TEAM__HUB
-    trigger: "any_request | manual | intake"
-    duration_minutes: 30
-    steps_count: 5
+  - playbook_id: PB_FAB_01_BUILD_ARMY_FACTORY
+    name: "Build Army Factory"
+    description: >
+      Construction complète d'une armée GPT dans la FACTORY.
+      Crée la structure de dossiers, génère les bundles agents,
+      initialise les contrats I/O et enregistre l'équipe dans le registry.
     version: "1.0.0"
-    file: "30_PLAYBOOKS/PB_HUB_01_ORCHESTRATE_AND_DISPATCH.yaml"
-
-  # ─── DAM : Analyse projet domiciliaire ───
-  DAM_PROJECT_ANALYSIS:
-    description: "Analyse complète d'un projet domiciliaire"
-    trigger: "Nouveau projet de construction/rénovation"
+    status: active
+    team: FAB
+    owner_agent: HUB-AgentMO-MasterOrchestrator
+    trigger:
+      type: manual
+      initiated_by: "IAHQ-OrchestreurEntrepriseIA ou humain"
+      condition: "Nouvelle équipe GPT à déployer en FACTORY"
+    sla:
+      timeout_minutes: 60
+      expected_duration_minutes: 30
+    agents_involved:
+      - HUB-AgentMO-MasterOrchestrator
+      - HUB-CoachIA360-Strategie-GPTTeams
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - OPS-DossierIA
     steps:
-      - step: conformite
-        actor_id: DAM-Conformite
-        input_from: user
-        success_criteria: "Check conformité complété avec status par catégorie"
+      - step_id: FAB01-S01
+        name: "Définir le mandat de l'équipe"
+        agent: HUB-CoachIA360-Strategie-GPTTeams
+        action: "Clarifier mission, périmètre, agents requis, interfaces avec autres équipes"
+        output: "team_charter.yaml"
         on_failure: abort
-      - step: budget
-        actor_id: DAM-Budget
-        input_from: user
-        success_criteria: "Analyse budgétaire avec ventilation et risques"
-        on_failure: retry
-      - step: planning
-        actor_id: DAM-Planification
-        input_from: user
-        success_criteria: "Calendrier avec jalons et chemin critique"
-        on_failure: retry
-      - step: vendors
-        actor_id: DAM-SousTraitants
-        input_from: user
-        success_criteria: "Évaluation des soumissions si disponibles"
+      - step_id: FAB01-S02
+        name: "Générer la structure de dossiers"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: "Exécuter GPT-TeamManager — créer scaffolding FACTORY/[TEAM]"
+        output: "Dossiers physiques + registry_teams_agents.json mis à jour"
+        on_failure: abort
+      - step_id: FAB01-S03
+        name: "Générer les bundles agents"
+        agent: META-PromptMaster
+        action: "Créer prompt.md, contract.yaml, agent.yaml pour chaque agent"
+        output: "Bundles complets dans 20_Agents/"
+        on_failure: escalate
+        escalate_to: META-GouvernanceQA
+      - step_id: FAB01-S04
+        name: "Validation des contrats I/O"
+        agent: META-GouvernanceQA
+        action: "Vérifier cohérence prompt.md vs contract.yaml pour chaque agent"
+        output: "validation_report.yaml"
+        on_failure: abort
+      - step_id: FAB01-S05
+        name: "Enregistrement et archivage"
+        agent: OPS-DossierIA
+        action: "Logger la création, créer dossier de référence, mettre à jour FACTORY_HEALTH"
+        output: "Dossier IA créé, FACTORY_HEALTH.yaml mis à jour"
         on_failure: skip
-      - step: inspection
-        actor_id: DAM-Inspection
-        input_from: conformite
-        success_criteria: "Plan d'inspection avec checklists"
-        on_failure: retry
-      - step: synthese
-        actor_id: DAM-Orchestrator
-        input_from: all_previous
-        success_criteria: "Synthèse exécutive complète"
-        on_failure: retry
-    deliverable:
-      format: yaml
-      contains: [conformity_check, budget_analysis, project_schedule, inspection_plan, project_analysis]
+    runbook_refs: []
+    tags: [factory, build, deploy]
 
-   # ─── EDU : Évaluation CCQ ───
-  EDU_CCQ_EVALUATE:
-    description: "Évaluer une réflexion éthique CCQ (single)"
-    trigger: "Copie CCQ à évaluer"
+  - playbook_id: PB_FAB_03_BUILD_TEAM_FROM_SCRATCH
+    name: "Build Team From Scratch"
+    description: >
+      Construction d'une nouvelle équipe GPT depuis zéro avec définition
+      complète des rôles, des agents, des playbooks propres à l'équipe
+      et intégration dans l'index Factory.
+    version: "1.0.0"
+    status: active
+    team: FAB
+    owner_agent: HUB-AgentMO-MasterOrchestrator
+    trigger:
+      type: manual
+      initiated_by: "IAHQ-OrchestreurEntrepriseIA"
+      condition: "Nouveau domaine métier à couvrir — aucune équipe existante réutilisable"
+    sla:
+      timeout_minutes: 120
+      expected_duration_minutes: 60
+    agents_involved:
+      - HUB-AgentMO-MasterOrchestrator
+      - HUB-CoachIA360-Strategie-GPTTeams
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - META-ArchitecteSysteme
+      - OPS-DossierIA
     steps:
-      - step: extract
-        actor_id: EDU-Extractor
-        input_from: user
-        success_criteria: "Texte extrait avec sections identifiées"
-        on_failure: retry
-      - step: evaluate
-        actor_id: EDU-Evaluator
-        input_from: extract
-        success_criteria: "Évaluation avec scores, justifications et preuves textuelles"
-        on_failure: retry
-    deliverable:
-      format: json
-      contains: [extraction, evaluation]
+      - step_id: FAB03-S01
+        name: "Analyse du besoin"
+        agent: HUB-CoachIA360-Strategie-GPTTeams
+        action: "Définir les intents couverts, les agents requis, les interfaces externes"
+        output: "team_requirements.yaml"
+        on_failure: abort
+      - step_id: FAB03-S02
+        name: "Architecture de l'équipe"
+        agent: META-ArchitecteSysteme
+        action: "Concevoir l'organigramme des agents, les flux de travail, les dépendances"
+        output: "team_architecture.yaml"
+        on_failure: abort
+      - step_id: FAB03-S03
+        name: "Scaffolding structure"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: "GPT-TeamManager — créer dossiers FACTORY/[TEAM] + 20_Agents"
+        output: "Structure physique créée"
+        on_failure: abort
+      - step_id: FAB03-S04
+        name: "Rédaction des prompts"
+        agent: META-PromptMaster
+        action: "Rédiger prompt.md complet pour chaque agent (120L+ minimum)"
+        output: "prompt.md par agent"
+        on_failure: escalate
+        escalate_to: META-GouvernanceQA
+      - step_id: FAB03-S05
+        name: "Définition des contrats"
+        agent: META-GouvernanceQA
+        action: "Rédiger contract.yaml, agent.yaml, expected_output.yaml"
+        output: "Contrats validés"
+        on_failure: abort
+      - step_id: FAB03-S06
+        name: "Tests initiaux"
+        agent: META-GouvernanceQA
+        action: "Exécuter sample_input.yaml, comparer expected_output.yaml, drift_score >= 0.90"
+        output: "test_results.yaml"
+        on_failure: abort
+      - step_id: FAB03-S07
+        name: "Intégration index Factory"
+        agent: OPS-DossierIA
+        action: "Mettre à jour agents.manifest.yaml, teams_index.yaml, FACTORY_HEALTH"
+        output: "Index mis à jour"
+        on_failure: escalate
+        escalate_to: CTL-WatchdogIA
+    runbook_refs: []
+    tags: [factory, build, team, scratch]
 
-  EDU_CCQ_BATCH:
-    description: "Évaluer un lot de copies CCQ"
-    trigger: "Lot de copies CCQ à évaluer"
+  - playbook_id: PB_FAB_04_CLONE_AND_ADAPT_AGENT
+    name: "Clone and Adapt Agent"
+    description: >
+      Cloner un agent existant (source validée) et l'adapter à un nouveau
+      contexte ou équipe. Maintenir la traçabilité du clone vers l'original.
+    version: "1.0.0"
+    status: active
+    team: FAB
+    owner_agent: META-PromptMaster
+    trigger:
+      type: manual
+      initiated_by: "HUB-AgentMO-MasterOrchestrator ou META-GouvernanceQA"
+      condition: "Agent similaire requis — clonage plus rapide que création ex nihilo"
+    sla:
+      timeout_minutes: 45
+      expected_duration_minutes: 20
+    agents_involved:
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - OPS-DossierIA
     steps:
-      - step: extract_batch
-        actor_id: EDU-Extractor
-        input_from: user
-        success_criteria: "Toutes les copies extraites et segmentées"
-        on_failure: retry
-      - step: evaluate_batch
-        actor_id: EDU-Evaluator
-        input_from: extract_batch
-        success_criteria: "Toutes les copies évaluées"
-        on_failure: retry
-      - step: compile
-        actor_id: EDU-Orchestrator
-        input_from: evaluate_batch
-        success_criteria: "Rapport compilé avec statistiques"
-        on_failure: retry
-    deliverable:
-      format: json
-      contains: [extractions, evaluations, summary_report]
-
-  # ─── IT : Intervention Live ───
-  IT_INTERVENTION_LIVE:
-    description: "Suivre une intervention IT en temps réel"
-    trigger: "Technicien démarre une intervention"
-    steps:
-      - step: open
-        actor_id: IT-InterventionLive
-        input_from: user
-        success_criteria: "Intervention ouverte avec contexte capturé"
-        on_failure: retry
-      - step: follow
-        actor_id: IT-InterventionLive
-        input_from: user
-        success_criteria: "Suivi en cours (boucle interactive)"
-        on_failure: retry
-      - step: close
-        actor_id: IT-InterventionLive
-        input_from: user
-        success_criteria: "Rapports CW générés (interne + discussion)"
-        on_failure: retry
-    deliverable:
-      format: markdown
-      contains: [internal_note, discussion_note, intervention_summary]
-
-  IT_INCIDENT_TRIAGE:
-    description: "Trier et dispatcher un incident IT"
-    trigger: "Alerte ou ticket incident reçu"
-    steps:
-      - step: triage
-        actor_id: IT-NOC
-        input_from: user
-        success_criteria: "Sévérité classifiée, agent assigné"
-        on_failure: retry
-      - step: dispatch
-        actor_id: IT-Orchestrator
-        input_from: triage
-        success_criteria: "Ticket dispatché avec SLA défini"
-        on_failure: retry
-    deliverable:
-      format: yaml
-      contains: [triage_result, dispatch_decision]
-
-  # ─── TRAD : Brief intelligence ───
-  TRAD_INTEL_BRIEF:
-    description: "Produire un brief d'intelligence stratégique"
-    trigger: "Besoin d'analyse stratégique sur un sujet"
-    steps:
-      - step: assign
-        actor_id: TRAD-CommandCore
-        input_from: user
-        success_criteria: "Analystes assignés avec angles définis"
-        on_failure: retry
-      - step: market
-        actor_id: TRAD-MarketAnalyst
-        input_from: assign
-        success_criteria: "Analyse marchés complétée"
+      - step_id: FAB04-S01
+        name: "Identifier l'agent source"
+        agent: META-PromptMaster
+        action: "Sélectionner l'agent de référence, vérifier status=active et drift_score >= 0.90"
+        output: "source_agent_ref.yaml"
+        on_failure: abort
+      - step_id: FAB04-S02
+        name: "Copier et renommer le bundle"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: "Dupliquer 20_Agents/[SOURCE]/ vers 20_Agents/[CLONE]/, incrémenter version à 1.0.0"
+        output: "Bundle cloné"
+        on_failure: abort
+      - step_id: FAB04-S03
+        name: "Adapter le prompt et le contrat"
+        agent: META-PromptMaster
+        action: "Modifier prompt.md et contract.yaml selon le nouveau contexte, documenter les deltas"
+        output: "prompt.md adapté, contract.yaml mis à jour"
+        on_failure: escalate
+        escalate_to: META-GouvernanceQA
+      - step_id: FAB04-S04
+        name: "Traçabilité clone"
+        agent: META-GouvernanceQA
+        action: "Ajouter champ cloned_from dans agent.yaml, lier à l'agent source"
+        output: "agent.yaml avec cloned_from renseigné"
         on_failure: skip
-      - step: cyber
-        actor_id: TRAD-CyberWatch
-        input_from: assign
-        success_criteria: "Brief cyber complété"
-        on_failure: skip
-      - step: geo
-        actor_id: TRAD-GeoAnalyst
-        input_from: assign
-        success_criteria: "Analyse géopolitique complétée"
-        on_failure: skip
-      - step: compile
-        actor_id: TRAD-CommandCore
-        input_from: all_previous
-        success_criteria: "Brief unifié avec recommandations"
-        on_failure: retry
-    deliverable:
-      format: yaml
-      contains: [intel_brief]
+      - step_id: FAB04-S05
+        name: "Validation et activation"
+        agent: META-GouvernanceQA
+        action: "Tests de régression complets, drift_score >= 0.90, mettre status=active"
+        output: "Agent clone validé et actif"
+        on_failure: abort
+    runbook_refs: []
+    tags: [factory, clone, adapt]
 
-  # ─── IASM : Session coaching ───
-  IASM_SESSION:
-    description: "Session de coaching IA (accueil → module → suivi)"
-    trigger: "Utilisateur demande du support/coaching"
+  # ─────────────────────────────────────────────────────────
+  # CTL — Contrôle, Surveillance & Qualité
+  # ─────────────────────────────────────────────────────────
+
+  - playbook_id: PB_CTL_01_FACTORY_HEALTH_CHECK
+    name: "Factory Health Check"
+    description: >
+      Vérification complète de l'état de santé de la Factory.
+      Inspecte tous les agents actifs, valide les index, calcule les drift_scores,
+      met à jour FACTORY_HEALTH.yaml et AGENT_PERFORMANCE.yaml.
+    version: "1.0.0"
+    status: active
+    team: CTL
+    owner_agent: CTL-WatchdogIA
+    trigger:
+      type: scheduled
+      frequency: weekly
+      also_triggered_by:
+        - "factory_status=degraded ou critical dans FACTORY_HEALTH"
+        - "Après tout incident NIVEAU 2+ (RUNBOOK_FACTORY_DOWN)"
+    sla:
+      timeout_minutes: 30
+      expected_duration_minutes: 15
+    agents_involved:
+      - CTL-WatchdogIA
+      - CTL-HealthReporter
+      - CTL-AlertRouter
+      - OPS-RouterIA
+      - OPS-DossierIA
     steps:
-      - step: intake
-        actor_id: IASM-Orchestrator
-        input_from: user
-        success_criteria: "Besoin qualifié, module identifié, sécurité vérifiée"
-        on_failure: retry
-      - step: session
-        actor_id: dynamic
-        input_from: intake
-        success_criteria: "Session complétée avec l'utilisateur"
-        on_failure: retry
-    deliverable:
-      format: markdown
-      contains: [session_notes]
+      - step_id: CTL01-S01
+        name: "Snapshot de l'état courant"
+        agent: CTL-WatchdogIA
+        action: "Lire FACTORY_HEALTH.yaml, lister tous les agents depuis agents.manifest.yaml"
+        output: "current_state_snapshot.yaml"
+        on_failure: abort
+      - step_id: CTL01-S02
+        name: "Vérification des agents actifs"
+        agent: CTL-WatchdogIA
+        action: >
+          Pour chaque agent : vérifier status, version, last_updated,
+          présence de prompt.md + contract.yaml + expected_output.yaml
+        output: "agents_status_report.yaml"
+        on_failure: escalate
+        escalate_to: CTL-AlertRouter
+      - step_id: CTL01-S03
+        name: "Validation de l'index"
+        agent: OPS-RouterIA
+        action: >
+          Vérifier cohérence agents.manifest.yaml, teams_index.yaml, intents.yaml.
+          Détecter entrées orphelines ou manquantes.
+        output: "index_validation_report.yaml"
+        on_failure: escalate
+        escalate_to: CTL-WatchdogIA
+      - step_id: CTL01-S04
+        name: "Calcul des drift scores"
+        agent: CTL-WatchdogIA
+        action: >
+          Comparer les 3-5 derniers outputs réels vs expected_output.yaml
+          pour chaque agent ayant des runs_total > 0.
+          Seuil alerte : drift_score < 0.75
+          Seuil critique : drift_score < 0.50
+        output: "drift_assessment_report.yaml"
+        on_failure: skip
+      - step_id: CTL01-S05
+        name: "Mise à jour des dashboards"
+        agent: CTL-HealthReporter
+        action: "Mettre à jour FACTORY_HEALTH.yaml, AGENT_PERFORMANCE.yaml, PLAYBOOK_METRICS.yaml"
+        output: "Dashboards mis à jour"
+        on_failure: skip
+      - step_id: CTL01-S06
+        name: "Émission des alertes"
+        agent: CTL-AlertRouter
+        action: >
+          Si quality_score_avg < 7.0 → alerte warning.
+          Si quality_score_avg < 5.0 → escalade immédiate.
+          Si drift_score < 0.75 → déclencher RUNBOOK_DRIFT_DETECTED.
+          Si cascade 3+ agents → déclencher RUNBOOK_FACTORY_DOWN.
+        output: "active_alerts mis à jour dans FACTORY_HEALTH"
+        on_failure: escalate
+        escalate_to: HUB-AgentMO-MasterOrchestrator
+      - step_id: CTL01-S07
+        name: "Log et archivage"
+        agent: OPS-DossierIA
+        action: "Logger les résultats du health check, archiver le snapshot"
+        output: "Dossier IA mis à jour"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-002  # Drift Détecté
+      - RB-CTL-003  # Factory Down
+    thresholds_applied:
+      quality_score_warning: 7.0
+      quality_score_critical: 5.0
+      escalation_rate_warning: 0.20
+      success_rate_warning: 0.80
+      drift_score_warning: 0.75
+      drift_score_critical: 0.50
+    tags: [ctl, health, monitoring, weekly]
+
+  - playbook_id: PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT
+    name: "Agent Lifecycle Management"
+    description: >
+      Gestion complète du cycle de vie d'un agent : création, mise à jour
+      (prompt/contrat), dépréciation et archivage. Garantit la traçabilité
+      des versions et la mise à jour de l'index Factory.
+    version: "1.0.0"
+    status: active
+    team: CTL
+    owner_agent: CTL-WatchdogIA
+    trigger:
+      type: manual
+      initiated_by: "META-GouvernanceQA ou CTL-WatchdogIA"
+      condition: "Création / modification / dépréciation d'un agent"
+    sla:
+      timeout_minutes: 60
+      expected_duration_minutes: 25
+    agents_involved:
+      - CTL-WatchdogIA
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - OPS-DossierIA
+    steps:
+      - step_id: CTL02-S01
+        name: "Qualifier l'opération"
+        agent: CTL-WatchdogIA
+        action: "Déterminer l'opération : create | update_prompt | update_contract | deprecate | archive"
+        output: "lifecycle_operation.yaml"
+        on_failure: abort
+      - step_id: CTL02-S02
+        name: "Appliquer la modification"
+        agent: META-PromptMaster
+        action: >
+          create → PB_FAB_03 ou PB_FAB_04.
+          update_prompt → modifier prompt.md, incrémenter version (patch si mineur, minor si structurel).
+          update_contract → modifier contract.yaml, vérifier alignement prompt.md.
+          deprecate → status: deprecated dans agent.yaml, retirer des playbooks actifs.
+          archive → déplacer vers ARCHIVE/, supprimer de agents.manifest.yaml.
+        output: "Fichiers agent modifiés"
+        on_failure: abort
+      - step_id: CTL02-S03
+        name: "Tests de régression"
+        agent: META-GouvernanceQA
+        action: >
+          Si create ou update : exécuter sample_input.yaml + tous les test_cases.md.
+          drift_score post-correction >= 0.90 requis.
+          Si deprecate ou archive : vérifier qu'aucun playbook actif ne dépend encore de l'agent.
+        output: "regression_test_results.yaml"
+        on_failure: abort
+      - step_id: CTL02-S04
+        name: "Mise à jour de l'index"
+        agent: CTL-WatchdogIA
+        action: "Mettre à jour agents.manifest.yaml, teams_index.yaml, intents.yaml, gpt_catalog.yaml"
+        output: "Index mis à jour"
+        on_failure: escalate
+        escalate_to: CTL-AlertRouter
+      - step_id: CTL02-S05
+        name: "Mise à jour FACTORY_HEALTH"
+        agent: CTL-WatchdogIA
+        action: "Mettre à jour per_team_health, agents_active, agents_deprecated"
+        output: "FACTORY_HEALTH.yaml mis à jour"
+        on_failure: skip
+      - step_id: CTL02-S06
+        name: "Archivage du changement"
+        agent: OPS-DossierIA
+        action: "Logger dans CHANGELOG.md, créer entrée dans le Dossier IA"
+        output: "Dossier IA et CHANGELOG mis à jour"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-002  # Drift Détecté
+    tags: [ctl, lifecycle, versioning]
+
+  - playbook_id: PB_CTL_03_POST_MORTEM_ANALYSIS
+    name: "Post-Mortem Analysis"
+    description: >
+      Analyse approfondie après tout incident P0 ou P1.
+      Identification de la cause racine, documentation complète,
+      plan d'action corrective et capitalisation dans la mémoire Factory.
+    version: "1.0.0"
+    status: active
+    team: CTL
+    owner_agent: CTL-WatchdogIA
+    trigger:
+      type: triggered
+      triggered_by:
+        - "Incident P0 résolu (RUNBOOK_AGENT_FAILURE ou RUNBOOK_FACTORY_DOWN)"
+        - "Incident P1 non résolu en 48h"
+        - "Demande explicite IAHQ-OrchestreurEntrepriseIA"
+    sla:
+      timeout_minutes: 240
+      expected_duration_minutes: 90
+    agents_involved:
+      - CTL-WatchdogIA
+      - CTL-HealthReporter
+      - META-GouvernanceQA
+      - IAHQ-TechLeadIA
+      - OPS-DossierIA
+    steps:
+      - step_id: CTL03-S01
+        name: "Collecte des données d'incident"
+        agent: OPS-DossierIA
+        action: >
+          Récupérer tous les logs du Dossier IA liés à l'incident :
+          run_logs, outputs produits, métadonnées des steps ayant échoué.
+        output: "incident_data_pack.yaml"
+        on_failure: abort
+      - step_id: CTL03-S02
+        name: "Chronologie de l'incident"
+        agent: CTL-HealthReporter
+        action: >
+          Reconstituer la timeline complète :
+          premier signal → détection → actions prises → résolution.
+        output: "incident_timeline.yaml"
+        on_failure: abort
+      - step_id: CTL03-S03
+        name: "Analyse cause racine (RCA)"
+        agent: CTL-WatchdogIA
+        action: >
+          Identifier la cause racine parmi :
+          input invalide | prompt défaillant | contrat désynchronisé |
+          timeout | cascade | corruption index | perte données.
+          Référence : RUNBOOK_AGENT_FAILURE Étape 3, RUNBOOK_FACTORY_DOWN Sections 2-4.
+        output: "root_cause_analysis.yaml"
+        on_failure: escalate
+        escalate_to: META-GouvernanceQA
+      - step_id: CTL03-S04
+        name: "Plan d'action corrective"
+        agent: META-GouvernanceQA
+        action: >
+          Définir les correctifs : patch prompt | révision contrat | mise à jour tests |
+          refonte agent (major version) | politique backup | procédure préventive.
+        output: "corrective_action_plan.yaml"
+        on_failure: escalate
+        escalate_to: IAHQ-TechLeadIA
+      - step_id: CTL03-S05
+        name: "Capitalisation"
+        agent: CTL-WatchdogIA
+        action: >
+          Ajouter le cas comme test_case dans tests/test_cases.md de l'agent concerné.
+          Documenter le pattern dans memory_pack.yaml.
+          Mettre à jour CHANGELOG.md.
+        output: "Mémoire et tests enrichis"
+        on_failure: skip
+      - step_id: CTL03-S06
+        name: "Rapport final"
+        agent: CTL-HealthReporter
+        action: "Produire le rapport post-mortem consolidé, notifier IAHQ-OrchestreurEntrepriseIA"
+        output: "post_mortem_report.yaml"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-001  # Agent Failure
+      - RB-CTL-002  # Drift Détecté
+      - RB-CTL-003  # Factory Down
+    tags: [ctl, post-mortem, incident, rca]
+
+  # ─────────────────────────────────────────────────────────
+  # HUB — Orchestration & Dispatch
+  # ─────────────────────────────────────────────────────────
+
+  - playbook_id: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
+    name: "Orchestrate and Dispatch"
+    description: >
+      Réception d'une requête entrante, analyse des intents,
+      sélection du ou des agents cibles via OPS-RouterIA,
+      dispatch ordonné, collecte et consolidation des outputs.
+    version: "1.0.0"
+    status: active
+    team: HUB
+    owner_agent: HUB-AgentMO-MasterOrchestrator
+    trigger:
+      type: event
+      initiated_by: "HUB-Concierge ou IAHQ-QualityGate"
+      condition: "Requête validée et prête à être traitée"
+    sla:
+      timeout_minutes: 30
+      expected_duration_minutes: 10
+    agents_involved:
+      - HUB-AgentMO-MasterOrchestrator
+      - HUB-AgentMO2-DeputyOrchestrator
+      - HUB-Concierge
+      - OPS-RouterIA
+      - OPS-PlaybookRunner
+      - OPS-DossierIA
+    steps:
+      - step_id: HUB01-S01
+        name: "Réception et qualification"
+        agent: HUB-Concierge
+        action: "Recevoir la requête, extraire l'intent principal, vérifier les champs requis"
+        output: "qualified_request.yaml"
+        on_failure: abort
+      - step_id: HUB01-S02
+        name: "Routage"
+        agent: OPS-RouterIA
+        action: >
+          Analyser les intents dans qualified_request.yaml.
+          Sélectionner le(s) agent(s) cible(s) depuis intents.yaml + agents.manifest.yaml.
+          Déterminer l'ordre d'exécution.
+        output: "routing_plan.yaml"
+        on_failure: abort
+      - step_id: HUB01-S03
+        name: "Orchestration"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: >
+          Valider le routing_plan.
+          Si requête complexe (routing_complexity=high) : déléguer supervision à HUB-AgentMO2.
+          Lancer l'exécution séquentielle ou parallèle selon le plan.
+        output: "orchestration_manifest.yaml"
+        on_failure: escalate
+        escalate_to: IAHQ-TechLeadIA
+      - step_id: HUB01-S04
+        name: "Exécution des agents"
+        agent: OPS-PlaybookRunner
+        action: >
+          Exécuter chaque agent selon orchestration_manifest.
+          Logger chaque step dans OPS-DossierIA.
+          Si step.status=failed → référencer RUNBOOK_AGENT_FAILURE.
+        output: "execution_results.yaml"
+        on_failure: escalate
+        escalate_to: HUB-AgentMO-MasterOrchestrator
+      - step_id: HUB01-S05
+        name: "Consolidation des outputs"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: "Agréger les livrables, vérifier la complétude, produire le rapport final"
+        output: "consolidated_output.yaml"
+        on_failure: retry_once
+      - step_id: HUB01-S06
+        name: "Archivage du run"
+        agent: OPS-DossierIA
+        action: "Clôturer le dossier, mettre à jour runs_total dans PLAYBOOK_METRICS"
+        output: "Dossier IA fermé"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-001  # Agent Failure
+    tags: [hub, orchestration, dispatch, routing]
+
+  # ─────────────────────────────────────────────────────────
+  # IAHQ — Porte d'Entrée & Qualité
+  # ─────────────────────────────────────────────────────────
+
+  - playbook_id: PB_IAHQ_01_FRONTDOOR
+    name: "IAHQ FrontDoor"
+    description: >
+      Porte d'entrée de toutes les demandes vers la Factory.
+      Évalue la qualité de la demande, détermine la filière de traitement
+      et route vers le HUB ou rejette avec instructions correctives.
+    version: "1.0.0"
+    status: active
+    team: IAHQ
+    owner_agent: IAHQ-QualityGate
+    trigger:
+      type: event
+      initiated_by: "Humain ou agent externe"
+      condition: "Toute requête entrante dans la Factory"
+    sla:
+      timeout_minutes: 10
+      expected_duration_minutes: 3
+    agents_involved:
+      - IAHQ-QualityGate
+      - IAHQ-TechLeadIA
+      - IAHQ-OrchestreurEntrepriseIA
+      - HUB-Concierge
+    steps:
+      - step_id: IAHQ01-S01
+        name: "Réception de la demande"
+        agent: IAHQ-QualityGate
+        action: "Recevoir la demande brute, vérifier le format minimum requis"
+        output: "raw_request.yaml"
+        on_failure: abort
+      - step_id: IAHQ01-S02
+        name: "Évaluation qualité"
+        agent: IAHQ-QualityGate
+        action: >
+          Vérifier : objectif clairement formulé, contexte suffisant,
+          priorité définie, périmètre réaliste.
+          Score qualité : 0.0-10.0.
+        output: "quality_assessment.yaml"
+        on_failure: abort
+      - step_id: IAHQ01-S03
+        name: "Classification et routage"
+        agent: IAHQ-TechLeadIA
+        action: >
+          Si quality_score >= 7.0 → router vers HUB-Concierge (PB_HUB_01).
+          Si quality_score 5.0-6.9 → retourner avec instructions d'amélioration.
+          Si quality_score < 5.0 → rejeter avec guide de reformulation.
+          Si demande stratégique → escalader à IAHQ-OrchestreurEntrepriseIA.
+        output: "routing_decision.yaml"
+        on_failure: escalate
+        escalate_to: IAHQ-OrchestreurEntrepriseIA
+      - step_id: IAHQ01-S04
+        name: "Transmission au HUB"
+        agent: IAHQ-QualityGate
+        action: "Transmettre la demande qualifiée à HUB-Concierge avec routing_decision"
+        output: "qualified_request transmis"
+        on_failure: retry_once
+    runbook_refs: []
+    tags: [iahq, frontdoor, quality, routing]
+
+  # ─────────────────────────────────────────────────────────
+  # OPT — Optimisation & Audit
+  # ─────────────────────────────────────────────────────────
+
+  - playbook_id: PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE
+    name: "Prompt Optimization Cycle"
+    description: >
+      Cycle complet d'optimisation d'un prompt agent dégradé ou drifté.
+      Analyse le drift, génère des variantes, sélectionne la meilleure,
+      teste en régression et remet l'agent en service.
+      Déclenché par RUNBOOK_DRIFT_DETECTED.
+    version: "1.0.0"
+    status: active
+    team: OPT
+    owner_agent: META-PromptMaster
+    trigger:
+      type: triggered
+      triggered_by:
+        - "RUNBOOK_DRIFT_DETECTED — drift_score < 0.75"
+        - "CTL-WatchdogIA — quality_score_avg < 7.0"
+        - "Demande manuelle META-GouvernanceQA"
+    sla:
+      timeout_minutes: 180
+      expected_duration_minutes: 60
+    agents_involved:
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - CTL-WatchdogIA
+      - OPS-DossierIA
+    steps:
+      - step_id: OPT01-S01
+        name: "Diagnostic du drift"
+        agent: CTL-WatchdogIA
+        action: >
+          Calculer le drift_score précis sur 3-5 outputs récents.
+          Identifier les champs en drift (conformance=DRIFT).
+          Classifier : léger (0.75-0.99) | modéré (0.50-0.74) | critique (<0.50).
+        output: "drift_assessment.yaml"
+        on_failure: abort
+      - step_id: OPT01-S02
+        name: "Analyse cause racine prompt"
+        agent: META-PromptMaster
+        action: >
+          Comparer prompt.md vs contract.yaml output schema.
+          Identifier parmi : R1 (prompt modifié sans contrat) |
+          R2 (contrat modifié sans prompt) | R3 (input amont changé) |
+          R4 (instructions ambiguës).
+        output: "prompt_rca.yaml"
+        on_failure: escalate
+        escalate_to: META-GouvernanceQA
+      - step_id: OPT01-S03
+        name: "Génération de variantes"
+        agent: META-PromptMaster
+        action: >
+          Générer 2 variantes de prompt corrigées.
+          Drift léger → ajout exemples section E).
+          Drift modéré → révision structurelle complète.
+          Drift critique → repartir de TEMPLATE__AGENT.md.
+        output: "prompt_variants.yaml (variant_A, variant_B)"
+        on_failure: abort
+      - step_id: OPT01-S04
+        name: "Évaluation comparative"
+        agent: META-GouvernanceQA
+        action: >
+          Tester variant_A et variant_B sur sample_input.yaml + 3 test_cases.
+          Calculer drift_score post-correction pour chaque variante.
+          Sélectionner la variante avec drift_score le plus élevé (cible >= 0.90).
+        output: "variant_evaluation.yaml"
+        on_failure: abort
+      - step_id: OPT01-S05
+        name: "Application et versioning"
+        agent: META-PromptMaster
+        action: >
+          Appliquer la variante gagnante.
+          Léger → version patch (1.2.0 → 1.2.1).
+          Modéré → version minor (1.2 → 1.3).
+          Critique → version major (1.3 → 2.0).
+          Mettre status: active.
+        output: "prompt.md mis à jour, agent.yaml versionné"
+        on_failure: abort
+      - step_id: OPT01-S06
+        name: "Capitalisation"
+        agent: META-GouvernanceQA
+        action: >
+          Ajouter le cas drifté comme TC-XXX dans tests/test_cases.md.
+          Documenter la cause dans memory_pack.yaml patterns.
+          Logger dans OPS-DossierIA.
+        output: "Mémoire et tests enrichis"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-002  # Drift Détecté
+    tags: [opt, prompt, optimization, drift]
+
+  - playbook_id: PB_OPT_02_ARMY_AUDIT_COMPLETE
+    name: "Army Audit Complete"
+    description: >
+      Audit exhaustif de l'armée GPT complète.
+      Passe en revue chaque agent de chaque équipe : conformité des fichiers,
+      cohérence prompt/contrat, couverture des tests, versioning.
+      Produit un rapport de santé actionnable.
+    version: "1.0.0"
+    status: active
+    team: OPT
+    owner_agent: META-GouvernanceQA
+    trigger:
+      type: scheduled
+      frequency: monthly
+      also_triggered_by:
+        - "Après un incident NIVEAU 3+ (RUNBOOK_FACTORY_DOWN)"
+        - "Demande IAHQ-OrchestreurEntrepriseIA"
+    sla:
+      timeout_minutes: 480
+      expected_duration_minutes: 180
+    agents_involved:
+      - META-GouvernanceQA
+      - CTL-WatchdogIA
+      - CTL-HealthReporter
+      - META-PromptMaster
+      - OPS-DossierIA
+    steps:
+      - step_id: OPT02-S01
+        name: "Inventaire complet"
+        agent: CTL-WatchdogIA
+        action: "Lister tous les agents depuis agents.manifest.yaml, grouper par équipe"
+        output: "full_inventory.yaml"
+        on_failure: abort
+      - step_id: OPT02-S02
+        name: "Audit fichiers par agent"
+        agent: META-GouvernanceQA
+        action: >
+          Pour chaque agent vérifier : présence prompt.md (120L+ min),
+          contract.yaml complet, agent.yaml valide, expected_output.yaml,
+          sample_input.yaml, au moins 3 test_cases.
+        output: "files_audit_report.yaml"
+        on_failure: skip
+      - step_id: OPT02-S03
+        name: "Audit cohérence prompt/contrat"
+        agent: META-PromptMaster
+        action: >
+          Comparer chaque prompt.md vs contract.yaml.
+          Détecter les champs output non documentés dans le prompt.
+          Détecter les instructions du prompt sans champ output correspondant.
+        output: "coherence_audit_report.yaml"
+        on_failure: skip
+      - step_id: OPT02-S04
+        name: "Calcul drift scores masse"
+        agent: CTL-WatchdogIA
+        action: >
+          Calculer drift_score pour tous les agents avec runs_total > 0.
+          Signaler tous les agents avec drift_score < 0.75 pour OPT_01.
+        output: "drift_scores_report.yaml"
+        on_failure: skip
+      - step_id: OPT02-S05
+        name: "Rapport de santé consolidé"
+        agent: CTL-HealthReporter
+        action: >
+          Consolider tous les rapports partiels.
+          Produire : liste agents conformes | liste agents à corriger |
+          liste agents à déprecier | plan d'action priorisé.
+        output: "army_audit_report.yaml"
+        on_failure: abort
+      - step_id: OPT02-S06
+        name: "Mise à jour des dashboards"
+        agent: CTL-HealthReporter
+        action: "Mettre à jour FACTORY_HEALTH.yaml, AGENT_PERFORMANCE.yaml"
+        output: "Dashboards synchronisés"
+        on_failure: skip
+      - step_id: OPT02-S07
+        name: "Archivage et notification"
+        agent: OPS-DossierIA
+        action: "Archiver le rapport, notifier IAHQ-OrchestreurEntrepriseIA, logger dans CHANGELOG.md"
+        output: "Rapport archivé et notifié"
+        on_failure: skip
+    runbook_refs:
+      - RB-CTL-001  # Agent Failure
+      - RB-CTL-002  # Drift Détecté
+      - RB-CTL-003  # Factory Down
+    tags: [opt, audit, army, monthly]
+
+  # ─────────────────────────────────────────────────────────
+  # EXP — Expansion & Onboarding
+  # ─────────────────────────────────────────────────────────
+
+  - playbook_id: PB_EXP_01_ONBOARD_NEW_TEAM
+    name: "Onboard New Team"
+    description: >
+      Processus complet d'intégration d'une nouvelle équipe dans la Factory.
+      Couvre la stratégie, l'architecture, le déploiement technique
+      et la formation des agents au contexte de l'équipe.
+    version: "1.0.0"
+    status: active
+    team: EXP
+    owner_agent: IAHQ-OrchestreurEntrepriseIA
+    trigger:
+      type: manual
+      initiated_by: "IAHQ-OrchestreurEntrepriseIA ou humain"
+      condition: "Décision stratégique d'ajouter un nouveau domaine métier"
+    sla:
+      timeout_minutes: 480
+      expected_duration_minutes: 240
+    agents_involved:
+      - IAHQ-OrchestreurEntrepriseIA
+      - HUB-CoachIA360-Strategie-GPTTeams
+      - HUB-AgentMO-MasterOrchestrator
+      - META-ArchitecteSysteme
+      - META-PromptMaster
+      - META-GouvernanceQA
+      - CTL-WatchdogIA
+      - OPS-DossierIA
+    steps:
+      - step_id: EXP01-S01
+        name: "Validation stratégique"
+        agent: IAHQ-OrchestreurEntrepriseIA
+        action: >
+          Valider la pertinence du nouveau domaine.
+          Vérifier qu'aucune équipe existante ne couvre déjà les intents visés.
+          Définir les objectifs et le ROI attendu.
+        output: "strategic_validation.yaml"
+        on_failure: abort
+      - step_id: EXP01-S02
+        name: "Définition du périmètre"
+        agent: HUB-CoachIA360-Strategie-GPTTeams
+        action: >
+          Définir mission, agents requis, intents à couvrir,
+          interfaces avec les équipes existantes, KPIs de succès.
+        output: "team_scope.yaml"
+        on_failure: abort
+      - step_id: EXP01-S03
+        name: "Architecture technique"
+        agent: META-ArchitecteSysteme
+        action: "Concevoir l'architecture des agents, les flux, les dépendances et les playbooks propres à l'équipe"
+        output: "team_architecture.yaml"
+        on_failure: abort
+      - step_id: EXP01-S04
+        name: "Déploiement Factory"
+        agent: HUB-AgentMO-MasterOrchestrator
+        action: "Exécuter PB_FAB_03_BUILD_TEAM_FROM_SCRATCH"
+        output: "Équipe déployée dans FACTORY"
+        on_failure: abort
+      - step_id: EXP01-S05
+        name: "Validation qualité initiale"
+        agent: META-GouvernanceQA
+        action: >
+          Vérifier tous les agents de l'équipe : fichiers complets,
+          drift_score >= 0.90 sur les tests initiaux, status=active.
+        output: "initial_quality_report.yaml"
+        on_failure: escalate
+        escalate_to: IAHQ-OrchestreurEntrepriseIA
+      - step_id: EXP01-S06
+        name: "Intégration monitoring"
+        agent: CTL-WatchdogIA
+        action: >
+          Ajouter l'équipe dans FACTORY_HEALTH per_team_health.
+          Ajouter les agents dans AGENT_PERFORMANCE agents_tracked.
+          Programmer le suivi dans le prochain PB_CTL_01.
+        output: "Monitoring activé"
+        on_failure: skip
+      - step_id: EXP01-S07
+        name: "Archivage et notification"
+        agent: OPS-DossierIA
+        action: "Logger l'onboarding complet, notifier les parties prenantes, mettre à jour CHANGELOG.md"
+        output: "Dossier IA onboarding fermé"
+        on_failure: skip
+    runbook_refs: []
+    tags: [exp, onboarding, new-team, expansion]
+
+# ============================================================
+# INDEX DE RÉFÉRENCE CROISÉE
+# ============================================================
+runbooks_index:
+  RB-CTL-001:
+    file: "RUNBOOK_AGENT_FAILURE.md"
+    trigger: "step.status=failed | drift_score < 0.75 | no_output"
+    owner: CTL-WatchdogIA
+    severities: [P3, P2, P1, P0]
+    used_by: [PB_HUB_01_ORCHESTRATE_AND_DISPATCH, PB_CTL_03_POST_MORTEM_ANALYSIS, PB_OPT_02_ARMY_AUDIT_COMPLETE]
+  RB-CTL-002:
+    file: "RUNBOOK_DRIFT_DETECTED.md"
+    trigger: "drift_score < 0.75"
+    owner: META-GouvernanceQA
+    drift_thresholds: {light: "0.75-0.99", moderate: "0.50-0.74", critical: "<0.50"}
+    used_by: [PB_CTL_01_FACTORY_HEALTH_CHECK, PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT, PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE, PB_OPT_02_ARMY_AUDIT_COMPLETE]
+  RB-CTL-003:
+    file: "RUNBOOK_FACTORY_DOWN.md"
+    trigger: "factory_status=critical | cascade 3+ agents | index corrompu"
+    owner: HUB-AgentMO-MasterOrchestrator
+    levels: [1, 2, 3, 4, 5]
+    used_by: [PB_CTL_01_FACTORY_HEALTH_CHECK, PB_CTL_03_POST_MORTEM_ANALYSIS, PB_OPT_02_ARMY_AUDIT_COMPLETE]
