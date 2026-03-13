@@ -120,6 +120,12 @@ def extract_agents_from_index(data: Any, source_name: str) -> Dict[str, AgentInf
             agents = data["gpts"]
         elif isinstance(data.get("catalog"), list):
             agents = data["catalog"]
+        elif isinstance(data.get("catalog"), dict):
+            # catalog: {AGENT_ID: {...}} — format dict keyed by id
+            for k, v in data["catalog"].items():
+                vv = dict(v) if isinstance(v, dict) else {}
+                vv.setdefault("id", k)
+                agents.append(vv)
         else:
             # fallback: some indexes are dicts keyed by id
             # ex: { "IT-CloudMaster": {...}, ... }

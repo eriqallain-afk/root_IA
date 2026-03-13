@@ -1,0 +1,112 @@
+# products_registry.yaml
+# Registre central de tous les PRODUCTS EA4AI
+# Utilisé par validate_product.py pour la sélection interactive
+# Maintenir ce fichier à jour quand un PRODUCT est ajouté ou retiré.
+#
+# Emplacement : root_IA/99_VALIDATION/products_registry.yaml
+# Schema version : 1.0
+
+schema_version: "1.0"
+generated_at: "2026-03-11"
+description: "Registre des PRODUCTS EA4AI — source de vérité pour validate_product.py"
+
+# Structure attendue d'un PRODUCT standard :
+#   PRODUCTS/<product_id>/
+#     00_INDEX/
+#       gpt_catalog.yaml    (clé catalog: {AGENT_ID: {...}})
+#       agents_index.yaml   (clé agents: {AGENT_ID: {...}})
+#     80_MACHINES/
+#       hub_routing.yaml    (clé routing_table: [...])
+#     playbooks/
+#       playbooks.yaml      (clé playbooks: {PB_ID: {...}})
+#     agents/               (ou 20_Agents/ pour certains)
+#       <AGENT_ID>/
+#         agent.yaml
+#         contract.yaml
+#         prompt.md
+#     manifest.yaml         (optionnel)
+#     README.md
+
+products:
+
+  - id: ARMY_DAM_DESIGN
+    display_name: "Armée DAM Design"
+    description: "Agents spécialisés en design & gestion d'actifs digitaux (DAM)"
+    status: active
+    agents_dir: agents
+    has_manifest: true
+    has_intents: false
+    tags: [design, dam, media]
+
+  - id: ARMY_IT_MSP
+    display_name: "Armée IT MSP"
+    description: "Agents de services IT managés — helpdesk, infrastructure, NOC"
+    status: active
+    agents_dir: agents
+    has_manifest: true
+    has_intents: true
+    tags: [it, msp, infrastructure, noc]
+
+  - id: ARMY_NEA_WRITING
+    display_name: "Armée NEA Writing"
+    description: "Agents de rédaction, copywriting et production de contenu"
+    status: active
+    agents_dir: agents
+    has_manifest: true
+    has_intents: false
+    tags: [writing, content, copywriting]
+
+  - id: ARMY_TRAD_INTEL
+    display_name: "Armée TRAD Intel"
+    description: "Agents d'intelligence de marché, traduction et veille stratégique"
+    status: active
+    agents_dir: agents
+    has_manifest: true
+    has_intents: false
+    tags: [trading, intelligence, veille]
+
+  - id: EDU
+    display_name: "EDU — Éducation & Évaluation"
+    description: "Agents d'évaluation scolaire CCQ — extraction et correction de travaux"
+    status: active
+    agents_dir: agents
+    has_manifest: false
+    has_intents: false
+    tags: [education, ccq, evaluation]
+
+  - id: ESPL
+    display_name: "ESPL — Radio & Contenu"
+    description: "Agents de production de contenu radio (Paul Lejeune)"
+    status: active
+    agents_dir: agents
+    has_manifest: false
+    has_intents: false
+    tags: [radio, content, media]
+
+  - id: IASM
+    display_name: "IASM — Cabinet IA Santé Mentale"
+    description: "Agents d'accompagnement et de coaching en santé mentale"
+    status: active
+    agents_dir: agents
+    has_manifest: false
+    has_intents: false
+    tags: [sante, coaching, bien-etre]
+
+  - id: IT
+    display_name: "IT — Infrastructure Interne"
+    description: "Agents IT internes — gestion des systèmes, assets, cloud, backup"
+    status: active
+    agents_dir: 20_Agents
+    has_manifest: true
+    has_intents: true
+    tags: [it, internal, infrastructure, cloud]
+    notes: "Structure non-standard : agents dans 20_Agents/ au lieu de agents/"
+
+  - id: PLR
+    display_name: "PLR — Promotion Livre"
+    description: "Agents de promotion, marketing et vente de livres"
+    status: active
+    agents_dir: agents
+    has_manifest: false
+    has_intents: false
+    tags: [livre, marketing, promotion]

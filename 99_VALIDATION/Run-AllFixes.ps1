@@ -70,8 +70,6 @@ $fixes = @(
     @{ Num=3; Script="Fix-03-SchemaVersion.ps1";    Desc="schema_version manquant (3 agents META)" }
     @{ Num=4; Script="Fix-04-SyncOPS.ps1";          Desc="Sync agents OPS core vers 10 produits" }
     @{ Num=5; Script="Fix-05-HUBOrchestrator.ps1";  Desc="Deprecier HUB-Orchestrator legacy" }
-    @{ Num=6; Script="Fix-06-CRLF-Products.ps1";   Desc="Encodage CRLF vers LF (42 fichiers YAML)" }
-    @{ Num=7; Script="Fix-07-Index-Cleanup.ps1";   Desc="Cleanup doublon et sync teams" }
 )
 
 $results = [System.Collections.Generic.List[PSObject]]::new()

@@ -1,0 +1,296 @@
+schema_version: "1.0"
+dashboard_id: AGENT_PERFORMANCE
+description: "Performance individuelle de chaque agent — quality_score, intents, escalades"
+owner: TEAM__CTL
+updated_at: "2026-03-08"
+
+# ============================================================
+# STRUCTURE DE SUIVI — à remplir par CTL-HealthReporter
+# ============================================================
+metrics_schema:
+  per_agent:
+    agent_id:
+      type: string
+      example: "OPS-RouterIA"
+    quality_score_avg:
+      type: float
+      range: "0.0-10.0"
+      source: "log.quality_score de chaque run"
+    quality_score_min:
+      type: float
+    quality_score_trend: "stable | improving | degrading"
+    runs_total: 0
+    runs_success: 0
+    runs_failed: 0
+    runs_escalated: 0
+    success_rate:
+      formula: "runs_success / runs_total"
+    top_intents_served: []
+    escalation_rate:
+      formula: "runs_escalated / runs_total"
+    last_seen: null
+
+thresholds:
+  quality_score_warning: 7.0   # En dessous → alerte CTL-AlertRouter
+  quality_score_critical: 5.0  # En dessous → escalade immédiate
+  escalation_rate_warning: 0.20
+  success_rate_warning: 0.80
+
+# ============================================================
+# AGENTS SUIVIS — 27 agents référencés dans les playbooks
+# ============================================================
+agents_tracked:
+
+  # ── TEAM CTL ─────────────────────────────────────────────
+  - agent_id: "CTL-WatchdogIA"
+    team: CTL
+    playbooks_count: 7
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "CTL-AlertRouter"
+    team: CTL
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "CTL-HealthReporter"
+    team: CTL
+    playbooks_count: 4
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  # ── TEAM HUB ─────────────────────────────────────────────
+  - agent_id: "HUB-Router"
+    team: HUB
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "HUB-Concierge"
+    team: HUB
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "HUB-AgentMO-MasterOrchestrator"
+    team: HUB
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "HUB-AgentMO2-DeputyOrchestrator"
+    team: HUB
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+    note: "Prompt partiel (68L). Suivi qualité prioritaire dès premier run."
+
+  - agent_id: "HUB-OproEngine"
+    team: HUB
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  # ── TEAM IAHQ ────────────────────────────────────────────
+  - agent_id: "IAHQ-OrchestreurEntrepriseIA"
+    team: IAHQ
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-ProcessMapper"
+    team: IAHQ
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-SolutionOrchestrator"
+    team: IAHQ
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-TechLeadIA"
+    team: IAHQ
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-Economist"
+    team: IAHQ
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-Strategist"
+    team: IAHQ
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "IAHQ-QualityGate"
+    team: IAHQ
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  # ── TEAM META ────────────────────────────────────────────
+  - agent_id: "META-AgentProductFactory"
+    team: META
+    playbooks_count: 6
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-GouvernanceQA"
+    team: META
+    playbooks_count: 7
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-OrchestrateurCentral"
+    team: META
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-ArchitecteChoix"
+    team: META
+    playbooks_count: 1
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-AnalysteBesoinsEquipes"
+    team: META
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-CartographeRoles"
+    team: META
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-WorkflowDesignerEquipes"
+    team: META
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-PlaybookBuilder"
+    team: META
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-PromptMaster"
+    team: META
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "META-ReversePrompt"
+    team: META
+    playbooks_count: 2
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  # ── TEAM OPS ─────────────────────────────────────────────
+  - agent_id: "OPS-RouterIA"
+    team: OPS
+    playbooks_count: 3
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+
+  - agent_id: "OPS-DossierIA"
+    team: OPS
+    playbooks_count: 11
+    quality_score_avg: null
+    runs_total: 0
+    success_rate: null
+    status: "no_data"
+    note: "Présent dans TOUS les playbooks. Agent critique — surveiller en priorité."
+
+note_metrics_disponibilite: >
+  Les métriques timings (total_ms, match_ms) ne sont PAS disponibles dans un
+  contexte GPT natif. Ces champs sont définis null par défaut.
+  Seul un proxy externe (middleware, orchestrateur API) peut collecter des
+  latences réelles. Dans GPT : utiliser routing_complexity + estimated_steps
+  comme proxy de complexité.
+
+# ============================================================
+# AGENTS PRIORITAIRES À SURVEILLER EN PREMIER
+# ============================================================
+monitoring_priority:
+  critical:
+    - agent_id: "OPS-DossierIA"
+      reason: "Présent dans 11/11 playbooks. Panne = FACTORY bloquée."
+    - agent_id: "CTL-WatchdogIA"
+      reason: "Présent dans 7/11 playbooks. Panne = monitoring aveugle."
+    - agent_id: "META-GouvernanceQA"
+      reason: "Présent dans 7/11 playbooks. Panne = aucune validation qualité."
+  high:
+    - agent_id: "META-AgentProductFactory"
+      reason: "6/11 playbooks. Panne = fabrication bloquée."
+    - agent_id: "HUB-AgentMO-MasterOrchestrator"
+      reason: "Point d'entrée HUB. Panne = aucune orchestration."
+    - agent_id: "CTL-HealthReporter"
+      reason: "4/11 playbooks. Panne = rapports absents."
+  watch:
+    - agent_id: "HUB-AgentMO2-DeputyOrchestrator"
+      reason: "Prompt partiel (68L). Risque qualité premier run."
+    - agent_id: "OPS-RouterIA"
+      reason: "Routing des intents. Dégradation = mauvais routage silencieux."

@@ -2,22 +2,22 @@ schema_version: "1.0"
 dashboard_id: FACTORY_HEALTH
 description: "Santé globale de la Factory — agents actifs, drift, alertes en cours"
 owner: TEAM__CTL
-updated_at: "2026-03-08"
+updated_at: "2026-03-11"
 
 # ============================================================
 # SNAPSHOT SANTÉ ACTUEL — mis à jour par CTL-WatchdogIA
 # ============================================================
 factory_summary:
-  total_agents: 40
-  agents_active: 39
+  total_agents: 140
+  agents_active: 140
   agents_deprecated: 0
   agents_no_data: 40      # Aucun run encore logué
   teams_active: 5         # CTL, HUB, IAHQ, META, OPS
   playbooks_active: 11
   agents_in_playbooks: 27 # Agents réellement référencés dans les 11 playbooks
-  intents_registered: 281
-  last_full_check: null
-  health_status: "unknown"  # unknown | healthy | degraded | critical
+  intents_registered: 300+
+  last_full_check: "2026-03-11T18:05:00"
+  health_status: "healthy"  # unknown | healthy | degraded | critical
 
 per_team_health:
   CTL:
@@ -170,3 +170,19 @@ known_issues:
     owner: "META-PlaybookBuilder"
 
 drift_detected: false
+
+# ============================================================
+# DERNIÈRE VALIDATION COMPLÈTE — 2026-03-11 18:05
+# ============================================================
+last_validation:
+  date: "2026-03-11T18:05:00"
+  validate_integrity: "PASS"
+  validate_refs: "PASS — 0 erreur, 0 warning"
+  validate_rootIA_v2: "PASS — 15/15"
+  run_golden_tests: "PASS"
+  validate_machine_output: "PASS"
+  overall_score: "100%"
+  agents_indexed: 140
+  catalog_unified: 140
+  playbooks: 22
+  routes: 45
