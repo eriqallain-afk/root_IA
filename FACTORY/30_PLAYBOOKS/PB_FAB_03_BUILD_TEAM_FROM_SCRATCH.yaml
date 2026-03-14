@@ -1,311 +1,310 @@
-schema_version: "1.0"
+schema_version: '1.0'
 playbook_id: BUILD_TEAM_FROM_SCRATCH
-display_name: "Build Team From Scratch"
-description: >
-  Créer une équipe complète de A à Z : discovery métier → architecture →
-  génération de chaque agent (prompt + contrat + tests) → design des workflows →
-  audit qualité → intégration dans la FACTORY (index + routing).
-  Le pipeline le plus complet de la FACTORY — convoquant 9 agents distincts.
-category: "fabrication"
-team_owner: TEAM__META
-trigger: "manual | onboard_new_team"
-estimated_duration_minutes: 240
-version: "1.0.0"
-last_updated: "2026-02-25"
+display_name: Build Team From Scratch
+description: 'Créer une équipe complète de A à Z : discovery métier → architecture → génération de chaque agent (prompt +
+  contrat + tests) → design des workflows → audit qualité → intégration dans la FACTORY (index + routing). Le pipeline le
+  plus complet de la FACTORY — convoquant 9 agents distincts.
 
+  '
+category: fabrication
+team_owner: TEAM__META
+trigger: manual | onboard_new_team
+estimated_duration_minutes: 240
+version: 1.0.0
+last_updated: '2026-02-25'
 design_rules:
   max_agents_per_team: 8
-  mandatory_roles: ["orchestrateur", "au moins 1 agent spécialiste"]
-  mandatory_files_per_agent: [agent.yaml, contract.yaml, prompt.md]
+  mandatory_roles:
+  - orchestrateur
+  - au moins 1 agent spécialiste
+  mandatory_files_per_agent:
+  - agent.yaml
+  - contract.yaml
+  - prompt.md
   mandatory_playbooks_per_team: 2
-  anti_bloat: >
-    Chaque agent doit avoir un verbe d'action unique.
-    Si 2 agents font la même chose avec des données différentes → fusionner en 1 avec paramètres.
+  anti_bloat: 'Chaque agent doit avoir un verbe d''action unique. Si 2 agents font la même chose avec des données différentes
+    → fusionner en 1 avec paramètres.
 
+    '
 inputs:
   team_mission:
     type: string
     required: true
-    description: "Mission de la nouvelle équipe en 1-3 phrases. Ex: 'Gérer les projets de construction : conformité, budget, inspection, planning.'"
+    description: 'Mission de la nouvelle équipe en 1-3 phrases. Ex: ''Gérer les projets de construction : conformité, budget,
+      inspection, planning.'''
   team_domain:
     type: string
     required: true
-    description: "Domaine métier. Ex: construction, finance, santé, IT, juridique."
+    description: 'Domaine métier. Ex: construction, finance, santé, IT, juridique.'
   proposed_team_id:
     type: string
     required: true
-    description: "ID de l'équipe proposé. Format: NOM (ex: DAM, IT, EDU). Majuscules, 2-6 caractères."
+    description: 'ID de l''équipe proposé. Format: NOM (ex: DAM, IT, EDU). Majuscules, 2-6 caractères.'
   stakeholders:
     type: list[string]
     required: false
-    description: "Types d'utilisateurs de cette équipe. Ex: [chef de projet, inspecteur, comptable]"
+    description: 'Types d''utilisateurs de cette équipe. Ex: [chef de projet, inspecteur, comptable]'
   existing_agents_to_reuse:
     type: list[string]
     required: false
-    description: "Agents existants d'autres équipes pouvant être réutilisés ou clonés."
+    description: Agents existants d'autres équipes pouvant être réutilisés ou clonés.
   constraints:
     type: list[string]
     required: false
-    description: "Contraintes spécifiques. Ex: [max 6 agents, intégration RBQ obligatoire]"
+    description: 'Contraintes spécifiques. Ex: [max 6 agents, intégration RBQ obligatoire]'
   priority_use_cases:
     type: list[string]
     required: false
-    description: "Top 3 cas d'usage prioritaires à couvrir obligatoirement."
-
+    description: Top 3 cas d'usage prioritaires à couvrir obligatoirement.
 steps:
+- step_id: S1_requirements
+  name: Analyse des besoins métier
+  actor_id: META-AnalysteBesoinsEquipes
+  input:
+    objective: Analyser les besoins pour créer l'équipe {{proposed_team_id}} — domaine {{team_domain}}
+    context:
+      team_mission: '{{team_mission}}'
+      team_domain: '{{team_domain}}'
+      stakeholders: '{{stakeholders | default: []}}'
+      priority_use_cases: '{{priority_use_cases | default: []}}'
+      constraints: '{{constraints | default: []}}'
+  output_key: requirements
+  delivers:
+  - Use cases principaux (3-7)
+  - Actors et leurs besoins
+  - Contraintes fonctionnelles et non-fonctionnelles
+  - Success criteria mesurables
+  - Questions clarification si info critique manquante
+  on_failure: abort
+  sla_minutes: 20
+- step_id: S2_team_architecture
+  name: Architecture de l'équipe — carte des rôles
+  actor_id: META-CartographeRoles
+  input:
+    objective: Concevoir l'architecture complète de TEAM__{{proposed_team_id}}
+    context:
+      requirements: '{{requirements}}'
+      team_mission: '{{team_mission}}'
+      existing_agents_to_reuse: '{{existing_agents_to_reuse | default: []}}'
+      max_agents: 8
+  output_key: team_blueprint
+  delivers:
+  - Liste des agents avec ID proposé, verbe d'action unique, priorité P1/P2/P3
+  - Dépendances entre agents
+  - Rôles écartés avec justification (anti-bloat)
+  - 1 orchestrateur identifié
+  - Workflows principaux esquissés (3-5)
+  on_failure: abort
+  sla_minutes: 20
+- step_id: S3_strategic_validation
+  name: Validation stratégique de l'architecture
+  actor_id: IAHQ-OrchestreurEntrepriseIA
+  input:
+    objective: Valider l'architecture de TEAM__{{proposed_team_id}} avant construction
+    context:
+      team_blueprint: '{{team_blueprint}}'
+      team_mission: '{{team_mission}}'
+      constraints: '{{constraints | default: []}}'
+  checks:
+  - L'équipe couvre-t-elle les priority_use_cases ?
+  - Y a-t-il chevauchement avec des équipes existantes ?
+  - Le nombre d'agents est-il justifié (anti-bloat) ?
+  - L'orchestrateur est-il clairement identifié ?
+  output_key: strategic_validation
+  on_failure: abort
+  on_failure_message: Architecture rejetée. Voir strategic_validation.blocking_issues avant de continuer.
+  sla_minutes: 15
+- step_id: S4_build_agents_loop
+  name: Génération de chaque agent (prompt + contrat + tests)
+  actor_id: META-AgentProductFactory
+  input:
+    team_id: TEAM__{{proposed_team_id}}
+    agents_list: '{{team_blueprint.agents}}'
+    team_mission: '{{team_mission}}'
+    requirements: '{{requirements}}'
+  mode: loop_per_agent
+  parallel: false
+  loop_note: 'Pour chaque agent dans team_blueprint.agents (ordre priorité P1 → P2 → P3) : Créer agent.yaml + contract.yaml
+    + prompt.md + tests/sample_input.yaml + tests/expected_output.yaml + memory/glossary.yaml + memory/memory_pack.yaml
 
-  - step_id: "S1_requirements"
-    name: "Analyse des besoins métier"
-    actor_id: META-AnalysteBesoinsEquipes
-    input:
-      objective: "Analyser les besoins pour créer l'équipe {{proposed_team_id}} — domaine {{team_domain}}"
-      context:
-        team_mission: "{{team_mission}}"
-        team_domain: "{{team_domain}}"
-        stakeholders: "{{stakeholders | default: []}}"
-        priority_use_cases: "{{priority_use_cases | default: []}}"
-        constraints: "{{constraints | default: []}}"
-    output_key: "requirements"
-    delivers:
-      - "Use cases principaux (3-7)"
-      - "Actors et leurs besoins"
-      - "Contraintes fonctionnelles et non-fonctionnelles"
-      - "Success criteria mesurables"
-      - "Questions clarification si info critique manquante"
-    on_failure: "abort"
-    sla_minutes: 20
+    '
+  output_key: agents_package
+  delivers:
+  - Un dossier complet par agent dans 20_AGENTS/{{proposed_team_id}}/
+  - Chaque agent respecte le template TEMPLATE__AGENT.md
+  - Chaque prompt > 50 lignes et spécifique au domaine
+  on_failure: continue
+  on_failure_note: Si 1 agent échoue, continuer les autres. Les agents échoués sont listés dans agents_package.failed.
+  sla_minutes: 90
+- step_id: S5_workflow_design
+  name: Design des workflows et playbooks de l'équipe
+  actor_id: META-WorkflowDesignerEquipes
+  input:
+    objective: Créer les workflows opérationnels de TEAM__{{proposed_team_id}}
+    context:
+      agents_package: '{{agents_package}}'
+      team_blueprint: '{{team_blueprint}}'
+      requirements: '{{requirements}}'
+  output_key: workflows
+  delivers:
+  - 3-7 workflows couvrant les cas d'usage prioritaires
+  - 'Chaque workflow : trigger, séquence d''agents, points de validation, livrables'
+  - Identification des playbooks FACTORY à créer
+  on_failure: continue
+  sla_minutes: 20
+- step_id: S6_build_playbooks
+  name: Construction des playbooks de l'équipe
+  actor_id: META-PlaybookBuilder
+  input:
+    objective: Créer les playbooks opérationnels pour TEAM__{{proposed_team_id}}
+    context:
+      workflows: '{{workflows}}'
+      agents_package: '{{agents_package}}'
+      team_id: TEAM__{{proposed_team_id}}
+  output_key: team_playbooks
+  minimum: 2
+  delivers:
+  - 1 playbook principal (workflow le plus fréquent)
+  - 1 playbook secondaire (2ème cas d'usage)
+  - Format YAML canonique conforme au standard FACTORY
+  on_failure: continue
+  sla_minutes: 20
+- step_id: S7_governance_audit
+  name: Audit qualité complet de l'équipe
+  actor_id: META-GouvernanceQA
+  input:
+    scope: TEAM__{{proposed_team_id}}
+    context:
+      agents_package: '{{agents_package}}'
+      team_playbooks: '{{team_playbooks}}'
+  checks:
+  - Chaque agent a un prompt unique > 50 lignes ?
+  - Chaque contrat est spécifique (non copié du template) ?
+  - Chaque agent est utilisé dans au moins 1 playbook ?
+  - Aucun chevauchement d'intents entre agents ?
+  - Les tests sont présents (sample_input + expected_output) ?
+  - 'Naming conforme : {{proposed_team_id}}-NomAgent ?'
+  output_key: governance_report
+  on_failure: continue
+  on_failure_message: Des issues qualité ont été détectées. Voir governance_report. L'intégration est conditionnelle à la
+    résolution des P0/P1.
+  sla_minutes: 20
+- step_id: S8_integration_gate
+  name: Gate d'intégration — bloquer si P0 non résolus
+  actor_id: IAHQ-QualityGate
+  input:
+    objective: Approuver l'intégration de TEAM__{{proposed_team_id}} dans la FACTORY
+    deliverable: '{{governance_report}}'
+    context:
+      agents_built: '{{agents_package.agents_count}}'
+      agents_failed: '{{agents_package.failed | default: []}}'
+      playbooks_built: '{{team_playbooks | length}}'
+  condition: governance_report.critical_issues == 0
+  output_key: integration_approval
+  on_failure: abort
+  on_failure_message: 'Intégration bloquée. Issues critiques non résolues dans governance_report. Corriger avec META-GouvernanceQA
+    avant de relancer S8.
 
-  - step_id: "S2_team_architecture"
-    name: "Architecture de l'équipe — carte des rôles"
-    actor_id: META-CartographeRoles
-    input:
-      objective: "Concevoir l'architecture complète de TEAM__{{proposed_team_id}}"
-      context:
-        requirements: "{{requirements}}"
-        team_mission: "{{team_mission}}"
-        existing_agents_to_reuse: "{{existing_agents_to_reuse | default: []}}"
-        max_agents: 8
-    output_key: "team_blueprint"
-    delivers:
-      - "Liste des agents avec ID proposé, verbe d'action unique, priorité P1/P2/P3"
-      - "Dépendances entre agents"
-      - "Rôles écartés avec justification (anti-bloat)"
-      - "1 orchestrateur identifié"
-      - "Workflows principaux esquissés (3-5)"
-    on_failure: "abort"
-    sla_minutes: 20
-
-  - step_id: "S3_strategic_validation"
-    name: "Validation stratégique de l'architecture"
-    actor_id: IAHQ-OrchestreurEntrepriseIA
-    input:
-      objective: "Valider l'architecture de TEAM__{{proposed_team_id}} avant construction"
-      context:
-        team_blueprint: "{{team_blueprint}}"
-        team_mission: "{{team_mission}}"
-        constraints: "{{constraints | default: []}}"
-    checks:
-      - "L'équipe couvre-t-elle les priority_use_cases ?"
-      - "Y a-t-il chevauchement avec des équipes existantes ?"
-      - "Le nombre d'agents est-il justifié (anti-bloat) ?"
-      - "L'orchestrateur est-il clairement identifié ?"
-    output_key: "strategic_validation"
-    on_failure: "abort"
-    on_failure_message: "Architecture rejetée. Voir strategic_validation.blocking_issues avant de continuer."
-    sla_minutes: 15
-
-  - step_id: "S4_build_agents_loop"
-    name: "Génération de chaque agent (prompt + contrat + tests)"
-    actor_id: META-AgentProductFactory
-    input:
-      team_id: "TEAM__{{proposed_team_id}}"
-      agents_list: "{{team_blueprint.agents}}"
-      team_mission: "{{team_mission}}"
-      requirements: "{{requirements}}"
-    mode: "loop_per_agent"
-    parallel: false
-    loop_note: >
-      Pour chaque agent dans team_blueprint.agents (ordre priorité P1 → P2 → P3) :
-      Créer agent.yaml + contract.yaml + prompt.md + tests/sample_input.yaml +
-      tests/expected_output.yaml + memory/glossary.yaml + memory/memory_pack.yaml
-    output_key: "agents_package"
-    delivers:
-      - "Un dossier complet par agent dans 20_AGENTS/{{proposed_team_id}}/"
-      - "Chaque agent respecte le template TEMPLATE__AGENT.md"
-      - "Chaque prompt > 50 lignes et spécifique au domaine"
-    on_failure: "continue"
-    on_failure_note: "Si 1 agent échoue, continuer les autres. Les agents échoués sont listés dans agents_package.failed."
-    sla_minutes: 90
-
-  - step_id: "S5_workflow_design"
-    name: "Design des workflows et playbooks de l'équipe"
-    actor_id: META-WorkflowDesignerEquipes
-    input:
-      objective: "Créer les workflows opérationnels de TEAM__{{proposed_team_id}}"
-      context:
-        agents_package: "{{agents_package}}"
-        team_blueprint: "{{team_blueprint}}"
-        requirements: "{{requirements}}"
-    output_key: "workflows"
-    delivers:
-      - "3-7 workflows couvrant les cas d'usage prioritaires"
-      - "Chaque workflow : trigger, séquence d'agents, points de validation, livrables"
-      - "Identification des playbooks FACTORY à créer"
-    on_failure: "continue"
-    sla_minutes: 20
-
-  - step_id: "S6_build_playbooks"
-    name: "Construction des playbooks de l'équipe"
-    actor_id: META-PlaybookBuilder
-    input:
-      objective: "Créer les playbooks opérationnels pour TEAM__{{proposed_team_id}}"
-      context:
-        workflows: "{{workflows}}"
-        agents_package: "{{agents_package}}"
-        team_id: "TEAM__{{proposed_team_id}}"
-    output_key: "team_playbooks"
-    minimum: 2
-    delivers:
-      - "1 playbook principal (workflow le plus fréquent)"
-      - "1 playbook secondaire (2ème cas d'usage)"
-      - "Format YAML canonique conforme au standard FACTORY"
-    on_failure: "continue"
-    sla_minutes: 20
-
-  - step_id: "S7_governance_audit"
-    name: "Audit qualité complet de l'équipe"
-    actor_id: META-GouvernanceQA
-    input:
-      scope: "TEAM__{{proposed_team_id}}"
-      context:
-        agents_package: "{{agents_package}}"
-        team_playbooks: "{{team_playbooks}}"
-    checks:
-      - "Chaque agent a un prompt unique > 50 lignes ?"
-      - "Chaque contrat est spécifique (non copié du template) ?"
-      - "Chaque agent est utilisé dans au moins 1 playbook ?"
-      - "Aucun chevauchement d'intents entre agents ?"
-      - "Les tests sont présents (sample_input + expected_output) ?"
-      - "Naming conforme : {{proposed_team_id}}-NomAgent ?"
-    output_key: "governance_report"
-    on_failure: "continue"
-    on_failure_message: "Des issues qualité ont été détectées. Voir governance_report. L'intégration est conditionnelle à la résolution des P0/P1."
-    sla_minutes: 20
-
-  - step_id: "S8_integration_gate"
-    name: "Gate d'intégration — bloquer si P0 non résolus"
-    actor_id: IAHQ-QualityGate
-    input:
-      objective: "Approuver l'intégration de TEAM__{{proposed_team_id}} dans la FACTORY"
-      deliverable: "{{governance_report}}"
-      context:
-        agents_built: "{{agents_package.agents_count}}"
-        agents_failed: "{{agents_package.failed | default: []}}"
-        playbooks_built: "{{team_playbooks | length}}"
-    condition: "governance_report.critical_issues == 0"
-    output_key: "integration_approval"
-    on_failure: "abort"
-    on_failure_message: >
-      Intégration bloquée. Issues critiques non résolues dans governance_report.
-      Corriger avec META-GouvernanceQA avant de relancer S8.
-    sla_minutes: 10
-
-  - step_id: "S9_create_team_yaml"
-    name: "Création du fichier TEAM__{{proposed_team_id}}.yaml"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "create_team_file"
-      team_id: "TEAM__{{proposed_team_id}}"
-      team_mission: "{{team_mission}}"
-      agents_list: "{{agents_package.agent_ids}}"
-      default_orchestrator: "{{team_blueprint.orchestrator_id}}"
-      capabilities: "{{team_blueprint.capabilities}}"
-    output_key: "team_yaml"
-    delivers:
-      - "10_TEAMS/TEAM__{{proposed_team_id}}.yaml"
-    on_failure: "abort"
-    sla_minutes: 5
-
-  - step_id: "S10_update_indices"
-    name: "Intégration dans les index FACTORY"
-    actor_id: OPS-RouterIA
-    input:
-      team_id: "TEAM__{{proposed_team_id}}"
-      agents_package: "{{agents_package}}"
-      team_playbooks: "{{team_playbooks}}"
-      team_yaml: "{{team_yaml}}"
-    actions:
-      - "Ajouter TEAM__{{proposed_team_id}} dans teams.manifest.yaml"
-      - "Ajouter TEAM__{{proposed_team_id}} dans teams_index.yaml"
-      - "Ajouter chaque agent dans agents.manifest.yaml"
-      - "Ajouter chaque agent dans agents_index.yaml et gpt_catalog.yaml"
-      - "Ajouter les intents dans intents.yaml"
-      - "Ajouter les règles de routing dans hub_routing.yaml"
-      - "Ajouter les playbooks dans playbooks_index.yaml"
-    output_key: "integration_result"
-    on_failure: "continue"
-    on_failure_message: "Intégration partielle — vérifier manuellement les index avec CTL-WatchdogIA."
-    sla_minutes: 10
-
-  - step_id: "S11_first_health_check"
-    name: "Premier health check de la nouvelle équipe"
-    actor_id: CTL-WatchdogIA
-    input:
-      operation: "full_check"
-      scope: "TEAM__{{proposed_team_id}}"
-    output_key: "initial_health"
-    on_failure: "continue"
-    sla_minutes: 10
-
-  - step_id: "S12_archive"
-    name: "Archivage Dossier IA — Naissance de l'équipe"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "create"
-      playbook_id: "BUILD_TEAM_FROM_SCRATCH"
-      metadata:
-        type: "team_creation"
-        team_id: "TEAM__{{proposed_team_id}}"
-        team_domain: "{{team_domain}}"
-        agents_created: "{{agents_package.agents_count | default: 0}}"
-        agents_failed: "{{agents_package.failed | length | default: 0}}"
-        playbooks_created: "{{team_playbooks | length | default: 0}}"
-        governance_score: "{{governance_report.pass_rate | default: null}}"
-        initial_health_score: "{{initial_health.factory_status | default: null}}"
-      outputs:
-        requirements: "{{requirements}}"
-        team_blueprint: "{{team_blueprint}}"
-        governance_report: "{{governance_report}}"
-        initial_health: "{{initial_health}}"
-    dossier_name: "BIRTH__TEAM__{{proposed_team_id}}__{{date_yyyymmdd}}"
-    retention: "permanent"
-    on_failure: "continue"
-    sla_minutes: 5
-
+    '
+  sla_minutes: 10
+- step_id: S9_create_team_yaml
+  name: Création du fichier TEAM__{{proposed_team_id}}.yaml
+  actor_id: META-AgentProductFactory
+  input:
+    operation: create_team_file
+    team_id: TEAM__{{proposed_team_id}}
+    team_mission: '{{team_mission}}'
+    agents_list: '{{agents_package.agent_ids}}'
+    default_orchestrator: '{{team_blueprint.orchestrator_id}}'
+    capabilities: '{{team_blueprint.capabilities}}'
+  output_key: team_yaml
+  delivers:
+  - 10_TEAMS/TEAM__{{proposed_team_id}}.yaml
+  on_failure: abort
+  sla_minutes: 5
+- step_id: S10_update_indices
+  name: Intégration dans les index FACTORY
+  actor_id: OPS-RouterIA
+  input:
+    team_id: TEAM__{{proposed_team_id}}
+    agents_package: '{{agents_package}}'
+    team_playbooks: '{{team_playbooks}}'
+    team_yaml: '{{team_yaml}}'
+  actions:
+  - Ajouter TEAM__{{proposed_team_id}} dans teams.manifest.yaml
+  - Ajouter TEAM__{{proposed_team_id}} dans teams_index.yaml
+  - Ajouter chaque agent dans agents.manifest.yaml
+  - Ajouter chaque agent dans agents_index.yaml et gpt_catalog.yaml
+  - Ajouter les intents dans intents.yaml
+  - Ajouter les règles de routing dans hub_routing.yaml
+  - Ajouter les playbooks dans playbooks_index.yaml
+  output_key: integration_result
+  on_failure: continue
+  on_failure_message: Intégration partielle — vérifier manuellement les index avec CTL-WatchdogIA.
+  sla_minutes: 10
+- step_id: S11_first_health_check
+  name: Premier health check de la nouvelle équipe
+  actor_id: CTL-WatchdogIA
+  input:
+    operation: full_check
+    scope: TEAM__{{proposed_team_id}}
+  output_key: initial_health
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S12_archive
+  name: Archivage Dossier IA — Naissance de l'équipe
+  actor_id: OPS-DossierIA
+  input:
+    operation: create
+    playbook_id: BUILD_TEAM_FROM_SCRATCH
+    metadata:
+      type: team_creation
+      team_id: TEAM__{{proposed_team_id}}
+      team_domain: '{{team_domain}}'
+      agents_created: '{{agents_package.agents_count | default: 0}}'
+      agents_failed: '{{agents_package.failed | length | default: 0}}'
+      playbooks_created: '{{team_playbooks | length | default: 0}}'
+      governance_score: '{{governance_report.pass_rate | default: null}}'
+      initial_health_score: '{{initial_health.factory_status | default: null}}'
+    outputs:
+      requirements: '{{requirements}}'
+      team_blueprint: '{{team_blueprint}}'
+      governance_report: '{{governance_report}}'
+      initial_health: '{{initial_health}}'
+  dossier_name: BIRTH__TEAM__{{proposed_team_id}}__{{date_yyyymmdd}}
+  retention: permanent
+  on_failure: continue
+  sla_minutes: 5
+  output_key: archive_result
 final_output:
-  primary: "integration_result"
-  secondary: ["governance_report", "initial_health"]
-  dossier: "{{S12_archive.result.dossier.id}}"
-
+  primary: integration_result
+  secondary:
+  - governance_report
+  - initial_health
+  dossier: '{{S12_archive.result.dossier.id}}'
 success_criteria:
-  - "S2_team_architecture completed (team_blueprint présent)"
-  - "S4_build_agents_loop : au moins 50% des agents générés avec succès"
-  - "S8_integration_gate approved"
-  - "S10_update_indices completed"
-  - "initial_health.factory_status IN ['healthy', 'degraded']"
-
+- S2_team_architecture completed (team_blueprint présent)
+- 'S4_build_agents_loop : au moins 50% des agents générés avec succès'
+- S8_integration_gate approved
+- S10_update_indices completed
+- initial_health.factory_status IN ['healthy', 'degraded']
 notifications:
   on_success:
-    message: >
-      🏗️ TEAM__{{proposed_team_id}} créée et intégrée.
-      {{agents_package.agents_count}} agents | {{team_playbooks | length}} playbooks
-      Health: {{initial_health.factory_status}}
-    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-OrchestreurEntrepriseIA]
+    message: '🏗️ TEAM__{{proposed_team_id}} créée et intégrée. {{agents_package.agents_count}} agents | {{team_playbooks |
+      length}} playbooks Health: {{initial_health.factory_status}}
+
+      '
+    route_to:
+    - HUB-AgentMO-MasterOrchestrator
+    - IAHQ-OrchestreurEntrepriseIA
   on_partial:
-    message: >
-      ⚠️ TEAM__{{proposed_team_id}} créée partiellement.
-      {{agents_package.failed | length}} agents échoués. Voir governance_report.
-    route_to: [META-GouvernanceQA, CTL-AlertRouter]
+    message: '⚠️ TEAM__{{proposed_team_id}} créée partiellement. {{agents_package.failed | length}} agents échoués. Voir governance_report.
+
+      '
+    route_to:
+    - META-GouvernanceQA
+    - CTL-AlertRouter
   on_abort:
-    message: "❌ BUILD_TEAM_FROM_SCRATCH aborted pour TEAM__{{proposed_team_id}}. Voir integration_approval."
-    route_to: [HUB-AgentMO-MasterOrchestrator]
+    message: ❌ BUILD_TEAM_FROM_SCRATCH aborted pour TEAM__{{proposed_team_id}}. Voir integration_approval.
+    route_to:
+    - HUB-AgentMO-MasterOrchestrator

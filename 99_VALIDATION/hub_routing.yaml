@@ -1,0 +1,176 @@
+# hub_routing.yaml - Routing FACTORY root_IA [SOURCE DE VERITE]
+# Router  : HUB-Router
+# Scope   : Agents FACTORY (CTL, HUB, META, OPS, IAHQ) + agents PRODUCTS directs
+# DIFF    : Ce fichier -> HUB-Router -> agents granulaires FACTORY
+#           80_MACHINES\products_routing.yaml -> OPS-RouterIA -> PRODUCTS
+
+
+schema_version: "2.0"
+router: OPS-RouterIA
+fallback: HUB-Concierge
+
+routing_table:
+
+  # ── CTL — Surveillance et cycle de vie ──────────────────────────────────
+  - intents: [health_check, monitor, watchdog, drift_detect, factory_status, agent_scan]
+    agent: CTL-WatchdogIA
+    playbook: FACTORY_HEALTH_CHECK
+
+  - intents: [lifecycle, activate_agent, deprecate_agent, archive_agent, restore_agent]
+    agent: CTL-WatchdogIA
+    playbook: PB_CTL_02_AGENT_LIFECYCLE_MANAGEMENT
+
+  - intents: [alert, escalate, route_alert, incident_report]
+    agent: CTL-AlertRouter
+
+  - intents: [health_report, digest, weekly_report, factory_report]
+    agent: CTL-HealthReporter
+
+  - intents: [post_mortem, incident_analysis]
+    agent: CTL-HealthReporter
+    playbook: PB_CTL_03_POST_MORTEM_ANALYSIS
+
+  - intents: [orchestrate, intake, dispatch, complex_request]
+    agent: HUB-AgentMO-MasterOrchestrator    
+    playbook: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
+
+  - intents: [qa_plan, validate_plan, review_mo]
+    agent: HUB-AgentMO2-DeputyOrchestrator
+    playbook: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
+
+  # ── META — Fabrication d'agents ──────────────────────────────────────────
+  - intents: [creer_agent, nouveau_agent, agent_package_create, build_agent]
+    agent: META-AgentProductFactory
+    playbook: PB_FAB_01_BUILD_ARMY_FACTORY
+
+  - intents: [build_team, create_team, new_team]
+    agent: META-OrchestrateurCentral
+    playbook: PB_FAB_03_BUILD_TEAM_FROM_SCRATCH
+
+  - intents: [clone_agent, adapt_agent, domain_clone]
+    agent: META-PromptMaster
+    playbook: PB_FAB_04_CLONE_AND_ADAPT_AGENT
+
+  - intents: [optimize_prompt, prompt_cycle, opro, drift_fix, prompt_engineering]
+    agent: META-PromptMaster
+    playbook: PB_OPT_01_PROMPT_OPTIMIZATION_CYCLE
+
+  - intents: [army_audit, team_audit, maturity_check]
+    agent: META-GouvernanceQA
+    playbook: PB_OPT_02_ARMY_AUDIT_COMPLETE
+
+  - intents: [prompt, meta_prompt_create, meta_prompt_optimize, meta_prompt_validate]
+    agent: META-PromptMaster
+
+  - intents: [audit, qualite, gouvernance, qa]
+    agent: META-GouvernanceQA
+
+  - intents: [reverse, analyser_gpt, decompiler, reverse_prompt]
+    agent: META-ReversePrompt
+
+  - intents: [playbook, workflow_design, build_playbook]
+    agent: META-PlaybookBuilder
+
+  - intents: [roles, cartographie, blueprint, army_design]
+    agent: META-CartographeRoles
+
+  # ── IAHQ — Stratégie entreprise ──────────────────────────────────────────
+  - intents: [onboard_team, new_domain, team_launch]
+    agent: IAHQ-OrchestreurEntrepriseIA
+    playbook: PB_EXP_01_ONBOARD_NEW_TEAM
+
+  - intents: [business_case, offre, roi, transformation_ia]
+    agent: IAHQ-Strategist
+    playbook: PB_IAHQ_01_FRONTDOOR
+
+  - intents: [processus, cartographie_processus, automatisation, mapping]
+    agent: IAHQ-ProcessMapper
+
+  - intents: [architecture, solution_blueprint, tech_validation]
+    agent: IAHQ-TechLeadIA
+
+  # ── OPS — Orchestration et dispatch ──────────────────────────────────────
+  - intents: [run_orchestrate, run_dispatch, run_playbook, execute]
+    agent: OPS-PlaybookRunner
+
+  - intents: [memory, archive, dossier, project_file]
+    agent: OPS-DossierIA
+
+  - intents: [classify, route, intent_detection]
+    agent: OPS-RouterIA
+
+  # ── EDU ──────────────────────────────────────────────────────────────────
+  - intents: [education, ccq, evaluation, correction, reflexion, ethique, devoir, batch_eval]
+    agent: EDU-Orchestrator
+    playbook: EDU_CCQ_EVALUATE
+
+  # ── IT ───────────────────────────────────────────────────────────────────
+  - intents: [it, ticket, incident, alerte, noc, support, intervention]
+    agent: IT-OrchestratorMSP
+    playbook: IT_INCIDENT_TRIAGE
+
+  - intents: [intervention_live, suivi_intervention, technicien]
+    agent: IT-InterventionLive
+    playbook: IT_INTERVENTION_LIVE
+
+  - intents: [script, powershell, bash, automation, scripting]
+    agent: IT-ScriptMaster
+
+  - intents: [rapport_it, mensuel, qbr, kpi_report]
+    agent: IT-ReportMaster
+
+  - intents: [maintenance, patching, patch]
+    agent: IT-MaintenanceMaster
+
+  - intents: [cloud, azure, m365]
+    agent: IT-CloudMaster
+
+  # ── DAM — Construction ───────────────────────────────────────────────────
+  - intents: [dam, construction, renovation, domiciliaire, projet_maison]
+    agent: DAM-Orchestrator
+    playbook: DAM_PROJECT_ANALYSIS
+
+  - intents: [conformite, rbq, code_batiment, permis, zonage]
+    agent: DAM-Conformite
+
+  - intents: [budget, cout, soumission, estimation]
+    agent: DAM-Budget
+
+  # ── TRAD — Intelligence stratégique ─────────────────────────────────────
+  - intents: [intel, intelligence, geopolitique, analyse_strategique, command]
+    agent: TRAD-CommandCore
+    playbook: TRAD_INTEL_BRIEF
+
+  - intents: [marche, bourse, finance, economie, markets]
+    agent: TRAD-MarketAnalyst
+
+  - intents: [crypto, bitcoin, defi, blockchain]
+    agent: TRAD-CryptoAnalyst
+
+  - intents: [cybersecurite, menace, vulnerability, ransomware, cyber]
+    agent: TRAD-CyberWatch
+
+  # ── IASM — Santé mentale ─────────────────────────────────────────────────
+  - intents: [coaching, support_emotionnel, aide, ecoute, stress, anxiete]
+    agent: IASM-Orchestrator
+    playbook: IASM_SESSION
+
+  - intents: [tcc, exercice, pensee, restructuration]
+    agent: IASM-OutilsTCC
+
+  - intents: [urgence, crise, danger, suicidaire, automutilation]
+    agent: IASM-Securite
+
+  # ── NEA — Édition et narration ───────────────────────────────────────────
+  - intents: [livre, recueil, publishing, ecriture]
+    agent: NEA-Orchestrator
+
+  - intents: [illustration, image, visuel, brief_image]
+    agent: NEA-Imagier
+
+  # ── PLR / ESPL — Radio et contenu ────────────────────────────────────────
+  - intents: [radio, podcast, episode, script_radio]
+    agent: PLR-Orchestrator
+
+  - intents: [paul_lejeune, chronique, histoire_quebec]
+    agent: ESPL-PaulLejeuneRadio

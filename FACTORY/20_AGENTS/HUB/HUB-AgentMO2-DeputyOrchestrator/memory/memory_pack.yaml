@@ -1,5 +1,90 @@
-﻿# memory_pack.yaml (placeholder)
-version: "0.1.0"
-facts: []
-rules: []
-patterns: []
+# memory_pack.yaml — HUB-AgentMO2-DeputyOrchestrator
+# Mémoire persistante : faits stables, règles de validation, patterns récurrents
+version: "1.0.0"
+agent_id: HUB-AgentMO2-DeputyOrchestrator
+updated_at: "2026-03-13"
+
+facts:
+  # Seuils et métriques de référence
+  - id: F01
+    fact: "quality_score_minimum_pour_validation = 9.0"
+    source: contract.yaml
+    confidence: 1.0
+  - id: F02
+    fact: "Délai maximum de traitement QA = 10 secondes"
+    source: contract.yaml
+    confidence: 1.0
+  - id: F03
+    fact: "Maximum 3 corrections bloquantes avant escalade à HUB-AgentMO"
+    source: prompt.md
+    confidence: 1.0
+  - id: F04
+    fact: "OPS-DossierIA est présent dans 11/11 playbooks actifs (agent universel)"
+    source: playbooks_index.yaml
+    confidence: 0.99
+  - id: F05
+    fact: "Les intents valides pour MO2 : QA_PLAN, VALIDATE_PLAN, REVIEW_MO, BACKUP_ORCHESTRATE"
+    source: agent.yaml
+    confidence: 1.0
+  - id: F06
+    fact: "Agents critiques (utilisés dans 5+ playbooks) : META-GouvernanceQA, CTL-WatchdogIA, OPS-DossierIA"
+    source: playbooks_index.yaml
+    confidence: 0.95
+
+rules:
+  # Règles de validation QA
+  - id: R01
+    rule: "Tout agent cité dans un routing_plan DOIT exister dans agents_index.yaml avec status: active"
+    severity: blocker
+    check: "agents_check.all_agents_indexed == true AND agents_check.ghost_agents == []"
+  - id: R02
+    rule: "Tout step DOIT avoir un on_failure défini (skip | retry_once | continue | abort | escalate)"
+    severity: blocker
+    check: "dod_check.all_steps_have_on_failure == true"
+  - id: R03
+    rule: "Les données PII (noms clients, emails, téléphones) DOIVENT être masquées ou marquées [PII]"
+    severity: blocker
+    check: "data_security_check.pii_detected == false OR pii_fields marqués explicitement"
+  - id: R04
+    rule: "Toute hypothèse financière doit être marquée [HYPOTHÈSE] ou assumption.confidence < 0.8"
+    severity: warning
+  - id: R05
+    rule: "Le playbook_id cité DOIT exister dans playbooks_index.yaml avec status: active"
+    severity: blocker
+    check: "routing_check.target_exists == true"
+  - id: R06
+    rule: "Un plan peut être status: needs_review si corrections <= 3 et aucune n'est severity: blocker"
+    severity: info
+
+patterns:
+  # Patterns d'erreurs récurrents observés
+  - id: P01
+    pattern: "Agent fantôme dans routing_plan"
+    description: "Un agent est cité dans les steps mais absent de agents_index.yaml"
+    typical_cause: "Nom d'agent mal orthographié ou agent non encore créé"
+    resolution: "Vérifier agents_index.yaml — corriger le nom ou créer l'agent manquant"
+    frequency: occasional
+  - id: P02
+    pattern: "success_criteria manquant sur les steps intermédiaires"
+    description: "Seul le step final a un success_criteria — les steps intermédiaires n'en ont pas"
+    typical_cause: "Plan MO rédigé rapidement sans DoD complète"
+    resolution: "Demander à MO d'ajouter success_criteria mesurables pour chaque step"
+    frequency: common
+  - id: P03
+    pattern: "PII dans le champ context non masqué"
+    description: "Nom client, email ou données personnelles en clair dans context.client"
+    typical_cause: "Copier-coller depuis une demande client non filtrée"
+    resolution: "Remplacer par [PII] ou masquer avant soumission à MO"
+    frequency: common
+  - id: P04
+    pattern: "Somme SLA steps > SLA global déclaré"
+    description: "La somme des sla_minutes des steps dépasse le timeout global du playbook"
+    typical_cause: "Planification optimiste ou oubli de certains steps dans le calcul"
+    resolution: "Recalculer SLA global = somme steps * 1.2 (buffer 20%)"
+    frequency: occasional
+  - id: P05
+    pattern: "on_failure: abort sur step non-critique"
+    description: "Un step optionnel (ex: archivage) a on_failure: abort ce qui bloque inutilement"
+    typical_cause: "Copier-coller d'un step critique sans adapter le on_failure"
+    resolution: "Changer en on_failure: continue pour les steps d'archivage et de notification"
+    frequency: common

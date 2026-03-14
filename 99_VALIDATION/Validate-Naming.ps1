@@ -1,10 +1,9 @@
 ﻿<#
 Validate-Naming.ps1
 Valide la conformite des noms (intent / actor_id / playbook_id).
-ExitCode 0 si OK, 1 si erreurs.
-Corrections 2026-03-13:
-  - Fix RootPath default EA_IA -> EA4AI
-  - Purge caracteres non-ASCII (compatible PS5.1 ANSI)
+Compatible Windows PowerShell 5.1. 100% ASCII.
+Version 2.0 - 2026-03-13
+  Utilise Parse-RoutingTable pour lire le format intents:[], agent:, playbook:
 #>
 [CmdletBinding()]
 param(
@@ -22,28 +21,38 @@ if (-not (Test-Path -LiteralPath $RootPath)) {
   exit 1
 }
 
-$router       = Get-RepoFile -RootPath $RootPath -Candidates @("00_INDEX\hub_routing.yaml","hub_routing.yaml")       -FallbackName "hub_routing.yaml"
-$agentsIdx    = Get-RepoFile -RootPath $RootPath -Candidates @("00_INDEX\agents_index.yaml","agents_index.yaml")     -FallbackName "agents_index.yaml"
-$playbooksIdx = Get-RepoFile -RootPath $RootPath -Candidates @("00_INDEX\playbooks_index.yaml","playbooks_index.yaml","00_INDEX\playbooks.yaml","playbooks.yaml") -FallbackName "playbooks_index.yaml"
+$router = Get-RepoFile -RootPath $RootPath `
+  -Candidates @("40_ROUTING\hub_routing.yaml","00_INDEX\hub_routing.yaml","hub_routing.yaml") `
+  -FallbackName "hub_routing.yaml"
+
+$agentsIdx = Get-RepoFile -RootPath $RootPath `
+  -Candidates @("00_INDEX\agents_index.yaml","agents_index.yaml") `
+  -FallbackName "agents_index.yaml"
+
+$playbooksIdx = Get-RepoFile -RootPath $RootPath `
+  -Candidates @("00_INDEX\playbooks_index.yaml","playbooks_index.yaml",
+                "00_INDEX\playbooks.yaml","playbooks.yaml") `
+  -FallbackName "playbooks_index.yaml"
 
 $errors   = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 
-# Patterns de nommage
-$intentPattern   = '^[A-Z][A-Z0-9_]{2,80}$'
+# Patterns de nommage EA4AI
+$intentPattern   = '^[a-z][a-z0-9_]{1,80}$'
 $actorPattern    = '^[A-Z0-9]+-[A-Za-z0-9][A-Za-z0-9_-]{1,80}$'
 $playbookPattern = '^[A-Za-z0-9_:-]{3,120}$'
 
 function _Check([string]$label, [string]$value, [string]$pattern, [string]$file, [int]$line) {
   if (-not $value) { return }
   if ($value -notmatch $pattern) {
-    $script:errors.Add(("{0} non conforme '{1}' ({2}:{3}) - attendu: /{4}/" -f $label, $value, $file, $line, $pattern)) | Out-Null
+    $script:errors.Add(("{0} non conforme '{1}' ({2}:{3}) attendu:/{4}/" `
+      -f $label, $value, $file, $line, $pattern)) | Out-Null
   }
 }
 
-# -- Validation des routes --------------------------------
+# Validation des routes (intents + agent)
 if ($router) {
-  $routes = Parse-YamlLiteListOfMaps -Path $router
+  $routes = Parse-RoutingTable -Path $router
   foreach ($r in $routes) {
     $ln = $r["__startLine"]
     _Check "intent"      $r["intent"]      $intentPattern   $router $ln
@@ -54,20 +63,21 @@ if ($router) {
   $warnings.Add("hub_routing.yaml introuvable - naming check partiel.") | Out-Null
 }
 
-# -- Validation des agents --------------------------------
+# Validation des agents
 if ($agentsIdx) {
   $items = Parse-YamlLiteListOfMaps -Path $agentsIdx
   foreach ($it in $items) {
     $ln  = $it["__startLine"]
     $aid = $it["actor_id"]
     if (-not $aid) { $aid = $it["id"] }
+    if (-not $aid) { $aid = $it["agent_id"] }
     if ($aid) { _Check "actor_id" $aid $actorPattern $agentsIdx $ln }
   }
 } else {
   $warnings.Add("agents_index.yaml introuvable - naming check partiel.") | Out-Null
 }
 
-# -- Validation des playbooks -----------------------------
+# Validation des playbooks
 if ($playbooksIdx) {
   $items = Parse-YamlLiteListOfMaps -Path $playbooksIdx
   foreach ($it in $items) {
@@ -80,11 +90,10 @@ if ($playbooksIdx) {
   $warnings.Add("playbooks_index.yaml introuvable - naming check partiel.") | Out-Null
 }
 
-# -- Rapport ----------------------------------------------
 Write-Host ""
 Write-Host "=== Resultats Validate-Naming ===" -ForegroundColor Cyan
-Write-Result "WARN" ("Warnings: {0}" -f $warnings.Count)
-Write-Result "ERR"  ("Erreurs:  {0}" -f $errors.Count)
+Write-Result "WARN" ("Warnings : {0}" -f $warnings.Count)
+Write-Result "ERR"  ("Erreurs  : {0}" -f $errors.Count)
 
 foreach ($w in $warnings) { Write-Result "WARN" $w }
 foreach ($e in $errors)   { Write-Result "ERR"  $e }

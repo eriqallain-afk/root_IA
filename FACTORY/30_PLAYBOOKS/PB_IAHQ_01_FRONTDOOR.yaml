@@ -1,210 +1,218 @@
-schema_version: "1.1.0"
 playbook_id: IAHQ_FRONTDOOR
-display_name: "IAHQ Front Door — Cadrage Client Complet"
-version: "2.0.0"
+display_name: IAHQ Front Door — Cadrage Client Complet
+version: 2.0.0
 category: strategie
 team_owner: TEAM__IAHQ
-created_date: "2026-02-26"
+created_date: '2026-02-26'
+description: 'Pipeline stratégique d''entrée pour une nouvelle demande client ou un projet de transformation IA. Du cadrage
+  initial jusqu''au business case validé et à la proposition d''offre. Point d''entrée unique pour toutes les demandes IAHQ.
 
-description: >
-  Pipeline stratégique d'entrée pour une nouvelle demande client ou un projet
-  de transformation IA. Du cadrage initial jusqu'au business case validé et
-  à la proposition d'offre. Point d'entrée unique pour toutes les demandes IAHQ.
-
-trigger: "new_client_request | new_project | manual"
+  '
+trigger: new_client_request | new_project | manual
 duration_minutes: 180
 steps_count: 7
-
 inputs:
   client_info:
     type: object
     required: true
-    description: "Infos client (nom, secteur, taille, contacts)"
+    description: Infos client (nom, secteur, taille, contacts)
   project_description:
     type: string
     required: true
-    description: "Description du projet ou de la demande"
+    description: Description du projet ou de la demande
   request_type:
     type: string
     required: false
-    description: "Type de demande : transformation | audit | solution | conseil"
+    description: 'Type de demande : transformation | audit | solution | conseil'
     default: transformation
   urgency:
     type: enum
-    values: [low, medium, high, critical]
+    values:
+    - low
+    - medium
+    - high
+    - critical
     required: false
     default: medium
-
 success_criteria:
-  - "Business case produit avec ROI, risques et timeline"
-  - "Proposition d'offre validée par IAHQ-QualityGate"
-  - "Architecture solution esquissée"
-  - "Dossier client archivé dans OPS-DossierIA"
-
+- Business case produit avec ROI, risques et timeline
+- Proposition d'offre validée par IAHQ-QualityGate
+- Architecture solution esquissée
+- Dossier client archivé dans OPS-DossierIA
 on_failure_global: continue_with_partial
-
 steps:
-
-  - step_id: S01
-    name: "Intake et cadrage stratégique"
-    actor_id: IAHQ-OrchestreurEntrepriseIA
-    duration_minutes: 30
-    description: "Recevoir la demande, qualifier le client et cadrer l'opportunité IA. Produire un brief stratégique initial."
-    input:
-      client_info: "{{inputs.client_info}}"
-      project_description: "{{inputs.project_description}}"
-      request_type: "{{inputs.request_type}}"
-    output_key: strategic_brief
-    output_schema:
-      client_qualified:
-        segment: string
-        ia_maturity: "low | medium | high"
-        opportunity_score: number
-      top_5_opportunities: array
-      go_nogo_initial: "go | conditional | nogo"
-      brief_summary: string
-    condition: "go_nogo_initial != nogo"
-    on_failure: abort
-    sla_minutes: 30
-
-  - step_id: S02
-    name: "Cartographie des processus"
-    actor_id: IAHQ-ProcessMapper
-    duration_minutes: 25
-    description: "Identifier et cartographier les processus métier du client pour cibler les opportunités d'automatisation IA à fort impact."
-    input:
-      strategic_brief: "{{S01.strategic_brief}}"
-      client_info: "{{inputs.client_info}}"
-    output_key: process_map
-    output_schema:
-      processes_identified: array
-      automation_opportunities: array
-      quick_wins: array
-      complexity_map: object
-    on_failure: continue
-    sla_minutes: 25
-
-  - step_id: S03
-    name: "Blueprint de solution"
-    actor_id: IAHQ-SolutionOrchestrator
-    duration_minutes: 30
-    description: "Concevoir l'architecture de solution IA cible — briques, flux, intégrations, vision client."
-    input:
-      strategic_brief: "{{S01.strategic_brief}}"
-      process_map: "{{S02.process_map}}"
-      project_description: "{{inputs.project_description}}"
-    output_key: solution_blueprint
-    output_schema:
-      solution_summary: string
-      ia_components: array
-      integration_points: array
-      target_architecture: object
-      risks: array
-    on_failure: continue
-    sla_minutes: 30
-
-  - step_id: S04
-    name: "Validation technique"
-    actor_id: IAHQ-TechLeadIA
-    duration_minutes: 20
-    description: "Valider la faisabilité technique du blueprint — stack, données, sécurité, intégrations."
-    input:
-      solution_blueprint: "{{S03.solution_blueprint}}"
-      client_info: "{{inputs.client_info}}"
-    output_key: tech_validation
-    output_schema:
-      feasibility: "feasible | feasible_with_conditions | not_feasible"
-      tech_risks: array
-      stack_recommended: array
-      data_requirements: array
-      security_concerns: array
-    on_failure: continue
-    sla_minutes: 20
-
-  - step_id: S05
-    name: "Business case et ROI"
-    actor_id: IAHQ-Economist
-    duration_minutes: 25
-    description: "Construire le business case complet avec ROI, coûts, bénéfices quantifiés et scénarios."
-    input:
-      strategic_brief: "{{S01.strategic_brief}}"
-      solution_blueprint: "{{S03.solution_blueprint}}"
-      tech_validation: "{{S04.tech_validation}}"
-      process_map: "{{S02.process_map}}"
-    output_key: business_case
-    output_schema:
-      investment_total: string
-      annual_savings: string
-      payback_period: string
-      roi_3years: string
-      scenarios:
-        conservative: object
-        base: object
-        optimistic: object
-      risks_financial: array
-    on_failure: continue
-    sla_minutes: 25
-
-  - step_id: S06
-    name: "Synthèse et proposition d'offre"
-    actor_id: IAHQ-OrchestreurEntrepriseIA
-    duration_minutes: 20
-    description: "Produire la proposition d'offre finale — scope, livrables, prix, roadmap, conditions — prête à présenter au client."
-    input:
-      strategic_brief: "{{S01.strategic_brief}}"
-      solution_blueprint: "{{S03.solution_blueprint}}"
-      business_case: "{{S05.business_case}}"
-      tech_validation: "{{S04.tech_validation}}"
-    output_key: offer_proposal
-    output_schema:
-      scope_included: array
-      scope_excluded: array
-      deliverables_by_phase: object
-      pricing:
-        model: string
-        estimate: string
-      timeline_phases: array
-      conditions: array
-    gate:
-      agent: IAHQ-QualityGate
-      condition: "offer_quality_score >= 7"
-      on_fail: revise_with_strategist
-    sla_minutes: 20
-
-  - step_id: S07
-    name: "Archivage dossier client"
-    actor_id: OPS-DossierIA
-    duration_minutes: 10
-    description: "Archiver tous les livrables dans un dossier client structuré et audit-ready."
-    input:
-      operation: close
-      playbook_id: IAHQ_FRONTDOOR
-      metadata:
-        client: "{{inputs.client_info.name}}"
-        project: "{{inputs.project_description}}"
-      outputs:
-        strategic_brief: "{{S01.strategic_brief}}"
-        process_map: "{{S02.process_map}}"
-        solution_blueprint: "{{S03.solution_blueprint}}"
-        tech_validation: "{{S04.tech_validation}}"
-        business_case: "{{S05.business_case}}"
-        offer_proposal: "{{S06.offer_proposal}}"
-    output_key: archive_result
-    on_failure: continue
-    sla_minutes: 10
-
+- step_id: S01
+  name: Intake et cadrage stratégique
+  actor_id: IAHQ-OrchestreurEntrepriseIA
+  duration_minutes: 30
+  description: Recevoir la demande, qualifier le client et cadrer l'opportunité IA. Produire un brief stratégique initial.
+  input:
+    client_info: '{{inputs.client_info}}'
+    project_description: '{{inputs.project_description}}'
+    request_type: '{{inputs.request_type}}'
+  output_key: strategic_brief
+  output_schema:
+    client_qualified:
+      segment: string
+      ia_maturity: low | medium | high
+      opportunity_score: number
+    top_5_opportunities: array
+    go_nogo_initial: go | conditional | nogo
+    brief_summary: string
+  condition: go_nogo_initial != nogo
+  on_failure: abort
+  sla_minutes: 30
+- step_id: S02
+  name: Cartographie des processus
+  actor_id: IAHQ-ProcessMapper
+  duration_minutes: 25
+  description: Identifier et cartographier les processus métier du client pour cibler les opportunités d'automatisation IA
+    à fort impact.
+  input:
+    strategic_brief: '{{S01.strategic_brief}}'
+    client_info: '{{inputs.client_info}}'
+  output_key: process_map
+  output_schema:
+    processes_identified: array
+    automation_opportunities: array
+    quick_wins: array
+    complexity_map: object
+  on_failure: continue
+  sla_minutes: 25
+- step_id: S03
+  name: Blueprint de solution
+  actor_id: IAHQ-SolutionOrchestrator
+  duration_minutes: 30
+  description: Concevoir l'architecture de solution IA cible — briques, flux, intégrations, vision client.
+  input:
+    strategic_brief: '{{S01.strategic_brief}}'
+    process_map: '{{S02.process_map}}'
+    project_description: '{{inputs.project_description}}'
+  output_key: solution_blueprint
+  output_schema:
+    solution_summary: string
+    ia_components: array
+    integration_points: array
+    target_architecture: object
+    risks: array
+  on_failure: continue
+  sla_minutes: 30
+- step_id: S04
+  name: Validation technique
+  actor_id: IAHQ-TechLeadIA
+  duration_minutes: 20
+  description: Valider la faisabilité technique du blueprint — stack, données, sécurité, intégrations.
+  input:
+    solution_blueprint: '{{S03.solution_blueprint}}'
+    client_info: '{{inputs.client_info}}'
+  output_key: tech_validation
+  output_schema:
+    feasibility: feasible | feasible_with_conditions | not_feasible
+    tech_risks: array
+    stack_recommended: array
+    data_requirements: array
+    security_concerns: array
+  on_failure: continue
+  sla_minutes: 20
+- step_id: S05
+  name: Business case et ROI
+  actor_id: IAHQ-Economist
+  duration_minutes: 25
+  description: Construire le business case complet avec ROI, coûts, bénéfices quantifiés et scénarios.
+  input:
+    strategic_brief: '{{S01.strategic_brief}}'
+    solution_blueprint: '{{S03.solution_blueprint}}'
+    tech_validation: '{{S04.tech_validation}}'
+    process_map: '{{S02.process_map}}'
+  output_key: business_case
+  output_schema:
+    investment_total: string
+    annual_savings: string
+    payback_period: string
+    roi_3years: string
+    scenarios:
+      conservative: object
+      base: object
+      optimistic: object
+    risks_financial: array
+  on_failure: continue
+  sla_minutes: 25
+- step_id: S06
+  name: Synthèse et proposition d'offre
+  actor_id: IAHQ-OrchestreurEntrepriseIA
+  duration_minutes: 20
+  description: Produire la proposition d'offre finale — scope, livrables, prix, roadmap, conditions — prête à présenter au
+    client.
+  input:
+    strategic_brief: '{{S01.strategic_brief}}'
+    solution_blueprint: '{{S03.solution_blueprint}}'
+    business_case: '{{S05.business_case}}'
+    tech_validation: '{{S04.tech_validation}}'
+  output_key: offer_proposal
+  output_schema:
+    scope_included: array
+    scope_excluded: array
+    deliverables_by_phase: object
+    pricing:
+      model: string
+      estimate: string
+    timeline_phases: array
+    conditions: array
+  gate:
+    agent: IAHQ-QualityGate
+    condition: offer_quality_score >= 7
+    on_fail: revise_with_strategist
+  sla_minutes: 20
+  on_failure: continue
+- step_id: S07
+  name: Archivage dossier client
+  actor_id: OPS-DossierIA
+  duration_minutes: 10
+  description: Archiver tous les livrables dans un dossier client structuré et audit-ready.
+  input:
+    operation: close
+    playbook_id: IAHQ_FRONTDOOR
+    metadata:
+      client: '{{inputs.client_info.name}}'
+      project: '{{inputs.project_description}}'
+    outputs:
+      strategic_brief: '{{S01.strategic_brief}}'
+      process_map: '{{S02.process_map}}'
+      solution_blueprint: '{{S03.solution_blueprint}}'
+      tech_validation: '{{S04.tech_validation}}'
+      business_case: '{{S05.business_case}}'
+      offer_proposal: '{{S06.offer_proposal}}'
+  output_key: archive_result
+  on_failure: continue
+  sla_minutes: 10
 notifications:
   on_success:
-    to: [IAHQ-OrchestreurEntrepriseIA, HUB-AgentMO-MasterOrchestrator]
-    message: "Dossier client {{inputs.client_info.name}} complété — ROI {{S05.business_case.roi_3years}} sur 3 ans"
+    to:
+    - IAHQ-OrchestreurEntrepriseIA
+    - HUB-AgentMO-MasterOrchestrator
+    message: Dossier client {{inputs.client_info.name}} complété — ROI {{S05.business_case.roi_3years}} sur 3 ans
   on_partial:
-    to: [IAHQ-OrchestreurEntrepriseIA]
-    message: "Dossier {{inputs.client_info.name}} partiel — steps manquants à compléter"
+    to:
+    - IAHQ-OrchestreurEntrepriseIA
+    message: Dossier {{inputs.client_info.name}} partiel — steps manquants à compléter
   on_abort:
-    to: [HUB-AgentMO-MasterOrchestrator]
-    message: "IAHQ_FRONTDOOR avorté — go/nogo négatif pour {{inputs.client_info.name}}"
-
+    to:
+    - HUB-AgentMO-MasterOrchestrator
+    message: IAHQ_FRONTDOOR avorté — go/nogo négatif pour {{inputs.client_info.name}}
 relationships:
-  calls: [BUILD_ARMY_FACTORY]
-  triggered_by: [ONBOARD_NEW_TEAM]
-  related: [ARMY_AUDIT_COMPLETE]
+  calls:
+  - BUILD_ARMY_FACTORY
+  triggered_by:
+  - ONBOARD_NEW_TEAM
+  related:
+  - ARMY_AUDIT_COMPLETE
+schema_version: '1.0'
+estimated_duration_minutes: 180
+last_updated: '2026-02-26'
+final_output:
+  primary: offer_proposal
+  secondary:
+  - business_case
+  - solution_blueprint
+  - strategic_brief
+  dossier: '{{S07.archive_result.dossier_id}}'

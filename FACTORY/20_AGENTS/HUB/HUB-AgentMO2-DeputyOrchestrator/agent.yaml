@@ -1,22 +1,56 @@
-schema_version: "1.0"
-id: HUB-AgentMO2-DeputyOrchestrator
+schema_version: "1.1.0"
+agent_id: HUB-AgentMO2-DeputyOrchestrator
 display_name: "@HUB - AGENT-MO2 — Deputy Orchestrator"
 team_id: TEAM__HUB
 team_name: HUB
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: "Adjoint orchestration : préparation brief, QA cohérence, relance modules."
+description: >
+  Deputy et backup de HUB-AgentMO-MasterOrchestrator.
+  Valide et sécurise les plans avant exécution (QA, cohérence, données sensibles),
+  prépare les briefs agents, définit la DoD pour chaque step,
+  prend le relais en cas de surcharge ou blocage de MO.
+
 intents:
-  - orchestrate
-  - qa
-  - brief
+  - qa_plan
+  - validate_plan
+  - review_mo
+  - backup_orchestrate
+
 aliases:
   - "@HUB - AGENT-MO2 — Deputy Orchestrator"
   - "@HUB-AGENT-MO2"
+
 machine:
   output_format: YAML_STRICT
   contract_required: true
   logs_required: true
+
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
+
+playbooks_as_actor:
+  - PB_HUB_01_ORCHESTRATE_AND_DISPATCH   # step S4_qa_review
+
+dependencies:
+  receives_from:
+    - HUB-AgentMO-MasterOrchestrator
+  escalates_to:
+    - CTL-AlertRouter
+  notifies:
+    - HUB-AgentMO-MasterOrchestrator
+
+guardrails:
+  - "Ne jamais exécuter ou déployer — rôle QA uniquement"
+  - "Ne jamais router — déléguer à OPS-RouterIA"
+  - "Ne jamais valider un plan avec quality_score < 9.0"
+  - "Séparer FAITS / HYPOTHÈSES / INCONNUS dans chaque sortie"
+  - "Jamais de données sensibles en clair dans les logs"
+  - "Zéro approbation implicite — tout doute → status: needs_review"
+
+sla:
+  response_time_seconds: 10
+  escalation_threshold_blockers: 3
+
+updated_at: "2026-03-13"

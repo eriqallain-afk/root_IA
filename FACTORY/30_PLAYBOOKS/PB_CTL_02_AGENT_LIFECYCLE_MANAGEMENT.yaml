@@ -1,240 +1,238 @@
-schema_version: "1.0"
+schema_version: '1.0'
 playbook_id: AGENT_LIFECYCLE_MANAGEMENT
-display_name: "Agent Lifecycle Management"
-description: >
-  Gérer le cycle de vie complet d'un agent : activation, dégradation, deprecation,
-  archivage, et restauration. Chaque opération est traçée, validée par impact analysis,
-  et requiert une approbation si l'agent est critique (utilisé dans 2+ playbooks actifs).
-category: "monitoring"
+display_name: Agent Lifecycle Management
+description: 'Gérer le cycle de vie complet d''un agent : activation, dégradation, deprecation, archivage, et restauration.
+  Chaque opération est traçée, validée par impact analysis, et requiert une approbation si l''agent est critique (utilisé
+  dans 2+ playbooks actifs).
+
+  '
+category: monitoring
 team_owner: TEAM__CTL
-trigger: "on_demand | on_watchdog_recommendation | scheduled_review"
+trigger: on_demand | on_watchdog_recommendation | scheduled_review
 estimated_duration_minutes: 20
-version: "1.0.0"
-last_updated: "2026-02-25"
-
+version: 1.0.0
+last_updated: '2026-02-25'
 operations_supported:
-  - activate:
-      description: "Passer status draft → active. Valide les fichiers minimaux avant activation."
-      min_requirements: [agent.yaml, contract.yaml, prompt.md]
-  - degrade:
-      description: "Marquer un agent comme degraded sans l'arrêter. Déclenché par WatchdogIA ou manuellement."
-      reversible: true
-  - deprecate:
-      description: "Marquer status: deprecated. Agent gardé mais retiré des playbooks actifs."
-      reversible: true
-      notice_required_days: 0
-  - archive:
-      description: "Déplacer vers 90_KNOWLEDGE/ARCHIVE/. Retrait définitif des index actifs."
-      reversible: true
-      approval_required_if: "used_in_active_playbooks >= 1"
-  - restore:
-      description: "Remettre un agent archivé en service. Recrée les entrées d'index."
-      requires: [full_validation_pass]
-
+- activate:
+    description: Passer status draft → active. Valide les fichiers minimaux avant activation.
+    min_requirements:
+    - agent.yaml
+    - contract.yaml
+    - prompt.md
+- degrade:
+    description: Marquer un agent comme degraded sans l'arrêter. Déclenché par WatchdogIA ou manuellement.
+    reversible: true
+- deprecate:
+    description: 'Marquer status: deprecated. Agent gardé mais retiré des playbooks actifs.'
+    reversible: true
+    notice_required_days: 0
+- archive:
+    description: Déplacer vers 90_KNOWLEDGE/ARCHIVE/. Retrait définitif des index actifs.
+    reversible: true
+    approval_required_if: used_in_active_playbooks >= 1
+- restore:
+    description: Remettre un agent archivé en service. Recrée les entrées d'index.
+    requires:
+    - full_validation_pass
 inputs:
   agent_id:
     type: string
     required: true
-    description: "ID canonique de l'agent (ex: META-PromptMaster)"
+    description: 'ID canonique de l''agent (ex: META-PromptMaster)'
   operation:
-    type: "activate | degrade | deprecate | archive | restore"
+    type: activate | degrade | deprecate | archive | restore
     required: true
   reason:
     type: string
     required: true
-    description: "Justification de l'opération. Archivée dans le Dossier IA."
+    description: Justification de l'opération. Archivée dans le Dossier IA.
   triggered_by:
-    type: "watchdog_alert | manual | scheduled_review | post_mortem"
+    type: watchdog_alert | manual | scheduled_review | post_mortem
     required: false
-    default: "manual"
+    default: manual
   alert_id:
     type: string
     required: false
-    description: "alert_id de l'AlertRouter si déclenché par une alerte."
+    description: alert_id de l'AlertRouter si déclenché par une alerte.
   force:
     type: boolean
     required: false
     default: false
-    description: "Forcer l'opération même si approbation requise. P0 seulement."
-
+    description: Forcer l'opération même si approbation requise. P0 seulement.
 steps:
+- step_id: S1_impact_analysis
+  name: Analyse d'impact
+  actor_id: CTL-WatchdogIA
+  input:
+    operation: lifecycle_check
+    scope: '{{agent_id}}'
+  action: 'Identifier : quels playbooks utilisent cet agent, quels agents en dépendent, volume d''utilisation sur 30 jours,
+    date de dernier run, drift_score actuel.
 
-  - step_id: "S1_impact_analysis"
-    name: "Analyse d'impact"
-    actor_id: CTL-WatchdogIA
-    input:
-      operation: "lifecycle_check"
-      scope: "{{agent_id}}"
-    action: >
-      Identifier : quels playbooks utilisent cet agent, quels agents en dépendent,
-      volume d'utilisation sur 30 jours, date de dernier run, drift_score actuel.
-    output_key: "impact_report"
-    on_failure: "abort"
-    sla_minutes: 5
+    '
+  output_key: impact_report
+  on_failure: abort
+  sla_minutes: 5
+- step_id: S2_approval_gate
+  name: Approbation conditionnelle
+  actor_id: IAHQ-QualityGate
+  condition: '(operation IN [''archive'', ''deprecate'']) AND (impact_report.playbooks_using_agent >= 2) AND (force == false)
 
-  - step_id: "S2_approval_gate"
-    name: "Approbation conditionnelle"
-    actor_id: IAHQ-QualityGate
-    condition: >
-      (operation IN ['archive', 'deprecate']) AND
-      (impact_report.playbooks_using_agent >= 2) AND
-      (force == false)
-    input:
-      objective: "Valider l'opération {{operation}} sur {{agent_id}}"
-      deliverable: "{{impact_report}}"
-      quality_threshold: 8
-      context:
-        operation: "{{operation}}"
-        agent_id: "{{agent_id}}"
-        reason: "{{reason}}"
-        playbooks_affected: "{{impact_report.playbooks_using_agent}}"
-    output_key: "approval"
-    on_failure: "abort"
-    on_failure_message: "Approbation refusée ou requise. Opération annulée. Voir approval.blocking_issues."
-    sla_minutes: 10
-
-  - step_id: "S3_pre_validation"
-    name: "Pré-validation (activate/restore uniquement)"
-    actor_id: META-GouvernanceQA
-    condition: "operation IN ['activate', 'restore']"
-    input:
-      scope: "{{agent_id}}"
-    checks:
-      - "agent.yaml complet (id, team_id, status, intents, version, interfaces)"
-      - "contract.yaml présent avec input ET output définis"
-      - "prompt.md présent et > 20 lignes"
-      - "Au moins 1 test_case ou sample_input présent"
-    output_key: "pre_validation_report"
-    on_failure: "abort"
-    on_failure_message: "Validation échouée. L'agent ne peut pas être activé. Voir pre_validation_report.blocking_issues."
-    sla_minutes: 5
-
-  - step_id: "S4_execute_lifecycle"
-    name: "Exécution de l'opération"
-    actor_id: META-AgentProductFactory
-    input:
-      agent_id: "{{agent_id}}"
-      operation: "{{operation}}"
-      reason: "{{reason}}"
-      approval_status: "{{approval.status | default: 'auto_approved'}}"
-    actions_by_operation:
-      activate:
-        - "Mettre agent.yaml → status: active"
-        - "Mettre last_updated à aujourd'hui"
-      degrade:
-        - "Mettre agent.yaml → status: degraded"
-        - "Ajouter degraded_since: <timestamp>"
-        - "Ajouter degraded_reason: <reason>"
-      deprecate:
-        - "Mettre agent.yaml → status: deprecated"
-        - "Ajouter deprecated_since: <timestamp>"
-        - "Ajouter deprecated_reason: <reason>"
-        - "Ajouter successor_agent_id si connu"
-      archive:
-        - "Copier le dossier complet vers 90_KNOWLEDGE/ARCHIVE/<agent_id>__<date>/"
-        - "Mettre agent.yaml → status: archived"
-        - "Retirer l'agent de agents.manifest.yaml"
-        - "Retirer l'agent de gpt_catalog.yaml"
-      restore:
-        - "Copier depuis 90_KNOWLEDGE/ARCHIVE/ vers 20_AGENTS/"
-        - "Mettre agent.yaml → status: active"
-        - "Réintégrer dans agents.manifest.yaml"
-    output_key: "lifecycle_result"
-    on_failure: "abort"
-    sla_minutes: 5
-
-  - step_id: "S5_update_routing"
-    name: "Mise à jour routing et index"
-    actor_id: OPS-RouterIA
-    condition: "operation IN ['activate', 'archive', 'restore', 'deprecate']"
-    input:
-      agent_id: "{{agent_id}}"
-      operation: "{{operation}}"
-      agent_intents: "{{lifecycle_result.agent_intents}}"
-    actions_by_operation:
-      activate:
-        - "Ajouter les intents de l'agent dans intents.yaml"
-        - "Ajouter dans agents_index.yaml"
-        - "Ajouter dans gpt_catalog.yaml si absent"
-      archive:
-        - "Retirer les intents de l'agent de intents.yaml"
-        - "Retirer de agents_index.yaml"
-        - "Retirer de gpt_catalog.yaml"
-        - "Mettre à jour hub_routing.yaml (retirer les règles pointant vers cet agent)"
-      deprecate:
-        - "Marquer deprecated dans agents_index.yaml"
-        - "Si successor_agent_id connu : rediriger les intents vers le successeur dans hub_routing.yaml"
-      restore:
-        - "Réintégrer intents dans intents.yaml"
-        - "Réintégrer dans agents_index.yaml et gpt_catalog.yaml"
-    output_key: "routing_update"
-    on_failure: "continue"
-    on_failure_message: "Routing update partiel — vérifier manuellement hub_routing.yaml"
-    sla_minutes: 3
-
-  - step_id: "S6_alert_open_tickets"
-    name: "Mise à jour des tickets d'alerte ouverts"
-    actor_id: CTL-AlertRouter
-    condition: "alert_id IS NOT NULL AND operation IN ['activate', 'archive']"
-    input:
-      watchdog_report:
-        run_id: "{{alert_id}}_closure"
-        factory_status: "healthy"
-        issues:
-          - agent_id: "{{agent_id}}"
-            severity: "P3"
-            type: "lifecycle_resolved"
-            detail: "Opération {{operation}} exécutée avec succès. Alerte {{alert_id}} clôturée."
-            action_required: "Fermer le ticket."
-    output_key: "ticket_closure"
-    on_failure: "continue"
-    sla_minutes: 2
-
-  - step_id: "S7_archive_dossier"
-    name: "Archivage Dossier IA"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "create"
-      playbook_id: "AGENT_LIFECYCLE_MANAGEMENT"
-      metadata:
-        type: "lifecycle_event"
-        agent_id: "{{agent_id}}"
-        lifecycle_operation: "{{operation}}"
-        triggered_by: "{{triggered_by}}"
-        alert_id: "{{alert_id | default: null}}"
-        reason: "{{reason}}"
-      outputs:
-        impact_report: "{{impact_report}}"
-        approval: "{{approval | default: null}}"
-        pre_validation_report: "{{pre_validation_report | default: null}}"
-        lifecycle_result: "{{lifecycle_result}}"
-        routing_update: "{{routing_update | default: null}}"
-    dossier_name: "LIFECYCLE__{{operation | upper}}__{{agent_id}}__{{date_yyyymmdd}}"
-    on_failure: "continue"
-    sla_minutes: 3
-
+    '
+  input:
+    objective: Valider l'opération {{operation}} sur {{agent_id}}
+    deliverable: '{{impact_report}}'
+    quality_threshold: 8
+    context:
+      operation: '{{operation}}'
+      agent_id: '{{agent_id}}'
+      reason: '{{reason}}'
+      playbooks_affected: '{{impact_report.playbooks_using_agent}}'
+  output_key: approval
+  on_failure: abort
+  on_failure_message: Approbation refusée ou requise. Opération annulée. Voir approval.blocking_issues.
+  sla_minutes: 10
+- step_id: S3_pre_validation
+  name: Pré-validation (activate/restore uniquement)
+  actor_id: META-GouvernanceQA
+  condition: operation IN ['activate', 'restore']
+  input:
+    scope: '{{agent_id}}'
+  checks:
+  - agent.yaml complet (id, team_id, status, intents, version, interfaces)
+  - contract.yaml présent avec input ET output définis
+  - prompt.md présent et > 20 lignes
+  - Au moins 1 test_case ou sample_input présent
+  output_key: pre_validation_report
+  on_failure: abort
+  on_failure_message: Validation échouée. L'agent ne peut pas être activé. Voir pre_validation_report.blocking_issues.
+  sla_minutes: 5
+- step_id: S4_execute_lifecycle
+  name: Exécution de l'opération
+  actor_id: META-AgentProductFactory
+  input:
+    agent_id: '{{agent_id}}'
+    operation: '{{operation}}'
+    reason: '{{reason}}'
+    approval_status: '{{approval.status | default: ''auto_approved''}}'
+  actions_by_operation:
+    activate:
+    - 'Mettre agent.yaml → status: active'
+    - Mettre last_updated à aujourd'hui
+    degrade:
+    - 'Mettre agent.yaml → status: degraded'
+    - 'Ajouter degraded_since: <timestamp>'
+    - 'Ajouter degraded_reason: <reason>'
+    deprecate:
+    - 'Mettre agent.yaml → status: deprecated'
+    - 'Ajouter deprecated_since: <timestamp>'
+    - 'Ajouter deprecated_reason: <reason>'
+    - Ajouter successor_agent_id si connu
+    archive:
+    - Copier le dossier complet vers 90_KNOWLEDGE/ARCHIVE/<agent_id>__<date>/
+    - 'Mettre agent.yaml → status: archived'
+    - Retirer l'agent de agents.manifest.yaml
+    - Retirer l'agent de gpt_catalog.yaml
+    restore:
+    - Copier depuis 90_KNOWLEDGE/ARCHIVE/ vers 20_AGENTS/
+    - 'Mettre agent.yaml → status: active'
+    - Réintégrer dans agents.manifest.yaml
+  output_key: lifecycle_result
+  on_failure: abort
+  sla_minutes: 5
+- step_id: S5_update_routing
+  name: Mise à jour routing et index
+  actor_id: OPS-RouterIA
+  condition: operation IN ['activate', 'archive', 'restore', 'deprecate']
+  input:
+    agent_id: '{{agent_id}}'
+    operation: '{{operation}}'
+    agent_intents: '{{lifecycle_result.agent_intents}}'
+  actions_by_operation:
+    activate:
+    - Ajouter les intents de l'agent dans intents.yaml
+    - Ajouter dans agents_index.yaml
+    - Ajouter dans gpt_catalog.yaml si absent
+    archive:
+    - Retirer les intents de l'agent de intents.yaml
+    - Retirer de agents_index.yaml
+    - Retirer de gpt_catalog.yaml
+    - Mettre à jour hub_routing.yaml (retirer les règles pointant vers cet agent)
+    deprecate:
+    - Marquer deprecated dans agents_index.yaml
+    - 'Si successor_agent_id connu : rediriger les intents vers le successeur dans hub_routing.yaml'
+    restore:
+    - Réintégrer intents dans intents.yaml
+    - Réintégrer dans agents_index.yaml et gpt_catalog.yaml
+  output_key: routing_update
+  on_failure: continue
+  on_failure_message: Routing update partiel — vérifier manuellement hub_routing.yaml
+  sla_minutes: 3
+- step_id: S6_alert_open_tickets
+  name: Mise à jour des tickets d'alerte ouverts
+  actor_id: CTL-AlertRouter
+  condition: alert_id IS NOT NULL AND operation IN ['activate', 'archive']
+  input:
+    watchdog_report:
+      run_id: '{{alert_id}}_closure'
+      factory_status: healthy
+      issues:
+      - agent_id: '{{agent_id}}'
+        severity: P3
+        type: lifecycle_resolved
+        detail: Opération {{operation}} exécutée avec succès. Alerte {{alert_id}} clôturée.
+        action_required: Fermer le ticket.
+  output_key: ticket_closure
+  on_failure: continue
+  sla_minutes: 2
+- step_id: S7_archive_dossier
+  name: Archivage Dossier IA
+  actor_id: OPS-DossierIA
+  input:
+    operation: create
+    playbook_id: AGENT_LIFECYCLE_MANAGEMENT
+    metadata:
+      type: lifecycle_event
+      agent_id: '{{agent_id}}'
+      lifecycle_operation: '{{operation}}'
+      triggered_by: '{{triggered_by}}'
+      alert_id: '{{alert_id | default: null}}'
+      reason: '{{reason}}'
+    outputs:
+      impact_report: '{{impact_report}}'
+      approval: '{{approval | default: null}}'
+      pre_validation_report: '{{pre_validation_report | default: null}}'
+      lifecycle_result: '{{lifecycle_result}}'
+      routing_update: '{{routing_update | default: null}}'
+  dossier_name: LIFECYCLE__{{operation | upper}}__{{agent_id}}__{{date_yyyymmdd}}
+  on_failure: continue
+  sla_minutes: 3
+  output_key: archive_result
 final_output:
-  primary: "lifecycle_result"
-  secondary: ["impact_report", "routing_update"]
-  dossier: "{{S7_archive_dossier.result.dossier.id}}"
-
+  primary: lifecycle_result
+  secondary:
+  - impact_report
+  - routing_update
+  dossier: '{{S7_archive_dossier.result.dossier.id}}'
 success_criteria:
-  - "S1_impact_analysis completed"
-  - "S4_execute_lifecycle completed avec status=success"
-  - "S7_archive_dossier completed"
-
+- S1_impact_analysis completed
+- S4_execute_lifecycle completed avec status=success
+- S7_archive_dossier completed
 rollback:
-  trigger: "S4_execute_lifecycle fails après S3"
-  action: "Restaurer agent.yaml depuis le backup créé en début de S4"
-  owner: "META-AgentProductFactory"
-
+  trigger: S4_execute_lifecycle fails après S3
+  action: Restaurer agent.yaml depuis le backup créé en début de S4
+  owner: META-AgentProductFactory
 notifications:
   on_archive:
-    message: "🗄️ Agent {{agent_id}} archivé. Playbooks affectés : {{impact_report.playbooks_using_agent}}"
-    route_to: [HUB-AgentMO-MasterOrchestrator, OPS-DossierIA]
+    message: '🗄️ Agent {{agent_id}} archivé. Playbooks affectés : {{impact_report.playbooks_using_agent}}'
+    route_to:
+    - HUB-AgentMO-MasterOrchestrator
+    - OPS-DossierIA
   on_restore:
-    message: "♻️ Agent {{agent_id}} restauré et actif."
-    route_to: [META-GouvernanceQA]
+    message: ♻️ Agent {{agent_id}} restauré et actif.
+    route_to:
+    - META-GouvernanceQA
   on_activate:
-    message: "✅ Agent {{agent_id}} activé."
-    route_to: [OPS-RouterIA]
+    message: ✅ Agent {{agent_id}} activé.
+    route_to:
+    - OPS-RouterIA

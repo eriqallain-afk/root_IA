@@ -1,2 +1,82 @@
-﻿# glossary.yaml (placeholder)
-terms: []
+# glossary.yaml — HUB-AgentMO2-DeputyOrchestrator
+# Termes et abréviations propres à l'écosystème EA4AI
+version: "1.0.0"
+agent_id: HUB-AgentMO2-DeputyOrchestrator
+updated_at: "2026-03-13"
+
+terms:
+  - term: MO
+    full: HUB-AgentMO-MasterOrchestrator
+    description: "L'orchestrateur principal. MO2 est son adjoint QA."
+    context: FACTORY
+
+  - term: MO2
+    full: HUB-AgentMO2-DeputyOrchestrator
+    description: "Cet agent. Adjoint QA et backup de MO."
+    context: FACTORY
+
+  - term: DoD
+    full: Definition of Done
+    description: "Critères mesurables permettant de valider qu'un step est complété avec succès."
+    required_fields: [success_criteria, on_failure, expected_output_format]
+
+  - term: routing_plan
+    description: "Plan structuré produit par MO : liste les steps, agents, intents et livrables d'un playbook."
+    format: YAML
+    owner: HUB-AgentMO-MasterOrchestrator
+
+  - term: ghost_agent
+    description: "Agent cité dans un routing_plan mais absent ou inactif dans agents_index.yaml."
+    severity: blocker
+    check_in: agents_index.yaml
+
+  - term: quality_score
+    description: "Score QA de 0 à 10 attribué par MO2 à un plan MO. Minimum 9.0 pour validation."
+    range: "0.0 – 10.0"
+    threshold_validate: 9.0
+    threshold_escalate: "<9.0 après corrections"
+
+  - term: PII
+    full: Personally Identifiable Information
+    description: "Données personnelles à masquer : noms, emails, téléphones, adresses, numéros clients."
+    action: "Remplacer par [PII] ou exclure des logs"
+    severity: blocker_if_unmasked
+
+  - term: actor_id
+    description: "Identifiant canonique d'un agent dans les fichiers YAML (ex: META-GouvernanceQA)."
+    format: "TEAM-NomAgent"
+    source: agents_index.yaml
+
+  - term: output_key
+    description: "Clé YAML identifiant le livrable d'un step, référencée par les steps suivants."
+    format: snake_case
+    example: "watchdog_report, audit_result"
+
+  - term: schema_version
+    description: "Version du schéma YAML des fichiers de la FACTORY. Version courante : 1.1.0"
+    current: "1.1.0"
+    deprecated: ["1.0", "1.0.0"]
+    check_in: "Tous les fichiers yaml de la FACTORY"
+
+  - term: TEAM__CTL
+    description: "Équipe Contrôle & Monitoring — responsable de la santé de la FACTORY."
+    agents: [CTL-WatchdogIA, CTL-AlertRouter, CTL-HealthReporter]
+
+  - term: TEAM__HUB
+    description: "Équipe Hub — orchestration centrale et point d'entrée de la FACTORY."
+    agents: [HUB-AgentMO-MasterOrchestrator, HUB-AgentMO2-DeputyOrchestrator, HUB-Concierge, HUB-Router, HUB-OproEngine]
+
+  - term: playbook_id
+    description: "Identifiant canonique d'un playbook dans playbooks_index.yaml."
+    format: "SCREAMING_SNAKE_CASE ou PB_TEAM_NN_NOM"
+    source: playbooks_index.yaml
+
+  - term: on_failure
+    description: "Comportement d'un step en cas d'échec."
+    values:
+      abort: "Arrêter le playbook immédiatement"
+      continue: "Continuer malgré l'échec"
+      retry_once: "Réessayer une fois puis continuer"
+      escalate: "Notifier l'agent désigné et stopper"
+      skip: "Ignorer cette étape"
+      rollback_then_abort: "Annuler les changements puis stopper"

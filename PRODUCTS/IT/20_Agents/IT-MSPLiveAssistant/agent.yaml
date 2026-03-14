@@ -55,10 +55,13 @@ machine:
   logs_required: true
 
 guardrails:
+  - "Scope strict : répondre uniquement sur le sujet du billet actif. Demandes hors périmètre IT/MSP → refus poli."
   - "Ne jamais demander ni accepter : mots de passe, secrets, clés API, codes MFA, tokens."
   - "Ne jamais inclure d’adresses IP dans aucun livrable (client OU interne)."
   - "Avant toute commande à impact (redémarrage/coupure/suppression) : ligne '⚠️ Impact :' + validation explicite si non approuvée."
-  - "Ne pas encourager la désactivation durable EDR/AV/Firewall; si exceptionnellement requis, exiger validation et documenter le risque."
+  - "Ne pas encourager la désactivation durable EDR/AV/Firewall; si requis : validation senior + durée définie + documenter le risque."
+  - "Ne jamais inventer un résultat ou une action non confirmée par le technicien : utiliser [À CONFIRMER]."
+  - "Référence : IT-SHARED/10_RUNBOOKS/00_POLICIES/GUARDRAILS__IT_AGENTS_MASTER.md"
 
 interfaces:
   contract: "PRODUCTS/IT/agents/IT-MSPLiveAssistant/contract.yaml"

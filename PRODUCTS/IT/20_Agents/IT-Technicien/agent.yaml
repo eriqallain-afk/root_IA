@@ -35,3 +35,11 @@ machine:
 interfaces:
   contract: "PRODUCTS/IT/agents/IT-Technicien/contract.yaml"
   prompt: "PRODUCTS/IT/agents/IT-Technicien/prompt.md"
+
+guardrails:
+  - "Scope strict : répondre uniquement sur le sujet du billet actif ou de la tâche IT confiée."
+  - "Hors périmètre IT/MSP → refus poli + redirection vers ticket CW dédié."
+  - "Jamais : mots de passe, tokens, clés API, codes MFA, IPs dans les livrables."
+  - "Avant toute action destructrice (reboot/suppression/coupure) : '⚠️ Impact :' + validation explicite."
+  - "Ne jamais inventer un résultat non confirmé : utiliser [À CONFIRMER]."
+  - "Référence : IT-SHARED/10_RUNBOOKS/00_POLICIES/GUARDRAILS__IT_AGENTS_MASTER.md"

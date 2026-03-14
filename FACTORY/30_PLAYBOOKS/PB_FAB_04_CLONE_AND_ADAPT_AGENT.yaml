@@ -1,287 +1,284 @@
-schema_version: "1.0"
+schema_version: '1.0'
 playbook_id: CLONE_AND_ADAPT_AGENT
-display_name: "Clone and Adapt Agent"
-description: >
-  Cloner un agent existant et l'adapter pour un nouveau domaine ou une nouvelle équipe.
-  Préserve la structure et les patterns éprouvés de la source, adapte le domaine,
-  le naming, les instructions et le contrat. Plus rapide que BUILD_SINGLE_AGENT
+display_name: Clone and Adapt Agent
+description: 'Cloner un agent existant et l''adapter pour un nouveau domaine ou une nouvelle équipe. Préserve la structure
+  et les patterns éprouvés de la source, adapte le domaine, le naming, les instructions et le contrat. Plus rapide que BUILD_SINGLE_AGENT
   quand un agent analogue existe déjà dans la FACTORY.
-category: "fabrication"
+
+  '
+category: fabrication
 team_owner: TEAM__META
-trigger: "manual"
+trigger: manual
 estimated_duration_minutes: 45
-version: "1.0.0"
-last_updated: "2026-02-25"
-
+version: 1.0.0
+last_updated: '2026-02-25'
 use_cases:
-  - "Tu as IT-ScriptMaster → tu veux DAM-ScriptMaster pour la construction"
-  - "Tu as META-AnalysteBesoins → tu veux EDU-AnalysteBesoins pour l'éducation"
-  - "Tu as un agent généraliste → tu veux une version domaine-specific"
-
+- Tu as IT-ScriptMaster → tu veux DAM-ScriptMaster pour la construction
+- Tu as META-AnalysteBesoins → tu veux EDU-AnalysteBesoins pour l'éducation
+- Tu as un agent généraliste → tu veux une version domaine-specific
 inputs:
   source_agent_id:
     type: string
     required: true
-    description: "ID de l'agent source à cloner. Ex: IT-ScriptMaster"
+    description: 'ID de l''agent source à cloner. Ex: IT-ScriptMaster'
   target_team_id:
     type: string
     required: true
-    description: "ID de l'équipe cible. Ex: DAM. L'agent cible sera nommé DAM-<role>."
+    description: 'ID de l''équipe cible. Ex: DAM. L''agent cible sera nommé DAM-<role>.'
   target_role_name:
     type: string
     required: true
-    description: "Nom du rôle dans la nouvelle équipe. Ex: ScriptMaster, Analyste, Router."
+    description: 'Nom du rôle dans la nouvelle équipe. Ex: ScriptMaster, Analyste, Router.'
   new_domain_context:
     type: string
     required: true
-    description: "Contexte du nouveau domaine. Ex: 'Industrie de la construction au Québec, conformité RBQ, devis Uniformat II.'"
+    description: 'Contexte du nouveau domaine. Ex: ''Industrie de la construction au Québec, conformité RBQ, devis Uniformat
+      II.'''
   domain_vocabulary:
     type: list[string]
     required: false
-    description: "Termes clés du nouveau domaine à intégrer. Ex: [RBQ, CCQ, Uniformat II, devis, bordereau]"
+    description: 'Termes clés du nouveau domaine à intégrer. Ex: [RBQ, CCQ, Uniformat II, devis, bordereau]'
   intents_to_replace:
     type: object
     required: false
-    description: "Map des intents source → intents cible. Ex: {it_script: dam_script, it_debug: dam_debug}"
+    description: 'Map des intents source → intents cible. Ex: {it_script: dam_script, it_debug: dam_debug}'
   preserve_patterns:
     type: list[string]
     required: false
-    description: "Patterns explicitement à préserver. Ex: [output_format, anti_hallucination_rules, escalation_logic]"
+    description: 'Patterns explicitement à préserver. Ex: [output_format, anti_hallucination_rules, escalation_logic]'
   new_constraints:
     type: list[string]
     required: false
-    description: "Nouvelles contraintes propres au domaine cible. Ex: [respect loi R-20 CCQ, langue française obligatoire]"
-
+    description: 'Nouvelles contraintes propres au domaine cible. Ex: [respect loi R-20 CCQ, langue française obligatoire]'
 steps:
+- step_id: S1_read_source
+  name: Lecture complète de l'agent source
+  actor_id: OPS-DossierIA
+  input:
+    operation: search
+    search_query:
+      keywords:
+      - '{{source_agent_id}}'
+  output_key: source_state
+  collects:
+  - prompt.md complet
+  - contract.yaml complet
+  - agent.yaml (intents, version, description)
+  - tests/sample_input.yaml et expected_output.yaml
+  - memory/memory_pack.yaml
+  on_failure: abort
+  on_failure_message: Agent source {{source_agent_id}} introuvable. Vérifier que l'agent existe dans 20_AGENTS/.
+  sla_minutes: 5
+- step_id: S2_reverse_analysis
+  name: Décomposition structurelle du prompt source
+  actor_id: META-ReversePrompt
+  input:
+    user_input: Décomposer le prompt de {{source_agent_id}} pour clonage vers {{target_team_id}}
+    context:
+      gpt_raw_prompt: '{{source_state.prompt_md}}'
+      contract_schema: '{{source_state.contract_yaml}}'
+      preserve_patterns: '{{preserve_patterns | default: []}}'
+  output_key: decomposition
+  extracts:
+    section_role: Section identité et mission
+    section_rules: Règles machine non-négociables
+    section_algorithm: Algorithme / processus interne
+    section_output_format: Format de sortie exact
+    section_anti_hallucination: Règles anti-hallucination
+    section_escalation: Logique d'escalade
+    domain_specific_elements: Éléments propres au domaine source (à remplacer)
+    universal_patterns: Patterns universels (à préserver absolument)
+  on_failure: abort
+  sla_minutes: 10
+- step_id: S3_adapt_prompt
+  name: Adaptation du prompt au nouveau domaine
+  actor_id: META-PromptMaster
+  input:
+    objective: Adapter le prompt de {{source_agent_id}} pour créer {{target_team_id}}-{{target_role_name}}
+    context:
+      decomposition: '{{decomposition}}'
+      source_prompt: '{{source_state.prompt_md}}'
+      new_domain_context: '{{new_domain_context}}'
+      domain_vocabulary: '{{domain_vocabulary | default: []}}'
+      new_constraints: '{{new_constraints | default: []}}'
+      preserve_patterns: '{{preserve_patterns | default: [''output_format'', ''anti_hallucination_rules'']}}'
+      target_agent_id: '{{target_team_id}}-{{target_role_name}}'
+  adaptation_rules:
+  - Remplacer tous les éléments domain_specific_elements par leur équivalent dans le nouveau domaine
+  - Préserver intégralement tous les universal_patterns
+  - Mettre à jour l'ID dans le prompt (## A) Rôle section)
+  - Adapter les exemples pour le nouveau domaine (jamais laisser des exemples du domaine source)
+  - Intégrer le domain_vocabulary dans les sections pertinentes
+  - Ajouter new_constraints dans la section contraintes
+  - Mettre à jour la section Non-divulgation avec le nouvel ID
+  output_key: adapted_prompt
+  on_failure: abort
+  sla_minutes: 15
+- step_id: S4_adapt_contract
+  name: Adaptation du contrat I/O
+  actor_id: META-AgentProductFactory
+  input:
+    operation: adapt_contract
+    source_contract: '{{source_state.contract_yaml}}'
+    target_agent_id: '{{target_team_id}}-{{target_role_name}}'
+    new_domain_context: '{{new_domain_context}}'
+    intents_to_replace: '{{intents_to_replace | default: {}}}'
+  adaptations:
+  - Mettre à jour id et team avec les nouvelles valeurs
+  - Adapter description pour le nouveau domaine
+  - Remplacer les champs d'input/output domain-specific
+  - Mettre à jour les examples avec du contenu du nouveau domaine
+  - Mettre à jour les escalation targets si applicable
+  output_key: adapted_contract
+  on_failure: abort
+  sla_minutes: 10
+- step_id: S5_create_agent_yaml
+  name: Création agent.yaml du clone
+  actor_id: META-AgentProductFactory
+  input:
+    operation: create_agent_yaml
+    template_from: '{{source_state.agent_yaml}}'
+    overrides:
+      id: '{{target_team_id}}-{{target_role_name}}'
+      display_name: '@{{target_team_id}}-{{target_role_name}}'
+      team_id: TEAM__{{target_team_id}}
+      team_name: '{{target_team_id}}'
+      version: 1.0.0
+      description: 'Clone adapté de {{source_agent_id}} pour le domaine {{new_domain_context | truncate: 60}}'
+      intents: '{{intents_to_replace.values() | default: source_state.agent_yaml.intents}}'
+      last_updated: '{{date_iso}}'
+    preserved_fields:
+    - machine
+    - interfaces
+    - sla
+    - metrics
+  output_key: new_agent_yaml
+  sla_minutes: 5
+  on_failure: abort
+- step_id: S6_adapt_tests
+  name: Adaptation des tests pour le nouveau domaine
+  actor_id: META-AgentProductFactory
+  input:
+    operation: adapt_tests
+    source_sample_input: '{{source_state.sample_input}}'
+    source_expected_output: '{{source_state.expected_output}}'
+    new_domain_context: '{{new_domain_context}}'
+    domain_vocabulary: '{{domain_vocabulary | default: []}}'
+    target_agent_id: '{{target_team_id}}-{{target_role_name}}'
+  action: 'Remplacer tous les éléments domain-specific dans sample_input et expected_output par des équivalents pertinents
+    pour le nouveau domaine. Garder la structure exacte, adapter seulement le contenu.
 
-  - step_id: "S1_read_source"
-    name: "Lecture complète de l'agent source"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "search"
-      search_query:
-        keywords: ["{{source_agent_id}}"]
-    output_key: "source_state"
-    collects:
-      - "prompt.md complet"
-      - "contract.yaml complet"
-      - "agent.yaml (intents, version, description)"
-      - "tests/sample_input.yaml et expected_output.yaml"
-      - "memory/memory_pack.yaml"
-    on_failure: "abort"
-    on_failure_message: "Agent source {{source_agent_id}} introuvable. Vérifier que l'agent existe dans 20_AGENTS/."
-    sla_minutes: 5
+    '
+  output_key: adapted_tests
+  on_failure: continue
+  sla_minutes: 8
+- step_id: S7_adapt_memory
+  name: Adaptation de la base mémoire
+  actor_id: META-AgentProductFactory
+  input:
+    operation: adapt_memory
+    source_memory_pack: '{{source_state.memory_pack}}'
+    new_domain_context: '{{new_domain_context}}'
+    domain_vocabulary: '{{domain_vocabulary | default: []}}'
+    target_agent_id: '{{target_team_id}}-{{target_role_name}}'
+  action: 'Adapter glossary.yaml et memory_pack.yaml : remplacer les termes domain-specific, ajouter les termes du domain_vocabulary,
+    préserver les patterns et règles universels.
 
-  - step_id: "S2_reverse_analysis"
-    name: "Décomposition structurelle du prompt source"
-    actor_id: META-ReversePrompt
-    input:
-      user_input: "Décomposer le prompt de {{source_agent_id}} pour clonage vers {{target_team_id}}"
-      context:
-        gpt_raw_prompt: "{{source_state.prompt_md}}"
-        contract_schema: "{{source_state.contract_yaml}}"
-        preserve_patterns: "{{preserve_patterns | default: []}}"
-    output_key: "decomposition"
-    extracts:
-      section_role: "Section identité et mission"
-      section_rules: "Règles machine non-négociables"
-      section_algorithm: "Algorithme / processus interne"
-      section_output_format: "Format de sortie exact"
-      section_anti_hallucination: "Règles anti-hallucination"
-      section_escalation: "Logique d'escalade"
-      domain_specific_elements: "Éléments propres au domaine source (à remplacer)"
-      universal_patterns: "Patterns universels (à préserver absolument)"
-    on_failure: "abort"
-    sla_minutes: 10
-
-  - step_id: "S3_adapt_prompt"
-    name: "Adaptation du prompt au nouveau domaine"
-    actor_id: META-PromptMaster
-    input:
-      objective: "Adapter le prompt de {{source_agent_id}} pour créer {{target_team_id}}-{{target_role_name}}"
-      context:
-        decomposition: "{{decomposition}}"
-        source_prompt: "{{source_state.prompt_md}}"
-        new_domain_context: "{{new_domain_context}}"
-        domain_vocabulary: "{{domain_vocabulary | default: []}}"
-        new_constraints: "{{new_constraints | default: []}}"
-        preserve_patterns: "{{preserve_patterns | default: ['output_format', 'anti_hallucination_rules']}}"
-        target_agent_id: "{{target_team_id}}-{{target_role_name}}"
-    adaptation_rules:
-      - "Remplacer tous les éléments domain_specific_elements par leur équivalent dans le nouveau domaine"
-      - "Préserver intégralement tous les universal_patterns"
-      - "Mettre à jour l'ID dans le prompt (## A) Rôle section)"
-      - "Adapter les exemples pour le nouveau domaine (jamais laisser des exemples du domaine source)"
-      - "Intégrer le domain_vocabulary dans les sections pertinentes"
-      - "Ajouter new_constraints dans la section contraintes"
-      - "Mettre à jour la section Non-divulgation avec le nouvel ID"
-    output_key: "adapted_prompt"
-    on_failure: "abort"
-    sla_minutes: 15
-
-  - step_id: "S4_adapt_contract"
-    name: "Adaptation du contrat I/O"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "adapt_contract"
-      source_contract: "{{source_state.contract_yaml}}"
-      target_agent_id: "{{target_team_id}}-{{target_role_name}}"
-      new_domain_context: "{{new_domain_context}}"
-      intents_to_replace: "{{intents_to_replace | default: {}}}"
-    adaptations:
-      - "Mettre à jour id et team avec les nouvelles valeurs"
-      - "Adapter description pour le nouveau domaine"
-      - "Remplacer les champs d'input/output domain-specific"
-      - "Mettre à jour les examples avec du contenu du nouveau domaine"
-      - "Mettre à jour les escalation targets si applicable"
-    output_key: "adapted_contract"
-    on_failure: "abort"
-    sla_minutes: 10
-
-  - step_id: "S5_create_agent_yaml"
-    name: "Création agent.yaml du clone"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "create_agent_yaml"
-      template_from: "{{source_state.agent_yaml}}"
-      overrides:
-        id: "{{target_team_id}}-{{target_role_name}}"
-        display_name: "@{{target_team_id}}-{{target_role_name}}"
-        team_id: "TEAM__{{target_team_id}}"
-        team_name: "{{target_team_id}}"
-        version: "1.0.0"
-        description: "Clone adapté de {{source_agent_id}} pour le domaine {{new_domain_context | truncate: 60}}"
-        intents: "{{intents_to_replace.values() | default: source_state.agent_yaml.intents}}"
-        last_updated: "{{date_iso}}"
-      preserved_fields: [machine, interfaces, sla, metrics]
-    output_key: "new_agent_yaml"
-    sla_minutes: 5
-
-  - step_id: "S6_adapt_tests"
-    name: "Adaptation des tests pour le nouveau domaine"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "adapt_tests"
-      source_sample_input: "{{source_state.sample_input}}"
-      source_expected_output: "{{source_state.expected_output}}"
-      new_domain_context: "{{new_domain_context}}"
-      domain_vocabulary: "{{domain_vocabulary | default: []}}"
-      target_agent_id: "{{target_team_id}}-{{target_role_name}}"
-    action: >
-      Remplacer tous les éléments domain-specific dans sample_input et expected_output
-      par des équivalents pertinents pour le nouveau domaine.
-      Garder la structure exacte, adapter seulement le contenu.
-    output_key: "adapted_tests"
-    on_failure: "continue"
-    sla_minutes: 8
-
-  - step_id: "S7_adapt_memory"
-    name: "Adaptation de la base mémoire"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "adapt_memory"
-      source_memory_pack: "{{source_state.memory_pack}}"
-      new_domain_context: "{{new_domain_context}}"
-      domain_vocabulary: "{{domain_vocabulary | default: []}}"
-      target_agent_id: "{{target_team_id}}-{{target_role_name}}"
-    action: >
-      Adapter glossary.yaml et memory_pack.yaml :
-      remplacer les termes domain-specific, ajouter les termes du domain_vocabulary,
-      préserver les patterns et règles universels.
-    output_key: "adapted_memory"
-    on_failure: "continue"
-    sla_minutes: 5
-
-  - step_id: "S8_qa_diff_check"
-    name: "Audit qualité + vérification diff source/clone"
-    actor_id: META-GouvernanceQA
-    input:
-      scope: "diff_check"
-      context:
-        source_agent_id: "{{source_agent_id}}"
-        source_prompt: "{{source_state.prompt_md}}"
-        adapted_prompt: "{{adapted_prompt}}"
-        adapted_contract: "{{adapted_contract}}"
-        new_agent_yaml: "{{new_agent_yaml}}"
-    checks:
-      - "Le prompt cible a-t-il un ID correct ({{target_team_id}}-{{target_role_name}}) ?"
-      - "Des éléments du domaine source ont-ils été laissés par erreur ?"
-      - "Le prompt est-il > 50 lignes et spécifique au nouveau domaine ?"
-      - "Le contrat est-il bien adapté (pas copié brut de la source) ?"
-      - "Les examples du prompt sont-ils dans le bon domaine ?"
-      - "La section Non-divulgation a-t-elle le bon ID ?"
-      - "Les intents sont-ils corrects pour le nouveau domaine ?"
-    output_key: "diff_audit"
-    on_failure: "continue"
-    sla_minutes: 10
-
-  - step_id: "S9_assemble_and_write"
-    name: "Assemblage du dossier agent complet"
-    actor_id: META-AgentProductFactory
-    input:
-      operation: "assemble_agent"
-      target_path: "20_AGENTS/{{target_team_id}}/{{target_team_id}}-{{target_role_name}}/"
-      files:
-        agent_yaml: "{{new_agent_yaml}}"
-        contract_yaml: "{{adapted_contract}}"
-        prompt_md: "{{adapted_prompt}}"
-        sample_input: "{{adapted_tests.sample_input}}"
-        expected_output: "{{adapted_tests.expected_output}}"
-        glossary: "{{adapted_memory.glossary}}"
-        memory_pack: "{{adapted_memory.memory_pack}}"
-      metadata:
-        cloned_from: "{{source_agent_id}}"
-        clone_date: "{{date_iso}}"
-        domain_adapted_to: "{{new_domain_context}}"
-    output_key: "assembly_result"
-    on_failure: "abort"
-    sla_minutes: 5
-
-  - step_id: "S10_archive"
-    name: "Archivage Dossier IA"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "create"
-      playbook_id: "CLONE_AND_ADAPT_AGENT"
-      metadata:
-        type: "agent_clone"
-        source_agent_id: "{{source_agent_id}}"
-        target_agent_id: "{{target_team_id}}-{{target_role_name}}"
-        target_team_id: "TEAM__{{target_team_id}}"
-        domain_adapted_to: "{{new_domain_context}}"
-        diff_audit_status: "{{diff_audit.status | default: 'not_run'}}"
-      outputs:
-        decomposition: "{{decomposition}}"
-        diff_audit: "{{diff_audit}}"
-        assembly_result: "{{assembly_result}}"
-    dossier_name: "CLONE__{{source_agent_id}}__TO__{{target_team_id}}-{{target_role_name}}__{{date_yyyymmdd}}"
-    on_failure: "continue"
-    sla_minutes: 3
-
+    '
+  output_key: adapted_memory
+  on_failure: continue
+  sla_minutes: 5
+- step_id: S8_qa_diff_check
+  name: Audit qualité + vérification diff source/clone
+  actor_id: META-GouvernanceQA
+  input:
+    scope: diff_check
+    context:
+      source_agent_id: '{{source_agent_id}}'
+      source_prompt: '{{source_state.prompt_md}}'
+      adapted_prompt: '{{adapted_prompt}}'
+      adapted_contract: '{{adapted_contract}}'
+      new_agent_yaml: '{{new_agent_yaml}}'
+  checks:
+  - Le prompt cible a-t-il un ID correct ({{target_team_id}}-{{target_role_name}}) ?
+  - Des éléments du domaine source ont-ils été laissés par erreur ?
+  - Le prompt est-il > 50 lignes et spécifique au nouveau domaine ?
+  - Le contrat est-il bien adapté (pas copié brut de la source) ?
+  - Les examples du prompt sont-ils dans le bon domaine ?
+  - La section Non-divulgation a-t-elle le bon ID ?
+  - Les intents sont-ils corrects pour le nouveau domaine ?
+  output_key: diff_audit
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S9_assemble_and_write
+  name: Assemblage du dossier agent complet
+  actor_id: META-AgentProductFactory
+  input:
+    operation: assemble_agent
+    target_path: 20_AGENTS/{{target_team_id}}/{{target_team_id}}-{{target_role_name}}/
+    files:
+      agent_yaml: '{{new_agent_yaml}}'
+      contract_yaml: '{{adapted_contract}}'
+      prompt_md: '{{adapted_prompt}}'
+      sample_input: '{{adapted_tests.sample_input}}'
+      expected_output: '{{adapted_tests.expected_output}}'
+      glossary: '{{adapted_memory.glossary}}'
+      memory_pack: '{{adapted_memory.memory_pack}}'
+    metadata:
+      cloned_from: '{{source_agent_id}}'
+      clone_date: '{{date_iso}}'
+      domain_adapted_to: '{{new_domain_context}}'
+  output_key: assembly_result
+  on_failure: abort
+  sla_minutes: 5
+- step_id: S10_archive
+  name: Archivage Dossier IA
+  actor_id: OPS-DossierIA
+  input:
+    operation: create
+    playbook_id: CLONE_AND_ADAPT_AGENT
+    metadata:
+      type: agent_clone
+      source_agent_id: '{{source_agent_id}}'
+      target_agent_id: '{{target_team_id}}-{{target_role_name}}'
+      target_team_id: TEAM__{{target_team_id}}
+      domain_adapted_to: '{{new_domain_context}}'
+      diff_audit_status: '{{diff_audit.status | default: ''not_run''}}'
+    outputs:
+      decomposition: '{{decomposition}}'
+      diff_audit: '{{diff_audit}}'
+      assembly_result: '{{assembly_result}}'
+  dossier_name: CLONE__{{source_agent_id}}__TO__{{target_team_id}}-{{target_role_name}}__{{date_yyyymmdd}}
+  on_failure: continue
+  sla_minutes: 3
+  output_key: archive_result
 final_output:
-  primary: "assembly_result"
-  secondary: ["diff_audit"]
-  new_agent_id: "{{target_team_id}}-{{target_role_name}}"
-  dossier: "{{S10_archive.result.dossier.id}}"
-
+  primary: assembly_result
+  secondary:
+  - diff_audit
+  new_agent_id: '{{target_team_id}}-{{target_role_name}}'
+  dossier: '{{S10_archive.result.dossier.id}}'
 success_criteria:
-  - "S2_reverse_analysis completed"
-  - "S3_adapt_prompt completed (adapted_prompt présent)"
-  - "S4_adapt_contract completed (adapted_contract présent)"
-  - "S9_assemble_and_write completed"
-
+- S2_reverse_analysis completed
+- S3_adapt_prompt completed (adapted_prompt présent)
+- S4_adapt_contract completed (adapted_contract présent)
+- S9_assemble_and_write completed
 quality_warning:
-  condition: "diff_audit.domain_leakage_detected == true"
-  message: >
-    ⚠️ Des éléments du domaine source ont possiblement été conservés dans le clone.
-    Réviser manuellement avant mise en production.
+  condition: diff_audit.domain_leakage_detected == true
+  message: '⚠️ Des éléments du domaine source ont possiblement été conservés dans le clone. Réviser manuellement avant mise
+    en production.
 
+    '
 notifications:
   on_success:
-    message: >
-      🧬 Clone réussi : {{source_agent_id}} → {{target_team_id}}-{{target_role_name}}
-      Audit diff : {{diff_audit.status | default: 'non exécuté'}}
-    route_to: [META-GouvernanceQA]
+    message: '🧬 Clone réussi : {{source_agent_id}} → {{target_team_id}}-{{target_role_name}} Audit diff : {{diff_audit.status
+      | default: ''non exécuté''}}
+
+      '
+    route_to:
+    - META-GouvernanceQA
   on_quality_warning:
-    message: "⚠️ Clone {{target_team_id}}-{{target_role_name}} créé avec avertissements. Vérifier diff_audit."
-    route_to: [META-GouvernanceQA, CTL-AlertRouter]
+    message: ⚠️ Clone {{target_team_id}}-{{target_role_name}} créé avec avertissements. Vérifier diff_audit.
+    route_to:
+    - META-GouvernanceQA
+    - CTL-AlertRouter

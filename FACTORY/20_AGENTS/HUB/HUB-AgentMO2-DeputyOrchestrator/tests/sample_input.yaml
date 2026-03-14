@@ -1,3 +1,56 @@
-﻿objective: "test"
-context: {}
-constraints: []
+# sample_input.yaml — HUB-AgentMO2-DeputyOrchestrator
+# Scénario : MO soumet un plan d'orchestration pour validation QA
+
+objective: "Produire un audit complet de l'armée IT_MSP avant livraison client"
+
+context:
+  request_source: HUB-AgentMO-MasterOrchestrator
+  request_id: "REQ-20260313-042"
+  priority: high
+  deadline: "2026-03-15"
+  client: "Client Confidentiel — masqué [PII]"
+
+routing_plan:
+  playbook_id: ARMY_AUDIT_COMPLETE
+  target_team: META
+  steps:
+    - step_id: S01
+      agent_id: META-GouvernanceQA
+      intent: audit_structure
+      expected_output: structural_audit
+      on_failure: abort
+    - step_id: S02
+      agent_id: CTL-WatchdogIA
+      intent: scan_drift
+      expected_output: drift_scan
+      on_failure: continue
+    - step_id: S03
+      agent_id: META-AnalysteBesoinsEquipes
+      intent: coverage_analysis
+      expected_output: coverage_analysis
+      on_failure: continue
+    - step_id: S04
+      agent_id: META-GouvernanceQA
+      intent: maturity_score
+      expected_output: maturity_result
+      on_failure: continue
+    - step_id: S05
+      agent_id: CTL-HealthReporter
+      intent: generate_report
+      expected_output: audit_report
+      on_failure: continue
+    - step_id: S06
+      agent_id: OPS-DossierIA
+      intent: archive
+      expected_output: archive_result
+      on_failure: continue
+
+constraints:
+  - "Aucune donnée client réelle dans les logs"
+  - "Rapport final en YAML_STRICT"
+  - "SLA global : 120 minutes"
+
+quality_indicators:
+  previous_audit_score: 7.2
+  target_score: 9.0
+  known_issues: ["drift schema_version dans 3 agents", "2 agents sans tests"]

@@ -1,10 +1,130 @@
-﻿result:
-  summary: ""
-  status: ""
-  confidence: 0.0
-artifacts: []
-next_actions: []
+# expected_output.yaml — HUB-AgentMO2-DeputyOrchestrator
+# Sortie attendue pour sample_input.yaml
+
+result:
+  summary: >
+    Plan ARMY_AUDIT_COMPLETE validé avec 2 corrections mineures.
+    Tous les agents référencés existent et sont actifs.
+    Données sensibles masquées. DoD définie pour chaque step.
+  status: "needs_review"
+  confidence: 0.87
+  plan_id: "REQ-20260313-042"
+
+  validation_report:
+    routing_check:
+      intent_valid: true
+      intent_id: ARMY_AUDIT_COMPLETE
+      target_exists: true
+      target_id: META
+    agents_check:
+      all_agents_indexed: true
+      ghost_agents: []
+      agents_degraded: []
+    data_security_check:
+      pii_detected: true
+      pii_fields: ["client"]
+      confidential_data: false
+      notes:
+        - "Champ 'client' marqué [PII] — masquage correct dans context"
+        - "Aucune donnée financière non marquée détectée"
+    dod_check:
+      all_steps_have_success_criteria: false
+      all_steps_have_on_failure: true
+      missing_dod:
+        - step_id: S03
+          missing: success_criteria
+          recommendation: "Ajouter: coverage_gaps_count calculé"
+        - step_id: S04
+          missing: success_criteria
+          recommendation: "Ajouter: maturity_score >= 8.0"
+
+  agent_briefs:
+    - agent_id: META-GouvernanceQA
+      brief: >
+        Step S01 — Audit structurel de l'armée IT_MSP.
+        Contexte : audit pré-livraison client, score cible 9.0, issues connues (drift schema, agents sans tests).
+        Priorité : high. SLA : 25 min.
+      inputs_expected: [army_id, audit_depth]
+      outputs_expected: [structural_audit]
+      success_criteria: "structural_audit.critical_issues_count == 0"
+      on_failure: abort
+
+    - agent_id: CTL-WatchdogIA
+      brief: >
+        Step S02 — Scan de drift sur l'armée IT_MSP.
+        Se concentrer sur schema_version inconsistencies et agents sans tests (déjà identifiés).
+        SLA : 15 min.
+      inputs_expected: [army_id, structural_audit]
+      outputs_expected: [drift_scan]
+      success_criteria: "drift_scan.drift_count présent"
+      on_failure: continue
+
+    - agent_id: META-AnalysteBesoinsEquipes
+      brief: >
+        Step S03 — Analyse de couverture playbooks/agents IT_MSP.
+        SLA : 20 min. À compléter avec success_criteria (voir correction C01).
+      inputs_expected: [army_id, structural_audit]
+      outputs_expected: [coverage_analysis]
+      success_criteria: "[À DÉFINIR — voir correction C01]"
+      on_failure: continue
+
+    - agent_id: META-GouvernanceQA
+      brief: >
+        Step S04 — Score de maturité basé sur S01+S03.
+        Cible : score >= 8.0. SLA : 5 min.
+      inputs_expected: [structural_audit, coverage_analysis]
+      outputs_expected: [maturity_result]
+      success_criteria: "maturity_result.score >= 8.0"
+      on_failure: continue
+
+    - agent_id: CTL-HealthReporter
+      brief: >
+        Step S05 — Génération du rapport d'audit final.
+        Agréger S01+S02+S03+S04. Format YAML_STRICT. SLA : 10 min.
+      inputs_expected: [structural_audit, drift_scan, coverage_analysis, maturity_result]
+      outputs_expected: [audit_report]
+      success_criteria: "audit_report.sections_count >= 4"
+      on_failure: continue
+
+    - agent_id: OPS-DossierIA
+      brief: >
+        Step S06 — Archivage du dossier d'audit.
+        Inclure tous les outputs. Dossier nommé AUDIT__IT_MSP__{{date}}.
+      inputs_expected: [audit_report, maturity_result]
+      outputs_expected: [archive_result]
+      success_criteria: "archive_result.dossier.id présent"
+      on_failure: continue
+
+  corrections_required:
+    - issue_id: C01
+      severity: warning
+      description: "Steps S03 et S04 n'ont pas de success_criteria définis dans le routing_plan"
+      resolution: "MO ajouter success_criteria explicites avant re-soumission"
+    - issue_id: C02
+      severity: info
+      description: "SLA global 120 min — somme des steps = 105 min. Marge de 15 min acceptable"
+      resolution: "Aucune action requise — noter dans les logs"
+
 log:
-  decisions: []
-  risks: []
-  assumptions: []
+  decisions:
+    - id: D01
+      decision: "Status needs_review (non rejected) car corrections sont mineures et non-bloquantes"
+      rationale: "Seuls 2 steps manquent de success_criteria — agents et routes tous valides"
+    - id: D02
+      decision: "PII client détecté mais correctement masqué — pas de correction requise"
+      rationale: "Masquage explicite [PII] présent dans le context"
+  risks:
+    - id: R01
+      risk: "2 agents connus sans tests (drift existant) — risque de régression non détectée"
+      mitigation: "META-GouvernanceQA en S01 devra les identifier explicitement"
+    - id: R02
+      risk: "schema_version drift sur 3 agents — risque de validation YAML échouée"
+      mitigation: "CTL-WatchdogIA en S02 — corriger avant livraison"
+  assumptions:
+    - id: A01
+      assumption: "L'armée IT_MSP est bien référencée dans agents_index.yaml avec status active"
+      confidence: 0.95
+    - id: A02
+      assumption: "Le client 'Confidentiel' est correctement masqué en aval (logs, rapports)"
+      confidence: 0.90
+  quality_score: 8.7

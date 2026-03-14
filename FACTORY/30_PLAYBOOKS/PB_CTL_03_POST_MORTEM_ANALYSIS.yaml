@@ -1,294 +1,292 @@
-schema_version: "1.0"
+schema_version: '1.0'
 playbook_id: POST_MORTEM_ANALYSIS
-display_name: "Post-Mortem Analysis"
-description: >
-  Analyse complète d'un incident ou échec de playbook. Collecte les preuves,
-  identifie la cause racine, évalue l'impact, produit un rapport post-mortem
-  sans blame orienté amélioration systémique, et génère un backlog d'actions correctives.
-category: "monitoring"
+display_name: Post-Mortem Analysis
+description: 'Analyse complète d''un incident ou échec de playbook. Collecte les preuves, identifie la cause racine, évalue
+  l''impact, produit un rapport post-mortem sans blame orienté amélioration systémique, et génère un backlog d''actions correctives.
+
+  '
+category: monitoring
 team_owner: TEAM__CTL
-trigger: "post_incident | on_demand | scheduled_after_P0"
+trigger: post_incident | on_demand | scheduled_after_P0
 estimated_duration_minutes: 45
-version: "1.0.0"
-last_updated: "2026-02-25"
+version: 1.0.0
+last_updated: '2026-02-25'
+philosophy: 'Post-mortems sans blame (blameless). L''objectif est d''améliorer les systèmes, les processus et les outils —
+  jamais de pointer des responsabilités individuelles. Chaque incident est une opportunité d''apprentissage collectif.
 
-philosophy: >
-  Post-mortems sans blame (blameless). L'objectif est d'améliorer les systèmes,
-  les processus et les outils — jamais de pointer des responsabilités individuelles.
-  Chaque incident est une opportunité d'apprentissage collectif.
-
+  '
 inputs:
   incident_run_id:
     type: string
     required: true
-    description: "run_id du playbook ou de l'exécution ayant échoué."
+    description: run_id du playbook ou de l'exécution ayant échoué.
   incident_type:
-    type: "playbook_failure | agent_cascade | data_loss | index_corruption | drift_critical | manual_report"
+    type: playbook_failure | agent_cascade | data_loss | index_corruption | drift_critical | manual_report
     required: true
   severity_observed:
-    type: "P0 | P1"
+    type: P0 | P1
     required: true
-    description: "Sévérité observée au moment de l'incident."
+    description: Sévérité observée au moment de l'incident.
   alert_id:
     type: string
     required: false
-    description: "alert_id de l'AlertRouter associé, si disponible."
+    description: alert_id de l'AlertRouter associé, si disponible.
   additional_context:
     type: object
     required: false
-    description: "Informations additionnelles connues par le rapporteur (timeline partielle, hypothèses)."
-
+    description: Informations additionnelles connues par le rapporteur (timeline partielle, hypothèses).
 steps:
+- step_id: S1_collect_evidence
+  name: Collecte des preuves
+  actor_id: OPS-DossierIA
+  input:
+    operation: search
+    search_query:
+      keywords:
+      - '{{incident_run_id}}'
+      - failure
+      - error
+      date_range:
+        hours_back: 72
+  output_key: raw_evidence
+  collects:
+  - Logs complets du run échoué (step par step)
+  - Outputs intermédiaires de chaque step
+  - Messages d'erreur complets
+  - Timestamp précis de chaque événement
+  - État des agents impliqués au moment de l'incident
+  - Derniers watchdog_reports disponibles avant l'incident
+  on_failure: continue
+  on_failure_message: Preuves partielles — le post-mortem sera réalisé avec les données disponibles.
+  sla_minutes: 10
+- step_id: S2_timeline_reconstruction
+  name: Reconstitution de la timeline
+  actor_id: CTL-WatchdogIA
+  input:
+    operation: custom
+    scope: incident_timeline
+    raw_evidence: '{{raw_evidence}}'
+    incident_run_id: '{{incident_run_id}}'
+  action: 'Reconstituer la séquence chronologique précise des événements : chaque événement avec timestamp, acteur (agent
+    ou humain), action, et résultat. Identifier le premier signal d''anomalie et le moment de détection par le monitoring.
 
-  - step_id: "S1_collect_evidence"
-    name: "Collecte des preuves"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "search"
-      search_query:
-        keywords: ["{{incident_run_id}}", "failure", "error"]
-        date_range:
-          hours_back: 72
-    output_key: "raw_evidence"
-    collects:
-      - "Logs complets du run échoué (step par step)"
-      - "Outputs intermédiaires de chaque step"
-      - "Messages d'erreur complets"
-      - "Timestamp précis de chaque événement"
-      - "État des agents impliqués au moment de l'incident"
-      - "Derniers watchdog_reports disponibles avant l'incident"
-    on_failure: "continue"
-    on_failure_message: "Preuves partielles — le post-mortem sera réalisé avec les données disponibles."
-    sla_minutes: 10
+    '
+  output_key: timeline
+  format:
+    events:
+    - timestamp: <HH:mm:ss>
+      actor: <agent_id ou 'human'>
+      action: <ce qui s'est passé>
+      result: <succès|échec|alerte>
+      notes: <observations>
+    first_anomaly_signal: <timestamp>
+    detection_by_watchdog: <timestamp ou 'non détecté'>
+    time_to_detect_minutes: <int>
+    time_to_resolve_minutes: <int ou 'non résolu'>
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S3_root_cause_analysis
+  name: Analyse cause racine (5 Whys)
+  actor_id: IAHQ-TechLeadIA
+  input:
+    objective: Identifier la cause racine de l'incident {{incident_run_id}}
+    context:
+      raw_evidence: '{{raw_evidence}}'
+      timeline: '{{timeline}}'
+      incident_type: '{{incident_type}}'
+      severity: '{{severity_observed}}'
+  method: 5_whys
+  action: 'Appliquer la méthode des 5 Pourquoi (5 Whys) pour descendre jusqu''à la cause racine systémique. Distinguer : -
+    Cause immédiate (symptôme visible) - Causes intermédiaires (chaîne causale) - Cause racine (problème systémique sous-jacent)
+    - Facteurs aggravants (conditions qui ont amplifié l''impact) - Ce qui a fonctionné (mécanismes qui ont limité les dégâts)
 
-  - step_id: "S2_timeline_reconstruction"
-    name: "Reconstitution de la timeline"
-    actor_id: CTL-WatchdogIA
-    input:
-      operation: "custom"
-      scope: "incident_timeline"
-      raw_evidence: "{{raw_evidence}}"
-      incident_run_id: "{{incident_run_id}}"
-    action: >
-      Reconstituer la séquence chronologique précise des événements :
-      chaque événement avec timestamp, acteur (agent ou humain), action,
-      et résultat. Identifier le premier signal d'anomalie et le moment
-      de détection par le monitoring.
-    output_key: "timeline"
-    format:
-      events:
-        - timestamp: "<HH:mm:ss>"
-          actor: "<agent_id ou 'human'>"
-          action: "<ce qui s'est passé>"
-          result: "<succès|échec|alerte>"
-          notes: "<observations>"
-      first_anomaly_signal: "<timestamp>"
-      detection_by_watchdog: "<timestamp ou 'non détecté'>"
-      time_to_detect_minutes: "<int>"
-      time_to_resolve_minutes: "<int ou 'non résolu'>"
-    on_failure: "continue"
-    sla_minutes: 10
+    '
+  output_key: rca
+  format:
+    five_whys:
+    - why_1: <symptôme visible>
+    - why_2: <cause du symptôme>
+    - why_3: <cause de la cause>
+    - why_4: <...
+    - why_5: <cause racine systémique>
+    root_cause: <cause racine résumée en 1-2 phrases>
+    contributing_factors:
+    - <facteur 1>
+    - <facteur 2>
+    amplifying_conditions:
+    - <condition 1>
+    what_worked:
+    - <mécanisme de protection 1>
+  on_failure: continue
+  sla_minutes: 15
+- step_id: S4_impact_assessment
+  name: Évaluation de l'impact
+  actor_id: IAHQ-Economist
+  input:
+    objective: Quantifier l'impact de l'incident
+    context:
+      incident_run_id: '{{incident_run_id}}'
+      incident_type: '{{incident_type}}'
+      severity: '{{severity_observed}}'
+      timeline: '{{timeline}}'
+      rca: '{{rca}}'
+    constraints:
+    - Séparer faits mesurables vs estimations
+  output_key: impact
+  measures:
+  - Nombre de runs affectés ou bloqués
+  - Durée de l'interruption (si applicable)
+  - Agents mis hors service
+  - Playbooks impactés
+  - Données perdues ou corrompues (oui/non, étendue)
+  - Temps de recovery estimé
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S5_corrective_actions
+  name: Plan d'actions correctives
+  actor_id: META-GouvernanceQA
+  input:
+    scope: post_mortem_corrections
+    context:
+      rca: '{{rca}}'
+      impact: '{{impact}}'
+      incident_type: '{{incident_type}}'
+  action: 'Produire 2 listes d''actions distinctes : 1. IMMÉDIATES — Actions déjà prises pendant l''incident (avec statut
+    done/in_progress) 2. PRÉVENTIVES — Actions à planifier pour éviter la récurrence Chaque action préventive doit avoir :
+    description, owner recommandé, playbook à créer/modifier si applicable, deadline proposée, priorité P0-P2.
 
-  - step_id: "S3_root_cause_analysis"
-    name: "Analyse cause racine (5 Whys)"
-    actor_id: IAHQ-TechLeadIA
-    input:
-      objective: "Identifier la cause racine de l'incident {{incident_run_id}}"
-      context:
-        raw_evidence: "{{raw_evidence}}"
-        timeline: "{{timeline}}"
-        incident_type: "{{incident_type}}"
-        severity: "{{severity_observed}}"
-    method: "5_whys"
-    action: >
-      Appliquer la méthode des 5 Pourquoi (5 Whys) pour descendre jusqu'à
-      la cause racine systémique. Distinguer :
-      - Cause immédiate (symptôme visible)
-      - Causes intermédiaires (chaîne causale)
-      - Cause racine (problème systémique sous-jacent)
-      - Facteurs aggravants (conditions qui ont amplifié l'impact)
-      - Ce qui a fonctionné (mécanismes qui ont limité les dégâts)
-    output_key: "rca"
-    format:
-      five_whys:
-        - why_1: "<symptôme visible>"
-        - why_2: "<cause du symptôme>"
-        - why_3: "<cause de la cause>"
-        - why_4: "<..."
-        - why_5: "<cause racine systémique>"
-      root_cause: "<cause racine résumée en 1-2 phrases>"
-      contributing_factors: ["<facteur 1>", "<facteur 2>"]
-      amplifying_conditions: ["<condition 1>"]
-      what_worked: ["<mécanisme de protection 1>"]
-    on_failure: "continue"
-    sla_minutes: 15
-
-  - step_id: "S4_impact_assessment"
-    name: "Évaluation de l'impact"
-    actor_id: IAHQ-Economist
-    input:
-      objective: "Quantifier l'impact de l'incident"
-      context:
-        incident_run_id: "{{incident_run_id}}"
-        incident_type: "{{incident_type}}"
-        severity: "{{severity_observed}}"
-        timeline: "{{timeline}}"
-        rca: "{{rca}}"
-      constraints: ["Séparer faits mesurables vs estimations"]
-    output_key: "impact"
-    measures:
-      - "Nombre de runs affectés ou bloqués"
-      - "Durée de l'interruption (si applicable)"
-      - "Agents mis hors service"
-      - "Playbooks impactés"
-      - "Données perdues ou corrompues (oui/non, étendue)"
-      - "Temps de recovery estimé"
-    on_failure: "continue"
-    sla_minutes: 10
-
-  - step_id: "S5_corrective_actions"
-    name: "Plan d'actions correctives"
-    actor_id: META-GouvernanceQA
-    input:
-      scope: "post_mortem_corrections"
-      context:
-        rca: "{{rca}}"
-        impact: "{{impact}}"
-        incident_type: "{{incident_type}}"
-    action: >
-      Produire 2 listes d'actions distinctes :
-      1. IMMÉDIATES — Actions déjà prises pendant l'incident (avec statut done/in_progress)
-      2. PRÉVENTIVES — Actions à planifier pour éviter la récurrence
-      Chaque action préventive doit avoir : description, owner recommandé,
-      playbook à créer/modifier si applicable, deadline proposée, priorité P0-P2.
-    output_key: "corrective_actions"
-    format:
-      immediate_actions:
-        - action: "<action prise>"
-          owner: "<agent ou human>"
-          status: "done | in_progress"
-          taken_at: "<timestamp>"
-      preventive_actions:
-        - priority: "<P0|P1|P2>"
-          action: "<action concrète>"
-          owner_recommended: "<agent_id>"
-          playbook_impacted: "<playbook_id ou null>"
-          change_type: "create | modify | add_test | add_monitoring"
-          deadline_days: <int>
-          prevents: "<récurrence de quoi>"
-    on_failure: "continue"
-    sla_minutes: 10
-
-  - step_id: "S6_lessons_learned"
-    name: "Leçons apprises & capitalisation"
-    actor_id: IAHQ-Strategist
-    input:
-      objective: "Extraire les leçons apprises et les opportunités d'amélioration systémique"
-      context:
-        rca: "{{rca}}"
-        timeline: "{{timeline}}"
-        corrective_actions: "{{corrective_actions}}"
-        what_worked: "{{rca.what_worked}}"
-    output_key: "lessons"
-    format:
-      lessons_learned:
-        - category: "monitoring | process | agent_design | playbook_design | testing"
-          lesson: "<leçon formulée positivement>"
-          applies_to: "<agent, équipe, ou FACTORY entière>"
-      knowledge_base_updates:
-        - target: "tests/ | memory_pack | template | runbook | playbook"
-          agent_or_file: "<id ou chemin>"
-          update: "<ce qu'il faut ajouter ou modifier>"
-      recognition:
-        - "<ce qui a bien fonctionné pendant l'incident — sans nommer de personne>"
-    on_failure: "continue"
-    sla_minutes: 8
-
-  - step_id: "S7_post_mortem_report"
-    name: "Génération du rapport post-mortem"
-    actor_id: CTL-HealthReporter
-    input:
-      report_type: "post_mortem"
-      incident_run_id: "{{incident_run_id}}"
-      period_start: "{{timeline.first_anomaly_signal | default: now - 24h}}"
-      watchdog_reports: []
-      alert_tickets: ["{{alert_id | default: null}}"]
-      run_metrics: ["{{raw_evidence}}"]
-      context:
-        timeline: "{{timeline}}"
-        rca: "{{rca}}"
-        impact: "{{impact}}"
-        corrective_actions: "{{corrective_actions}}"
-        lessons: "{{lessons}}"
-    output_key: "post_mortem_report"
-    on_failure: "continue"
-    sla_minutes: 10
-
-  - step_id: "S8_update_knowledge_base"
-    name: "Mise à jour base de connaissances"
-    actor_id: META-AgentProductFactory
-    condition: "lessons.knowledge_base_updates IS NOT EMPTY"
-    input:
-      agent_id: "multiple"
-      updates: "{{lessons.knowledge_base_updates}}"
-    actions:
-      - "Ajouter les cas d'échec comme test_cases dans les agents concernés"
-      - "Enrichir les memory_pack.yaml avec les nouveaux patterns détectés"
-      - "Mettre à jour les runbooks si de nouvelles procédures émergent"
-    output_key: "kb_updates"
-    on_failure: "continue"
-    sla_minutes: 8
-
-  - step_id: "S9_archive"
-    name: "Archivage définitif"
-    actor_id: OPS-DossierIA
-    input:
-      operation: "create"
-      playbook_id: "POST_MORTEM_ANALYSIS"
-      metadata:
-        type: "post_mortem"
-        incident_run_id: "{{incident_run_id}}"
-        incident_type: "{{incident_type}}"
-        severity: "{{severity_observed}}"
-        alert_id: "{{alert_id | default: null}}"
-        root_cause: "{{rca.root_cause | default: 'undetermined'}}"
-        health_score_impact: "{{impact.health_score_delta | default: null}}"
-      outputs:
-        timeline: "{{timeline}}"
-        rca: "{{rca}}"
-        impact: "{{impact}}"
-        corrective_actions: "{{corrective_actions}}"
-        lessons: "{{lessons}}"
-        post_mortem_report: "{{post_mortem_report}}"
-        kb_updates: "{{kb_updates | default: null}}"
-    dossier_name: "POSTMORTEM__{{severity_observed}}__{{incident_type | upper}}__{{date_yyyymmdd}}"
-    retention: "permanent"
-    on_failure: "continue"
-    sla_minutes: 3
-
+    '
+  output_key: corrective_actions
+  format:
+    immediate_actions:
+    - action: <action prise>
+      owner: <agent ou human>
+      status: done | in_progress
+      taken_at: <timestamp>
+    preventive_actions:
+    - priority: <P0|P1|P2>
+      action: <action concrète>
+      owner_recommended: <agent_id>
+      playbook_impacted: <playbook_id ou null>
+      change_type: create | modify | add_test | add_monitoring
+      deadline_days: <int>
+      prevents: <récurrence de quoi>
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S6_lessons_learned
+  name: Leçons apprises & capitalisation
+  actor_id: IAHQ-Strategist
+  input:
+    objective: Extraire les leçons apprises et les opportunités d'amélioration systémique
+    context:
+      rca: '{{rca}}'
+      timeline: '{{timeline}}'
+      corrective_actions: '{{corrective_actions}}'
+      what_worked: '{{rca.what_worked}}'
+  output_key: lessons
+  format:
+    lessons_learned:
+    - category: monitoring | process | agent_design | playbook_design | testing
+      lesson: <leçon formulée positivement>
+      applies_to: <agent, équipe, ou FACTORY entière>
+    knowledge_base_updates:
+    - target: tests/ | memory_pack | template | runbook | playbook
+      agent_or_file: <id ou chemin>
+      update: <ce qu'il faut ajouter ou modifier>
+    recognition:
+    - <ce qui a bien fonctionné pendant l'incident — sans nommer de personne>
+  on_failure: continue
+  sla_minutes: 8
+- step_id: S7_post_mortem_report
+  name: Génération du rapport post-mortem
+  actor_id: CTL-HealthReporter
+  input:
+    report_type: post_mortem
+    incident_run_id: '{{incident_run_id}}'
+    period_start: '{{timeline.first_anomaly_signal | default: now - 24h}}'
+    watchdog_reports: []
+    alert_tickets:
+    - '{{alert_id | default: null}}'
+    run_metrics:
+    - '{{raw_evidence}}'
+    context:
+      timeline: '{{timeline}}'
+      rca: '{{rca}}'
+      impact: '{{impact}}'
+      corrective_actions: '{{corrective_actions}}'
+      lessons: '{{lessons}}'
+  output_key: post_mortem_report
+  on_failure: continue
+  sla_minutes: 10
+- step_id: S8_update_knowledge_base
+  name: Mise à jour base de connaissances
+  actor_id: META-AgentProductFactory
+  condition: lessons.knowledge_base_updates IS NOT EMPTY
+  input:
+    agent_id: multiple
+    updates: '{{lessons.knowledge_base_updates}}'
+  actions:
+  - Ajouter les cas d'échec comme test_cases dans les agents concernés
+  - Enrichir les memory_pack.yaml avec les nouveaux patterns détectés
+  - Mettre à jour les runbooks si de nouvelles procédures émergent
+  output_key: kb_updates
+  on_failure: continue
+  sla_minutes: 8
+- step_id: S9_archive
+  name: Archivage définitif
+  actor_id: OPS-DossierIA
+  input:
+    operation: create
+    playbook_id: POST_MORTEM_ANALYSIS
+    metadata:
+      type: post_mortem
+      incident_run_id: '{{incident_run_id}}'
+      incident_type: '{{incident_type}}'
+      severity: '{{severity_observed}}'
+      alert_id: '{{alert_id | default: null}}'
+      root_cause: '{{rca.root_cause | default: ''undetermined''}}'
+      health_score_impact: '{{impact.health_score_delta | default: null}}'
+    outputs:
+      timeline: '{{timeline}}'
+      rca: '{{rca}}'
+      impact: '{{impact}}'
+      corrective_actions: '{{corrective_actions}}'
+      lessons: '{{lessons}}'
+      post_mortem_report: '{{post_mortem_report}}'
+      kb_updates: '{{kb_updates | default: null}}'
+  dossier_name: POSTMORTEM__{{severity_observed}}__{{incident_type | upper}}__{{date_yyyymmdd}}
+  retention: permanent
+  on_failure: continue
+  sla_minutes: 3
+  output_key: archive_result
 final_output:
-  primary: "post_mortem_report"
-  secondary: ["rca", "corrective_actions", "lessons"]
-  dossier: "{{S9_archive.result.dossier.id}}"
-
+  primary: post_mortem_report
+  secondary:
+  - rca
+  - corrective_actions
+  - lessons
+  dossier: '{{S9_archive.result.dossier.id}}'
 success_criteria:
-  - "S3_root_cause_analysis completed (rca.root_cause présent)"
-  - "S5_corrective_actions completed (corrective_actions.preventive_actions non vide)"
-  - "S7_post_mortem_report completed"
-  - "S9_archive completed"
-
+- S3_root_cause_analysis completed (rca.root_cause présent)
+- S5_corrective_actions completed (corrective_actions.preventive_actions non vide)
+- S7_post_mortem_report completed
+- S9_archive completed
 quality_gates:
-  - "Le rapport post-mortem ne contient aucun nom de personne physique"
-  - "Chaque action préventive a un owner_recommended et un deadline_days"
-  - "rca.root_cause est une cause systémique, pas une cause humaine"
-
+- Le rapport post-mortem ne contient aucun nom de personne physique
+- Chaque action préventive a un owner_recommended et un deadline_days
+- rca.root_cause est une cause systémique, pas une cause humaine
 notifications:
   on_complete:
-    message: >
-      📋 Post-mortem {{incident_run_id}} complété.
-      Cause racine : {{rca.root_cause | default: 'voir rapport'}}.
-      {{corrective_actions.preventive_actions | length}} actions préventives identifiées.
-    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-OrchestreurEntrepriseIA]
+    message: '📋 Post-mortem {{incident_run_id}} complété. Cause racine : {{rca.root_cause | default: ''voir rapport''}}. {{corrective_actions.preventive_actions
+      | length}} actions préventives identifiées.
+
+      '
+    route_to:
+    - HUB-AgentMO-MasterOrchestrator
+    - IAHQ-OrchestreurEntrepriseIA
   on_p0_incident:
-    message: "⚠️ Post-mortem P0 complété. Actions immédiates requises — voir corrective_actions.preventive_actions."
-    route_to: [HUB-AgentMO-MasterOrchestrator, IAHQ-QualityGate, IAHQ-TechLeadIA]
+    message: ⚠️ Post-mortem P0 complété. Actions immédiates requises — voir corrective_actions.preventive_actions.
+    route_to:
+    - HUB-AgentMO-MasterOrchestrator
+    - IAHQ-QualityGate
+    - IAHQ-TechLeadIA
