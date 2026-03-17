@@ -16,6 +16,32 @@ agents:
       - on_call_assist
       - live_support
       - chatbot
+  IT-AssistanceTechnique-N2:
+    display_name: '@IT-AssistanceTechnique-N2'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Technicien Niveau 2 MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) :Assistance guidée pour billets ConnectWise (NOC/SOC/Support/Autre) : Assistance, diagnostic court, checklist priorisée,
+      validations/tests. Génère CW_DISCUSSION/CW_INTERNAL_NOTES/EMAIL finaux selon besoin.
+      finaux.
+    intents:
+    - connectwise
+    - cw_ticket
+    - diagnostic
+    - guidance
+    - handoff
+  IT-AssistanceTechnique-N3:
+    display_name: '@IT-AssistanceTechnique-N3'
+    team_id: TEAM__IT
+    team_name: IT
+    description: 'Technicien Niveau 3 MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) : Assistance, diagnostic court, checklist priorisée,
+      validations/tests. Génère CW_DISCUSSION/CW_INTERNAL_NOTES/EMAIL finaux selon besoin.
+    intents:
+    - connectwise
+    - cw_ticket
+    - diagnostic
+    - guidance
+    - handoff
+      finaux.
   IT-AssetMaster:
     display_name: '@IT-AssetMaster'
     team_id: TEAM__IT
@@ -261,8 +287,6 @@ agents:
     description: 'Technicien MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) : diagnostic court, checklist priorisée,
       validations/tests, et bloc “POUR COPILOT” prêt à coller dans @IT-InterventionCopilot. Ne génère jamais CW_DISCUSSION/CW_INTERNAL_NOTES
       finaux.
-
-      '
     intents:
     - connectwise
     - cw_ticket
