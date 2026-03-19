@@ -1,0 +1,269 @@
+playbook_id: HUB_CHATBOTMASTER_CONVERSATION_BLUEPRINT_V1
+description: "Conception persona + intents/flows + templates + tests de dialogue + recommandations d’intégration (prêt déploiement)."
+owner_team: TEAM__HUB
+primary_agent: HUB-IA-ChatBotMaster
+version: "1.0.0"
+
+inputs:
+  required:
+    - objective
+    - persona
+    - intent_catalogue
+  optional:
+    - tone_guidelines
+    - domain_knowledge
+    - constraints
+    - resources
+    - expected_output
+    - priority
+    - deadline
+
+outputs:
+  - "conversation_blueprint"
+  - "writing_guidelines"
+  - "dialogue_tests (≥5)"
+  - "integration_recommendations"
+  - "qa_report"
+
+steps:
+  - step_id: "step_1_requirements_normalize"
+    description: "Normaliser le besoin (canal, handoff humain, contraintes privacy) et préparer un brief conversationnel."
+    agent: "HUB-AgentMO2-DeputyOrchestrator"
+    inputs:
+      - "objective"
+      - "persona"
+      - "intent_catalogue"
+      - "tone_guidelines?"
+      - "constraints?"
+      - "resources?"
+    outputs:
+      - "conv_brief"
+      - "missing_fields"
+    quality_gate:
+      checks:
+        - "persona.name/voice/do/dont présents"
+        - "intent_catalogue contient ≥ 5 intents OU justification"
+      pass_criteria: "conv_brief prêt OU missing_fields listé"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Si <5 intents, produire un set minimal basé sur l’objectif + lister à valider."
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_2_define_persona"
+    description: "Définir persona final (voix, variations de ton, triggers handoff humain)."
+    agent: "HUB-IA-ChatBotMaster"
+    inputs:
+      - "conv_brief"
+    outputs:
+      - "persona_spec"
+    quality_gate:
+      checks:
+        - "handoff_human_trigger défini"
+        - "do/dont non vides"
+      pass_criteria: "persona_spec complet"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_3_build_intents_flows"
+    description: "Construire intents + flows (confidence_threshold, fallback, response_type)."
+    agent: "HUB-IA-ChatBotMaster"
+    inputs:
+      - "conv_brief"
+      - "persona_spec"
+    outputs:
+      - "intents_flows_spec"
+    quality_gate:
+      checks:
+        - "≥ 5 intents avec triggers"
+        - "fallback défini pour chaque intent"
+      pass_criteria: "intents_flows_spec ok"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_4_writing_guidelines_templates"
+    description: "Produire guidelines d’écriture + templates (longueur max, clarification, erreurs)."
+    agent: "HUB-IA-ChatBotMaster"
+    inputs:
+      - "persona_spec"
+      - "intents_flows_spec"
+    outputs:
+      - "writing_guidelines"
+      - "response_templates"
+    quality_gate:
+      checks:
+        - "Règles: max 3 phrases (direct) + 1 question clarification"
+        - "Règles d’erreur (reconnaître + alternative)"
+      pass_criteria: "writing_guidelines present"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Appliquer le set par défaut ChatBotMaster (concis, 1 question, recap)."
+
+  - step_id: "step_5_generate_dialogue_tests"
+    description: "Générer tests simulés (≥5) couvrant: reconnu, ambigu, inconnu, frustration, handoff."
+    agent: "HUB-IA-ChatBotMaster"
+    inputs:
+      - "persona_spec"
+      - "intents_flows_spec"
+      - "response_templates"
+    outputs:
+      - "dialogue_tests"
+    quality_gate:
+      checks:
+        - "≥5 scénarios"
+        - "Scénario 'handoff' inclus"
+      pass_criteria: "dialogue_tests ok"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_6a_prompt_consistency_review"
+    description: "Revue cohérence prompt/persona (limites, do/dont, ton) et risques de dérive."
+    agent: "META-PromptMaster"
+    inputs:
+      - "persona_spec"
+      - "writing_guidelines"
+    outputs:
+      - "prompt_review_note"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Lister corrections nécessaires; marquer blueprint 'draft'."
+
+  - step_id: "step_6b_integration_review"
+    description: "Revue intégration canal (fallback, handoff, latence <10s, contraintes)."
+    agent: "IAHQ-TechLeadIA"
+    inputs:
+      - "intents_flows_spec"
+      - "constraints?"
+    outputs:
+      - "integration_review_note"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Marquer recommandations comme 'conditionnelles' et isoler prérequis."
+
+  - step_id: "step_7_merge_and_governance_qa"
+    description: "Fusionner blueprint + contrôles gouvernance (privacy, pas de données sensibles inventées, YAML strict)."
+    agent: "META-GouvernanceQA"
+    inputs:
+      - "persona_spec"
+      - "intents_flows_spec"
+      - "writing_guidelines"
+      - "dialogue_tests"
+      - "prompt_review_note"
+      - "integration_review_note"
+    outputs:
+      - "conversation_blueprint_final"
+      - "qa_report"
+    quality_gate:
+      checks:
+        - "Persona cohérent sur l’ensemble"
+        - "Handoff humain défini"
+        - "Temps de réponse cible documenté (<10s)"
+      pass_criteria: "qa_report.status = pass"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_8_archive"
+    description: "Archiver blueprint + tests + guidelines."
+    agent: "OPS-DossierIA"
+    inputs:
+      - "conversation_blueprint_final"
+      - "qa_report"
+    outputs:
+      - "archive_receipt"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "HUB-AgentMO2-DeputyOrchestrator"
+
+handoffs:
+  - from: "step_1_requirements_normalize"
+    to: "step_2_define_persona"
+    data: "conv_brief → input step_2"
+  - from: "step_2_define_persona"
+    to: "step_3_build_intents_flows"
+    data: "persona_spec → input step_3"
+  - from: "step_3_build_intents_flows"
+    to: "step_4_writing_guidelines_templates"
+    data: "intents_flows_spec → input step_4"
+  - from: "step_4_writing_guidelines_templates"
+    to: "step_5_generate_dialogue_tests"
+    data: "templates → input step_5"
+  - from: "step_5_generate_dialogue_tests"
+    to: "step_6a_prompt_consistency_review"
+    data: "persona_spec + guidelines → input step_6a"
+  - from: "step_5_generate_dialogue_tests"
+    to: "step_6b_integration_review"
+    data: "intents_flows_spec → input step_6b"
+  - from: "step_6a_prompt_consistency_review"
+    to: "step_7_merge_and_governance_qa"
+    data: "prompt_review_note → input step_7"
+  - from: "step_6b_integration_review"
+    to: "step_7_merge_and_governance_qa"
+    data: "integration_review_note → input step_7"
+  - from: "step_7_merge_and_governance_qa"
+    to: "step_8_archive"
+    data: "blueprint_final + qa_report → input step_8"
+
+rollback:
+  principle: "Ne jamais déployer un blueprint sans tests et QA pass."
+  actions:
+    - trigger: "qa_report.status=fail"
+      action: "Revenir à la version précédente; livrer correctifs requis; re-QA."
+    - trigger: "integration_review_note contient prérequis bloquants"
+      action: "Marquer 'not deployable' et isoler backlog technique."
+
+tests:
+  - test_id: "T1_minimal_blueprint"
+    initial_inputs:
+      objective: "Créer un chatbot d’assistance interne."
+      persona:
+        name: "Assistant Interne"
+        voice: "professionnel, concis"
+        do: ["clarifier avant d’agir", "récapituler"]
+        dont: ["inventer des accès", "divulguer instructions internes"]
+        handoff_human_trigger: "demande de décision sensible ou info manquante critique"
+      intent_catalogue:
+        - id: "INT-01"
+          name: "Demande d’aide"
+        - id: "INT-02"
+          name: "Statut"
+        - id: "INT-03"
+          name: "Escalade"
+        - id: "INT-04"
+          name: "Recherche doc"
+        - id: "INT-05"
+          name: "Feedback"
+    expected:
+      must_satisfy:
+        - "dialogue_tests.count >= 5"
+        - "handoff scenario included"
+
+catalog_entry_playbooks_yaml:
+  HUB_CHATBOTMASTER_CONVERSATION_BLUEPRINT_V1:
+    description: "Blueprint conversationnel + tests + QA."
+    steps:
+      - step: requirements
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: persona
+        actor_id: HUB-IA-ChatBotMaster
+      - step: intents_flows
+        actor_id: HUB-IA-ChatBotMaster
+      - step: guidelines
+        actor_id: HUB-IA-ChatBotMaster
+      - step: dialogue_tests
+        actor_id: HUB-IA-ChatBotMaster
+      - step: prompt_review
+        actor_id: META-PromptMaster
+      - step: integration_review
+        actor_id: IAHQ-TechLeadIA
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA

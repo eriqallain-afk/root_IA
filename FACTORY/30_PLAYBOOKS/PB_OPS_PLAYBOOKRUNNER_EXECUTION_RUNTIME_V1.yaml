@@ -1,0 +1,173 @@
+playbook_id: OPS_PLAYBOOKRUNNER_EXECUTION_RUNTIME_V1
+description: "Frontdoor d’exécution: routage → préflight → run → QA livraison → archivage."
+owner_team: TEAM__OPS
+primary_agent: OPS-PlaybookRunner
+version: "1.0.0"
+
+inputs:
+  required:
+    - objective
+    - initial_inputs
+  optional:
+    - playbook_id
+    - context
+    - execution_parameters
+    - environment
+    - constraints
+
+outputs:
+  - "selected_playbook_id"
+  - "execution_log (global + step logs)"
+  - "compiled_output (deliverable)"
+  - "archive_receipt"
+  - "resume_instructions (si paused)"
+
+steps:
+  - step_id: "step_1_route"
+    description: "Déterminer le playbook_id cible selon l’intent et le contexte."
+    agent: "OPS-RouterIA"
+    inputs:
+      - "objective"
+      - "initial_inputs"
+      - "context?"
+    outputs:
+      - "selected_playbook_id"
+      - "routing_rationale"
+    quality_gate:
+      checks:
+        - "playbook_id non vide"
+      pass_criteria: "selected_playbook_id défini OU needs_info"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Si routage impossible, demander playbook_id explicitement + proposer 3 candidats."
+
+  - step_id: "step_2_preflight"
+    description: "Validation prérequis (existence playbook, agents actifs, required inputs step_1)."
+    agent: "OPS-PlaybookRunner"
+    inputs:
+      - "selected_playbook_id"
+      - "initial_inputs"
+      - "environment?"
+      - "constraints?"
+      - "execution_parameters? (preflight_only=true)"
+    outputs:
+      - "preflight_report"
+    quality_gate:
+      checks:
+        - "Aucun agent inactive/deprecated"
+        - "Inputs requis présents"
+      pass_criteria: "preflight_report.status = pass"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "META-PlaybookBuilder"
+
+  - step_id: "step_3_execute_run"
+    description: "Exécuter le playbook sélectionné avec logs complets, retry/skip/abort, pause/reprise."
+    agent: "OPS-PlaybookRunner"
+    inputs:
+      - "selected_playbook_id"
+      - "initial_inputs"
+      - "context?"
+      - "execution_parameters?"
+      - "environment?"
+      - "constraints?"
+    outputs:
+      - "run_output (compiled_output + execution_log + status)"
+      - "resume_instructions (si paused)"
+    quality_gate:
+      checks:
+        - "execution_log.steps[] renseigné"
+        - "compiled_output produit si status ∈ {success, partial}"
+      pass_criteria: "status ∈ {success, partial, paused} (failed doit être justifié)"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "HUB-AgentMO2-DeputyOrchestrator"
+
+  - step_id: "step_4_postrun_qa"
+    description: "Contrôle post-run: cohérence livrable, traçabilité, séparation faits/hypothèses, secrets redacted."
+    agent: "HUB-AgentMO2-DeputyOrchestrator"
+    inputs:
+      - "run_output"
+    outputs:
+      - "postrun_qa_report"
+    quality_gate:
+      checks:
+        - "Pas de secrets dans logs"
+        - "Livrable final référencé"
+      pass_criteria: "postrun_qa_report.status = pass OR status=partial avec actions"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Marquer partial + lister correctifs; ne pas relancer automatiquement en prod."
+
+  - step_id: "step_5_archive"
+    description: "Archivage run (execution_log, step_logs, compiled_output) + reçu."
+    agent: "OPS-DossierIA"
+    inputs:
+      - "run_output"
+      - "postrun_qa_report"
+    outputs:
+      - "archive_receipt"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "OPS-RouterIA"
+
+handoffs:
+  - from: "step_1_route"
+    to: "step_2_preflight"
+    data: "selected_playbook_id → playbook_id"
+  - from: "step_2_preflight"
+    to: "step_3_execute_run"
+    data: "preflight_report(pass) → autorisation exécution"
+  - from: "step_3_execute_run"
+    to: "step_4_postrun_qa"
+    data: "run_output → QA"
+  - from: "step_4_postrun_qa"
+    to: "step_5_archive"
+    data: "QA report + run_output → archive"
+
+rollback:
+  principle: "Un run failed n’est pas ‘rejoué’ sans correction des causes et validation préflight."
+  actions:
+    - trigger: "preflight_report.status=fail"
+      action: "Stop avant exécution; retourner missing_fields/agents invalides; escalade META-PlaybookBuilder."
+    - trigger: "run_output.status=failed"
+      action: "Archiver logs + produire RCA (hypothèses) + next_actions; pas d’auto-retry en prod."
+    - trigger: "status=paused"
+      action: "Fournir resume_instructions + state minimal; archiver état."
+
+tests:
+  - test_id: "T1_route_then_run_success"
+    initial_inputs:
+      objective: "Exécuter le workflow d’onboarding standard."
+      initial_inputs:
+        objective: "onboarding"
+      environment: "stage"
+    expected:
+      must_satisfy:
+        - "selected_playbook_id non vide"
+        - "status ∈ {success, partial, paused}"
+
+  - test_id: "T2_preflight_fail_missing_input"
+    initial_inputs:
+      objective: "Exécuter un playbook sans inputs requis."
+      playbook_id: "SOME_PLAYBOOK_REQUIRING_FIELDS"
+      initial_inputs: {}
+    expected:
+      must_satisfy:
+        - "preflight_report.status = fail"
+        - "step_3_execute_run not executed"
+
+catalog_entry_playbooks_yaml:
+  OPS_PLAYBOOKRUNNER_EXECUTION_RUNTIME_V1:
+    description: "Routage → préflight → exécution → QA → archive."
+    steps:
+      - step: route
+        actor_id: OPS-RouterIA
+      - step: preflight
+        actor_id: OPS-PlaybookRunner
+      - step: execute
+        actor_id: OPS-PlaybookRunner
+      - step: postrun_qa
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: archive
+        actor_id: OPS-DossierIA

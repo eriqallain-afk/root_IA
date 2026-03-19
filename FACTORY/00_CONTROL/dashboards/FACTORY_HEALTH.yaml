@@ -30,17 +30,15 @@ per_team_health:
       - CTL-AlertRouter
       - CTL-HealthReporter
   HUB:
-    agents: 10
-    active: 9
-    status: "🟡 MO2 partiel (68L)"
+    agents: 8
+    active: 8
+    status: "✅ Complet"
     last_check: null
     agents_list:
       - HUB-AgentMO-MasterOrchestrator
-      - HUB-AgentMO2-DeputyOrchestrator    # ⚠️ prompt partiel 68L
-      - HUB-Router
-      - HUB-Concierge
-      - HUB-OproEngine
+      - HUB-AgentMO2-DeputyOrchestrator 
       - HUB-AvatarForge
+      - HUB-OproEngine
       - HUB-CoachIA360-Strategie-GPTTeams
       - HUB-IA-ChatBotMaster
       - HUB-ITCoachIA360
@@ -62,25 +60,28 @@ per_team_health:
       - IAHQ-DataAnalyst
       - IAHQ-ProjectManager
   META:
-    agents: 14
-    active: 14
+    agents: 16
+    active: 16
     status: "✅ Complet"
     last_check: null
     agents_list:
       - META-AgentProductFactory
+      - META-AnalysteBesoinsEquipes
+      - META-ArchitecteChoix
+      - META-CartographeRoles
+      - META-Concierge
+      - META-ConciergeUX
       - META-GouvernanceQA
       - META-OrchestrateurCentral
-      - META-ArchitecteChoix
-      - META-AnalysteBesoinsEquipes
-      - META-CartographeRoles
-      - META-WorkflowDesignerEquipes
+      - META-Pedagogie
       - META-PlaybookBuilder
       - META-PromptMaster
+      - META-Redaction
       - META-ReversePrompt
-      - META-Documentaliste
-      - META-TestEngineer
-      - META-DevOpsIA
-      - META-SecurityReviewer
+      - META-VisionCreative
+      - META-WorkflowDesignerEquipes
+      - META-ReversePrompt
+
   OPS:
     agents: 3
     active: 3
@@ -137,11 +138,7 @@ playbook_agents_coverage:
     - IAHQ-DataAnalyst
     - IAHQ-ProjectManager
     - META-Documentaliste
-    - META-TestEngineer
-    - META-DevOpsIA
-    - META-SecurityReviewer
     - OPS-PlaybookRunner
-    - HUB-AvatarForge  # dup à clarifier
 
 active_alerts: []
 

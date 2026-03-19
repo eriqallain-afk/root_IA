@@ -1,0 +1,213 @@
+playbook_id: HUB_COACHIA360_STRATEGY_ROADMAP_V1
+description: "Évaluation maturité IA + structuration offres GPT + roadmap 3-6 mois + plan de transformation (ROI validé)."
+owner_team: TEAM__HUB
+primary_agent: HUB-CoachIA360-Strategie-GPTTeams
+version: "1.0.0"
+
+inputs:
+  required:
+    - objective
+    - business_context
+  optional:
+    - current_capabilities
+    - constraints
+    - resources
+    - expected_output
+    - priority
+    - deadline
+
+outputs:
+  - "maturity_assessment"
+  - "offers_packaging"
+  - "roadmap_phases"
+  - "transformation_plan"
+  - "roi_validation_note"
+  - "qa_report"
+
+steps:
+  - step_id: "step_1_discovery_pack"
+    description: "Structurer le contexte business et contraintes en brief stratégie exploitable."
+    agent: "HUB-AgentMO-MasterOrchestrator"
+    inputs:
+      - "objective"
+      - "business_context"
+      - "current_capabilities?"
+      - "constraints?"
+      - "resources?"
+    outputs:
+      - "strategy_brief"
+      - "open_questions"
+    quality_gate:
+      checks:
+        - "business_context complet (secteur, objectifs, enjeux)"
+      pass_criteria: "strategy_brief prêt OU open_questions explicites"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Si incomplet, produire une hypothèse prudente + lister open_questions."
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_2_strategy_draft"
+    description: "Évaluer maturité (5 dimensions) + proposer 2-4 offres + roadmap 3 phases + plan transformation."
+    agent: "HUB-CoachIA360-Strategie-GPTTeams"
+    inputs:
+      - "strategy_brief"
+    outputs:
+      - "strategy_output (maturity_assessment + offers + roadmap + risks/assumptions)"
+    quality_gate:
+      checks:
+        - "Maturité: 5 dimensions scorées 1-5"
+        - "Roadmap: phases 1-3 avec livrables + indicateurs"
+        - "Risques: top 3 + mitigations"
+      pass_criteria: "quality_score ≥ 9 OU status=needs_info"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+      fallback: "Si données manquantes, livrer un draft 'intermédiaire' + questions prioritaires."
+
+  - step_id: "step_3_roi_validation"
+    description: "Valider/rectifier les hypothèses ROI (interdiction d’estimer seul côté Coach)."
+    agent: "IAHQ-Economist"
+    inputs:
+      - "strategy_output.offers"
+      - "constraints?"
+    outputs:
+      - "roi_validation_note"
+    quality_gate:
+      checks:
+        - "Chaque offre a une hypothèse ROI explicitement marquée 'validée' ou 'à confirmer'"
+      pass_criteria: "roi_validation_note.status ∈ {validated, conditional}"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "IAHQ-SolutionOrchestrator"
+
+  - step_id: "step_4_technical_feasibility"
+    description: "Revue faisabilité technique / dépendances / données / intégrations."
+    agent: "IAHQ-TechLeadIA"
+    inputs:
+      - "strategy_output"
+      - "constraints?"
+    outputs:
+      - "tech_feasibility_note"
+    quality_gate:
+      checks:
+        - "Dépendances critiques identifiées"
+        - "Blocages + contournements listés"
+      pass_criteria: "tech_feasibility_note.approved = true OR conditions listées"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Marquer la roadmap comme 'conditionnelle' et isoler les prérequis techniques."
+
+  - step_id: "step_5_governance_qa"
+    description: "Contrôle gouvernance (clarté, séparation faits/hypothèses, pas de métriques inventées, conformité)."
+    agent: "META-GouvernanceQA"
+    inputs:
+      - "strategy_output"
+      - "roi_validation_note"
+      - "tech_feasibility_note"
+    outputs:
+      - "qa_report"
+      - "client_ready_artifacts_map"
+    quality_gate:
+      checks:
+        - "YAML strict + logs complets"
+        - "Assumptions explicitement listées"
+      pass_criteria: "qa_report.status = pass"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_6_archive"
+    description: "Archiver rapport stratégie + plan transformation (markdown/pdf) + notes ROI/tech."
+    agent: "OPS-DossierIA"
+    inputs:
+      - "strategy_output"
+      - "roi_validation_note"
+      - "tech_feasibility_note"
+      - "qa_report"
+    outputs:
+      - "archive_receipt"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "HUB-AgentMO2-DeputyOrchestrator"
+
+handoffs:
+  - from: "step_1_discovery_pack"
+    to: "step_2_strategy_draft"
+    data: "strategy_brief → input step_2"
+  - from: "step_2_strategy_draft"
+    to: "step_3_roi_validation"
+    data: "offers + contraintes → input step_3"
+  - from: "step_2_strategy_draft"
+    to: "step_4_technical_feasibility"
+    data: "strategy_output → input step_4"
+  - from: "step_3_roi_validation"
+    to: "step_5_governance_qa"
+    data: "roi_validation_note → input step_5"
+  - from: "step_4_technical_feasibility"
+    to: "step_5_governance_qa"
+    data: "tech_feasibility_note → input step_5"
+  - from: "step_5_governance_qa"
+    to: "step_6_archive"
+    data: "qa_report + artifacts_map → input step_6"
+
+rollback:
+  principle: "Versionner chaque itération de stratégie; ne jamais remplacer sans 'superseded_by'."
+  actions:
+    - trigger: "roi_validation_note.status=failed"
+      action: "Retirer estimations chiffrées; conserver seulement des hypothèses qualitatives; relancer step_3."
+    - trigger: "qa_report.status=fail"
+      action: "Marquer 'non client-ready'; corriger puis re-QA."
+
+tests:
+  - test_id: "T1_strategy_minimal"
+    initial_inputs:
+      objective: "Structurer une offre GPT-Teams et une roadmap 6 mois."
+      business_context:
+        sector: "Services professionnels"
+        goals: ["Réduire temps de traitement", "Standardiser la qualité"]
+        constraints:
+          budget: "medium"
+          compliance: "standard"
+    expected:
+      must_include:
+        - "maturity_assessment.dimensions[5]"
+        - "offers (2..4)"
+        - "roadmap phases (1..3)"
+      must_call_agents:
+        - "IAHQ-Economist"
+
+  - test_id: "T2_strategy_with_current_capabilities"
+    initial_inputs:
+      objective: "Accélérer l’adoption IA avec quick wins."
+      business_context:
+        sector: "Retail"
+        goals: ["Support client", "Analytics"]
+      current_capabilities:
+        data: "CRM + tickets"
+        tools: ["Slack", "Teams"]
+        team: "2 analysts"
+    expected:
+      must_satisfy:
+        - "level ∈ {Débutant, Intermédiaire, Avancé}"
+        - "3 risques + mitigations"
+        - "ROI marqué validé/conditionnel"
+
+catalog_entry_playbooks_yaml:
+  HUB_COACHIA360_STRATEGY_ROADMAP_V1:
+    description: "Stratégie GPT-Teams (maturité → offres → roadmap) avec validation ROI."
+    steps:
+      - step: discovery
+        actor_id: HUB-AgentMO-MasterOrchestrator
+      - step: strategy
+        actor_id: HUB-CoachIA360-Strategie-GPTTeams
+      - step: roi_validation
+        actor_id: IAHQ-Economist
+      - step: feasibility
+        actor_id: IAHQ-TechLeadIA
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA

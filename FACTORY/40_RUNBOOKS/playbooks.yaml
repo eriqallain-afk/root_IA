@@ -1,6 +1,86 @@
 schema_version: '1.0'
 generated_at: '2026-02-01T18:47:04Z'
-playbooks:
+playbooks: 
+  HUB_AVATARFORGE_ASSETKIT_V1:
+    description: "Créer assets visuels + visual_memory pour un agent."
+    steps:
+      - step: intake_validate
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: design_specs
+        actor_id: HUB-AvatarForge
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  HUB_COACHIA360_STRATEGY_ROADMAP_V1:
+    description: "Stratégie GPT-Teams (maturité → offres → roadmap) avec validation ROI."
+    steps:
+      - step: discovery
+        actor_id: HUB-AgentMO-MasterOrchestrator
+      - step: strategy
+        actor_id: HUB-CoachIA360-Strategie-GPTTeams
+      - step: roi_validation
+        actor_id: IAHQ-Economist
+      - step: feasibility
+        actor_id: IAHQ-TechLeadIA
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  HUB_CHATBOTMASTER_CONVERSATION_BLUEPRINT_V1:
+    description: "Blueprint conversationnel + tests + QA."
+    steps:
+      - step: requirements
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: persona
+        actor_id: HUB-IA-ChatBotMaster
+      - step: intents_flows
+        actor_id: HUB-IA-ChatBotMaster
+      - step: guidelines
+        actor_id: HUB-IA-ChatBotMaster
+      - step: dialogue_tests
+        actor_id: HUB-IA-ChatBotMaster
+      - step: prompt_review
+        actor_id: META-PromptMaster
+      - step: integration_review
+        actor_id: IAHQ-TechLeadIA
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1:
+    description: "Coaching IT: diagnostic → options → plan + rollback + risques."
+    steps:
+      - step: intake
+        actor_id: HUB-AgentMO-MasterOrchestrator
+      - step: assessment
+        actor_id: HUB-ITCoachIA360
+      - step: options
+        actor_id: HUB-ITCoachIA360
+      - step: risks
+        actor_id: META-GouvernanceEtRisques
+      - step: plan
+        actor_id: HUB-ITCoachIA360
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  OPS_PLAYBOOKRUNNER_EXECUTION_RUNTIME_V1:
+    description: "Routage → préflight → exécution → QA → archive."
+    steps:
+      - step: route
+        actor_id: OPS-RouterIA
+      - step: preflight
+        actor_id: OPS-PlaybookRunner
+      - step: execute
+        actor_id: OPS-PlaybookRunner
+      - step: postrun_qa
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: archive
+        actor_id: OPS-DossierIA
+
   BUILD_ARMY_FACTORY:
     description: 'Usine armées : besoins -> rôles -> prompts -> audit -> packaging
       -> archive'

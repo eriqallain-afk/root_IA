@@ -1,0 +1,180 @@
+playbook_id: HUB_AVATARFORGE_ASSETKIT_V1
+description: "Pipeline de création d’assets visuels (avatar + favicon + variante sombre) et mise à jour de visual_memory pour un agent."
+owner_team: TEAM__HUB
+primary_agent: HUB-AvatarForge
+version: "1.0.0"
+
+inputs:
+  required:
+    - objective
+    - agent_profile
+    - format
+  optional:
+    - context
+    - constraints
+    - resources
+    - expected_output
+    - priority
+    - deadline
+    - style_guidelines
+
+outputs:
+  - "avatar_specs (prompts + critères d’acceptation)"
+  - "visual_memory mis à jour (TEAM + différenciateurs utilisés)"
+  - "artefacts paths (avatar/favicons/memory)"
+
+steps:
+  - step_id: "step_1_intake_validate"
+    description: "Valider les inputs (agent_profile, format, charte si fournie) et préparer un brief normalisé."
+    agent: "HUB-AgentMO2-DeputyOrchestrator"
+    inputs:
+      - "objective"
+      - "agent_profile"
+      - "format"
+      - "style_guidelines?"
+      - "constraints?"
+      - "resources?"
+    outputs:
+      - "normalized_brief"
+      - "missing_fields (si incomplet)"
+    quality_gate:
+      checks:
+        - "Présence: objective, agent_profile, format"
+        - "format ∈ {png, svg, gif}"
+      pass_criteria: "normalized_brief prêt OU missing_fields listé"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Si champs manquants, produire un brief minimal prudent + lister missing_fields."
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_2_design_specs"
+    description: "Produire la charte (si équipe nouvelle) + avatar_specs (principal/favicon/sombre) + update visual_memory."
+    agent: "HUB-AvatarForge"
+    inputs:
+      - "normalized_brief"
+    outputs:
+      - "avatarforge_output (result.visual_memory + result.avatar_specs + artifacts)"
+    quality_gate:
+      checks:
+        - "Différenciateurs: ≥ 3 axes (visage/cheveux/genre/inscription/objet)"
+        - "acceptance_criteria présents pour avatar_principal"
+        - "visual_memory.style_locked = true"
+      pass_criteria: "quality_score ≥ 9 (cible) OU status=needs_info avec next_actions clairs"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 2
+        backoff_seconds: [1, 2]
+      fallback: "Si info insuffisante, produire une version par défaut prudente (palette HUB si TEAM__HUB) + questions ciblées."
+
+  - step_id: "step_3_governance_qa"
+    description: "Contrôle gouvernance (confidentialité, pas d’invention, YAML strict, cohérence charte)."
+    agent: "META-GouvernanceQA"
+    inputs:
+      - "avatarforge_output"
+    outputs:
+      - "qa_report (pass/fail + correctifs)"
+    quality_gate:
+      checks:
+        - "Sortie YAML_STRICT"
+        - "Aucune donnée sensible/URL inventée"
+        - "Artifacts paths présents"
+      pass_criteria: "qa_report.status = pass"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+      fallback: "Si fail, retourner une checklist de corrections + marquer status=partial."
+
+  - step_id: "step_4_package_archive"
+    description: "Écrire/archiver les livrables (specs + visual_memory) et référencer les chemins."
+    agent: "OPS-DossierIA"
+    inputs:
+      - "avatarforge_output"
+      - "qa_report"
+    outputs:
+      - "archive_receipt (paths + horodatage)"
+    quality_gate:
+      checks:
+        - "Tous les chemins artifacts résolus"
+        - "Versionnage (timestamp / run ref)"
+      pass_criteria: "archive_receipt.ok = true"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "HUB-AgentMO2-DeputyOrchestrator"
+
+handoffs:
+  - from: "step_1_intake_validate"
+    to: "step_2_design_specs"
+    data: "normalized_brief → input step_2"
+  - from: "step_2_design_specs"
+    to: "step_3_governance_qa"
+    data: "avatarforge_output → input step_3"
+  - from: "step_3_governance_qa"
+    to: "step_4_package_archive"
+    data: "qa_report + avatarforge_output → input step_4"
+
+rollback:
+  principle: "Ne jamais écraser une visual_memory précédente sans sauvegarde."
+  actions:
+    - trigger: "qa_report.status=fail"
+      action: "Marquer artefacts comme 'rejected' et conserver la version précédente de visual_memory."
+    - trigger: "step_2 retries épuisés"
+      action: "Livrer specs minimales + next_actions; ne pas verrouiller style si ambigu."
+
+tests:
+  - test_id: "T1_minimal_agent_avatar"
+    initial_inputs:
+      objective: "Créer l’avatar et favicon pour un nouvel agent HUB."
+      agent_profile:
+        agent_id: "HUB-NewAgentX"
+        mission: "Support orchestration"
+        team_id: "TEAM__HUB"
+        traits: ["professionnel", "central"]
+      format: "png"
+    expected:
+      must_include:
+        - "result.visual_memory"
+        - "result.avatar_specs[0].assets"
+        - "artifacts[visual_memory]"
+      quality_gate:
+        min_quality_score: 9
+
+  - test_id: "T2_existing_team_differentiation"
+    initial_inputs:
+      objective: "Créer un avatar distinct d’un agent HUB existant."
+      context:
+        visual_memory:
+          team_id: "TEAM__HUB"
+          style_locked: true
+          existing_agents:
+            - agent_id: "HUB-Router"
+              differentiators_used:
+                visage: "angulaire"
+                cheveux: "court brun"
+                genre: "M"
+                inscription: "HUB-Router"
+                objet: "routing holographique"
+      agent_profile:
+        agent_id: "HUB-Dispatcher"
+        mission: "Dispatch des demandes"
+        team_id: "TEAM__HUB"
+      format: "png"
+    expected:
+      must_satisfy:
+        - "≥3 différenciateurs différents de HUB-Router"
+        - "badge_text = HUB-Dispatcher"
+
+catalog_entry_playbooks_yaml:
+  HUB_AVATARFORGE_ASSETKIT_V1:
+    description: "Créer assets visuels + visual_memory pour un agent."
+    steps:
+      - step: intake_validate
+        actor_id: HUB-AgentMO2-DeputyOrchestrator
+      - step: design_specs
+        actor_id: HUB-AvatarForge
+      - step: governance_qa
+        actor_id: META-GouvernanceQA
+      - step: archive
+        actor_id: OPS-DossierIA

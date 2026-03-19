@@ -1,0 +1,189 @@
+playbook_id: HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1
+description: "Coaching IT 360 : diagnostic technique → options d’architecture → plan d’implémentation avec rollback + contrôles risques."
+owner_team: TEAM__HUB
+primary_agent: HUB-ITCoachIA360
+version: "1.0.0"
+
+inputs:
+  required:
+    - objective
+    - it_context
+  optional:
+    - constraints
+    - resources
+    - expected_output
+    - priority
+    - deadline
+
+outputs:
+  - "tech_assessment"
+  - "architecture_options (decision matrix)"
+  - "implementation_plan (jalons + dépendances)"
+  - "rollback_plan"
+  - "risk_register"
+  - "archive_receipt"
+
+steps:
+  - step_id: "step_1_scope_intake"
+    description: "Clarifier périmètre IT (environnement, services concernés, SLA, contraintes sécurité) et normaliser le brief."
+    agent: "HUB-AgentMO-MasterOrchestrator"
+    inputs:
+      - "objective"
+      - "it_context"
+      - "constraints?"
+      - "resources?"
+    outputs:
+      - "it_brief"
+      - "open_questions"
+    quality_gate:
+      checks:
+        - "it_context inclut au moins: environnement (dev/stage/prod), stack, pain points"
+      pass_criteria: "it_brief prêt OU open_questions listé"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Si contexte incomplet, produire hypothèses prudentes + questions prioritaires."
+
+  - step_id: "step_2_tech_assessment"
+    description: "Diagnostic technique + identification quick wins + contraintes bloquantes."
+    agent: "HUB-ITCoachIA360"
+    inputs:
+      - "it_brief"
+    outputs:
+      - "tech_assessment"
+    quality_gate:
+      checks:
+        - "Liste des risques techniques"
+        - "Liste des quick wins (≤2 semaines)"
+      pass_criteria: "tech_assessment complet OU status=needs_info"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+      fallback: "Livrer diagnostic partiel + éléments à confirmer."
+
+  - step_id: "step_3_architecture_options"
+    description: "Proposer 2-3 options d’architecture avec matrice décision (coût/risque/délai/complexité)."
+    agent: "HUB-ITCoachIA360"
+    inputs:
+      - "tech_assessment"
+      - "constraints?"
+    outputs:
+      - "architecture_options"
+    quality_gate:
+      checks:
+        - "≥2 options"
+        - "Une recommandation + justification"
+      pass_criteria: "architecture_options ok"
+    error_handling:
+      on_failure: "fallback"
+      fallback: "Réduire à 2 options + expliciter inconnues."
+
+  - step_id: "step_4_risk_compliance_review"
+    description: "Revue risques/gouvernance (sécurité, confidentialité, dépendances critiques) et exigences de validation."
+    agent: "META-GouvernanceEtRisques"
+    inputs:
+      - "architecture_options"
+      - "it_brief"
+    outputs:
+      - "risk_register"
+      - "controls_required"
+    quality_gate:
+      checks:
+        - "Risques classés (low/medium/high)"
+        - "Mitigations proposées"
+      pass_criteria: "risk_register présent"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "META-GouvernanceQA"
+
+  - step_id: "step_5_implementation_and_rollback_plan"
+    description: "Plan d’implémentation (jalons) + rollback plan (backout, checkpoints, critères go/no-go)."
+    agent: "HUB-ITCoachIA360"
+    inputs:
+      - "architecture_options"
+      - "risk_register"
+      - "controls_required"
+    outputs:
+      - "implementation_plan"
+      - "rollback_plan"
+    quality_gate:
+      checks:
+        - "Rollback: checkpoints + critères go/no-go"
+        - "Dépendances + owners"
+      pass_criteria: "implementation_plan + rollback_plan complets"
+    error_handling:
+      on_failure: "retry"
+      retry:
+        max_attempts: 1
+
+  - step_id: "step_6_archive"
+    description: "Archiver diagnostic + options + plan + rollback + registre risques."
+    agent: "OPS-DossierIA"
+    inputs:
+      - "tech_assessment"
+      - "architecture_options"
+      - "implementation_plan"
+      - "rollback_plan"
+      - "risk_register"
+    outputs:
+      - "archive_receipt"
+    error_handling:
+      on_failure: "escalate"
+      escalate_to: "HUB-AgentMO2-DeputyOrchestrator"
+
+handoffs:
+  - from: "step_1_scope_intake"
+    to: "step_2_tech_assessment"
+    data: "it_brief → input step_2"
+  - from: "step_2_tech_assessment"
+    to: "step_3_architecture_options"
+    data: "tech_assessment → input step_3"
+  - from: "step_3_architecture_options"
+    to: "step_4_risk_compliance_review"
+    data: "architecture_options → input step_4"
+  - from: "step_4_risk_compliance_review"
+    to: "step_5_implementation_and_rollback_plan"
+    data: "risk_register + controls_required → input step_5"
+  - from: "step_5_implementation_and_rollback_plan"
+    to: "step_6_archive"
+    data: "plans → input step_6"
+
+rollback:
+  principle: "Toute recommandation doit inclure un backout plan; sinon livrable = partial."
+  actions:
+    - trigger: "controls_required non satisfaits"
+      action: "Marquer 'paused' et lister validations manquantes."
+    - trigger: "risque high sans mitigation"
+      action: "Escalade META-GouvernanceQA; ne pas recommander déploiement."
+
+tests:
+  - test_id: "T1_it_minimal"
+    initial_inputs:
+      objective: "Stabiliser un service interne et préparer une amélioration d’architecture."
+      it_context:
+        environment: "prod"
+        stack: ["Teams", "Slack", "API interne"]
+        pain_points: ["latence", "erreurs intermittentes"]
+        sla: "99.5%"
+    expected:
+      must_include:
+        - "architecture_options (>=2)"
+        - "rollback_plan"
+        - "risk_register"
+
+catalog_entry_playbooks_yaml:
+  HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1:
+    description: "Coaching IT: diagnostic → options → plan + rollback + risques."
+    steps:
+      - step: intake
+        actor_id: HUB-AgentMO-MasterOrchestrator
+      - step: assessment
+        actor_id: HUB-ITCoachIA360
+      - step: options
+        actor_id: HUB-ITCoachIA360
+      - step: risks
+        actor_id: META-GouvernanceEtRisques
+      - step: plan
+        actor_id: HUB-ITCoachIA360
+      - step: archive
+        actor_id: OPS-DossierIA
