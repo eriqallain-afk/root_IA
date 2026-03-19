@@ -35,7 +35,7 @@ $agentsIdx = Get-RepoFile -RootPath $RootPath `
 
 $playbooksIdx = Get-RepoFile -RootPath $RootPath `
   -Candidates @("00_INDEX\playbooks_index.yaml","playbooks_index.yaml",
-                "00_INDEX\playbooks.yaml","00_INDEX\playbooks.yaml","playbooks.yaml") `
+                "00_INDEX\playbooks.yaml","playbooks.yaml") `
   -FallbackName "playbooks_index.yaml"
 
 $errors   = New-Object System.Collections.Generic.List[string]

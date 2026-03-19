@@ -2,168 +2,233 @@ schema_version: "1.0"
 dashboard_id: FACTORY_HEALTH
 description: "Santé globale de la Factory — agents actifs, drift, alertes en cours"
 owner: TEAM__CTL
-updated_at: "2026-03-08"
+updated_at: "2026-03-17"
 
-# ============================================================
-# SNAPSHOT SANTÉ ACTUEL — mis à jour par CTL-WatchdogIA
-# ============================================================
+# Chiffres vérifiés par lecture directe de chaque agent.yaml et playbook PB_*.yaml
+
 factory_summary:
-  total_agents: 40
+  total_agents: 39         # 3 CTL + 8 HUB + 10 IAHQ + 15 META + 3 OPS
   agents_active: 39
   agents_deprecated: 0
-  agents_no_data: 40      # Aucun run encore logué
-  teams_active: 5         # CTL, HUB, IAHQ, META, OPS
-  playbooks_active: 11
-  agents_in_playbooks: 27 # Agents réellement référencés dans les 11 playbooks
-  intents_registered: 281
+  agents_no_data: 39
+  teams_active: 5
+  playbooks_active: 16     # 16 fichiers PB_*.yaml officiels (3 CTL + 5 HUB + 2 IAHQ + 5 META + 1 OPS)
+  agents_in_playbooks: 31  # 31 agents réels couverts par au moins 1 playbook
+  agents_not_covered: 8
+  phantom_actor_ids: 2     # HUB-Router + META-GouvernanceEtRisques
   last_full_check: null
-  health_status: "unknown"  # unknown | healthy | degraded | critical
+  health_status: "unknown"
 
 per_team_health:
+
   CTL:
     agents: 3
     active: 3
-    status: "✅ Complet"
+    status: "✅ Complet — tests présents"
+    playbooks_owned: 3
     last_check: null
     agents_list:
-      - CTL-WatchdogIA
-      - CTL-AlertRouter
-      - CTL-HealthReporter
+      - CTL-WatchdogIA       # prompt 173L | tests ✅
+      - CTL-AlertRouter      # prompt 135L | tests ✅
+      - CTL-HealthReporter   # prompt 210L | tests ✅
+
   HUB:
     agents: 8
     active: 8
-    status: "✅ Complet"
+    status: "⚠️ HUB-Router fantôme dans PB ORCHESTRATE_AND_DISPATCH (ISS-006)"
+    playbooks_owned: 5
     last_check: null
     agents_list:
-      - HUB-AgentMO-MasterOrchestrator
-      - HUB-AgentMO2-DeputyOrchestrator 
-      - HUB-AvatarForge
-      - HUB-OproEngine
-      - HUB-CoachIA360-Strategie-GPTTeams
-      - HUB-IA-ChatBotMaster
-      - HUB-ITCoachIA360
-      - HUB-AvatarForge
+      - HUB-AgentMO-MasterOrchestrator    # prompt 168L | tests ✅ | schema 1.0
+      - HUB-AgentMO2-DeputyOrchestrator   # prompt 171L | tests ✅ | schema 1.1.0
+      - HUB-AvatarForge                   # prompt 266L | no tests
+      - HUB-CoachIA360-Strategie-GPTTeams # prompt 199L | no tests
+      - HUB-Concierge                     # prompt 213L | no tests
+      - HUB-IA-ChatBotMaster              # prompt 185L | no tests
+      - HUB-ITCoachIA360                  # prompt 180L | no tests
+      - HUB-OproEngine                    # prompt 191L | no tests
+
   IAHQ:
     agents: 10
     active: 10
-    status: "✅ Complet"
+    status: "✅ Complet — 3 agents non couverts par playbooks"
+    playbooks_owned: 2
     last_check: null
     agents_list:
-      - IAHQ-OrchestreurEntrepriseIA
-      - IAHQ-QualityGate
-      - IAHQ-TechLeadIA
-      - IAHQ-Economist
-      - IAHQ-Strategist
-      - IAHQ-ProcessMapper
-      - IAHQ-SolutionOrchestrator
-      - IAHQ-Advisor
-      - IAHQ-DataAnalyst
-      - IAHQ-ProjectManager
+      - IAHQ-AdminManagerIA       # prompt 173L | no tests | non couvert
+      - IAHQ-DevFactoryIA         # prompt 215L | no tests | non couvert
+      - IAHQ-Economist            # prompt 208L | no tests
+      - IAHQ-Extractor            # prompt 167L | no tests | non couvert
+      - IAHQ-OrchestreurEntrepriseIA # prompt 192L | no tests
+      - IAHQ-ProcessMapper        # prompt 217L | no tests
+      - IAHQ-QualityGate          # prompt 185L | tests ✅
+      - IAHQ-SolutionOrchestrator # prompt 182L | no tests
+      - IAHQ-Strategist           # prompt 222L | no tests
+      - IAHQ-TechLeadIA           # prompt 182L | no tests
+
   META:
-    agents: 16
-    active: 16
-    status: "✅ Complet"
+    agents: 15
+    active: 15
+    status: "⚠️ META-ConciergeUX agent.yaml id incorrect (ISS-008) | 5 non couverts"
+    playbooks_owned: 5
     last_check: null
     agents_list:
-      - META-AgentProductFactory
-      - META-AnalysteBesoinsEquipes
-      - META-ArchitecteChoix
-      - META-CartographeRoles
-      - META-Concierge
-      - META-ConciergeUX
-      - META-GouvernanceQA
-      - META-OrchestrateurCentral
-      - META-Pedagogie
-      - META-PlaybookBuilder
-      - META-PromptMaster
-      - META-Redaction
-      - META-ReversePrompt
-      - META-VisionCreative
-      - META-WorkflowDesignerEquipes
-      - META-ReversePrompt
+      - META-AgentProductFactory      # prompt 218L | no tests
+      - META-AnalysteBesoinsEquipes   # prompt 88L  | tests ✅
+      - META-ArchitecteChoix          # prompt 154L | tests ✅ | status=production
+      - META-CartographeRoles         # prompt 105L | no tests
+      - META-Concierge                # prompt 182L | no tests | non couvert
+      - META-ConciergeUX              # prompt 150L | no tests | non couvert | ISS-008
+      - META-GouvernanceQA            # prompt 185L | no tests
+      - META-OrchestrateurCentral     # prompt 194L | tests ✅
+      - META-Pedagogie                # prompt 152L | tests ✅ | non couvert
+      - META-PlaybookBuilder          # prompt 200L | tests ✅ | status=production
+      - META-PromptMaster             # prompt 642L | tests ✅ | status=production
+      - META-Redaction                # prompt 176L | tests ✅ | non couvert
+      - META-ReversePrompt            # prompt 219L | no tests
+      - META-VisionCreative           # prompt 155L | tests ✅ | non couvert
+      - META-WorkflowDesignerEquipes  # prompt 154L | no tests
 
   OPS:
     agents: 3
     active: 3
-    status: "✅ Complet"
+    status: "✅ Complet — tous avec tests"
+    playbooks_owned: 1
     last_check: null
     agents_list:
-      - OPS-RouterIA
-      - OPS-PlaybookRunner
-      - OPS-DossierIA
+      - OPS-DossierIA        # prompt 253L | no tests | 16x dans playbooks (critique)
+      - OPS-PlaybookRunner   # prompt 262L | tests ✅
+      - OPS-RouterIA         # prompt 220L | tests ✅
 
-# ============================================================
-# CROSS-RÉFÉRENCE PLAYBOOKS ↔ AGENTS
-# Agents réellement utilisés dans les 11 playbooks actifs
-# ============================================================
 playbook_agents_coverage:
-  agents_in_playbooks: 27
-  agents_not_yet_in_playbooks: 13
-  # Les 27 agents référencés dans au moins 1 playbook :
-  covered:
-    - CTL-WatchdogIA
-    - CTL-AlertRouter
-    - CTL-HealthReporter
-    - HUB-Router
-    - HUB-Concierge
-    - HUB-AgentMO-MasterOrchestrator
-    - HUB-AgentMO2-DeputyOrchestrator
-    - HUB-OproEngine
-    - IAHQ-OrchestreurEntrepriseIA
-    - IAHQ-ProcessMapper
-    - IAHQ-SolutionOrchestrator
-    - IAHQ-TechLeadIA
-    - IAHQ-Economist
-    - IAHQ-Strategist
-    - IAHQ-QualityGate
-    - META-AgentProductFactory
-    - META-GouvernanceQA
-    - META-OrchestrateurCentral
-    - META-ArchitecteChoix
-    - META-AnalysteBesoinsEquipes
-    - META-CartographeRoles
-    - META-WorkflowDesignerEquipes
-    - META-PlaybookBuilder
-    - META-PromptMaster
-    - META-ReversePrompt
-    - OPS-RouterIA
-    - OPS-DossierIA
-  # Agents existants mais pas encore dans les playbooks :
-  not_covered:
-    - HUB-AvatarForge
-    - HUB-CoachIA360-Strategie-GPTTeams
-    - HUB-IA-ChatBotMaster
-    - HUB-ITCoachIA360
-    - IAHQ-Advisor
-    - IAHQ-DataAnalyst
-    - IAHQ-ProjectManager
-    - META-Documentaliste
-    - OPS-PlaybookRunner
+  agents_in_playbooks: 31
+  agents_not_covered: 8
+
+  covered:  # 31 agents réels, vérifiés par scan des 16 PB_*.yaml
+    - CTL-WatchdogIA        # 7 playbooks
+    - CTL-AlertRouter       # 2 playbooks
+    - CTL-HealthReporter    # 4 playbooks
+    - HUB-AgentMO-MasterOrchestrator    # 3 playbooks
+    - HUB-AgentMO2-DeputyOrchestrator   # 4 playbooks
+    - HUB-AvatarForge       # 1 playbook
+    - HUB-CoachIA360-Strategie-GPTTeams # 1 playbook
+    - HUB-Concierge         # 1 playbook
+    - HUB-IA-ChatBotMaster  # 1 playbook
+    - HUB-ITCoachIA360      # 1 playbook
+    - HUB-OproEngine        # 1 playbook
+    - IAHQ-Economist             # 4 playbooks
+    - IAHQ-OrchestreurEntrepriseIA # 4 playbooks
+    - IAHQ-ProcessMapper    # 1 playbook
+    - IAHQ-QualityGate      # 3 playbooks
+    - IAHQ-SolutionOrchestrator # 1 playbook
+    - IAHQ-Strategist       # 3 playbooks
+    - IAHQ-TechLeadIA       # 5 playbooks
+    - META-AgentProductFactory   # 6 playbooks
+    - META-AnalysteBesoinsEquipes # 3 playbooks
+    - META-ArchitecteChoix  # 1 playbook
+    - META-CartographeRoles # 2 playbooks
+    - META-GouvernanceQA    # 11 playbooks — le plus couvert
+    - META-OrchestrateurCentral # 2 playbooks
+    - META-PlaybookBuilder  # 2 playbooks
+    - META-PromptMaster     # 3 playbooks
+    - META-ReversePrompt    # 2 playbooks
+    - META-WorkflowDesignerEquipes # 3 playbooks
+    - OPS-DossierIA         # 16 playbooks — CRITIQUE
+    - OPS-PlaybookRunner    # 1 playbook
+    - OPS-RouterIA          # 4 playbooks
+
+  not_covered:  # Agents réels existants, absents de tous les playbooks
+    - IAHQ-AdminManagerIA
+    - IAHQ-DevFactoryIA
+    - IAHQ-Extractor
+    - META-Concierge
+    - META-ConciergeUX
+    - META-Pedagogie
+    - META-Redaction
+    - META-VisionCreative
+
+  phantom_actor_ids:  # Référencés dans playbooks mais n'existent PAS
+    - id: HUB-Router
+      found_in: ORCHESTRATE_AND_DISPATCH
+      issue: ISS-006
+      action: "Créer HUB-Router OU corriger actor_id vers HUB-AgentMO-MasterOrchestrator"
+    - id: META-GouvernanceEtRisques
+      found_in: HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1
+      issue: ISS-009
+      action: "Corriger actor_id vers META-GouvernanceQA dans PB_HUB_ITCOACHIA360"
 
 active_alerts: []
 
 known_issues:
-  - id: "ISS-001"
-    severity: "low"
-    description: "HUB-AgentMO2-DeputyOrchestrator — prompt partiel (68L, cible 120L+)"
-    status: "open"
-    owner: "CTL-WatchdogIA"
-  - id: "ISS-002"
-    severity: "low"
-    description: "3 dashboards CTL étaient vides (0 bytes) — corrigé 2026-02-28"
-    status: "resolved"
-  - id: "ISS-003"
-    severity: "low"
-    description: "OPS-RouterIA timings.total_ms/match_ms non mesurables en contexte GPT — champs null + note ajoutée"
-    status: "resolved"
-  - id: "ISS-004"
-    severity: "low"
-    description: "PB_HUB_01_ORCHESTRATE_AND_DISPATCH.yaml — schéma ancien format (id: au lieu de playbook_id:, step: au lieu de step_id:). Réécrit au schéma standard v1.1.0 le 2026-03-08."
-    status: "resolved"
-  - id: "ISS-005"
-    severity: "info"
-    description: "13 agents existants non référencés dans les playbooks actifs — à intégrer lors des prochains sprints FAB."
-    status: "open"
-    owner: "META-PlaybookBuilder"
+  - id: ISS-001
+    severity: low
+    description: "HUB-AgentMO2 prompt partiel (68L)"
+    status: resolved
+    resolution: "Prompt vérifié 171L — opérationnel. ISS-001 était une fausse alerte."
+
+  - id: ISS-002
+    severity: low
+    description: "3 dashboards CTL vides — corrigé 2026-02-28"
+    status: resolved
+
+  - id: ISS-003
+    severity: low
+    description: "OPS-RouterIA timings non mesurables en GPT — corrigé"
+    status: resolved
+
+  - id: ISS-004
+    severity: low
+    description: "PB_HUB_01 schéma ancien format — réécrit v1.1.0 le 2026-03-08"
+    status: resolved
+
+  - id: ISS-005
+    severity: info
+    description: "8 agents réels non couverts par les playbooks"
+    status: open
+    owner: META-PlaybookBuilder
+    agents: [IAHQ-AdminManagerIA, IAHQ-DevFactoryIA, IAHQ-Extractor,
+             META-Concierge, META-ConciergeUX, META-Pedagogie, META-Redaction, META-VisionCreative]
+
+  - id: ISS-006
+    severity: medium
+    description: "HUB-Router référencé dans ORCHESTRATE_AND_DISPATCH mais absent de FACTORY/20_AGENTS/HUB"
+    status: open
+    owner: CTL-WatchdogIA
+    action: "Créer HUB-Router OU remplacer actor_id par HUB-AgentMO-MasterOrchestrator"
+
+  - id: ISS-007
+    severity: medium
+    description: >
+      FACTORY_HEALTH contenait des agents fantômes (Advisor, DataAnalyst, ProjectManager,
+      Documentaliste, TestEngineer, DevOpsIA, SecurityReviewer) et agents réels manquants.
+      Corrigé 2026-03-17 par lecture directe de chaque agent.yaml.
+    status: resolved
+
+  - id: ISS-008
+    severity: low
+    description: "META-ConciergeUX/agent.yaml déclare id: META-Concierge — doublon avec META-Concierge"
+    status: open
+    owner: META-GouvernanceQA
+    fix: "Changer id: META-Concierge → id: META-ConciergeUX dans 20_AGENTS/META/META-ConciergeUX/agent.yaml"
+
+  - id: ISS-009
+    severity: medium
+    description: "META-GouvernanceEtRisques référencé dans HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1 mais n'existe pas"
+    status: open
+    owner: CTL-WatchdogIA
+    action: "Corriger actor_id vers META-GouvernanceQA dans PB_HUB_ITCOACHIA360_TECH_ACTIONPLAN_V1.yaml"
 
 drift_detected: false
+
+changelog:
+  - date: "2026-03-17"
+    source: "Audit complet — lecture directe agent.yaml + scan PB_*.yaml"
+    changes:
+      - "total_agents confirmé 39 (3+8+10+15+3)"
+      - "playbooks_active corrigé 11→16 (5 nouveaux PB HUB + 1 OPS présents dans ZIP)"
+      - "agents_in_playbooks corrigé 26→31 (couverture recalculée sur 16 PB)"
+      - "agents_not_covered corrigé 13→8 (les nouveaux PB couvrent AvatarForge, CoachIA360, IA-ChatBotMaster, ITCoachIA360, PlaybookRunner)"
+      - "ISS-001 fermé (MO2 prompt 171L — opérationnel)"
+      - "ISS-009 ouvert (META-GouvernanceEtRisques fantôme dans PB_HUB_ITCOACHIA360)"
+      - "IAHQ liste corrigée : AdminManagerIA/DevFactoryIA/Extractor (pas Advisor/DataAnalyst/ProjectManager)"
+      - "META liste corrigée : Concierge/ConciergeUX/Pedagogie/Redaction/VisionCreative (pas Documentaliste/TestEngineer/DevOpsIA/SecurityReviewer)"

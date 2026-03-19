@@ -11,7 +11,7 @@ fallback: HUB-Concierge
 
 routing_table:
 
-  # -- CTL - Surveillance et cycle de vie --
+  # ── CTL — Surveillance et cycle de vie ──────────────────────────────────
   - intents: [health_check, monitor, watchdog, drift_detect, factory_status, agent_scan]
     agent: CTL-WatchdogIA
     playbook: FACTORY_HEALTH_CHECK
@@ -38,7 +38,7 @@ routing_table:
     agent: HUB-AgentMO2-DeputyOrchestrator
     playbook: PB_HUB_01_ORCHESTRATE_AND_DISPATCH
 
-  # -- META - Fabrication d'agents --
+  # ── META — Fabrication d'agents ──────────────────────────────────────────
   - intents: [creer_agent, nouveau_agent, agent_package_create, build_agent]
     agent: META-AgentProductFactory
     playbook: PB_FAB_01_BUILD_ARMY_FACTORY
@@ -74,7 +74,7 @@ routing_table:
   - intents: [roles, cartographie, blueprint, army_design]
     agent: META-CartographeRoles
 
-  # -- IAHQ - Strategie entreprise --
+  # ── IAHQ — Stratégie entreprise ──────────────────────────────────────────
   - intents: [onboard_team, new_domain, team_launch]
     agent: IAHQ-OrchestreurEntrepriseIA
     playbook: PB_EXP_01_ONBOARD_NEW_TEAM
@@ -89,8 +89,8 @@ routing_table:
   - intents: [architecture, solution_blueprint, tech_validation]
     agent: IAHQ-TechLeadIA
 
-  # -- OPS - Orchestration et dispatch --
-  - intents: [run_orchestrate, run_dispatch, run_playbook, execute]
+  # ── OPS — Orchestration et dispatch ──────────────────────────────────────
+  - intents: [orchestrate, dispatch, run_playbook, execute]
     agent: OPS-PlaybookRunner
 
   - intents: [memory, archive, dossier, project_file]
@@ -99,12 +99,12 @@ routing_table:
   - intents: [classify, route, intent_detection]
     agent: OPS-RouterIA
 
-  # -- EDU --
+  # ── EDU ──────────────────────────────────────────────────────────────────
   - intents: [education, ccq, evaluation, correction, reflexion, ethique, devoir, batch_eval]
     agent: EDU-Orchestrator
     playbook: EDU_CCQ_EVALUATE
 
-  # -- IT --
+  # ── IT ───────────────────────────────────────────────────────────────────
   - intents: [it, ticket, incident, alerte, noc, support, intervention]
     agent: IT-OrchestratorMSP
     playbook: IT_INCIDENT_TRIAGE
@@ -125,7 +125,7 @@ routing_table:
   - intents: [cloud, azure, m365]
     agent: IT-CloudMaster
 
-  # -- DAM - Construction --
+  # ── DAM — Construction ───────────────────────────────────────────────────
   - intents: [dam, construction, renovation, domiciliaire, projet_maison]
     agent: DAM-Orchestrator
     playbook: DAM_PROJECT_ANALYSIS
@@ -136,7 +136,7 @@ routing_table:
   - intents: [budget, cout, soumission, estimation]
     agent: DAM-Budget
 
-  # -- TRAD - Intelligence strategique --
+  # ── TRAD — Intelligence stratégique ─────────────────────────────────────
   - intents: [intel, intelligence, geopolitique, analyse_strategique, command]
     agent: TRAD-CommandCore
     playbook: TRAD_INTEL_BRIEF
@@ -150,7 +150,7 @@ routing_table:
   - intents: [cybersecurite, menace, vulnerability, ransomware, cyber]
     agent: TRAD-CyberWatch
 
-  # -- IASM - Sante mentale --
+  # ── IASM — Santé mentale ─────────────────────────────────────────────────
   - intents: [coaching, support_emotionnel, aide, ecoute, stress, anxiete]
     agent: IASM-Orchestrator
     playbook: IASM_SESSION
@@ -161,14 +161,14 @@ routing_table:
   - intents: [urgence, crise, danger, suicidaire, automutilation]
     agent: IASM-Securite
 
-  # -- NEA - Edition et narration --
+  # ── NEA — Édition et narration ───────────────────────────────────────────
   - intents: [livre, recueil, publishing, ecriture]
     agent: NEA-Orchestrator
 
   - intents: [illustration, image, visuel, brief_image]
     agent: NEA-Imagier
 
-  # -- PLR / ESPL - Radio et contenu --
+  # ── PLR / ESPL — Radio et contenu ────────────────────────────────────────
   - intents: [radio, podcast, episode, script_radio]
     agent: PLR-Orchestrator
 
