@@ -1,8 +1,8 @@
-﻿# Memoire Persistante - IT-KnowledgeKeeper
+﻿# Memoire Persistante - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier constitue la **memoire operationnelle persistante** de IT-KnowledgeKeeper. Il conserve le contexte accumule, les decisions passees et les preferences apprises pour assurer la continuite entre les sessions.
+Ce dossier constitue la **memoire operationnelle persistante** de IT-MaintenanceMaster. Il conserve le contexte accumule, les decisions passees et les preferences apprises pour assurer la continuite entre les sessions.
 
 ## Contenu type
 
@@ -20,4 +20,4 @@ Ce dossier constitue la **memoire operationnelle persistante** de IT-KnowledgeKe
 
 ---
 
-*Memory Store - IT-KnowledgeKeeper v1.0*
+*Memory Store - IT-MaintenanceMaster v1.0*

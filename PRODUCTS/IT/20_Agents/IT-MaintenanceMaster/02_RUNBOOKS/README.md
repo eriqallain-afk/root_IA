@@ -1,8 +1,8 @@
-﻿# Runbooks Operationnels - IT-KnowledgeKeeper
+﻿# Runbooks Operationnels - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier contient les **runbooks** de IT-KnowledgeKeeper : procedures pas-a-pas pour executer les taches recurrentes de maniere reproductible et sans ambiguite.
+Ce dossier contient les **runbooks** de IT-MaintenanceMaster : procedures pas-a-pas pour executer les taches recurrentes de maniere reproductible et sans ambiguite.
 
 ## Structure recommandee
 
@@ -21,4 +21,4 @@ Chaque runbook suit le format :
 
 ---
 
-*Runbooks - IT-KnowledgeKeeper v1.0*
+*Runbooks - IT-MaintenanceMaster v1.0*

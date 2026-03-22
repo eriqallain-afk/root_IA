@@ -1,8 +1,8 @@
-﻿# Checklists de Validation - IT-KnowledgeKeeper
+﻿# Checklists de Validation - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier regroupe les **checklists de controle qualite** utilisees par IT-KnowledgeKeeper avant, pendant et apres la production de livrables.
+Ce dossier regroupe les **checklists de controle qualite** utilisees par IT-MaintenanceMaster avant, pendant et apres la production de livrables.
 
 ## Types de checklists
 
@@ -20,4 +20,4 @@ Chaque item de checklist doit inclure :
 
 ---
 
-*Checklists - IT-KnowledgeKeeper v1.0*
+*Checklists - IT-MaintenanceMaster v1.0*

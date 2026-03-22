@@ -1,8 +1,8 @@
-﻿# Exemples de Reference - IT-KnowledgeKeeper
+﻿# Exemples de Reference - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier contient des **exemples concrets** illustrant les inputs acceptes et les outputs produits par IT-KnowledgeKeeper.
+Ce dossier contient des **exemples concrets** illustrant les inputs acceptes et les outputs produits par IT-MaintenanceMaster.
 
 ## Nomenclature des fichiers
 
@@ -13,4 +13,4 @@ Exemple : EX-001_nominal_rapport-patching-mensuel.md
 
 ---
 
-*Exemples - IT-KnowledgeKeeper v1.0*
+*Exemples - IT-MaintenanceMaster v1.0*

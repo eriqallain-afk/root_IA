@@ -1,8 +1,8 @@
-﻿# Donnees de Reference - IT-KnowledgeKeeper
+﻿# Donnees de Reference - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier centralise toutes les **donnees de reference statiques** utilisees par IT-KnowledgeKeeper pour prendre des decisions et produire ses livrables.
+Ce dossier centralise toutes les **donnees de reference statiques** utilisees par IT-MaintenanceMaster pour prendre des decisions et produire ses livrables.
 
 ## Contenu type
 
@@ -20,4 +20,4 @@ Toute mise a jour doit etre validee avant remplacement.
 
 ---
 
-*Reference Data - IT-KnowledgeKeeper v1.0*
+*Reference Data - IT-MaintenanceMaster v1.0*

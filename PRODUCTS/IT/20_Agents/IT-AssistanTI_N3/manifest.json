@@ -1,30 +1,49 @@
-﻿{
-    "team":  "IT",
-    "version":  "1.0.0",
-    "outputs":  [
-                    "[Type de livrable 1]",
-                    "[Type de livrable 2]"
-                ],
-    "files":  [
-                  "README.md",
-                  "00_REFERENCE_DATA/README.md",
-                  "01_TEMPLATES/",
-                  "02_RUNBOOKS/README.md",
-                  "03_CHECKLISTS/README.md",
-                  "04_EXEMPLES/README.md",
-                  "05_KNOWLEDGE/",
-                  "10_MEMORY/README.md",
-                  "65_TEST/README.md",
-                  "05_KNOWLEDGE/",
-                  "00_INSTRUCTIONS.md",
-                  "01_CONTRACT.yaml",
-                  "03_ORIGINAL_PROMPT.md",
-                  "04_KNOWLEDGE_INDEX.md"
-              ],
-    "templates":  [
-
-                  ],
-    "agent_name":  "IT-AssistanceTechnique-N3",
-    "role":  "[Role de l\u0027agent - A completer]",
-    "display_name":  "@IT-AssistanceTechnique-N3"
+{
+    "agent_name": "IT-AssistanTI_N3",
+    "display_name": "@IT-AssistanceTechnique",
+    "aliases": ["@IT-AssistanceTechnique", "@IT-AT"],
+    "team": "IT",
+    "version": "2.0.0",
+    "updated": "2026-03-20",
+    "status": "active",
+    "role": "Assistant technique MSP N1-N3 : guide le technicien en temps réel de l'ouverture du billet à la clôture ConnectWise. Triage, checklist, scripts PowerShell, runbooks, 4 livrables CW, brief KB, enregistrement DB.",
+    "intents": ["it","ticket","incident","support","maintenance","patching","health_check","diagnostic","windows","active_directory","m365","rds","file_server","linux","network","backup","veeam","security","closeout","cw_ticket","connectwise"],
+    "commands": ["/start", "/start_maint", "/runbook", "/script", "/close", "/kb", "/db", "/status"],
+    "outputs": [
+        "Triage + plan d'action + checklist pre/post",
+        "Scripts PowerShell/Bash production-ready",
+        "CW_DISCUSSION (client-safe, format STAR)",
+        "CW_NOTE_INTERNE (audit trail technique)",
+        "EMAIL_CLIENT (courriel formel)",
+        "AVIS_TEAMS (annonce canal Teams)",
+        "Brief /kb pour IT-KnowledgeKeeper",
+        "Commande /db pour MSP-Assistant DB"
+    ],
+    "domains": [
+        "Windows Server", "Active Directory", "Microsoft 365",
+        "RDS/RemoteApp", "File Server", "Print Server", "Linux",
+        "Réseau (WatchGuard/Fortinet/Cisco/Ubiquiti)",
+        "VEEAM", "Datto", "VMware vSphere", "Hyper-V",
+        "Sécurité (EDR/incidents)", "Panne électrique"
+    ],
+    "files": {
+        "core": [
+            "agent.yaml", "contract.yaml", "prompt.md",
+            "00_INSTRUCTIONS.md", "manifest.json", "README.md"
+        ],
+        "operational": [
+            "03_CHECKLISTS/CL-001_validation-principale.md",
+            "04_EXEMPLES/EX-001_cas-nominal.md",
+            "04_EXEMPLES/EXEMPLE_kb_brief_1683171.yaml"
+        ]
+    },
+    "handoffs": {
+        "IT-TicketScribe": "Clôture CW formelle (/close)",
+        "IT-KnowledgeKeeper": "Capitalisation KB (/kb)",
+        "IT-ClientDocMaster": "Documentation Hudu",
+        "IT-SecurityMaster": "Incidents sécurité P1",
+        "IT-Commandare-Infra": "Incidents infra P1",
+        "IT-NetworkMaster": "Problèmes réseau complexes",
+        "IT-BackupDRMaster": "Perte données / DR"
+    }
 }

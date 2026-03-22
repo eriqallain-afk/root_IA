@@ -1,345 +1,265 @@
 schema_version: '1.0'
-generated_at: '2026-02-10T21:43:32.675725'
+generated_at: '2026-03-20T00:00:00Z'
+# Phase 3 — 22 agents actifs (19 IT + 3 OPS) | 11 archivés
+# IT-ClientDocMaster ajouté | fantômes supprimés
+
 agents:
+
+  # ── AGENTS ACTIFS — TEAM__IT ──────────────────────────────────
+
+  IT-AssetMaster:
+    display_name: "@IT-AssetMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Inventaire IT & CMDB : structure, maintient et exploite actifs HW/SW."
+    intents: [it, cmdb, assets, inventory]
+    path: 20_Agents/IT-AssetMaster
+
+  IT-AssistanTI_N3:
+    display_name: "@IT-AssistanTI_N3"
+    team_id: TEAM__IT
+    status: active
+    description: "Technicien MSP N1-N3 : diagnostic guidé, checklists, livrables CW."
+    intents: [connectwise, cw_ticket, diagnostic, guidance, handoff, support, n1, n2, n3]
+    path: 20_Agents/IT-AssistanTI_N3
+
+  IT-BackupDRMaster:
+    display_name: "@IT-BackupDRMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Sauvegardes & DR : stratégies RPO/RTO, tests, runbooks."
+    intents: [it, backup, dr, veeam, datto, restore]
+    path: 20_Agents/IT-BackupDRMaster
+
+  IT-ClientDocMaster:
+    display_name: "@IT-ClientDocMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Documentation client Hudu : extrait les infos IT persistantes et génère les contenus prêts à coller (Notes-Editor, Services, champs)."
+    intents: [hudu, documentation, edocs, client_doc, asset_doc, notes_editor, serveur, backup, application, licence]
+    path: 20_Agents/IT-ClientDocMaster
+
+  IT-CloudMaster:
+    display_name: "@IT-CloudMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Cloud Azure/M365/SaaS : architectures, gouvernance, sécurité."
+    intents: [it, cloud, azure, m365, saas]
+    path: 20_Agents/IT-CloudMaster
+
+  IT-Commandare-Infra:
+    display_name: "@IT-Commandare-Infra"
+    team_id: TEAM__IT
+    status: active
+    description: "Commandare INFRA : pilote les incidents infrastructure (serveurs, VMs, réseau, DC/AD, backup/DR, Azure)."
+    intents: [infra, incident, server, vm, dc, ad, azure_infra]
+    path: 20_Agents/IT-Commandare-Infra
+
+  IT-Commandare-NOC:
+    display_name: "@IT-Commandare-NOC"
+    team_id: TEAM__IT
+    status: active
+    description: "Commandare NOC : triage avancé, corrélation alertes, évaluation sévérité, coordination réponse."
+    intents: [noc, monitoring, incident, triage, noc_triage, alerte]
+    path: 20_Agents/IT-Commandare-NOC
+
+  IT-Commandare-OPR:
+    display_name: "@IT-Commandare-OPR"
+    team_id: TEAM__IT
+    status: active
+    description: "Commandare OPR : pipeline back-office, clôture formelle, communications client, rapports, CMDB."
+    intents: [it, opr, ops, closing, communication, reporting]
+    path: 20_Agents/IT-Commandare-OPR
+
+  IT-Commandare-TECH:
+    display_name: "@IT-Commandare-TECH"
+    team_id: TEAM__IT
+    status: active
+    description: "Commandare TECH : coordination support N1-N3, incidents sécurité SOC, escalade technique."
+    intents: [it, tech, support, soc, escalade, rca, remediation]
+    path: 20_Agents/IT-Commandare-TECH
+
+  IT-KnowledgeKeeper:
+    display_name: "@IT-KnowledgeKeeper"
+    team_id: TEAM__IT
+    status: active
+    description: "Knowledge MSP : tickets résolus -> KB & runbooks."
+    intents: [it, knowledge, kb, runbook, capitalisation]
+    path: 20_Agents/IT-KnowledgeKeeper
+
+  IT-MaintenanceMaster:
+    display_name: "@IT-MaintenanceMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Maintenance & audits : patching, plans, conformité, scripts PowerShell, snapshots, menu de clôture interactif."
+    intents: [it, maintenance, patching, scripts, powershell, health_check, snapshot]
+    path: 20_Agents/IT-MaintenanceMaster
+
+  IT-MonitoringMaster:
+    display_name: "@IT-MonitoringMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Supervision/observabilité : configuration monitoring, KPIs, seuils d'alertes."
+    intents: [it, monitoring, alertes, kpi, supervision, nable, prtg]
+    path: 20_Agents/IT-MonitoringMaster
+
+  IT-NOCDispatcher:
+    display_name: "@IT-NOCDispatcher"
+    team_id: TEAM__IT
+    status: active
+    description: "Dispatcher NOC : qualification, priorisation, assignation, suivi SLA."
+    intents: [noc, dispatch, sla, priorisation, assignation]
+    path: 20_Agents/IT-NOCDispatcher
+
+  IT-NetworkMaster:
+    display_name: "@IT-NetworkMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Réseau LAN/WAN/VPN/WiFi/routage/QoS/firewalls."
+    intents: [it, network, reseau, vpn, firewall, wifi, cisco, watchguard]
+    path: 20_Agents/IT-NetworkMaster
+
+  IT-ReportMaster:
+    display_name: "@IT-ReportMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Rapports IT : postmortem, mensuel, QBR, sécurité, performance."
+    intents: [it, report, postmortem, qbr, mensuel, rapport]
+    path: 20_Agents/IT-ReportMaster
+
+  IT-ScriptMaster:
+    display_name: "@IT-ScriptMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Génération scripts PowerShell/Bash production-ready pour opérations IT MSP."
+    intents: [it, script, powershell, bash, automation]
+    path: 20_Agents/IT-ScriptMaster
+
+  IT-SecurityMaster:
+    display_name: "@IT-SecurityMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Cybersécurité MSP : analyse risques, incidents sécurité, remédiation, documentation."
+    intents: [it, security, securite, incident, soc, edr, cve, ir]
+    path: 20_Agents/IT-SecurityMaster
+
+  IT-TicketScribe:
+    display_name: "@IT-TicketScribe"
+    team_id: TEAM__IT
+    status: active
+    description: "Rédacteur ConnectWise : notes brutes -> CW_NOTE_INTERNE, CW_DISCUSSION, AVIS_CLIENT, AVIS_TEAMS."
+    intents: [connectwise, cw, note_interne, discussion, closeout, ticket, redaction]
+    path: 20_Agents/IT-TicketScribe
+
+  IT-VoIPMaster:
+    display_name: "@IT-VoIPMaster"
+    team_id: TEAM__IT
+    status: active
+    description: "Téléphonie IP & UC : design, déploiement, diagnostic, optimisation VoIP."
+    intents: [it, voip, telephonie, 3cx, teams_phone, cisco, uc]
+    path: 20_Agents/IT-VoIPMaster
+
+  # ── AGENTS ACTIFS — TEAM__OPS ─────────────────────────────────
+
+  OPS-RouterIA:
+    display_name: "@OPS-RouterIA"
+    team_id: TEAM__OPS
+    status: active
+    description: "Moteur de routage : détecte l'intent, route vers agent ou playbook."
+    intents: [route, routing, intent, dispatch]
+    path: OPS/OPS-RouterIA
+
+  OPS-PlaybookRunner:
+    display_name: "@OPS-PlaybookRunner"
+    team_id: TEAM__OPS
+    status: active
+    description: "Exécuteur de playbooks multi-steps : initialise, exécute, gère erreurs, compile livrable."
+    intents: [playbook, execution, runner, workflow]
+    path: OPS/OPS-PlaybookRunner
+
+  OPS-DossierIA:
+    display_name: "@OPS-DossierIA"
+    team_id: TEAM__OPS
+    status: active
+    description: "Hub mémoire : crée et maintient les dossiers d'exécution, archive inputs/outputs/logs."
+    intents: [archive, dossier, memoire, historique]
+    path: OPS/OPS-DossierIA
+
+  # ── ARCHIVÉS — Phase 1 (2026-03-20) ──────────────────────────
+
+  IT-AssistanTI_N2:
+    display_name: "@IT-AssistanTI_N2"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Doublon de IT-AssistanTI_N3 — prompt identique"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-AssistanTI_N2
+
+  IT-CTOMaster:
+    display_name: "@IT-CTOMaster"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Hors scope opérationnel — ne traite pas de billets CW"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-CTOMaster
+
+  IT-CommsMSP:
+    display_name: "@IT-CommsMSP"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Absorbé par IT-TicketScribe (AVIS_CLIENT, AVIS_TEAMS)"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-CommsMSP
+
+  IT-DevOpsMaster:
+    display_name: "@IT-DevOpsMaster"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Hors scope MSP quotidien — CI/CD non pertinent pour tickets CW"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-DevOpsMaster
+
+  IT-DirecteurGeneral:
+    display_name: "@IT-DirecteurGeneral"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Hors scope opérationnel — ne traite pas de billets CW"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-DirecteurGeneral
+
+  IT-InfrastructureMaster:
+    display_name: "@IT-InfrastructureMaster"
+    team_id: TEAM__IT
+    status: archived
+    archived_reason: "Absorbé par IT-Commandare-Infra"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-InfrastructureMaster
+
   IT-MSPLiveAssistant:
     display_name: "@IT-MSPLiveAssistant"
     team_id: TEAM__IT
-    team_name: IT
-    description: "Copilote MSP temps réel (appel/chat/remote) : diagnostic guidé, checklists, notes de ticket, comms client, escalade, capture KB."
-    intents:
-      - msp_live
-      - remote_assist
-      - tickets
-      - live_assist
-      - incident
-      - support
-      - on_call_assist
-      - live_support
-      - chatbot
-  IT-AssistanceTechnique-N2:
-    display_name: '@IT-AssistanceTechnique-N2'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Technicien Niveau 2 MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) :Assistance guidée pour billets ConnectWise (NOC/SOC/Support/Autre) : Assistance, diagnostic court, checklist priorisée,
-      validations/tests. Génère CW_DISCUSSION/CW_INTERNAL_NOTES/EMAIL finaux selon besoin.
-      finaux.
-    intents:
-    - connectwise
-    - cw_ticket
-    - diagnostic
-    - guidance
-    - handoff
-  IT-AssistanceTechnique-N3:
-    display_name: '@IT-AssistanceTechnique-N3'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Technicien Niveau 3 MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) : Assistance, diagnostic court, checklist priorisée,
-      validations/tests. Génère CW_DISCUSSION/CW_INTERNAL_NOTES/EMAIL finaux selon besoin.
-    intents:
-    - connectwise
-    - cw_ticket
-    - diagnostic
-    - guidance
-    - handoff
-      finaux.
-  IT-AssetMaster:
-    display_name: '@IT-AssetMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Inventaire IT & CMDB : structure, maintient et exploite actifs HW/SW.'
-    intents:
-    - it
-    - cmdb
-    - assets
-  IT-BackupDRMaster:
-    display_name: '@IT-BackupDRMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Sauvegardes & DR : stratégies RPO/RTO, tests, runbooks.'
-    intents:
-    - it
-    - backup
-    - dr
-  IT-CTOMaster:
-    display_name: '@IT-CTOMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Directeur technique MSP : architectures, standards, arbitrages.'
-    intents:
-    - it
-    - cto
-    - standards
-  IT-CloudMaster:
-    display_name: '@IT-CloudMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Cloud Azure/M365/SaaS : architectures, gouvernance, sécurité.'
-    intents:
-    - it
-    - cloud
-    - azure
-    - m365
-  IT-Commandare-NOC:
-    display_name: '@IT-Commandare-NOC'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Orchestrateur NOC : triage des alertes, routage et escalade vers TECH/SOC/CTO.'
-    intents:
-    - noc
-    - monitoring
-    - incident
-    - triage
-    - it_commandare_noc
-    - noc_triage
-  IT-Commandare-OPR:
-    display_name: '@IT-Commandare-OPR'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Orchestrateur back-office : pipeline fermeture ticket, standardisation et contrôle.'
-    intents:
-    - it
-    - msp
-    - process
-    - tickets
-    - it_commandare_opr
-    - ops_control
-  IT-Commandare-TECH:
-    display_name: '@IT-Commandare-TECH'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Chef d’exécution technique : diagnostic, remédiation, plan de changement et validation post-fix.'
-    intents:
-    - troubleshooting
-    - remediation
-    - change
-    - incident
-    - it_commandare_tech
-    - tech_escalation
-  IT-CommsMSP:
-    display_name: '@IT-CommsMSP'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Communication client MSP : emails, Teams, SMS maintenance/incidents.'
-    intents:
-    - it
-    - comms
-    - client
-  IT-DevOpsMaster:
-    display_name: '@IT-DevOpsMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'DevOps/CI-CD : pipelines, environnements, IaC.'
-    intents:
-    - it
-    - devops
-    - cicd
-  IT-DirecteurGeneral:
-    display_name: '@IT-DirecteurGeneral'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Directeur général MSP : objectifs ops -> priorités & directives.'
-    intents:
-    - it
-    - management
-    - governance
-  IT-InfrastructureMaster:
-    display_name: '@IT-InfrastructureMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Serveurs/virtualisation/stockage : design, capacity planning.'
-    intents:
-    - it
-    - infrastructure
-    - servers
-  IT-InterventionCopilot:
-    display_name: '@IT-InterventionCopilot'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Copilote d’intervention LIVE : checklist, validations post-action, notes structurées, closeout (CW_INTERNAL_NOTES
-      / CW_DISCUSSION / EMAIL si requis).'
-    intents:
-    - it
-    - msp
-    - intervention
-    - ticket_live
-    - support
-    - closeout
-  IT-InterventionLive:
-    display_name: '@IT-InterventionLive'
-    team_id: TEAM__IT
-    team_name: IT
-    description: Suit une intervention IT en temps réel et génère les rapports ConnectWise
-    intents:
-    - it
-    - genere
-  IT-KnowledgeKeeper:
-    display_name: '@IT-KnowledgeKeeper'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Knowledge MSP : tickets résolus -> KB & runbooks.'
-    intents:
-    - it
-    - knowledge
-    - kb
-    - runbook
-  IT-MaintenanceMaster:
-    display_name: '@IT-MaintenanceMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Maintenance & audits : patching, plans, conformité.'
-    intents:
-    - it
-    - maintenance
-    - patching
-  IT-MonitoringMaster:
-    display_name: '@IT-MonitoringMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Supervision/observabilité : KPIs, alertes, rapports.'
-    intents:
-    - it
-    - monitoring
-    - observability
-  IT-NOC:
-    display_name: '@IT-NOC'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Centre de commande NOC : triage alertes, escalade, communication'
-    intents:
-    - it
-  IT-NOCDispatcher:
-    display_name: '@IT-NOCDispatcher'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Dispatcher NOC : affectation, priorisation, escalade et suivi (SLA) des tickets/alertes.'
-    intents:
-    - dispatch
-    - sla
-    - coordination
-    - incident
-    - it_noc_dispatch
-    - noc_dispatch
-  IT-NetworkMaster:
-    display_name: '@IT-NetworkMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Réseau : LAN/WAN/VPN/WiFi/routage/QoS/firewalls.'
-    intents:
-    - it
-    - network
-    - firewall
+    status: archived
+    archived_reason: "Doublon — rôle live absorbé par IT-MaintenanceMaster"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-MSPLiveAssistant
+
   IT-OrchestratorMSP:
-    display_name: '@IT-OrchestratorMSP'
+    display_name: "@IT-OrchestratorMSP"
     team_id: TEAM__IT
-    team_name: IT
-    description: 'Chef d’orchestre MSP : reçoit demandes, mobilise experts, compile livrables.'
-    intents:
-    - it
-    - orchestrate
-    - msp
-  IT-ReportMaster:
-    display_name: '@IT-ReportMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Génère les rapports IT : postmortem, mensuel, QBR'
-    intents:
-    - it
-    - genere
-  IT-ScriptMaster:
-    display_name: '@IT-ScriptMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: Génère des scripts PowerShell/Bash pour opérations IT MSP
-    intents:
-    - it
-    - genere
-  IT-SecurityMaster:
-    display_name: '@IT-SecurityMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Cybersécurité : risques, posture, remédiations.'
-    intents:
-    - it
-    - security
-    - risk
+    status: archived
+    archived_reason: "Remplacé par OPS-RouterIA + OPS-PlaybookRunner"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-OrchestratorMSP
+
   IT-SoftwMaster:
-    display_name: '@IT-SoftwMaster'
+    display_name: "@IT-SoftwMaster"
     team_id: TEAM__IT
-    team_name: IT
-    description: 'Logiciels & licences : conformité, coûts, optimisation licences.'
-    intents:
-    - it
-    - licenses
-    - software
+    status: archived
+    archived_reason: "Absorbé par IT-AssetMaster"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-SoftwMaster
+
   IT-SupportMaster:
-    display_name: '@IT-SupportMaster'
+    display_name: "@IT-SupportMaster"
     team_id: TEAM__IT
-    team_name: IT
-    description: 'Support TI N1–N3 : diagnostic, résolution, escalade, standards.'
-    intents:
-    - it
-    - support
-    - incident
+    status: archived
+    archived_reason: "Doublon — rôle absorbé par IT-AssistanTI_N3"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-SupportMaster
+
   IT-Technicien:
-    display_name: '@IT-Technicien'
+    display_name: "@IT-Technicien"
     team_id: TEAM__IT
-    team_name: IT
-    description: 'Technicien MSP guidé pour billets ConnectWise (NOC/SOC/Support/Autre) : diagnostic court, checklist priorisée,
-      validations/tests, et bloc “POUR COPILOT” prêt à coller dans @IT-InterventionCopilot. Ne génère jamais CW_DISCUSSION/CW_INTERNAL_NOTES
-      finaux.
-    intents:
-    - connectwise
-    - cw_ticket
-    - noc
-    - soc
-    - support
-    - triage
-    - diagnostic
-    - guidance
-    - handoff
-    - msp_ops
-  IT-TicketScribe:
-    display_name: '@IT-TicketScribe'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Rédacteur ConnectWise : notes brutes -> compte rendu + actions.'
-    intents:
-    - it
-    - ticket
-    - writing
-  IT-VoIPMaster:
-    display_name: '@IT-VoIPMaster'
-    team_id: TEAM__IT
-    team_name: IT
-    description: 'Téléphonie IP & UC : design, évolution, optimisation.'
-    intents:
-    - it
-    - voip
-    - uc
-  OPS-RouterIA:
-    display_name: '@OPS-RouterIA'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Routeur produit (sélectionne l'orchestrateur + playbook selon intents).
-    intents:
-    - ops
-    - router
-    - routing
-  OPS-PlaybookRunner:
-    display_name: '@OPS-PlaybookRunner'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Exécuteur de playbook produit (déroule les étapes, valide, assemble le livrable).
-    intents:
-    - ops
-    - runner
-    - playbook
-  OPS-DossierIA:
-    display_name: '@OPS-DossierIA'
-    team_id: TEAM__OPS
-    team_name: OPS
-    description: Générateur de Dossier IA produit (packaging livrable).
-    intents:
-    - ops
-    - dossier
-    - deliverable
+    status: archived
+    archived_reason: "Legacy — pointait vers IT-InterventionCopilot (fantôme). Remplacé par IT-AssistanTI_N3"
+    path: 99_ARCHIVE/20_Agents_RETIRES/IT-Technicien

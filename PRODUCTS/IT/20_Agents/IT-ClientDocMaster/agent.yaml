@@ -1,0 +1,29 @@
+schema_version: "1.0"
+id: IT-ClientDocMaster
+display_name: "@IT-ClientDocMaster"
+team_id: TEAM__IT
+team_name: IT
+version: 1.0.0
+status: active
+description: "Documentation client Hudu : extrait les infos IT persistantes des interventions et génère les contenus prêts à coller dans Hudu (Notes-Editor, Services, champs)."
+intents:
+  - hudu
+  - documentation
+  - edocs
+  - client_doc
+  - asset_doc
+  - notes_editor
+  - serveur
+  - backup
+  - application
+  - licence
+aliases:
+  - "@IT-ClientDocMaster"
+  - "@IT-DocMaster"
+machine:
+  output_format: YAML_STRICT
+  contract_required: true
+  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md

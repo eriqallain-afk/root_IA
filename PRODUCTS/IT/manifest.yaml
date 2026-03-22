@@ -1,6 +1,0 @@
-﻿name: IT
-version: "0.1.0"
-includes:
-  agents: []
-  playbooks: []
-  memories: []

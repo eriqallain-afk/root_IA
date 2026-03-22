@@ -37,7 +37,7 @@ playbooks:
     description: 'Commandare TECH: troubleshooting/RCA, plan de remediation, risques.'
     steps:
     - step: cadrage
-      actor_id: IT-OrchestratorMSP
+      actor_id: IT-Commandare-TECH
     - step: execute
       actor_id: IT-Commandare-TECH
     - step: archive
@@ -46,7 +46,9 @@ playbooks:
     description: 'ConnectWise : LIVE journal + closeout CW + KB'
     steps:
     - step: intervention
-      actor_id: IT-InterventionCopilot
+      actor_id: IT-MaintenanceMaster
+    - step: closeout
+      actor_id: IT-TicketScribe
     - step: kb
       actor_id: IT-KnowledgeKeeper
   IT_INCIDENT_TRIAGE:
@@ -66,16 +68,14 @@ playbooks:
     description: "Assistance MSP temps réel (appel/chat/remote) : triage guidé, notes ticket, comms, escalade, KB draft."
     steps:
       - step: execute
-        actor_id: IT-MSPLiveAssistant
+        actor_id: IT-MaintenanceMaster
   IT_MSP_TICKET_TO_KB:
     description: Ticket MSP -> diagnostic -> communication -> knowledge
     steps:
-    - step: scribe
-      actor_id: IT-TicketScribe
     - step: support
-      actor_id: IT-SupportMaster
-    - step: comms
-      actor_id: IT-CommsMSP
+      actor_id: IT-AssistanTI_N3
+    - step: closeout
+      actor_id: IT-TicketScribe
     - step: kb
       actor_id: IT-KnowledgeKeeper
   IT_NOC_DISPATCH:
@@ -98,26 +98,22 @@ playbooks:
       actor_id: IT-ReportMaster
     - step: archive
       actor_id: OPS-DossierIA
-
   IT_MAINT_PATCH_REBOOT_VALIDATE:
     description: "Maintenance Windows (patching via CW RMM) : plan -> precheck -> patch -> reboot (si requis) -> postcheck -> closeout."
     steps:
-      - step: plan
+      - step: plan_et_live
         actor_id: IT-MaintenanceMaster
-      - step: live_assist
-        actor_id: IT-MSPLiveAssistant
       - step: closeout
-        actor_id: IT-InterventionCopilot
+        actor_id: IT-TicketScribe
       - step: archive
         actor_id: OPS-DossierIA
-
   IT_POST_SHUTDOWN_VALIDATE:
-    description: "Post-shutdown électrique : baseline réseau/stockage/virtualisation -> services critiques -> monitoring -> rapport."
+    description: 'Post-shutdown électrique : baseline réseau/stockage/virtualisation -> services critiques -> monitoring -> rapport.'
     steps:
       - step: triage
         actor_id: IT-Commandare-NOC
       - step: validate
-        actor_id: IT-MSPLiveAssistant
+        actor_id: IT-MaintenanceMaster
       - step: report
         actor_id: IT-ReportMaster
       - step: archive

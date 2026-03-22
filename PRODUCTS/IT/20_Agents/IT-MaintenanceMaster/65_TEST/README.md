@@ -1,8 +1,8 @@
-﻿# Zone de Test et Validation - IT-KnowledgeKeeper
+﻿# Zone de Test et Validation - IT-MaintenanceMaster
 
 ## Description
 
-Ce dossier est la **zone de QA et de validation** de IT-KnowledgeKeeper. Il contient les scenarios de test, les resultats d'execution et les rapports de conformite.
+Ce dossier est la **zone de QA et de validation** de IT-MaintenanceMaster. Il contient les scenarios de test, les resultats d'execution et les rapports de conformite.
 
 ## Structure
 
@@ -27,4 +27,4 @@ Ce dossier est la **zone de QA et de validation** de IT-KnowledgeKeeper. Il cont
 
 ---
 
-*Test Zone - IT-KnowledgeKeeper v1.0*
+*Test Zone - IT-MaintenanceMaster v1.0*

@@ -1,0 +1,72 @@
+{
+    "agent_name": "IT-MaintenanceMaster",
+    "display_name": "@IT-MaintenanceMaster",
+    "team": "IT",
+    "version": "2.0.0",
+    "updated": "2026-03-20",
+    "status": "active",
+    "role": "Maintenance & audits MSP : patching, scripts PowerShell, snapshots, health checks, plans de maintenance, menu de clôture interactif.",
+    "intents": ["maintenance", "patching", "health_check", "audit", "snapshot", "script_maint"],
+    "outputs": [
+        "script PowerShell production-ready",
+        "checklist pre/post intervention",
+        "plan de maintenance structuré",
+        "liste snapshots nommés",
+        "rapport health check / audit",
+        "briefs de clôture (CW, KB, edocs, DB)"
+    ],
+    "commands": ["/kb", "/db", "/menu", "/close"],
+    "files": {
+        "core": [
+            "agent.yaml",
+            "contract.yaml",
+            "prompt.md",
+            "00_INSTRUCTIONS.md",
+            "manifest.json",
+            "README.md"
+        ],
+        "knowledge": [
+            "05_KNOWLEDGE/IT-MaintenanceMaster__KnowledgePack_Supplement_v1.md",
+            "05_KNOWLEDGE/RUNBOOK__Windows_Patching.md",
+            "05_KNOWLEDGE/RUNBOOK__Windows_Patching_CW_RMM_OneByOne.md",
+            "05_KNOWLEDGE/RUNBOOK__IT_CW_INTERVENTION_LIVE_CLOSE.md",
+            "05_KNOWLEDGE/RUNBOOK__IT_INTERVENTION_LIVE.md",
+            "05_KNOWLEDGE/RUNBOOK__IT_BACKUP_DR_TEST_V1.md",
+            "05_KNOWLEDGE/RUNBOOK__IT_INCIDENT_COMMAND_V1.md",
+            "05_KNOWLEDGE/RUNBOOK__Patching_Process.md",
+            "05_KNOWLEDGE/RUNBOOK__Post_Shutdown_Electrical_Validation.md",
+            "05_KNOWLEDGE/POWERSHELL__Server_Management.md",
+            "05_KNOWLEDGE/POWERSHELL__Event_Log_Analysis.md",
+            "05_KNOWLEDGE/TEMPLATE__CW_NOTE_INTERNE.md",
+            "05_KNOWLEDGE/TEMPLATE__CW_DISCUSSION.md",
+            "05_KNOWLEDGE/TEMPLATE__EMAIL_CLIENT.md",
+            "05_KNOWLEDGE/TEMPLATE__Server_Health_Check.md",
+            "05_KNOWLEDGE/IT__CMDB_Standards.md",
+            "05_KNOWLEDGE/NAMING_STANDARDS_v1.md"
+        ],
+        "templates": [
+            "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Template_Standard_v1.ps1",
+            "02_TEMPLATES/05_INTERVENTION_TEMPLATES/INTERVENTION_TEMPLATE_IT.md",
+            "02_TEMPLATES/05_INTERVENTION_TEMPLATES/TEMPLATE__Health_Check.md",
+            "02_TEMPLATES/05_INTERVENTION_TEMPLATES/TEMPLATE__Azure_Health_Report.md",
+            "02_TEMPLATES/05_INTERVENTION_TEMPLATES/TEMPLATE__Cloud_Health_Report.md",
+            "02_TEMPLATES/06_NAMING_STANDARDS/NAMING_STANDARDS_v1.md"
+        ],
+        "operational": [
+            "02_RUNBOOKS/RB-001_procedure-principale.md",
+            "03_CHECKLISTS/CL-001_validation-principale.md",
+            "04_EXEMPLES/EX-001_cas-nominal.md"
+        ]
+    },
+    "knowledge_references": {
+        "naming_standards": "02_TEMPLATES/06_NAMING_STANDARDS/NAMING_STANDARDS_v1.md",
+        "powershell_template": "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Template_Standard_v1.ps1",
+        "guardrails": "IT-SHARED/10_RUNBOOKS/00_POLICIES/GUARDRAILS__IT_AGENTS_MASTER.md"
+    },
+    "handoffs": {
+        "IT-TicketScribe": "Livrables CW finaux (note interne, discussion, email, Teams)",
+        "IT-KnowledgeKeeper": "Articles KB et runbooks post-incident",
+        "IT-ClientDocMaster": "Fiches objets IT dans Hudu",
+        "IT-ReportMaster": "Rapports postmortem et QBR"
+    }
+}

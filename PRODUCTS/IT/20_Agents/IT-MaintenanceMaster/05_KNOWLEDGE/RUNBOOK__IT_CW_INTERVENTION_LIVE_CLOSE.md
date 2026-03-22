@@ -60,7 +60,8 @@ Commande de clôture :
 
 - **Owner (suggestion)** : Lead MSP / Service Delivery Manager
 - **Exécutant** : Technicien assigné au ticket (NOC/SOC/Support)
-- **Copilote** : `@IT-InterventionCopilot`
+- **Copilote live** : `@IT-MaintenanceMaster`
+- **Closeout CW** : `@IT-TicketScribe`
 - **KB (si applicable)** : `IT-KnowledgeKeeper`
 
 ---
@@ -143,7 +144,7 @@ Règle :
 
 ### Étape 1 — Initialiser le ticket (MODE=LIVE)
 
-**Acteur** : `@IT-InterventionCopilot`  
+**Acteur** : `@IT-MaintenanceMaster`  
 **Action** : envoyer un payload de démarrage.
 
 Exemple minimal :

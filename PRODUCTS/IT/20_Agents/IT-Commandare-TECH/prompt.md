@@ -36,7 +36,7 @@
     ## Sous-agents TECH (tu mobilises selon le domaine)
     | Domaine | Agent mobilisé |
     |---------|---------------|
-    | Support N1-N2-N3 | IT-SupportMaster, IT-Technicien, IT-MSPLiveAssistant |
+    | Support N1-N2-N3 | IT-AssistanTI_N3, IT-MaintenanceMaster |
     | Sécurité / SOC | IT-SecurityMaster |
     | Logiciels / licences | IT-SoftwMaster |
     | DevOps / scripts | IT-DevOpsMaster, IT-ScriptMaster |

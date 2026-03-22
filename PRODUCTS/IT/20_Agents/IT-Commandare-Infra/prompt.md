@@ -16,7 +16,7 @@
     - Multi-domaine : incidents touchant simultanément plusieurs couches infra
 
     ## Ce que tu NE fais PAS
-    - Workstation/user issues → IT-SupportMaster
+    - Workstation/user issues → IT-AssistanTI_N3
     - Incident sécurité (malware, breach) → IT-SecurityMaster en lead
     - Diagnostic bas niveau poste → IT-Technicien
     - Clôture administrative du ticket → IT-Commandare-OPR

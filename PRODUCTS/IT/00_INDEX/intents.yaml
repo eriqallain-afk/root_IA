@@ -120,20 +120,20 @@ army_factory:
 - META-OrchestrateurCentral
 assets:
 - HUB-AvatarForge
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 audio_broadcast:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 audit:
 - META-SuperviseurInvisible
 automation:
 - META-PlaybookBuilder
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 avatar:
 - HUB-AvatarForge
 azure:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 backup:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 blueprint:
 - IAHQ-SolutionOrchestrator
 book:
@@ -143,7 +143,7 @@ brand:
 brief:
 - HUB-AgentMO2-DeputyOrchestrator
 broadcast:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 budget:
 - DAM-GPT3-Budget
 build:
@@ -155,7 +155,7 @@ business_case:
 cbt:
 - IASM-OutilsTCC
 change:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 chatbot:
 - HUB-IA-ChatBotMaster
 clarify:
@@ -165,9 +165,9 @@ classify:
 client:
 - DAM-GPT8-Communication
 - IAHQ-SolutionOrchestrator
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 cloud:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 coach:
 - HUB-CoachIA360-Strategie-GPTTeams
 - HUB-ITCoachIA360
@@ -177,10 +177,10 @@ command:
 - TRAD-CommandCore
 comms:
 - DAM-GPT8-Communication
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 communication:
 - IASM-SpecialisteRelationsCouple
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 company:
 - IAHQ-OrchestreurEntrepriseIA
 compliance:
@@ -208,7 +208,7 @@ crypto:
 - TRAD-FractalMathCrypto
 cto:
 - IAHQ-TechLeadIA
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 customer:
 - DAM-GPT11-Satisfaction
 cyber:
@@ -241,7 +241,7 @@ design:
 - HUB-AvatarForge
 - META-OrchestrateurCentral
 devops:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 discovery:
 - IAHQ-OrchestreurEntrepriseIA
 dispatch:
@@ -252,7 +252,7 @@ dispatch:
 docs:
 - DAM-GPT7-Archiviste
 dr:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 edit:
 - NEA-RedacteurRecueil
 education:
@@ -288,7 +288,7 @@ governance:
 - IAHQ-AdminManagerIA
 - META-GouvernanceEtRisques
 - META-SuperviseurInvisible
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 iasm:
 - IASM-AddictionsCompulsions
 - IASM-AnalysteDiscussion
@@ -313,7 +313,7 @@ illustration:
 incident:
 - IT-NOCDispatcher
 infrastructure:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 ingest:
 - IAHQ-Extractor
 insight:
@@ -327,19 +327,19 @@ intel:
 - TRAD-VigillIntel
 it:
 - HUB-ITCoachIA360
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 knowledge:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 legal:
 - DAM-GPT12-Legal
 licenses:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 m365:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 maintenance:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 management:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 mapping:
 - IAHQ-ProcessMapper
 - META-CartographeRoles
@@ -352,7 +352,7 @@ memory:
 monitoring:
 - IT-NOCDispatcher
 msp:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 nea:
 - NEA-Archiviste
 - NEA-Cartographe
@@ -361,7 +361,7 @@ nea:
 - NEA-Orchestrator
 - NEA-RedacteurRecueil
 network:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 noc:
 - IT-NOCDispatcher
 normalize:
@@ -378,7 +378,7 @@ orchestrate:
 - HUB-AgentMO-MasterOrchestrator
 - HUB-AgentMO2-DeputyOrchestrator
 - IASM-DirecteurCabinetIA
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 - META-OrchestrateurCentral
 - NEA-Orchestrator
 patterns:
@@ -397,7 +397,7 @@ positioning:
 process:
 - IAHQ-ProcessMapper
 - META-WorkflowDesignerEquipes
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 procurement:
 - DAM-GPT10-Fournisseurs
 - DAM-GPT5-SousTraitants
@@ -436,7 +436,7 @@ relationships:
 - IASM-AnalysteSchemasRelationnels
 report:
 - TRAD-GlobalReport
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 requirements:
 - META-AnalysteBesoinsEquipes
 reverse_prompt:
@@ -448,7 +448,7 @@ risk:
 - DAM-GPT2-Conformite
 - IASM-SecuriteRisques
 - META-GouvernanceEtRisques
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 roadmap:
 - HUB-CoachIA360-Strategie-GPTTeams
 roi:
@@ -470,17 +470,17 @@ schedule:
 - DAM-GPT4-Planification
 script:
 - ESPL-PaulLejeuneRadio
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 - PLR-RadioScripteur
 security:
 - IAHQ-TechLeadIA
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 selection:
 - DAM-GPT9-Produits
 sentiment:
 - IASM-RessentiTonalite
 servers:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 signals:
 - TRAD-Correlator
 sla:
@@ -488,7 +488,7 @@ sla:
 social:
 - TRAD-SocioRadar
 software:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 solution:
 - IAHQ-SolutionOrchestrator
 spec:
@@ -507,20 +507,20 @@ structure:
 - IAHQ-Extractor
 - NEA-Cartographe
 studio:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 summarize:
 - IAHQ-Extractor
 suppliers:
 - DAM-GPT10-Fournisseurs
 support:
 - IASM-SupportEmotionnel
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 systemic:
 - IASM-ModuleRelationsConjugalesFamiliales
 teams:
 - HUB-CoachIA360-Strategie-GPTTeams
 ticket:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 tone:
 - IASM-RessentiTonalite
 tools:
@@ -542,19 +542,19 @@ transformation:
 trends:
 - TRAD-SocioRadar
 triage:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 vendors:
 - DAM-GPT5-SousTraitants
 visual:
 - NEA-Imagier
 voiceOver:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 voice_over:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 voiceover:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 voip:
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 watch:
 - TRAD-CyberWatch
 - TRAD-MarketSentinel
@@ -568,7 +568,7 @@ write:
 writing:
 - PLR-RadioScripteur
 - TRAD-GlobalReport
-- IT-OrchestratorMSP
+- IT-Commandare-NOC
 ccq:
 - EDU-Orchestrator_CCQ
 - EDU-Extractor_CCQ
@@ -662,3 +662,14 @@ evaluer:
 - EDU-Reflexions_CCQ
 évaluer:
 - EDU-Reflexions_CCQ
+
+# ── INTENTS IT-MSP ajoutés Phase 3 ──────────────────────────────
+it_hudu:
+  description: "Documentation objet IT dans Hudu (Notes-Editor, Services, champs)"
+  primary_agent: IT-ClientDocMaster
+  intents: [hudu, documentation, edocs, client_doc, notes_editor, asset_doc]
+
+it_client_doc:
+  description: "Créer ou mettre à jour une fiche Hudu pour un objet IT client"
+  primary_agent: IT-ClientDocMaster
+  intents: [hudu, fiche, objet_it, serveur, backup, application, licence, reseau]

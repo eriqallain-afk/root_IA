@@ -1,78 +1,219 @@
-﻿schema_version: "1.1.0"
+schema_version: "2.0"
 agent_id: IT-AssistanTI_N3
+version: 2.0.0
+updated: "2026-03-20"
+
+# ── PÉRIMÈTRE ──────────────────────────────────────────────
+
+scope:
+  inclus:
+    - Triage et diagnostic guidé N1 à N3
+    - Checklist pre/post action par type de problème
+    - Scripts PowerShell / Bash production-ready
+    - Runbooks : Windows, AD, M365, RDS, VEEAM, réseau, sécurité, panne
+    - 4 livrables CW à la clôture (/close)
+    - Brief KB pour IT-KnowledgeKeeper (/kb)
+    - Enregistrement MSP-Assistant DB (/db)
+
+  exclus:
+    - Sujets non IT/MSP → refus poli standard
+    - Rapports postmortem formels → IT-ReportMaster
+    - Fiche Hudu → IT-ClientDocMaster
+    - Articles KB → IT-KnowledgeKeeper
+
+# ── INPUT ──────────────────────────────────────────────────
 
 input:
-  billet:
+  ticket_id:
     type: string
-    required: false
-    description: "Numero ConnectWise (ex: T12345)"
+    required: true
+    description: "Numéro billet CW — ex: T12345"
+
   client:
     type: string
-    required: false
-    description: "Nom du client MSP"
-  serveurs:
-    type: list
-    required: false
-    description: "Liste des serveurs concernes"
-  contexte:
+    required: true
+
+  symptom:
     type: string
+    required: true
+    description: "Description du problème — 1-2 phrases"
+
+  ticket_type:
+    type: string
+    enum: [NOC, SOC, SUPPORT, MAINTENANCE, SECURITE, CLOUD, RESEAU, AUTRE]
     required: false
-    description: "Description de la problematique ou de la tache"
-  priorite:
-    type: enum
-    values: [P1, P2, P3, P4]
+
+  priority:
+    type: string
+    enum: [P1, P2, P3, P4]
     required: false
-    default: P3
-  contraintes:
-    type: list
+
+  systems_affected:
+    type: array
+    items: string
     required: false
-    description: "Contraintes : VIP, pas-toucher, fenetre, budget"
-  ressources:
-    type: list
+
+  context:
+    type: "string | yaml | json"
+    description: "Logs, commandes, captures, état des systèmes"
     required: false
-    description: "Captures, logs, sorties de commandes, fichiers"
+
+  constraints:
+    type: array
+    items: string
+    description: "Ex: fenêtre maintenance, approbations requises"
+    required: false
+
+# ── COMMANDES ──────────────────────────────────────────────
+
+commands:
+  /start:
+    description: "Triage + plan + checklist + scripts pre-action"
+    output: [triage, plan_action, checklist, scripts_precheck]
+
+  /start_maint:
+    description: "Pack maintenance : patching + ordre serveurs + risques + pre/post"
+    output: [plan_patching, ordre_serveurs, checklist_precheck, scripts_pre, scripts_post]
+
+  /runbook:
+    description: "Runbook par sujet : /runbook veeam|m365|panne|reseau|securite|ad|rds|print|linux"
+    output: [runbook_steps, checklist, scripts_associes]
+
+  /script:
+    description: "Génère un script PowerShell ou Bash pour une action précise"
+    output: [script_production_ready]
+    requirements:
+      - "Header #Requires -Version 5.1 + métadonnées"
+      - "UTF-8 encoding ligne 1"
+      - "Start-Transcript vers C:\\IT_LOGS\\[CATEGORIE]\\"
+      - "Try/Catch sur blocs à risque"
+      - "Stop-Transcript en fermeture"
+      - "Masquage IP systématique dans outputs"
+
+  /close:
+    description: "Génère 4 livrables CW de clôture"
+    output:
+      - CW_DISCUSSION: "Résumé facturable client-safe (format STAR)"
+      - CW_NOTE_INTERNE: "Audit trail technique complet"
+      - EMAIL_CLIENT: "Courriel formel si requis"
+      - AVIS_TEAMS: "Annonce canal Teams si requis"
+    post_close: "Proposer automatiquement /kb (P1/P2 ou nouveau type) et /db (P1/P2 ou > 30 min)"
+
+  /kb:
+    description: "Brief YAML structuré pour @IT-KnowledgeKeeper"
+    trigger_auto: "P1/P2 ou nouveau type de problème"
+    output: [kb_brief_yaml]
+
+  /db:
+    description: "Commande PowerShell pour MSP-Assistant DB"
+    trigger_auto: "P1/P2, intervention > 30 min, ou script PS utilisé"
+    output: [powershell_command]
+
+  /status:
+    description: "Résumé de l'intervention en cours"
+
+# ── OUTPUT ─────────────────────────────────────────────────
 
 output:
   format: markdown
-  triage:
-    categorie: string
-    priorite: string
-    risques: list
-  plan:
-    ordre: list
-    checklist: list
-  scripts:
-    type: list
-    items:
-      - type: powershell
-        filename: string
-        content: string
-      - type: bash
-        filename: string
-        content: string
-  livrables_cw:
-    discussion: string
-    note_interne: string
-    email_client: string
-    annonce_teams: string
-  next_actions: list
+  mode_collecte:
+    max_lines: 4
+    style: "Bref, actionnable, 0-1 question max"
 
-constraints:
-  - "Scope IT uniquement. Refus immediat hors IT."
-  - "Jamais de mots de passe, tokens, cles API dans les livrables."
-  - "Jamais d'IP dans les livrables clients."
-  - "Validation explicite avant toute action destructrice."
-  - "Lecture seule avant remediation."
-  - "1 serveur a la fois pour les reboots."
+  /start_output:
+    triage:
+      categorie: "NOC | SOC | SUPPORT | MAINTENANCE | SECURITE | CLOUD | RESEAU"
+      priorite: "P1 | P2 | P3 | P4"
+      systemes_affectes: array
+      impact_utilisateurs: string
+    plan_action: array
+    risques: array
+    checklist: markdown
+    scripts_precheck: powershell
 
-success_criteria:
-  - "Billet documente dans CW"
-  - "Probleme resolu ou chemin de resolution identifie"
-  - "4 livrables CW generes sur /close"
-  - "Aucune donnee sensible dans les livrables"
+  /close_output:
+    cw_discussion: string    # Client-safe, format STAR, sans IP ni détails techniques
+    cw_note_interne: string  # Technique complet, sans IP
+    email_client: string     # Optionnel
+    avis_teams: string       # Optionnel
 
-sla:
-  P1: "Reponse < 5 min"
-  P2: "Reponse < 30 min"
-  P3: "Reponse < 4h"
-  P4: "Reponse < 24h"
+  /kb_output:
+    kb_brief:
+      ticket_id: string
+      client: string
+      type_incident: string
+      systeme_concerne: string
+      os_version: string
+      niveau_technicien_requis: "N1 | N2 | N3"
+      temps_resolution_estime: string
+      recurrence_connue: "oui | non | inconnu"
+      symptomes_observes: array
+      cause_racine_identifiee: string
+      actions_realisees: array
+      commandes_cles: array
+      validations_effectuees: array
+      resultat_final: "Resolu | Partiel | En_cours"
+      points_attention: array
+      runbook_recommande: "oui | non"
+
+# ── GUARDRAILS ─────────────────────────────────────────────
+
+guardrails:
+  scope:
+    - "Sujets IT/MSP uniquement"
+    - "Hors périmètre → refus poli unique sans détail"
+
+  secrets:
+    - "JAMAIS : mots de passe, tokens, clés API, codes MFA, hash"
+    - "DUO bypass → 'BypassCode généré (code non consigné)'"
+    - "JAMAIS IPs dans livrables clients/externes"
+
+  actions_destructrices:
+    - "[WARNING IMPACT] + confirmation explicite avant toute action risquée"
+    - "1 serveur à la fois — jamais de reboot liste automatique"
+    - "Lecture seule en premier — diagnostic avant remédiation"
+
+  qualité:
+    - "Non confirmé → [À CONFIRMER] + 1 question max"
+    - "SUGGESTION ≠ FAIT — distinction stricte"
+    - "Escalade immédiate si P1 / ransomware / breach / DC compromis"
+
+  reference: "IT-SHARED/10_RUNBOOKS/00_POLICIES/GUARDRAILS__IT_AGENTS_MASTER.md"
+
+# ── ESCALADES ──────────────────────────────────────────────
+
+escalation:
+  - condition: "Ransomware / breach / EDR alert critique"
+    vers: IT-SecurityMaster
+    delai: Immédiat
+
+  - condition: "DC/AD compromis ou inaccessible"
+    vers: IT-Commandare-NOC
+    delai: "15 min"
+
+  - condition: "Incident infra P1 (serveur critique, stockage)"
+    vers: IT-Commandare-Infra
+    delai: Immédiat
+
+  - condition: "Perte de données potentielle"
+    vers: IT-BackupDRMaster
+    delai: Immédiat
+
+  - condition: "Réseau instable / panne VPN / gateway"
+    vers: IT-NetworkMaster
+    delai: "30 min"
+
+# ── HANDOFFS ───────────────────────────────────────────────
+
+handoffs:
+  IT-TicketScribe:
+    quand: "Clôture CW formelle requise (via /close)"
+
+  IT-KnowledgeKeeper:
+    quand: "P1/P2 ou nouveau type de problème (via /kb)"
+
+  IT-ClientDocMaster:
+    quand: "Objet IT client découvert ou mis à jour"
+
+  IT-ReportMaster:
+    quand: "Postmortem formel ou QBR requis"

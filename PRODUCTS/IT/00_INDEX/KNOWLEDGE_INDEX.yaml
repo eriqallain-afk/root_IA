@@ -1,121 +1,127 @@
 schema_version: '1.0'
-generated_at: '2026-02-18T00:00:00Z'
+generated_at: '2026-03-20T00:00:00Z'
 product_id: IT
+# Phase 3 — Fantômes retirés (IT-InterventionLive, IT-NOC), doublons corrigés
+# IT-ClientDocMaster ajouté
 
-knowledge_base_path: IT_SHARED/Knowledge/
+knowledge_base_path: IT-SHARED/
 
 shared:
   templates_cw:
-    path: IT_SHARED/Knowledge/01_TEMPLATES_CW/
-    description: Templates ConnectWise Manage (notes, tickets, rapports)
+    path: IT-SHARED/20_TEMPLATES/
+    description: Templates ConnectWise Manage (notes, tickets, rapports, communications)
     consumers:
       - IT-TicketScribe
-      - IT-InterventionCopilot
-      - IT-CommsMSP
+      - IT-MaintenanceMaster
+      - IT-AssistanTI_N3
       - OPS-DossierIA
 
-  runbooks_maintenance:
-    path: IT_SHARED/Knowledge/02_RUNBOOKS_MAINTENANCE/
-    description: Runbooks de maintenance (patching, health check, DR)
+  runbooks:
+    path: IT-SHARED/10_RUNBOOKS/
+    description: Runbooks opérationnels (maintenance, NOC, support, sécurité, infra)
     consumers:
       - IT-MaintenanceMaster
       - IT-BackupDRMaster
-      - IT-OrchestratorMSP
+      - IT-Commandare-NOC
+      - IT-Commandare-TECH
+      - IT-Commandare-Infra
+      - IT-AssistanTI_N3
 
   checklists:
-    path: IT_SHARED/Knowledge/03_CHECKLISTS/
-    description: Checklists operationnelles IT MSP
+    path: IT-SHARED/40_CHECKLISTS/
+    description: Checklists opérationnelles IT MSP
     consumers:
-      - IT-Technicien
-      - IT-InterventionLive
-      - IT-MSPLiveAssistant
-      - IT-NOC
+      - IT-AssistanTI_N3
+      - IT-MaintenanceMaster
+      - IT-Commandare-NOC
+      - IT-SecurityMaster
 
   powershell_library:
-    path: IT_SHARED/Knowledge/04_POWERSHELL_LIBRARY/
-    description: Librairie de scripts PowerShell valides
+    path: IT-SHARED/30_SCRIPTS/
+    description: Scripts PowerShell et bibliothèques de snippets
     consumers:
       - IT-ScriptMaster
       - IT-MaintenanceMaster
       - IT-CloudMaster
+      - IT-Commandare-Infra
 
-  troubleshooting:
-    path: IT_SHARED/Knowledge/05_TROUBLESHOOTING/
-    description: Guides de depannage par domaine
+  reference:
+    path: IT-SHARED/50_REFERENCE/
+    description: Guides de référence, standards, matrices SLA, conventions
     consumers:
-      - IT-SupportMaster
+      - IT-AssistanTI_N3
       - IT-Commandare-TECH
-      - IT-Technicien
+      - IT-ReportMaster
+      - IT-SecurityMaster
+
+  templates_hudu:
+    path: IT-SHARED/20_TEMPLATES/TEMPLATE__EDOCS_FICHE_OBJET_IT.md
+    description: Templates fiches objets IT pour Hudu (Notes-Editor, Services, champs)
+    consumers:
+      - IT-ClientDocMaster
+
+  reference_hudu:
+    path: IT-SHARED/50_REFERENCE/REFERENCE__EDOCS_STANDARD.md
+    description: Standard edocs Hudu — taxonomie, règles de liaison, conventions
+    consumers:
+      - IT-ClientDocMaster
+      - IT-MaintenanceMaster
 
 agents:
+  IT-MaintenanceMaster:
+    path: 20_Agents/IT-MaintenanceMaster/05_KNOWLEDGE/
+    description: Maintenance MSP complète (patching, DR, health check, scripts PS)
+    priority: high
+    auto_load: true
+    contexts:
+      - 01_TEMPLATES
+      - 02_RUNBOOKS
+      - 02_TEMPLATES
+      - 03_CHECKLISTS
+
   IT-CloudMaster:
-    path: IT_SHARED/Knowledge/IT-CloudMaster/
+    path: 20_Agents/IT-CloudMaster/knowledge/
     description: Azure AD, M365, cloud governance, Entra ID
     priority: high
     auto_load: true
 
-  IT-MaintenanceMaster:
-    path: IT_SHARED/Knowledge/IT-MaintenanceMaster/
-    description: Maintenance MSP complete (patching, DR, health check, WSUS)
-    priority: high
-    auto_load: true
-    pack: IT_SHARED/Knowledge/IT-MaintenanceMaster/IT-MaintenanceMaster_KnowledgePack_v1/
-    contexts:
-      - 01_TEMPLATES_CW
-      - 02_RUNBOOKS_MAINTENANCE
-      - 03_CHECKLISTS
-      - 04_POWERSHELL_LIBRARY
-      - 05_TROUBLESHOOTING
-    context_folders:
-      AUDIT: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/AUDIT/
-      DISASTER_RECOVERY: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/DISASTER_RECOVERY/
-      HEALTH_CHECK: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/HEALTH_CHECK/
-      PATCHING: agents/IT-MaintenanceMaster/02_TEMPLATES/CONTEXTS/PATCHING/
-
-  IT-CTOMaster:
-    path: agents/IT-CTOMaster/05_KNOWLEDGE/
-    pack: agents/IT-CTOMaster/IT_CTOMaster_KnowledgePack_v1/
-    description: Gouvernance IT, roadmap, strategie CTO
-    priority: medium
-    auto_load: false
-
   IT-Commandare-NOC:
-    path: agents/IT-Commandare-NOC/05_KNOWLEDGE/
-    pack: agents/IT-Commandare-NOC/IT_Commandare_NOC_KnowledgePack_v1/
-    description: NOC - triage, alertes, severite, runbooks reponse
+    path: 20_Agents/IT-Commandare-NOC/IT_Commandare_NOC_KnowledgePack_v1/
+    description: NOC — triage, alertes, sévérité, runbooks réponse
     priority: high
     auto_load: true
 
   IT-Commandare-OPR:
-    path: agents/IT-Commandare-OPR/05_KNOWLEDGE/
-    pack: agents/IT-Commandare-OPR/IT_Commandare_OPR_KnowledgePack_v1/
-    description: Operations - gouvernance, change, communication
+    path: 20_Agents/IT-Commandare-OPR/IT_Commandare_OPR_KnowledgePack_v1/
+    description: Opérations — gouvernance, change, communication client
     priority: high
     auto_load: true
 
   IT-Commandare-TECH:
-    path: agents/IT-Commandare-TECH/05_KNOWLEDGE/
-    pack: agents/IT-Commandare-TECH/IT_Commandare_TECH_KnowledgePack_v1/
-    description: Technique - RCA, troubleshooting avance, remediation
+    path: 20_Agents/IT-Commandare-TECH/IT_Commandare_TECH_KnowledgePack_v1/
+    description: Technique — RCA, troubleshooting avancé, remédiation
     priority: high
     auto_load: true
 
-  IT-InterventionLive:
-    path: agents/IT-InterventionLive/05_KNOWLEDGE/
-    legacy_path: agents/IT-InterventionLive/Knowledge/
-    description: Procedures d'intervention live et copilot
+  IT-Commandare-Infra:
+    path: 20_Agents/IT-Commandare-Infra/IT_Commandare_INFRA_KnowledgePack_v1/
+    description: Infrastructure — incidents serveurs, VM, DC/AD, réseau infra
     priority: high
     auto_load: true
 
-  IT-MSPLiveAssistant:
-    path: agents/IT-MSPLiveAssistant/knowledge/
-    description: Assistance MSP temps reel - diagnostic guide, comms client
+  IT-ClientDocMaster:
+    path: 20_Agents/IT-ClientDocMaster/
+    description: Documentation Hudu — Notes-Editor, Services, champs structurés par objet IT client
     priority: high
     auto_load: true
+    knowledge_files:
+      - 20_Agents/IT-ClientDocMaster/prompt.md
+      - IT-SHARED/20_TEMPLATES/TEMPLATE__EDOCS_FICHE_OBJET_IT.md
+      - IT-SHARED/50_REFERENCE/REFERENCE__EDOCS_STANDARD.md
 
 loading_rules:
   - auto_load agents with auto_load=true on agent startup
   - load shared.checklists for all agents with live interaction
   - load shared.templates_cw for all ticket-producing agents
+  - load shared.templates_hudu and shared.reference_hudu for IT-ClientDocMaster
   - agent-specific pack overrides shared when conflict
-  - context detection determines which context_folder to load
