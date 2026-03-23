@@ -1,1 +1,0 @@
-﻿Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10 Name,Id,@{n="WS(MB)";e={[math]::Round($_.WorkingSet/1MB,0)}}

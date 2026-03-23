@@ -1,8 +1,8 @@
 # RUNBOOK — Quick Start Cloud / M365 / Azure
-**ID :** RUNBOOK__Quick_Start | **Version :** 2.0
+**ID :** RUNBOOK__Quick_Start | **Version :** 2.1
 **Agent owner :** IT-CloudMaster | **Équipe :** TEAM__IT
 **Domaine :** INFRA — Cloud & M365
-**Date révision :** 2026-03-13
+**Date révision :** 2026-03-20 — Agent escalade mis à jour (v2.1)
 
 ---
 
@@ -163,4 +163,4 @@ Prochaines étapes : [monitoring / [aucune]]
 ## 6. Escalade
 - Incident M365 global (Microsoft outage) → vérifier `status.office365.com` + `IT-Commandare-NOC`
 - Compromission compte admin → `IT-SecurityMaster` IMMÉDIAT
-- Configuration hybride complexe (ADFS, Azure AD Connect) → `IT-CTOMaster`
+- Configuration hybride complexe (ADFS, Azure AD Connect) → `IT-Commandare-TECH`

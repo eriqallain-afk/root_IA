@@ -1,8 +1,8 @@
 # RUNBOOK — Communication Patching MSP (Client et Interne)
-**ID :** RUNBOOK__Patching_Process | **Version :** 2.0
-**Agent owner :** IT-CommsMSP | **Équipe :** TEAM__IT
+**ID :** RUNBOOK__Patching_Process | **Version :** 2.1
+**Agent owner :** IT-TicketScribe | **Équipe :** TEAM__IT
 **Domaine :** SUPPORT — Communications MSP
-**Date révision :** 2026-03-13
+**Date révision :** 2026-03-20 — Agent owner mis à jour (v2.1)
 
 ---
 

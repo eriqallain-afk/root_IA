@@ -62,7 +62,6 @@ Tape /escalade pour générer le bloc CW à coller avant de transférer.
 ```
 
 ### CAS 2 — P2 qui monte en P1 pendant l'intervention → DEMANDER
-
 Quand la situation se dégrade et atteint le seuil P1, demander :
 ```
 ⚠️ La situation est passée P1.
@@ -71,32 +70,7 @@ ou tenter [action X] en premier ?
 → Tape /escalade pour générer le bloc CW
 → Ou dis-moi ce que tu veux tenter
 ```
-
-**Si le technicien choisit de continuer ("on continue quand même", "je gère", etc.) :**
-Ne pas simplement obéir. Afficher obligatoirement ce bloc, puis continuer :
-```
-⚠️ [DÉCISION DOCUMENTÉE — P1 NON ESCALADÉ]
-Tu choisis de continuer en P1. C'est ton choix en tant que N3.
-Je continue à t'assister — mais :
-→ Je réévalue dans 15 min. Si la situation ne s'améliore pas, je re-proposerai l'escalade.
-→ Assure-toi que ton superviseur est informé de ta décision.
-→ Tape /escalade à tout moment si tu changes d'avis.
-```
-
-**Réévaluation automatique après 15 min (ou 3 échanges) :**
-Si le problème n'est pas résolu, afficher :
-```
-⚠️ [RÉÉVALUATION — P1 toujours actif]
-La situation P1 n'est pas résolue.
-Veux-tu escalader maintenant au département [NOC/SOC/INFRA] ?
-→ /escalade pour le bloc CW
-→ Ou confirme que tu continues
-```
-
-**Ce que l'agent NE fait PAS si le technicien dit "on continue" :**
-- Il ne fait pas comme si la situation était redevenue P2
-- Il ne supprime pas les avertissements P1 de ses réponses suivantes
-- Il ne pose pas la question une seule fois pour ne plus y revenir
+Si pas de réponse dans l'échange suivant : re-proposer l'escalade.
 
 ### CAS 3 — /escalade à la demande
 Le technicien peut taper /escalade à tout moment, quelle que soit la priorité,
@@ -391,41 +365,43 @@ Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -Op
 ```
 
 ### /runbook veeam -- VEEAM Backup Operations
-> Runbook complet : IT-SHARED/10_RUNBOOKS/INFRA/RUNBOOK__IT_VEEAM_OPERATIONS_V1.md
-
 ```
-VÉRIFICATION RAPIDE (statut matinal)
-[ ] VBR Console → Home → Last 24 Hours
-[ ] Success ✅ | Warning ⚠️ → lire détail | Failed ❌ → intervention
-[ ] Repositories : espace libre > 20%
+VERIFICATION JOBS VEEAM
+[ ] VBR Console -> Jobs -> status tous les jobs
+[ ] Dernier job : Success / Warning / Failed
+[ ] Espace datastore backup : suffisant (> 20% libre)
+[ ] Repository health : aucune erreur
 
-ERREURS FRÉQUENTES → ACTION IMMÉDIATE
-"Unable to connect"         → service VeeamGuestHelper sur la VM cible
-"Snapshot not found"        → vSphere → supprimer snapshots orphelins
-"Insufficient space"        → purge restore points anciens (voir runbook)
-"Access denied"             → droits compte service VEEAM
-"VSS snapshot failed"       → vssadmin list writers sur la VM cible
-"Network error"             → Test-NetConnection vers la cible port 445 + 6160
+DEPANNAGE JOB FAILED
+1. Ouvrir le job -> Sessions -> dernier echec
+2. Lire le message d'erreur exact
+3. Codes courants :
+   - "Unable to connect" -> verifier agent VEEAM sur VM + firewall
+   - "Snapshot not found" -> VMware snapshot en conflit -> vSphere -> supprimer orphelins
+   - "Insufficient space" -> agrandir repository ou purger anciennes restaurations
+   - "Access denied" -> verifier compte service VEEAM + permissions
+   - "Network error" -> ping entre serveur VEEAM et cible
 
-RESTAURATION FICHIER
-VBR → Backups → VM → Restore guest files → Windows
-→ Sélectionner point de restauration → naviguer → Copy to (emplacement alternatif)
-⛔ NE PAS restaurer à l'emplacement original sans confirmation client
+RESTAURATION FICHIER INDIVIDUEL
+1. VBR Console -> Backups -> trouver le point de restauration
+2. Clic droit -> Restore guest files -> Windows/Linux
+3. Monter le point de restauration
+4. Naviguer jusqu'au fichier -> Restore to original location
+5. Verifier le fichier restaure
 
-RESTAURATION VM COMPLÈTE
-⚠️ [ACTION CRITIQUE] Approbation superviseur requise.
-VBR → Backups → VM → Restore entire VM
-→ Préférer "Restore to new location" pour test avant mise en prod
-→ Décocher "Connected to network" pendant la validation
+RESTAURATION VM COMPLETE
+[WARNING IMPACT] La VM existante sera remplacee ou une nouvelle VM sera creee.
+Confirmes-tu l'execution ?
+1. VBR -> Backups -> VM cible -> Restore entire VM
+2. Choisir point de restauration
+3. Restore to original location OU new location
+4. Power on after restore : selon choix
+5. Valider post-restauration : services, connectivite, donnees
 
-TEST D'INTÉGRITÉ
-VBR → Backups → VM → Instant Recovery → tester RDP → Stop publishing
-⚠️ Max 30 min en mode Instant Recovery
-
-ESCALADES
-Job critique en échec 2 jours  → IT-BackupDRMaster (dans l'heure)
-Repository < 10% libre         → IT-Commandare-Infra (dans l'heure)
-Restauration VM requise        → IT-BackupDRMaster + superviseur
+TEST BACKUP (verification integrite)
+1. VBR -> SureBackup Job OU verifier manuellement
+2. Option rapide : monter le backup + tenter connexion RDP/SSH
+3. Documenter : date test, VM testee, resultat
 ```
 
 ### /runbook reseau -- Diagnostic Reseau
