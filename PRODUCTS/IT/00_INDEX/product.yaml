@@ -1,17 +1,16 @@
 schema_version: '1.0'
-generated_at: '2026-03-20T00:00:00Z'
-
+generated_at: '2026-03-22T00:00:00Z'
 product_id: IT
 display_name: '@IT — MSP Intelligence Platform'
 description: >
-  Produit autonome de gestion MSP : support technique, NOC, cloud, sécurité,
-  maintenance, scripting, reporting, documentation client (Hudu) et gouvernance IT.
+  Produit autonome de gestion MSP : support technique N1-N3, NOC, cloud M365/Azure,
+  sécurité SOC, maintenance/patching, scripting PowerShell/Bash, backup/DR (Veeam/Datto/Keepit),
+  réseau (WatchGuard/Fortinet/SonicWall/Meraki/UniFi/MikroTik), RDS, AD,
+  hyperviseurs (Hyper-V/VMware/Vates), reporting, documentation client Hudu.
   Opère de façon entièrement indépendante de la FACTORY et du HUB global.
-
-version: '4.0'
+version: '4.1'
 status: active
 standalone: true
-
 owner: TEAM__IT_OPS
 teams:
   - id: TEAM__IT
@@ -20,11 +19,9 @@ teams:
   - id: TEAM__IT_OPS
     name: IT-OPS
     role: routing_archivage_execution
-
 entry_point:
   actor_id: OPS-RouterIA
   file: 80_MACHINES/hub_routing.yaml
-
 paths:
   agents: 20_Agents/
   ops: OPS/
@@ -35,26 +32,44 @@ paths:
   intents: 00_INDEX/intents.yaml
   agents_index: 00_INDEX/agents_index.yaml
   archive: 99_ARCHIVE/20_Agents_RETIRES/
-
-fallback_internal: IT-Commandare-NOC   # Jamais la FACTORY — IT-OrchestratorMSP archivé
-escalation_policy: IT-Commandare-TECH  # Escalade interne — IT-CTOMaster archivé
-
+fallback_internal: IT-Commandare-NOC
+escalation_policy: IT-Commandare-TECH
 integrations:
   - connectwise_manage
   - hudu
-  - azure_ad
+  - passportal
+  - azure_ad_entra
   - m365
   - azure_cloud
   - n_able
-  - datto
-  - passportal
-
+  - datto_rmm
+  - datto_bcdr
+  - keepit
+  - veeam
+  - watchguard
+  - fortinet
+  - sonicwall
+  - meraki
+  - unifi
+  - mikrotik
+  - auvik
+  - connectwise_rmm
 languages:
   - fr
   - en
-
 stats:
-  agents_actifs: 22
+  agents_actifs: 23
+  agents_it_actifs: 20
+  agents_ops_actifs: 3
   agents_archived: 11
-  playbooks: 13
-  phases_completees: [Phase0, Phase1, Phase2, Phase3]
+  playbooks: 14
+  bundles_total: 36
+  bundle_kp: 19
+  bundle_runbook: 13
+  bundle_contextuel: 4
+  runbooks_it_shared: 50
+  templates: 22
+  scripts: 20
+  checklists: 14
+  references: 14
+  phases_completees: [Phase0, Phase1, Phase2, Phase3, Phase3+]

@@ -1,127 +1,295 @@
 schema_version: '1.0'
-generated_at: '2026-03-20T00:00:00Z'
+generated_at: '2026-03-22T00:00:00Z'
 product_id: IT
-# Phase 3 — Fantômes retirés (IT-InterventionLive, IT-NOC), doublons corrigés
-# IT-ClientDocMaster ajouté
-
+# Phase 3+ — Mis à jour avec nouveaux runbooks, templates, checklists, scripts, références et bundles
 knowledge_base_path: IT-SHARED/
 
 shared:
-  templates_cw:
+  runbooks:
+    path: IT-SHARED/10_RUNBOOKS/
+    description: >
+      Runbooks opérationnels MSP : AD, RDS, Hyperviseurs (Hyper-V/VMware/Vates),
+      Firewalls (WatchGuard/Fortinet/SonicWall/Meraki/UniFi/MikroTik), M365,
+      Backup (Veeam/Datto/Keepit), Sécurité, Maintenance, NOC, Support, VPN
+    consumers:
+      - IT-AssistanTI_N2
+      - IT-AssistanTI_N3
+      - IT-MaintenanceMaster
+      - IT-BackupDRMaster
+      - IT-NetworkMaster
+      - IT-CloudMaster
+      - IT-SecurityMaster
+      - IT-Commandare-NOC
+      - IT-Commandare-TECH
+      - IT-Commandare-Infra
+      - IT-MonitoringMaster
+      - IT-VoIPMaster
+
+  templates:
     path: IT-SHARED/20_TEMPLATES/
-    description: Templates ConnectWise Manage (notes, tickets, rapports, communications)
+    description: >
+      Templates CW (Note Interne, Discussion STAR, Email Client, Intervention Library),
+      Communications (Teams, Email), Rapports (QBR, Mensuel, Postmortem, Azure/Cloud Health),
+      Sécurité, Backup, Knowledge, Script Header, Hudu edocs
     consumers:
       - IT-TicketScribe
       - IT-MaintenanceMaster
+      - IT-AssistanTI_N2
       - IT-AssistanTI_N3
+      - IT-ReportMaster
+      - IT-SecurityMaster
+      - IT-BackupDRMaster
+      - IT-KnowledgeKeeper
+      - IT-Commandare-OPR
       - OPS-DossierIA
 
-  runbooks:
-    path: IT-SHARED/10_RUNBOOKS/
-    description: Runbooks opérationnels (maintenance, NOC, support, sécurité, infra)
-    consumers:
-      - IT-MaintenanceMaster
-      - IT-BackupDRMaster
-      - IT-Commandare-NOC
-      - IT-Commandare-TECH
-      - IT-Commandare-Infra
-      - IT-AssistanTI_N3
-
-  checklists:
-    path: IT-SHARED/40_CHECKLISTS/
-    description: Checklists opérationnelles IT MSP
-    consumers:
-      - IT-AssistanTI_N3
-      - IT-MaintenanceMaster
-      - IT-Commandare-NOC
-      - IT-SecurityMaster
-
-  powershell_library:
+  scripts:
     path: IT-SHARED/30_SCRIPTS/
-    description: Scripts PowerShell et bibliothèques de snippets
+    description: >
+      Scripts PowerShell (HealthCheck, AD, Pending Reboot, DISM/SFC, Veeam, M365 Compromission,
+      Precheck DC/FS/HyperV) + Librairies (PS Snippets, Bash Snippets, EventLog, Server Management)
     consumers:
       - IT-ScriptMaster
       - IT-MaintenanceMaster
-      - IT-CloudMaster
+      - IT-AssistanTI_N3
       - IT-Commandare-Infra
+      - IT-BackupDRMaster
+      - IT-SecurityMaster
+
+  checklists:
+    path: IT-SHARED/40_CHECKLISTS/
+    description: >
+      Checklists : Kickoff, Closeout CW, Precheck/Postcheck Générique, Pré-Maintenance,
+      DR Readiness, Security Hardening, Shift Handover NOC, Compliance, KPIs MSP,
+      M365 Configuration, Azure VM Deployment, Intervention Steps
+    consumers:
+      - IT-AssistanTI_N2
+      - IT-AssistanTI_N3
+      - IT-MaintenanceMaster
+      - IT-NOCDispatcher
+      - IT-Commandare-NOC
+      - IT-SecurityMaster
+      - IT-BackupDRMaster
+      - IT-ReportMaster
+      - IT-TicketScribe
 
   reference:
     path: IT-SHARED/50_REFERENCE/
-    description: Guides de référence, standards, matrices SLA, conventions
+    description: >
+      Références : SLA Matrix, Severity Matrix, Conventions, Routing Rules, OnePager,
+      Writing Standards et Métriques, Naming Standards, Cloud Admin Portals,
+      Commandes Réseau et Système, Common Cloud Commands, Edocs Standard Hudu,
+      Guide Azure Troubleshooting
     consumers:
+      - IT-AssistanTI_N2
       - IT-AssistanTI_N3
       - IT-Commandare-TECH
+      - IT-Commandare-NOC
+      - IT-NOCDispatcher
       - IT-ReportMaster
       - IT-SecurityMaster
+      - IT-TicketScribe
+      - IT-KnowledgeKeeper
+      - IT-NetworkMaster
+      - IT-CloudMaster
+
+  bundles:
+    path: IT-SHARED/60_BUNDLES/
+    description: >
+      Bundles contextuels (MASTER Core/Gouvernance, NOC Intervention, Security),
+      KnowledgePacks par agent (BUNDLE_KP_*),
+      Bundles Runbook par domaine (BUNDLE_RUNBOOK_*) — assemblages Runbook+Template+Checklist
+    sub_types:
+      bundle_kp:
+        description: KnowledgePack GPT — 1 fichier par agent à uploader en Knowledge
+        agents_couverts:
+          - IT-AssistanTI_N2
+          - IT-AssistanTI_N3
+          - IT-MaintenanceMaster
+          - IT-BackupDRMaster
+          - IT-NetworkMaster
+          - IT-SecurityMaster
+          - IT-CloudMaster
+          - IT-NOCDispatcher
+          - IT-MonitoringMaster
+          - IT-TicketScribe
+          - IT-KnowledgeKeeper
+          - IT-ReportMaster
+          - IT-VoIPMaster
+          - IT-ScriptMaster
+          - IT-AssetMaster
+          - IT-Commandare-NOC
+          - IT-Commandare-TECH
+          - IT-Commandare-Infra
+          - IT-Commandare-OPR
+      bundle_runbook:
+        description: >
+          Assemblage Runbook + Templates + Checklists par domaine opérationnel.
+          13 bundles couvrant : Support, Maintenance, Backup, Security, Infra, NOC.
 
   templates_hudu:
-    path: IT-SHARED/20_TEMPLATES/TEMPLATE__EDOCS_FICHE_OBJET_IT.md
-    description: Templates fiches objets IT pour Hudu (Notes-Editor, Services, champs)
+    path: IT-SHARED/20_TEMPLATES/TEMPLATE_HUDU_Fiche-Objet-IT_V1.md
+    description: Template fiches objets IT pour Hudu (Notes-Editor, Services, champs)
     consumers:
       - IT-ClientDocMaster
 
   reference_hudu:
-    path: IT-SHARED/50_REFERENCE/REFERENCE__EDOCS_STANDARD.md
+    path: IT-SHARED/50_REFERENCE/REFERENCE_HUDU_Edocs-Standard_V1.md
     description: Standard edocs Hudu — taxonomie, règles de liaison, conventions
     consumers:
       - IT-ClientDocMaster
       - IT-MaintenanceMaster
+      - IT-KnowledgeKeeper
 
 agents:
   IT-MaintenanceMaster:
-    path: 20_Agents/IT-MaintenanceMaster/05_KNOWLEDGE/
+    path: 20_Agents/IT-MaintenanceMaster/
     description: Maintenance MSP complète (patching, DR, health check, scripts PS)
     priority: high
     auto_load: true
-    contexts:
-      - 01_TEMPLATES
-      - 02_RUNBOOKS
-      - 02_TEMPLATES
-      - 03_CHECKLISTS
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_MaintenanceMaster_V1.md
+
+  IT-AssistanTI_N3:
+    path: 20_Agents/IT-AssistanTI_N3/
+    description: Technicien MSP N1-N3 — copilote, diagnostic, escalade
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_AssistanTI-N3_V1.md
+
+  IT-AssistanTI_N2:
+    path: 20_Agents/IT-AssistanTI_N2/
+    description: Technicien MSP N1-N2 — support téléphonique, escalade automatique P1
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_AssistanTI-N2_V1.md
+
+  IT-BackupDRMaster:
+    path: 20_Agents/IT-BackupDRMaster/
+    description: Backup et DR — Veeam, Datto, Keepit, Plan de Relève
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_BackupDRMaster_V1.md
+
+  IT-NetworkMaster:
+    path: 20_Agents/IT-NetworkMaster/
+    description: Réseau — Firewalls, VPN, WiFi, Switches, MikroTik
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_NetworkMaster_V1.md
+
+  IT-SecurityMaster:
+    path: 20_Agents/IT-SecurityMaster/
+    description: Cybersécurité MSP — IR, EDR, M365 Security, Postmortem SOC
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_SecurityMaster_V1.md
 
   IT-CloudMaster:
-    path: 20_Agents/IT-CloudMaster/knowledge/
-    description: Azure AD, M365, cloud governance, Entra ID
+    path: 20_Agents/IT-CloudMaster/
+    description: M365, Azure, Entra ID, Intune, Compliance, Keepit
     priority: high
     auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_CloudMaster_V1.md
 
   IT-Commandare-NOC:
-    path: 20_Agents/IT-Commandare-NOC/IT_Commandare_NOC_KnowledgePack_v1/
-    description: NOC — triage, alertes, sévérité, runbooks réponse
+    path: 20_Agents/IT-Commandare-NOC/
+    description: Département NOC — triage, corrélation, escalade, shift handover
     priority: high
     auto_load: true
-
-  IT-Commandare-OPR:
-    path: 20_Agents/IT-Commandare-OPR/IT_Commandare_OPR_KnowledgePack_v1/
-    description: Opérations — gouvernance, change, communication client
-    priority: high
-    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_Commandare-NOC_V1.md
 
   IT-Commandare-TECH:
-    path: 20_Agents/IT-Commandare-TECH/IT_Commandare_TECH_KnowledgePack_v1/
-    description: Technique — RCA, troubleshooting avancé, remédiation
+    path: 20_Agents/IT-Commandare-TECH/
+    description: Département TECH — troubleshooting N3, RCA, coordination support
     priority: high
     auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_Commandare-TECH_V1.md
 
   IT-Commandare-Infra:
-    path: 20_Agents/IT-Commandare-Infra/IT_Commandare_INFRA_KnowledgePack_v1/
-    description: Infrastructure — incidents serveurs, VM, DC/AD, réseau infra
+    path: 20_Agents/IT-Commandare-Infra/
+    description: Département INFRA — hyperviseurs, réseau, AD, DR
     priority: high
     auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_Commandare-Infra_V1.md
+
+  IT-Commandare-OPR:
+    path: 20_Agents/IT-Commandare-OPR/
+    description: Département OPR — SLA, communications, rapports, gouvernance
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_Commandare-OPR_V1.md
+
+  IT-NOCDispatcher:
+    path: 20_Agents/IT-NOCDispatcher/
+    description: Dispatch NOC — qualification, priorisation, SLA
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_NOCDispatcher_V1.md
+
+  IT-MonitoringMaster:
+    path: 20_Agents/IT-MonitoringMaster/
+    description: Monitoring — N-able, CW RMM, Auvik, alertes
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_MonitoringMaster_V1.md
+
+  IT-TicketScribe:
+    path: 20_Agents/IT-TicketScribe/
+    description: Documentation CW — Note Interne, Discussion, Email, Hudu edocs
+    priority: high
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_TicketScribe_V1.md
+
+  IT-KnowledgeKeeper:
+    path: 20_Agents/IT-KnowledgeKeeper/
+    description: KB MSP — articles, procédures, postmortem, archivage
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_KnowledgeKeeper_V1.md
+
+  IT-ReportMaster:
+    path: 20_Agents/IT-ReportMaster/
+    description: Rapports MSP — QBR, Mensuel, Postmortem, KPIs
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_ReportMaster_V1.md
+
+  IT-ScriptMaster:
+    path: 20_Agents/IT-ScriptMaster/
+    description: Scripts PowerShell/Bash production-ready
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_ScriptMaster_V1.md
+
+  IT-VoIPMaster:
+    path: 20_Agents/IT-VoIPMaster/
+    description: Téléphonie IP — 3CX, Teams Phone, SIP, qualité audio
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_VoIPMaster_V1.md
+
+  IT-AssetMaster:
+    path: 20_Agents/IT-AssetMaster/
+    description: CMDB et gestion actifs — cycle de vie, audit, Hudu
+    priority: medium
+    auto_load: true
+    bundle_kp: IT-SHARED/60_BUNDLES/BUNDLE_KP_AssetMaster_V1.md
 
   IT-ClientDocMaster:
     path: 20_Agents/IT-ClientDocMaster/
-    description: Documentation Hudu — Notes-Editor, Services, champs structurés par objet IT client
+    description: Documentation Hudu — fiches objets IT, Notes-Editor, Services
     priority: high
     auto_load: true
     knowledge_files:
       - 20_Agents/IT-ClientDocMaster/prompt.md
-      - IT-SHARED/20_TEMPLATES/TEMPLATE__EDOCS_FICHE_OBJET_IT.md
-      - IT-SHARED/50_REFERENCE/REFERENCE__EDOCS_STANDARD.md
+      - IT-SHARED/20_TEMPLATES/TEMPLATE_HUDU_Fiche-Objet-IT_V1.md
+      - IT-SHARED/50_REFERENCE/REFERENCE_HUDU_Edocs-Standard_V1.md
 
 loading_rules:
   - auto_load agents with auto_load=true on agent startup
   - load shared.checklists for all agents with live interaction
-  - load shared.templates_cw for all ticket-producing agents
+  - load shared.templates for all ticket-producing agents
   - load shared.templates_hudu and shared.reference_hudu for IT-ClientDocMaster
+  - BUNDLE_KP_[Agent] = fichier unique à uploader en Knowledge dans le GPT correspondant
+  - BUNDLE_RUNBOOK_[Domaine] = assemblage complet pour agents spécialistes du domaine
   - agent-specific pack overrides shared when conflict

@@ -1,5 +1,5 @@
 schema_version: '1.0'
-generated_at: '2026-02-10T21:43:32.663405'
+generated_at: '2026-03-22T00:00:00Z'
 playbooks:
   INTAKE_ROUTE_EXECUTE:
     description: 'Flux standard : route -> exécute -> archive'
@@ -114,6 +114,30 @@ playbooks:
         actor_id: IT-Commandare-NOC
       - step: validate
         actor_id: IT-MaintenanceMaster
+      - step: report
+        actor_id: IT-ReportMaster
+      - step: archive
+        actor_id: OPS-DossierIA
+
+  IT_N2_SUPPORT_TELEPHONIQUE:
+    description: "Support N1/N2 téléphonique : guide étape-par-étape → escalade si P2→P1"
+    steps:
+      - step: execute
+        actor_id: IT-AssistanTI_N2
+      - step: escalade_si_requis
+        actor_id: IT-AssistanTI_N3
+      - step: closeout
+        actor_id: IT-TicketScribe
+
+  IT_SECURITY_INCIDENT_RESPONSE:
+    description: "Réponse incident sécurité : triage → containment → investigation → remédiation → postmortem"
+    steps:
+      - step: triage
+        actor_id: IT-Commandare-NOC
+      - step: response
+        actor_id: IT-SecurityMaster
+      - step: infrastructure
+        actor_id: IT-Commandare-Infra
       - step: report
         actor_id: IT-ReportMaster
       - step: archive

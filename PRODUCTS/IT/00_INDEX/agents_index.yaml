@@ -1,6 +1,6 @@
 schema_version: '1.0'
-generated_at: '2026-03-20T00:00:00Z'
-# Phase 3 — 22 agents actifs (19 IT + 3 OPS) | 11 archivés
+generated_at: '2026-03-22T00:00:00Z'
+# Phase 3+ — 23 agents actifs (20 IT + 3 OPS) | 11 archivés — 2026-03-22
 # IT-ClientDocMaster ajouté | fantômes supprimés
 
 agents:
@@ -190,9 +190,10 @@ agents:
   IT-AssistanTI_N2:
     display_name: "@IT-AssistanTI_N2"
     team_id: TEAM__IT
-    status: archived
-    archived_reason: "Doublon de IT-AssistanTI_N3 — prompt identique"
-    path: 99_ARCHIVE/20_Agents_RETIRES/IT-AssistanTI_N2
+    status: active
+    description: "Technicien MSP N1-N2 support téléphonique : guide étape-par-étape, NE PAS FAIRE, escalade P2→P1 automatique."
+    intents: [support, n1, n2, helpdesk, telephone, utilisateur, password, imprimante, outlook, vpn, onedrive]
+    path: 20_Agents/IT-AssistanTI_N2
 
   IT-CTOMaster:
     display_name: "@IT-CTOMaster"

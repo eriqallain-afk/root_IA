@@ -1,5 +1,5 @@
 schema_version: '1.0'
-generated_at: '2026-03-20T00:00:00Z'
+generated_at: '2026-03-22T00:00:00Z'
 catalog:
   IT-MaintenanceMaster:
     display_name: '@IT-MaintenanceMaster'
@@ -120,6 +120,7 @@ catalog:
   IT-ClientDocMaster:
     display_name: '@IT-ClientDocMaster'
     team_id: TEAM__IT
+    status: active
     description: 'Documentation client Hudu : génère les contenus Notes-Editor, Services
       et champs prêts à coller pour chaque objet IT client.'
     intents:
@@ -128,6 +129,10 @@ catalog:
     - edocs
     - client_doc
     - asset_doc
+    paths:
+      agent: 20_Agents/IT-ClientDocMaster/agent.yaml
+      contract: 20_Agents/IT-ClientDocMaster/contract.yaml
+      prompt: 20_Agents/IT-ClientDocMaster/prompt.md
   IT-MonitoringMaster:
     display_name: '@IT-MonitoringMaster'
     team_id: TEAM__IT
@@ -201,6 +206,21 @@ catalog:
       agent: 20_Agents/IT-SecurityMaster/agent.yaml
       contract: 20_Agents/IT-SecurityMaster/contract.yaml
       prompt: 20_Agents/IT-SecurityMaster/prompt.md
+  IT-AssistanTI_N2:
+    display_name: '@IT-AssistanTI_N2'
+    team_id: TEAM__IT
+    status: active
+    intents:
+    - support
+    - n1
+    - n2
+    - helpdesk
+    - telephone
+    - utilisateur
+    paths:
+      agent: 20_Agents/IT-AssistanTI_N2/agent.yaml
+      contract: 20_Agents/IT-AssistanTI_N2/contract.yaml
+      prompt: 20_Agents/IT-AssistanTI_N2/prompt.md
   IT-AssistanTI_N3:
     display_name: '@IT-AssistanTI_N3'
     team_id: TEAM__IT

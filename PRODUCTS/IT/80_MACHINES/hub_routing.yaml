@@ -1,11 +1,11 @@
 schema_version: '1.0'
-generated_at: '2026-03-20T00:00:00Z'
+generated_at: '2026-03-22T00:00:00Z'
 product_id: IT
 router_actor_id: OPS-RouterIA
 
 # ============================================================
 # TABLE DE ROUTAGE — PRODUIT @IT (v3.0)
-# Phase 3 — Agents archivés retirés, IT-ClientDocMaster ajouté
+# Phase 3+ — 22 routes | N2 ajouté | Firewall/Backup enrichis | 2026-03-22
 # AUTONOME : aucune référence à la FACTORY ou au HUB global
 # ============================================================
 
@@ -160,18 +160,29 @@ routing_table:
       - azure
       - m365
       - saas
+      - exchange
+      - entra
+      - intune
+      - keepit
     default_actor_id: IT-CloudMaster
     default_playbook_id: IT_MSP_TICKET_TO_KB
 
   # ── 12. RÉSEAU / FIREWALL / VPN ──────────────────────────
   - match_any_intents:
       - network
+      - reseau
       - firewall
       - vpn
+      - vpn_user
       - wifi
       - switching
       - cisco
       - watchguard
+      - fortinet
+      - sonicwall
+      - meraki
+      - unifi
+      - mikrotik
     default_actor_id: IT-NetworkMaster
     default_playbook_id: IT_MSP_TICKET_TO_KB
 
@@ -182,7 +193,10 @@ routing_table:
       - disaster_recovery
       - veeam
       - datto
+      - keepit
       - restore
+      - rto
+      - rpo
     default_actor_id: IT-BackupDRMaster
     default_playbook_id: IT_MSP_TICKET_TO_KB
 
@@ -267,6 +281,19 @@ routing_table:
     default_actor_id: IT-ClientDocMaster
     default_playbook_id: IT_MSP_TICKET_TO_KB
 
+  # ── 22. SUPPORT N1/N2 (téléphonique) ──
+  - match_any_intents:
+      - n1
+      - n2
+      - telephone
+      - utilisateur
+      - password
+      - imprimante
+      - outlook_user
+      - vpn_user
+      - onedrive
+    default_actor_id: IT-AssistanTI_N2
+    default_playbook_id: IT_MSP_TICKET_TO_KB
   # ── FALLBACK INTERNE ─────────────────────────────────────
   # CRITIQUE : jamais vers la FACTORY ou le HUB global
   - fallback: true
