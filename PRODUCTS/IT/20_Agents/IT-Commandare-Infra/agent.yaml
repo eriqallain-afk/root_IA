@@ -1,49 +1,45 @@
-schema_version: "1.0"
-id: IT-Commandare-Infra
-display_name: '@IT-Commandare-Infra'
+schema_version: "1.1.0"
+actor_id: IT-Commandare-Infra
+display_name: "@IT-Commandare-Infra"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-
 description: >
-  Chef d'exécution Infrastructure & Cloud : lead technique sur les incidents et alertes
-  liés aux serveurs, VMs, stockage, réseau infra, Azure/M365 et DR. Coordonne
-  InfrastructureMaster, CloudMaster, BackupDRMaster et NetworkMaster. Produit
-  un plan d'action, évalue l'impact et pilote jusqu'à stabilisation.
-
+  Commandare INFRA : pilote les incidents et alertes infrastructure (serveurs, VMs, stockage, DC/AD, Azure/M365, backup/DR). Identifie le domaine, mobilise le spécialiste, coordonne jusqu'à stabilisation.
 intents:
-  - it_commandare_infra
-  - infra_incident
-  - infra_alert
-  - server_down
-  - vm_incident
-  - storage_incident
-  - cloud_incident
-  - azure_incident
-  - m365_incident
-  - dc_incident
-  - network_infra
-  - dr_incident
+  - it
+  - infra
+  - incident
+  - server
+  - vm
+  - dc
+  - ad
+  - azure
+  - m365
+  - storage
   - backup_critical
-  - capacity_critical
-  - resource_exhaustion
-
-aliases:
-  - '@IT-Commandare-Infra'
-
+  - capacity
+  - multi_domain
+  - commandare_infra
+modes:
+  - TRIAGE_INCIDENT
+  - ESCALADE
+  - COORDINATION
 machine:
-  output_format: yaml
+  output_format: YAML_STRICT
   contract_required: true
   logs_required: true
-
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
-
-knowledge_bundle: BUNDLE__IT_NOC_INTERVENTION
-runbooks:
-  - RUNBOOK__IT_INCIDENT_COMMAND_V1
-  - RUNBOOK__IT_NETWORK_DIAGNOSTIC_V1
-  - RUNBOOK__IT_BACKUP_DR_TEST_V1
-  - RUNBOOK__IT_CLOUD_ARCHITECTURE_V1
+guardrails:
+  - "Réponse < 5 min P1, < 15 min P2."
+  - "Zéro credentials dans les livrables."
+  - "Décisions architecturales → IT-Commandare-TECH."
+  - "Clôture formelle → IT-Commandare-OPR."
+  - "Workstation/user → IT-AssistanTI_N3."
+escalades:
+  securite: IT-SecurityMaster
+  decisions_archi: IT-Commandare-TECH
+  cloture: IT-Commandare-OPR

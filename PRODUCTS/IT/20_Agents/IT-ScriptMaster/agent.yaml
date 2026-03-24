@@ -1,19 +1,35 @@
-id: IT-ScriptMaster
-display_name: '@IT-ScriptMaster'
+schema_version: "1.1.0"
+actor_id: IT-ScriptMaster
+display_name: "@IT-ScriptMaster"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: Génère des scripts PowerShell/Bash pour opérations IT MSP
+description: >
+  Générateur de scripts PowerShell/Bash production-ready pour opérations IT MSP. Standards obligatoires : header, UTF-8, transcript, logging, dry-run, gestion erreurs.
 intents:
-- it
-- genere
-output_format: yaml
-interfaces:
-  prompt: prompt.md
-  contract: contract.yaml
-schema_version: '1.0'
+  - script
+  - powershell
+  - bash
+  - automation
+  - scripting
+  - it
+modes:
+  - POWERSHELL
+  - BASH
+  - AUDIT_SCRIPT
+  - LIBRAIRIE
 machine:
-  output_format: yaml
+  output_format: YAML_STRICT
   contract_required: true
-  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+guardrails:
+  - "ZÉRO credentials hardcodés."
+  - "ZÉRO exécution automatique multi-serveurs."
+  - "TOUJOURS logging + dry-run (-WhatIf) pour scripts à impact."
+  - "⚠️ Impact avant toute commande destructrice."
+escalades:
+  script_complexe: IT-MaintenanceMaster
+  securite: IT-SecurityMaster

@@ -1,39 +1,21 @@
-﻿# CL-001 - Checklist Pre/Post Patching
-**Agent:** @IT-Commandare-TECH | **Type:** IT Infrastructure
+# CL-001 — Validation Triage Support / SOC
+**Agent :** IT-Commandare-TECH
 
-## PRE-EXECUTION
-### Preparation environnement
-- [ ] Fenetre de maintenance approuvee par ecrit
-- [ ] Backup/snapshot < 24h confirme pour chaque serveur PROD
-- [ ] Services critiques identifies et surveilles
-- [ ] Contacts d'urgence disponibles pendant la fenetre
-- [ ] Plan de rollback documente
+## Support
+- [ ] Niveau N1/N2/N3 défini
+- [ ] Sévérité P1/P2/P3/P4 définie
+- [ ] Agent assigné (IT-AssistanTI_N2/N3 ou IT-MaintenanceMaster)
+- [ ] Billet CW ouvert et assigné
+- [ ] SLA calculé et noté
 
-### Verification systeme
-- [ ] Espace disque suffisant (>= 15% libre sur C:)
-- [ ] Pas d'incidents actifs sur les serveurs cibles
-- [ ] Acces administrateur valide (RDP / WinRM)
-- [ ] Antivirus en mode exclusion pour la fenetre
+## SOC (si indicateurs sécurité)
+- [ ] P1 classé immédiatement
+- [ ] IT-SecurityMaster notifié en lead
+- [ ] Compte/poste isolé (sans attendre confirmation)
+- [ ] Sessions révoquées si compromission M365
+- [ ] IT-Commandare-OPR informé pour suivi documentaire
 
-## EXECUTION
-- [ ] Serveurs DEV/QA traites avant PROD
-- [ ] Chaque redemarrage confirme avec client (PROD)
-- [ ] Statut journalise par serveur en temps reel
-- [ ] Alertes monitoring suspendues pendant maintenance
-
-## POST-EXECUTION
-### Validation technique
-- [ ] Services critiques operationnels (liste a definir par client)
-- [ ] Pas d'erreurs dans l'Event Viewer (niveau Critical/Error)
-- [ ] Connectivite reseau confirmee
-- [ ] Applications metier accessibles
-
-### Rapport et cloture
-- [ ] Rapport de patching complete (succes/echecs/reportes)
-- [ ] Rapport envoye au client dans les 2h post-maintenance
-- [ ] Tickets ouverts pour les serveurs en echec
-- [ ] CMDB mise a jour
-- [ ] Prochaine fenetre planifiee si elements en suspens
-
----
-*CL-001 - IT-Commandare-TECH - Version 1.0*
+## Cross-département
+- [ ] Source dept identifiée
+- [ ] Traitement N1/N2 standard appliqué
+- [ ] Escalade N3 si nécessaire

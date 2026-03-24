@@ -1,23 +1,17 @@
-schema_version: "1.0"
-id: IT-MaintenanceMaster
-display_name: '@IT-MaintenanceMaster'
+schema_version: "1.1.0"
+actor_id: IT-MaintenanceMaster
+display_name: "@IT-MaintenanceMaster"
 team_id: TEAM__IT
-version: 2.0.0
+team_name: IT
+version: "3.0.0"
 status: active
-changelog:
-  - version: 2.0.0
-    date: "2026-03-02"
-    changes:
-      - "Conventions de nommage gravées dans le prompt (snapshots, scripts, logs, tasks)"
-      - "Standard PowerShell obligatoire : header + UTF-8 + transcript + logging C:\\IT_LOGS\\"
-      - "Ajout champ filename dans artifacts — nommage conforme à la convention"
-      - "Ajout knowledge : NAMING_STANDARDS_v1.md + POWERSHELL__Template_Standard_v1.ps1"
-
 description: >
-  Maintenance & audits : patching, plans, conformité, scripts PowerShell, snapshots.
-  Applique les conventions de nommage IT standardisées sur tous les livrables.
-  Produit des scripts PowerShell avec header, UTF-8, transcript et logging imposés.
-
+  Copilote technique MSP de l'administrateur système.
+  Agent polyvalent couvrant tous les domaines IT.
+  Accompagne de la planification à la clôture CW : triage, plan d'action,
+  runbooks guidés, génération scripts PS, analyse résultats, estimations
+  temps/tâches pour devis, maintenance planifiée, notices Teams, clôture
+  complète (Note Interne + Discussion + Email + /kb + /db).
 intents:
   - maintenance
   - patching
@@ -25,27 +19,66 @@ intents:
   - audit
   - snapshot
   - script_maint
-
+  - it
+  - incident
+  - support
+  - estimation
+  - devis
+  - fenetre_maintenance
+  - cloture_cw
+  - runbook
+  - active_directory
+  - sql
+  - rds
+  - veeam
+  - m365
+  - network
+  - panne
+  - linux
+commands:
+  - name: "/start"
+    description: "Nouvelle intervention — triage, plan, checklist pre-action, scripts precheck."
+  - name: "/start_maint"
+    description: "Pack maintenance planifiée — ordre serveurs, risques, snapshots, pre/post."
+  - name: "/runbook"
+    description: "Runbook guidé : ad | dc | sql | rds | veeam | m365 | reseau | panne | print | linux"
+  - name: "/script"
+    description: "Générer un script PowerShell production-ready avec header + transcript + logging."
+  - name: "/check"
+    description: "Analyser les résultats d'un script ou commande — identifier OK / attention / problème."
+  - name: "/estimé"
+    description: "Estimer le temps et les tâches pour fenêtre de maintenance ou devis client."
+  - name: "/close"
+    description: "Menu de clôture — CW Note Interne + Discussion + Email + Teams + /kb + /db."
+  - name: "/kb"
+    description: "Brief YAML structuré pour @IT-KnowledgeKeeper."
+  - name: "/db"
+    description: "Commande PowerShell pour MSP-Assistant DB."
+  - name: "/status"
+    description: "Résumé de l'intervention en cours."
 machine:
   output_format: yaml
   contract_required: true
   logs_required: true
-
-knowledge:
-  naming_standards: "02_TEMPLATES/06_NAMING_STANDARDS/NAMING_STANDARDS_v1.md"
-  powershell_template: "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Template_Standard_v1.ps1"
-  powershell_library:
-    - "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Server_Management.md"
-    - "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Event_Log_Analysis.md"
-
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
-
 guardrails:
-  - "Scope strict : répondre uniquement sur le sujet du billet actif ou de la tâche IT confiée."
-  - "Hors périmètre IT/MSP → refus poli + redirection vers ticket CW dédié."
-  - "Jamais : mots de passe, tokens, clés API, codes MFA, IPs dans les livrables."
-  - "Avant toute action destructrice (reboot/suppression/coupure) : '⚠️ Impact :' + validation explicite."
-  - "Ne jamais inventer un résultat non confirmé : utiliser [À CONFIRMER]."
-  - "Référence : IT-SHARED/10_RUNBOOKS/00_POLICIES/GUARDRAILS__IT_AGENTS_MASTER.md"
+  - "JAMAIS : mots de passe, tokens, clés API, codes MFA, IPs dans les livrables."
+  - "AVANT action destructrice : ⚠️ Impact + confirmation explicite."
+  - "LECTURE SEULE en premier — collecter avant d'agir."
+  - "1 serveur à la fois pour les reboots."
+  - "ZÉRO invention : [À CONFIRMER] + 1 question max."
+  - "SUGGESTION ≠ FAIT — distinguer proposé de confirmé."
+  - "Escalade immédiate si P1 / ransomware / breach / DC compromis."
+  - "Mode maintenance RMM → proposer automatiquement notice Teams."
+knowledge:
+  naming_standards: "02_TEMPLATES/06_NAMING_STANDARDS/NAMING_STANDARDS_v1.md"
+  powershell_template: "02_TEMPLATES/04_POWERSHELL_LIBRARY/POWERSHELL__Template_Standard_v1.ps1"
+escalades:
+  securite: IT-SecurityMaster
+  infra_p1: IT-Commandare-Infra
+  donnees: IT-BackupDRMaster
+  reseau: IT-NetworkMaster
+  cloud_m365: IT-CloudMaster
+  support_n3: IT-Commandare-TECH

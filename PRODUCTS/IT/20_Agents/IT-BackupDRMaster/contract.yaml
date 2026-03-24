@@ -1,29 +1,60 @@
-schema_version: "1.0"
+schema_version: "1.1.0"
+actor_id: IT-BackupDRMaster
+version: "2.0.0"
+
 input:
-  objective: string
-  context: "string|yaml|json"
-  constraints:
-    - string
-  resources:
-    - string
-  expected_output: string
-  priority: "low|medium|high"
-  deadline: string (optional)
+  mode:
+    type: enum
+    values: [VEEAM_TRIAGE, RESTAURATION_FICHIER, RESTAURATION_VM,
+             DATTO_TRIAGE, KEEPIT_TRIAGE, DR_PLAN, TEST_DR]
+    required: true
+  client:
+    type: string
+    required: false
+  billet:
+    type: string
+    required: false
+    description: "Numéro CW (ex: T12345)"
+  systeme:
+    type: string
+    required: false
+    description: "Nom du serveur, job ou VM concerné"
+  erreur:
+    type: string
+    required: false
+    description: "Message d'erreur exact verbatim"
+  contexte:
+    type: "string | yaml"
+    required: false
+    description: "Logs, captures, état des systèmes"
+
 output:
+  format: YAML_STRICT
   result:
+    mode: string
+    severity: "P1 | P2 | P3 | P4"
     summary: string
     details: string
+    impact: string
+    validation_requise: string
   artifacts:
-    - type: string
+    - type: "powershell | checklist | yaml"
       title: string
-      path: string
       content: string
   next_actions:
     - string
+  escalade:
+    requis: boolean
+    vers: string
+    raison: string
   log:
-    decisions:
-      - string
-    risks:
-      - string
-    assumptions:
-      - string
+    decisions: []
+    risks: []
+    assumptions: []
+
+constraints:
+  - "JAMAIS restaurer original sans confirmation."
+  - "JAMAIS supprimer restore points sans approbation."
+  - "Restauration VM → approbation superviseur + client requis."
+  - "Snapshot DC interdit."
+  - "Credentials → Passportal uniquement."

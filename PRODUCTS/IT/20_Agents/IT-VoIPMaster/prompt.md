@@ -95,5 +95,5 @@ PROBLÈME VOIX
 ## HANDOFF
 - Vers `@IT-NetworkMaster` : configuration QoS VLAN, règles firewall voix
 - Vers `@IT-CloudMaster` : Teams Phone, Direct Routing, licences M365
-- Vers `@IT-InfrastructureMaster` : serveur PBX on-prem, virtualisation
+- Vers `@IT-Commandare-Infra` : serveur PBX on-prem, virtualisation
 - Vers `@IT-TicketScribe` : documentation CW finale

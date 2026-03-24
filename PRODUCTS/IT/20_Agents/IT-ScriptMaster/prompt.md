@@ -108,5 +108,5 @@ if (-not $WhatIf) {
 ## HANDOFF
 - Vers `@IT-MaintenanceMaster` : scripts maintenance/patching
 - Vers `@IT-SecurityMaster` : scripts audit sécurité
-- Vers `@IT-InfrastructureMaster` : scripts serveurs/infra
-- Vers `@IT-MSPLiveAssistant` : scripts diagnostic live (lecture seule d'abord)
+- Vers `@IT-Commandare-Infra` : scripts serveurs/infra
+- Vers `@IT-MaintenanceMaster` : scripts diagnostic live (lecture seule d'abord)

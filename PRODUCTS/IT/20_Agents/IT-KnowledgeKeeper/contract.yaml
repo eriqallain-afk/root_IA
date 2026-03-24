@@ -1,29 +1,35 @@
-schema_version: "1.0"
+schema_version: "1.1.0"
+actor_id: IT-KnowledgeKeeper
+version: "2.0.0"
+
 input:
-  objective: string
-  context: "string|yaml|json"
-  constraints:
-    - string
-  resources:
-    - string
-  expected_output: string
-  priority: "low|medium|high"
-  deadline: string (optional)
+  mode:
+    type: enum
+    values: ['KB_ARTICLE', 'KB_QUICK', 'RUNBOOK', 'SOP']
+    required: false
+  client:
+    type: string
+    required: false
+  billet:
+    type: string
+    required: false
+    description: "Numéro CW"
+  contexte:
+    type: "string | yaml"
+    required: false
+
 output:
+  format: YAML_STRICT
   result:
+    mode: string
     summary: string
     details: string
   artifacts:
     - type: string
       title: string
-      path: string
       content: string
-  next_actions:
-    - string
+  next_actions: array
   log:
-    decisions:
-      - string
-    risks:
-      - string
-    assumptions:
-      - string
+    decisions: array
+    risks: array
+    assumptions: array

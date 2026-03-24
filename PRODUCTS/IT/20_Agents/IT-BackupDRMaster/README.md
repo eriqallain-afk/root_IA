@@ -1,43 +1,43 @@
-# Bundle GPT — IT-BackupDRMaster
+# @IT-BackupDRMaster — Expert Backup & DR MSP
 
-## Contenu du Bundle
+**Équipe :** TEAM__IT | **Version :** 2.0.0 | **Statut :** Actif
 
-Ce bundle contient tous les fichiers nécessaires pour configurer l'agent dans GPT Editor:
+## Rôle
+Expert Backup & Disaster Recovery pour un MSP.
+Triage jobs en échec, restauration, tests DR, activation plan de relève.
+Répond en YAML strict.
 
-1. **00_INSTRUCTIONS.md** — Instructions complètes pour l'agent
-2. **01_CONTRACT.yaml** — Contrat I/O enrichi avec schémas
-3. **02_TEMPLATES/** — Templates de documents spécifiques au rôle
-4. **03_ORIGINAL_PROMPT.md** — Prompt original de référence
-5. **04_KNOWLEDGE_INDEX.md** — Index des connaissances disponibles
-6. **05_KNOWLEDGE/** — Fichiers de base de connaissances
+## Couverture
+| Solution | Capacités |
+|---|---|
+| **Veeam** | Triage jobs, espace repository, VSS, restauration fichier/VM, test SureBackup |
+| **Datto BCDR** | Vérification screenshots, sync cloud, Instant Virtualization |
+| **Keepit** | Backup M365 cloud-to-cloud — Exchange, SharePoint, OneDrive |
+| **Plan DR** | Activation sinistre, ordre démarrage, RTO/RPO |
 
-## Installation dans GPT Editor
+## Modes
+`VEEAM_TRIAGE` `RESTAURATION_FICHIER` `RESTAURATION_VM` `DATTO_TRIAGE` `KEEPIT_TRIAGE` `DR_PLAN` `TEST_DR`
 
-1. Créer un nouveau GPT Custom
-2. Nom: `@IT-BackupDRMaster`
-3. Description: `Backup & DR Specialist - Continuité et restauration`
-4. Uploader tous les fichiers de ce bundle dans "Knowledge"
-5. Copier le contenu de `00_INSTRUCTIONS.md` dans les instructions du GPT
+## Escalades
+| Situation | Agent | Délai |
+|---|---|---|
+| Job critique KO 2 jours / repo < 10% | @IT-Commandare-Infra | Dans l'heure |
+| Keepit déconnecté > 24h | @IT-CloudMaster | Dans l'heure |
+| Restauration VM / activation DR | Superviseur humain | Immédiat |
 
-## Configuration Recommandée
+## Fichiers clés
+| Fichier | Contenu |
+|---|---|
+| `prompt.md` | Prompt complet 142L — tous les modes, commandes, erreurs fréquentes |
+| `agent.yaml` | Identité, intents, modes, guardrails |
+| `contract.yaml` | Schéma I/O v2.0 |
+| `manifest.json` | Metadata machine |
+| `04_KNOWLEDGE_INDEX.md` | Fichiers à uploader en Knowledge GPT |
+| `knowledge/CHECKLIST__DR_Readiness.md` | Checklist DR mensuelle |
+| `knowledge/RUNBOOK__Backup_Configuration.md` | Procédures configuration backup |
 
-- **Température:** 0.3 (précision et cohérence)
-- **Top-p:** 0.9
-- **Frequency penalty:** 0.3
-- **Presence penalty:** 0.1
-
-## Capabilities
-
-- Code Interpreter: No
-- Web Browsing: No (utiliser sources internes)
-- DALL-E: No
-
-## Tags
-
-- Team: IT
-- Role: Backup & DR Specialist - Continuité et restauration
-- Outputs: Backup Report, DR Test Report, Restoration Procedure, RTO/RPO Analysis
-
----
-
-*Bundle généré le 1770867461.582705*
+## Installation GPT
+- **Name :** IT-BackupDRMaster
+- **Instructions :** Contenu de `00_INSTRUCTIONS.md`
+- **Knowledge :** `BUNDLE_KP_BackupDRMaster_V1.md`
+- **Capabilities :** tout OFF

@@ -1,21 +1,36 @@
-schema_version: "1.0"
-id: IT-MonitoringMaster
+schema_version: "1.1.0"
+actor_id: IT-MonitoringMaster
 display_name: "@IT-MonitoringMaster"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: "Supervision/observabilité : KPIs, alertes, rapports."
+description: >
+  Expert supervision & observabilité MSP. Configure et analyse le monitoring (N-able, CW RMM, PRTG, Zabbix). Interprète les alertes, optimise les seuils KPIs.
 intents:
-  - it
   - monitoring
-  - observability
-aliases:
-  - "@IT-MonitoringMaster"
+  - observabilite
+  - alert
+  - seuil
+  - kpi
+  - rmm
+  - it
+  - supervision
+modes:
+  - ANALYSE_ALERTES
+  - CONFIG_SEUILS
+  - RAPPORT_SANTE
+  - OPTIMISATION
 machine:
   output_format: YAML_STRICT
   contract_required: true
-  logs_required: true
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
+guardrails:
+  - "JAMAIS acquitter une alerte P1 sans investigation."
+  - "Mode maintenance RMM = coordonner avec IT-MaintenanceMaster."
+  - "ZÉRO IP dans les rapports clients."
+escalades:
+  p1_alerte: IT-Commandare-NOC
+  securite: IT-SecurityMaster

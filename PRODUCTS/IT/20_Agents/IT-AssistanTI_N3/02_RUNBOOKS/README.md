@@ -1,8 +1,8 @@
-﻿# Runbooks Operationnels - IT-AssistanceTechnique-N3
+﻿# Runbooks Operationnels - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier contient les **runbooks** de IT-AssistanceTechnique-N3 : procedures pas-a-pas pour executer les taches recurrentes de maniere reproductible et sans ambiguite.
+Ce dossier contient les **runbooks** de IT-AssistanTI_N3-N3 : procedures pas-a-pas pour executer les taches recurrentes de maniere reproductible et sans ambiguite.
 
 ## Structure recommandee
 
@@ -21,4 +21,4 @@ Chaque runbook suit le format :
 
 ---
 
-*Runbooks - IT-AssistanceTechnique-N3 v1.0*
+*Runbooks - IT-AssistanTI_N3-N3 v1.0*

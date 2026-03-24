@@ -1,24 +1,14 @@
-﻿# Knowledge Index - IT-CloudMaster
+# Knowledge Index — IT-CloudMaster (v2.0)
+## Knowledge GPT
+| Fichier | Source |
+|---|---|
+| `BUNDLE_KP_CloudMaster_V1.md` | `IT-SHARED/60_BUNDLES/` |
 
-## Vue d'Ensemble
+## Fichiers locaux knowledge/
+`knowledge/REFERENCE__Cloud_Admin_Portals.md` — Portails admin cloud
+`knowledge/RUNBOOK__M365_User_Management.md` — Gestion utilisateurs M365
+`knowledge/RUNBOOK__Quick_Start.md` — Quick start M365/Azure
 
-Cet agent dispose des ressources de connaissances suivantes:
-
-## Fichiers de Connaissances
-
-### Standards et Procedures
-- [A ajouter]
-
-### Exemples et Templates
-- [A ajouter]
-
-## Utilisation
-
-Ces fichiers doivent etre consultes pour:
-- Comprendre les standards et best practices
-- Trouver des exemples de travaux similaires
-- Verifier les procedures etablies
-
----
-
-*Index genere automatiquement*
+## Runbooks IT-SHARED (via BUNDLE_KP)
+Exchange Online, Entra ID, Intune, Teams, M365 User Onboarding, IT-SHARED/10_RUNBOOKS/INFRA/
+*v2.0 — 2026-03-22*

@@ -22,19 +22,19 @@ result:
   decision:
     owner: IT-Commandare-Infra
     priority: P1
-    routing: IT-InfrastructureMaster
-    escalate_to: IT-CTOMaster
+    routing: IT-Commandare-Infra
+    escalate_to: IT-Commandare-TECH
     parallel_tracks:
       - actor: IT-NetworkMaster
         task: "Confirmer connectivité réseau vers SRV-DC01 (VLAN, switch port)"
   actions_now:
-    - "IT-InfrastructureMaster : tenter console iDRAC/iLO ou accès vCenter"
+    - "IT-Commandare-Infra : tenter console iDRAC/iLO ou accès vCenter"
     - "Vérifier si SRV-DC02 (secondaire) répond et assume les rôles FSMO"
     - "IT-NetworkMaster : vérifier port switch, VLAN, logs interface"
   actions_next:
     - "Si hardware failure : initiate DR procedure pour DC"
     - "Vérifier réplication AD depuis DC secondaire"
-    - "Notifier client via IT-CommsMSP"
+    - "Notifier client via IT-TicketScribe"
   validation_plan:
     - "dcdiag /test:replications sur DC secondaire"
     - "nltest /dsgetdc:[domain] depuis workstation"
@@ -65,16 +65,16 @@ result:
   severity: P1
   infra_domain: multi
   decision:
-    routing: "IT-CloudMaster (Azure) + IT-InfrastructureMaster (disk)"
+    routing: "IT-CloudMaster (Azure) + IT-Commandare-Infra (disk)"
     parallel_tracks:
       - actor: IT-CloudMaster
         task: "Investiguer VM-APP-PROD01 : raison deallocation (budget? maintenance? erreur?)"
-      - actor: IT-InfrastructureMaster
+      - actor: IT-Commandare-Infra
         task: "Libérer espace SRV-FILE01 : identifier top consommateurs, actions immédiates"
-    escalate_to: IT-CTOMaster
+    escalate_to: IT-Commandare-TECH
   actions_now:
     - "IT-CloudMaster : Azure Portal → VM-APP-PROD01 → Activity Log → raison stop"
-    - "IT-InfrastructureMaster : PowerShell Get-ChildItem sur SRV-FILE01 drives"
+    - "IT-Commandare-Infra : PowerShell Get-ChildItem sur SRV-FILE01 drives"
   validation_plan:
     - "VM-APP-PROD01 : ping + test applicatif post-restart"
     - "SRV-FILE01 : disk < 80% confirmé + logs events vérifiés"

@@ -1,8 +1,8 @@
-﻿# Checklists de Validation - IT-AssistanceTechnique-N3
+﻿# Checklists de Validation - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier regroupe les **checklists de controle qualite** utilisees par IT-AssistanceTechnique-N3 avant, pendant et apres la production de livrables.
+Ce dossier regroupe les **checklists de controle qualite** utilisees par IT-AssistanTI_N3-N3 avant, pendant et apres la production de livrables.
 
 ## Types de checklists
 
@@ -20,4 +20,4 @@ Chaque item de checklist doit inclure :
 
 ---
 
-*Checklists - IT-AssistanceTechnique-N3 v1.0*
+*Checklists - IT-AssistanTI_N3-N3 v1.0*

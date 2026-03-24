@@ -142,3 +142,20 @@ playbooks:
         actor_id: IT-ReportMaster
       - step: archive
         actor_id: OPS-DossierIA
+    
+  IT_FRONTLINE_CALL_TO_CLOSE:
+    description: >
+    Flux première ligne (FrontLine) : réception billet MSPBOT ou appel direct ->
+    triage -> résolution N2 -> clôture CW -> KB si P1/P2.
+    steps:
+      - step: receive
+        actor_id: IT-AssistanTI_FrontLine
+      - step: triage_and_resolve
+        actor_id: IT-AssistanTI_FrontLine
+      - step: closeout
+        actor_id: IT-AssistanTI_FrontLine
+      - step: kb_if_needed
+        actor_id: IT-KnowledgeKeeper
+        condition: P1 ou P2 ou nouveau_type
+      - step: archive
+        actor_id: OPS-DossierIA

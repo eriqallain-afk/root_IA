@@ -1,40 +1,74 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-AssistanceTechnique-N3 | **Type:** IT | **Statut:** PASS (cas nominal)
-
-## INPUT
-```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
-```
-
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
-```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
-```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
+# EX-001 — Cas nominal : CPU 100% sur SRV-DC01 (P2 → Résolu)
+**Agent :** IT-AssistanTI_N3 | **Statut :** PASS
 
 ---
-*EX-001 - IT-AssistanceTechnique-N3 - Version 1.0*
+
+## INPUT
+```
+/start — Billet #T1683171 — Client : Acme Corp
+SRV-DC01 CPU à 100% depuis 25 min — alertes RMM — utilisateurs lents
+```
+
+## TRIAGE
+```yaml
+categorie: NOC
+priorite: P2
+systemes_affectes: [SRV-DC01]
+impact: "Tous les utilisateurs du domaine — authentification lente"
+risques: ["P1 si DC tombe", "réplication AD compromise"]
+```
+
+## PRECHECK (commandes exécutées)
+```powershell
+# Top processus CPU
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 5 Name,CPU,Id
+
+# Résultat :
+# Name          CPU    Id
+# TiWorker     9842  4428   ← Windows Update en arrière-plan
+# svchost      1203  1024
+```
+
+## ACTIONS
+```
+1. Identifier TiWorker.exe = Windows Update (WUauserv)
+   → [LECTURE SEULE d'abord confirmée] ✅
+
+2. [WARNING IMPACT] Stop-Service wuauserv va interrompre Windows Update.
+   Confirmes-tu ? → "oui" ✅
+
+3. Stop-Service wuauserv -Force
+   → CPU redescend à 12% en 90 secondes ✅
+
+4. Validation : Get-Service wuauserv → Stopped ✅
+   Get-Process | Sort-Object CPU -Descending | Select-Object -First 3
+   → CPU normal ✅
+```
+
+## CLÔTURE (`/close`)
+
+**CW Note Interne :**
+```
+Prise de connaissance de la demande et consultation de la documentation du client.
+Billet #T1683171 — SRV-DC01 CPU 100% — Acme Corp
+Cause identifiée : processus TiWorker.exe (Windows Update) consommant 100% CPU depuis 25 min.
+Actions : Stop-Service wuauserv -Force à 14:37.
+Résultat : CPU retombé à 12% en 90s. Monitoring revenu au vert à 14:39.
+Next : Planifier Windows Update hors heures — fenêtre prochaine maintenance.
+```
+
+**CW Discussion :**
+```
+Intervention sur le serveur signalé par le monitoring.
+Identification et résolution de la surcharge processeur — toutes les performances
+sont revenues à la normale. Le serveur est stable.
+Une mise à jour Windows sera planifiée lors de la prochaine fenêtre de maintenance.
+```
+
+## POST-CLÔTURE
+```yaml
+/kb: true    # P2 résolu — runbook utile
+/db: true    # > 30 min
+duree: 22 min
+escalade: false
+```

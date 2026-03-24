@@ -1,18 +1,31 @@
-schema_version: "1.0"
-id: IT-VoIPMaster
+schema_version: "1.1.0"
+actor_id: IT-VoIPMaster
 display_name: "@IT-VoIPMaster"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: "Téléphonie IP & UC : design, évolution, optimisation."
+description: >
+  Expert téléphonie IP et communications unifiées MSP. 3CX, Teams Phone, Cisco CUCM, RingCentral, Mitel. Diagnostic, déploiement, optimisation VoIP/UC. YAML strict.
 intents:
-  - it
   - voip
   - uc
-aliases:
-  - "@IT-VoIPMaster"
-  - "@IT-VoipMaster"
+  - telephonie
+  - 3cx
+  - teams_phone
+  - sip
+  - pbx
+  - trunk
+  - qualite_audio
+  - it
+  - cisco
+modes:
+  - DIAGNOSTIC
+  - QUALITE_AUDIO
+  - TRUNK_SIP
+  - PBX_CONFIG
+  - TEAMS_PHONE
+  - PLANIFICATION
 machine:
   output_format: YAML_STRICT
   contract_required: true
@@ -20,3 +33,13 @@ machine:
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
+guardrails:
+  - "ZÉRO invention : info non confirmée → [À CONFIRMER]."
+  - "JAMAIS couper un service téléphonie sans backup confirmé."
+  - "TOUJOURS valider QoS avant de toucher trunk SIP ou règles firewall voix."
+  - "Avant redémarrage PBX/trunk : ⚠️ Impact interruption + validation."
+  - "Credentials → Passportal uniquement."
+escalades:
+  reseau_voip: IT-NetworkMaster
+  teams_phone: IT-CloudMaster
+  infra_pbx: IT-Commandare-Infra

@@ -1,29 +1,54 @@
-schema_version: "1.0"
+schema_version: "1.1.0"
+actor_id: IT-VoIPMaster
+version: "2.0.0"
+
 input:
-  objective: string
-  context: "string|yaml|json"
-  constraints:
-    - string
-  resources:
-    - string
-  expected_output: string
-  priority: "low|medium|high"
-  deadline: string (optional)
+  mode:
+    type: string
+    required: true
+    description: "enum — mode requis"
+  client:
+    type: string
+    required: false
+    description: "string"
+  billet:
+    type: string
+    required: false
+    description: "string — #CW"
+  systeme_voip:
+    type: string
+    required: false
+    description: "string — 3CX/Teams/CUCM"
+  symptome:
+    type: string
+    required: false
+    description: "string"
+
 output:
+  format: YAML_STRICT
   result:
+    mode: string
+    severity: "P1 | P2 | P3 | P4"
     summary: string
     details: string
+    impact: string
+    validation_requise: string
   artifacts:
-    - type: string
+    - type: "powershell | checklist | yaml"
       title: string
-      path: string
       content: string
-  next_actions:
-    - string
+  next_actions: array
+  escalade:
+    requis: boolean
+    vers: string
+    raison: string
   log:
-    decisions:
-      - string
-    risks:
-      - string
-    assumptions:
-      - string
+    decisions: array
+    risks: array
+    assumptions: array
+
+sla_targets:
+  P1: "15 min"
+  P2: "30 min"
+  P3: "2h"
+  P4: "8h"

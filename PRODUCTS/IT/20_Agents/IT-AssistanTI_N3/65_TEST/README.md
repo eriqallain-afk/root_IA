@@ -1,8 +1,8 @@
-﻿# Zone de Test et Validation - IT-AssistanceTechnique-N3
+﻿# Zone de Test et Validation - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier est la **zone de QA et de validation** de IT-AssistanceTechnique-N3. Il contient les scenarios de test, les resultats d'execution et les rapports de conformite.
+Ce dossier est la **zone de QA et de validation** de IT-AssistanTI_N3-N3. Il contient les scenarios de test, les resultats d'execution et les rapports de conformite.
 
 ## Structure
 
@@ -27,4 +27,4 @@ Ce dossier est la **zone de QA et de validation** de IT-AssistanceTechnique-N3. 
 
 ---
 
-*Test Zone - IT-AssistanceTechnique-N3 v1.0*
+*Test Zone - IT-AssistanTI_N3-N3 v1.0*

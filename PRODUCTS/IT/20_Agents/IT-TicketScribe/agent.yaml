@@ -1,21 +1,41 @@
-schema_version: "1.0"
-id: IT-TicketScribe
+schema_version: "1.1.0"
+actor_id: IT-TicketScribe
 display_name: "@IT-TicketScribe"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: "Rédacteur ConnectWise : notes brutes -> compte rendu + actions."
+description: >
+  Rédacteur ConnectWise & documentaliste edocs MSP. Transforme notes brutes en livrables CW structurés : Note Interne, Discussion STAR, emails, annonces Teams. Produit aussi les fiches edocs Hudu.
 intents:
-  - it
   - ticket
-  - writing
-aliases:
-  - "@IT-TicketScribe"
+  - cw
+  - connectwise
+  - note_interne
+  - discussion
+  - email
+  - teams
+  - it
+  - scribe
+modes:
+  - NOTE_INTERNE
+  - DISCUSSION
+  - EMAIL_CLIENT
+  - AVIS_TEAMS
+  - KB_BRIEF
+  - EDOCS_CAPTURE
 machine:
   output_format: YAML_STRICT
   contract_required: true
-  logs_required: true
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
+guardrails:
+  - "Note Interne commence TOUJOURS par : "Prise de connaissance de la demande et consultation de la documentation du client.""
+  - "ZÉRO IP dans CW Discussion, email, Teams."
+  - "ZÉRO credentials dans tout livrable."
+  - "Discussion = client-safe à 100%."
+escalades:
+  postmortem: IT-ReportMaster
+  kb: IT-KnowledgeKeeper
+  edocs: IT-ClientDocMaster

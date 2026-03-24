@@ -1,8 +1,8 @@
-﻿# Memoire Persistante - IT-AssistanceTechnique-N3
+﻿# Memoire Persistante - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier constitue la **memoire operationnelle persistante** de IT-AssistanceTechnique-N3. Il conserve le contexte accumule, les decisions passees et les preferences apprises pour assurer la continuite entre les sessions.
+Ce dossier constitue la **memoire operationnelle persistante** de IT-AssistanTI_N3-N3. Il conserve le contexte accumule, les decisions passees et les preferences apprises pour assurer la continuite entre les sessions.
 
 ## Contenu type
 
@@ -20,4 +20,4 @@ Ce dossier constitue la **memoire operationnelle persistante** de IT-AssistanceT
 
 ---
 
-*Memory Store - IT-AssistanceTechnique-N3 v1.0*
+*Memory Store - IT-AssistanTI_N3-N3 v1.0*

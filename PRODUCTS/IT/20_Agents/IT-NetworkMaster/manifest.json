@@ -1,30 +1,47 @@
-﻿{
-    "team":  "IT",
-    "version":  "1.0.0",
-    "outputs":  [
-                    "[Type de livrable 1]",
-                    "[Type de livrable 2]"
-                ],
-    "files":  [
-                  "README.md",
-                  "00_REFERENCE_DATA/README.md",
-                  "01_TEMPLATES/",
-                  "02_RUNBOOKS/README.md",
-                  "03_CHECKLISTS/README.md",
-                  "04_EXEMPLES/README.md",
-                  "05_KNOWLEDGE/",
-                  "10_MEMORY/README.md",
-                  "65_TEST/README.md",
-                  "05_KNOWLEDGE/",
-                  "00_INSTRUCTIONS.md",
-                  "01_CONTRACT.yaml",
-                  "03_ORIGINAL_PROMPT.md",
-                  "04_KNOWLEDGE_INDEX.md"
-              ],
-    "templates":  [
-
-                  ],
-    "agent_name":  "IT-NetworkMaster",
-    "role":  "[Role de l\u0027agent - A completer]",
-    "display_name":  "@IT-NetworkMaster"
+{
+  "id": "IT-NetworkMaster",
+  "display_name": "@IT-NetworkMaster",
+  "team": "TEAM__IT",
+  "version": "2.0.0",
+  "status": "active",
+  "description": "Expert réseau et firewalls MSP — WatchGuard, Fortinet, SonicWall, Meraki, UniFi, MikroTik, VPN.",
+  "entry_point": "prompt.md",
+  "output_format": "YAML_STRICT",
+  "modes": [
+    "DIAGNOSTIC_RESEAU",
+    "WATCHGUARD",
+    "FORTINET",
+    "SONICWALL",
+    "MERAKI",
+    "UNIFI_MIKROTIK",
+    "VPN_UTILISATEUR"
+  ],
+  "knowledge_gpt": "IT-SHARED/60_BUNDLES/BUNDLE_KP_NetworkMaster_V1.md",
+  "escalades": {
+    "site_offline": "IT-Commandare-NOC",
+    "intrusion_ips": "IT-SecurityMaster",
+    "certif_expire": "IT-Commandare-Infra"
+  },
+  "outputs": [
+    "Diagnostic réseau YAML",
+    "Configuration firewall/VPN",
+    "Triage VPN utilisateur",
+    "Commandes diagnostic réseau"
+  ],
+  "files": {
+    "core": [
+      "prompt.md",
+      "agent.yaml",
+      "contract.yaml",
+      "manifest.json",
+      "00_INSTRUCTIONS.md",
+      "README.md"
+    ],
+    "operational": [
+      "02_RUNBOOKS/RB-001_procedure-principale.md",
+      "03_CHECKLISTS/CL-001_validation-principale.md",
+      "04_EXEMPLES/EX-001_cas-nominal.md",
+      "04_KNOWLEDGE_INDEX.md"
+    ]
+  }
 }

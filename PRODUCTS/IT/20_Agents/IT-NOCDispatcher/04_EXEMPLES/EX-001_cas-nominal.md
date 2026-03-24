@@ -1,40 +1,47 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-NOCDispatcher | **Type:** IT | **Statut:** PASS (cas nominal)
+# EX-001 — Cas nominal : Alerte RMM Disk Critical SRV-FILE01
+**Agent :** IT-NOCDispatcher | **Mode :** DISPATCH | **Statut :** PASS
+
+---
 
 ## INPUT
 ```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
+mode: DISPATCH
+ticket_id: "alerte-RMM-20260322-1447"
+alerte: "DISK_CRITICAL — SRV-FILE01 — C: 3% libre"
+client: "Acme Corp"
 ```
 
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
+## OUTPUT
 ```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
+result:
+  mode: DISPATCH
+  ticket_id: "alerte-RMM-20260322-1447"
+  severity: P2
+  domaine: infra
+  owner_assigne: "@IT-MaintenanceMaster"
+  summary: "Espace disque critique sur SRV-FILE01 — C: à 3% libre. Serveur de fichiers principal Acme Corp. Impact potentiel sur 45 utilisateurs."
+  actions_immediates:
+    - "Créer billet CW P2 — Acme Corp — DISK_CRITICAL SRV-FILE01"
+    - "Assigner à IT-MaintenanceMaster pour health check et nettoyage"
+    - "Activer mode maintenance RMM sur SRV-FILE01"
+  sla:
+    reponse_avant: "15:17"
+    resolution_avant: "23:47"
+  communication_client:
+    requise: false
+    message: "P2 — notification à 30 min si non résolu"
+
+next_actions:
+  - "IT-MaintenanceMaster : health check + nettoyage dossiers temporaires"
+  - "Si < 1% libre atteint avant intervention : escalade P1 → IT-Commandare-Infra"
+  - "Post-résolution : ajuster seuil alerte RMM à 15% (attention) / 10% (critique)"
+
+log:
+  decisions:
+    - "P2 retenu : service dégradé possible mais pas encore de panne — workaround possible"
+    - "IT-MaintenanceMaster assigné : nettoyage disque dans son scope"
+  risks:
+    - "Si nettoyage insuffisant → escalade infra pour extension volume"
+  assumptions:
+    - "SRV-FILE01 = serveur de fichiers principal selon Hudu"
 ```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
-
----
-*EX-001 - IT-NOCDispatcher - Version 1.0*

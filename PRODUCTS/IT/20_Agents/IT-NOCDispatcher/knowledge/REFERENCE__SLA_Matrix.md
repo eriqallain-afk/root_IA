@@ -1,92 +1,33 @@
-# REFERENCE - SLA Matrix
+# RÉFÉRENCE — SLA Matrix MSP
+**Agent :** IT-NOCDispatcher | **Usage :** Calcul priorité et délais
 
-**Agent:** IT-NOCDispatcher  
-**Rôle:** NOC  
-**Date:** 2024-02-14
+## Matrice P1 → P4
 
----
+| Priorité | Définition | Exemples | Réponse | Résolution | Escalade auto |
+|---|---|---|---|---|---|
+| **P1** | Panne totale / données à risque / sécurité | DC down, ransomware, réseau site, breach | 15 min | 4h | 30 min → IT-Commandare-NOC |
+| **P2** | Service essentiel dégradé | VPN down, Exchange KO, backup critique, RDS down | 30 min | 8h | 2h → Senior |
+| **P3** | Impact limité, workaround possible | Imprimante, poste lent, appli secondaire | 2h | 24h | 4h → IT-AssistanTI_N2 |
+| **P4** | Aucun impact immédiat | Demande service, info, changement planifié | 4h | 72h | 24h → IT-AssistanTI_N2 |
 
-## Vue d'ensemble
+## Règles de reclassification
 
-Ce document fournit les procédures et références essentielles pour IT-NOCDispatcher.
+**Monter la priorité si :**
+- L'impact s'étend à plus d'utilisateurs
+- Donnée sensible exposée ou à risque
+- Workaround cesse de fonctionner
+- Deuxième système tombe pendant l'incident
 
-## Procédures
+**Descendre la priorité si :**
+- Workaround stable en place
+- Impact confirmé < 2 utilisateurs
+- Client confirme impact business minimal
 
-### 1. Procédure standard
+## Communication client
 
-**Objectif:** [Décrire l'objectif]
-
-**Étapes:**
-1. Vérifier les pré-requis
-2. Exécuter l'action principale
-3. Valider le résultat
-4. Documenter dans ConnectWise
-
-### 2. Cas d'usage courants
-
-#### Scénario A
-**Situation:** [Description]  
-**Action:** [Steps]  
-**Résultat attendu:** [Expected outcome]
-
-#### Scénario B
-**Situation:** [Description]  
-**Action:** [Steps]  
-**Résultat attendu:** [Expected outcome]
-
-## Checklist
-
-- [ ] Pré-requis validés
-- [ ] Configuration vérifiée
-- [ ] Tests effectués
-- [ ] Documentation mise à jour
-- [ ] Client informé (si applicable)
-
-## Commandes utiles
-
-```powershell
-# PowerShell examples
-Get-Service | Where Status -eq 'Running'
-Get-EventLog -LogName System -Newest 50
-```
-
-```bash
-# Bash examples  
-systemctl status servicename
-tail -f /var/log/syslog
-```
-
-## Références
-
-### Documentation interne
-- Knowledge Base: [Lien]
-- Runbooks: [Lien]
-- Standards: [Lien]
-
-### Documentation externe
-- Vendor documentation
-- Microsoft Docs
-- Community forums
-
-## Troubleshooting
-
-### Problème courant 1
-**Symptômes:** [Description]  
-**Cause:** [Root cause]  
-**Solution:** [Fix]
-
-### Problème courant 2
-**Symptômes:** [Description]  
-**Cause:** [Root cause]  
-**Solution:** [Fix]
-
-## Notes
-
-- Important: [Note importante]
-- Attention: [Point d'attention]
-- Best practice: [Recommandation]
-
----
-
-**Dernière mise à jour:** 2024-02-14  
-**Prochaine révision:** 2024-03-14
+| Priorité | Premier contact | Mises à jour | Résolution |
+|---|---|---|---|
+| P1 | Immédiat (call ou Teams) | Toutes les 30 min | Immédiatement |
+| P2 | 30 min | Toutes les 2h | Email résolution |
+| P3 | 2h | 1x/jour si non résolu | Email résolution |
+| P4 | 4h | À la résolution | Email résolution |

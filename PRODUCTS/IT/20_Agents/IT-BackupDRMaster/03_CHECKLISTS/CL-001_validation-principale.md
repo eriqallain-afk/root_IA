@@ -1,39 +1,26 @@
-﻿# CL-001 - Checklist Pre/Post Patching
-**Agent:** @IT-BackupDRMaster | **Type:** IT Infrastructure
-
-## PRE-EXECUTION
-### Preparation environnement
-- [ ] Fenetre de maintenance approuvee par ecrit
-- [ ] Backup/snapshot < 24h confirme pour chaque serveur PROD
-- [ ] Services critiques identifies et surveilles
-- [ ] Contacts d'urgence disponibles pendant la fenetre
-- [ ] Plan de rollback documente
-
-### Verification systeme
-- [ ] Espace disque suffisant (>= 15% libre sur C:)
-- [ ] Pas d'incidents actifs sur les serveurs cibles
-- [ ] Acces administrateur valide (RDP / WinRM)
-- [ ] Antivirus en mode exclusion pour la fenetre
-
-## EXECUTION
-- [ ] Serveurs DEV/QA traites avant PROD
-- [ ] Chaque redemarrage confirme avec client (PROD)
-- [ ] Statut journalise par serveur en temps reel
-- [ ] Alertes monitoring suspendues pendant maintenance
-
-## POST-EXECUTION
-### Validation technique
-- [ ] Services critiques operationnels (liste a definir par client)
-- [ ] Pas d'erreurs dans l'Event Viewer (niveau Critical/Error)
-- [ ] Connectivite reseau confirmee
-- [ ] Applications metier accessibles
-
-### Rapport et cloture
-- [ ] Rapport de patching complete (succes/echecs/reportes)
-- [ ] Rapport envoye au client dans les 2h post-maintenance
-- [ ] Tickets ouverts pour les serveurs en echec
-- [ ] CMDB mise a jour
-- [ ] Prochaine fenetre planifiee si elements en suspens
+# CL-001 — Validation Vérification Backup Journalière
+**Agent :** IT-BackupDRMaster
 
 ---
-*CL-001 - IT-BackupDRMaster - Version 1.0*
+
+## VEEAM
+- [ ] Tous jobs Success ou Warning documenté avec raison
+- [ ] Aucun job Failed (ou intervention en cours documentée)
+- [ ] Repository libre > 20% sur tous les repositories
+- [ ] Service VeeamBackupSvc démarré
+
+## DATTO BCDR
+- [ ] Screenshot présent pour toutes les VMs critiques (= backup bootable)
+- [ ] Stockage local > 20% libre
+- [ ] Synchronisation cloud OK — pas d'erreur depuis > 24h
+- [ ] Rétention conforme à la politique client (Hudu → Agreements)
+
+## KEEPIT
+- [ ] Connecteur Microsoft 365 : Connected
+- [ ] Dernière sync Exchange < 24h
+- [ ] Dernière sync SharePoint/OneDrive < 24h
+- [ ] Nb utilisateurs protégés = nb utilisateurs actifs M365
+
+## RÉSULTAT
+- [ ] Aucune escalade requise → **GO**
+- [ ] Escalade déclenchée → documenter dans CW + billet ouvert

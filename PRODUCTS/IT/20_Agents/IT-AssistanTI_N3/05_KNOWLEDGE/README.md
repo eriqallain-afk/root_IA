@@ -1,8 +1,8 @@
-﻿# Base de Connaissances - IT-AssistanceTechnique-N3
+﻿# Base de Connaissances - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier contient les fichiers de connaissances pour IT-AssistanceTechnique-N3.
+Ce dossier contient les fichiers de connaissances pour IT-AssistanTI_N3-N3.
 
 ## Contenu
 

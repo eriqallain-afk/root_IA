@@ -1,6 +1,6 @@
 # TEMPLATE - Health Check
 
-**Agent:** IT-CommsMSP  
+**Agent:** IT-TicketScribe  
 **Rôle:** MAINTENANCE  
 **Date:** 2024-02-14
 
@@ -8,7 +8,7 @@
 
 ## Vue d'ensemble
 
-Ce document fournit les procédures et références essentielles pour IT-CommsMSP.
+Ce document fournit les procédures et références essentielles pour IT-TicketScribe.
 
 ## Procédures
 

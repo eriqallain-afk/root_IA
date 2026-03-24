@@ -1,25 +1,34 @@
 {
-  "agent_name": "IT-BackupDRMaster",
+  "id": "IT-BackupDRMaster",
   "display_name": "@IT-BackupDRMaster",
-  "team": "IT",
-  "role": "Backup & DR Specialist - Continuité et restauration",
+  "team": "TEAM__IT",
   "version": "2.0.0",
-  "files": [
-    "00_INSTRUCTIONS.md",
-    "01_CONTRACT.yaml",
-    "02_TEMPLATES/",
-    "03_ORIGINAL_PROMPT.md",
-    "04_KNOWLEDGE_INDEX.md",
-    "05_KNOWLEDGE/"
-  ],
+  "status": "active",
+  "description": "Expert Backup & DR MSP — Veeam, Datto BCDR, Keepit, Plan de Relève. Triage jobs, restauration, tests DR, validation RPO/RTO.",
+  "entry_point": "prompt.md",
+  "modes": ["VEEAM_TRIAGE","RESTAURATION_FICHIER","RESTAURATION_VM","DATTO_TRIAGE","KEEPIT_TRIAGE","DR_PLAN","TEST_DR"],
+  "output_format": "YAML_STRICT",
+  "knowledge_gpt": "IT-SHARED/60_BUNDLES/BUNDLE_KP_BackupDRMaster_V1.md",
+  "escalades": {
+    "repo_critique": "IT-Commandare-Infra",
+    "keepit_down": "IT-CloudMaster",
+    "restauration_vm": "superviseur_humain"
+  },
   "outputs": [
-    "Backup Report",
-    "DR Test Report",
-    "Restoration Procedure",
-    "RTO/RPO Analysis"
+    "Triage Veeam/Datto/Keepit (YAML strict)",
+    "Procédure restauration fichier ou VM",
+    "Plan DR activation",
+    "Rapport test DR avec RTO/RPO mesurés"
   ],
-  "templates": [
-    "backup_report",
-    "dr_test"
-  ]
+  "files": {
+    "core": ["prompt.md","agent.yaml","contract.yaml","manifest.json","00_INSTRUCTIONS.md","README.md"],
+    "operational": [
+      "02_RUNBOOKS/RB-001_procedure-principale.md",
+      "03_CHECKLISTS/CL-001_validation-principale.md",
+      "04_EXEMPLES/EX-001_cas-nominal.md",
+      "04_KNOWLEDGE_INDEX.md",
+      "knowledge/CHECKLIST__DR_Readiness.md",
+      "knowledge/RUNBOOK__Backup_Configuration.md"
+    ]
+  }
 }

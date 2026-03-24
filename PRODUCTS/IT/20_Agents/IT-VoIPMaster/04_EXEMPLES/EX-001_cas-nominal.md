@@ -1,40 +1,28 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-VoIPMaster | **Type:** IT | **Statut:** PASS (cas nominal)
-
-## INPUT
+# EX-001 — Cas nominal : Qualité audio dégradée Teams Phone
+**Agent :** IT-VoIPMaster | **Mode :** QUALITE_AUDIO | **Statut :** PASS
 ```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
+result:
+  mode: QUALITE_AUDIO
+  severity: P2
+  summary: "QoS désactivée accidentellement sur switch Aruba — écho + coupures Teams Phone"
+  details: |
+    Test-NetConnection [SBC] -Port 5060 → OK
+    Get-NetQosPolicy → aucune politique DSCP voix
+    Cause : MàJ switch HP Aruba — QoS réinitialisée
+    Action : Réactiver QoS DSCP EF (46) pour trafic UDP 10000-20000
+  impact: "Qualité audio dégradée pour ~30 utilisateurs Teams Phone depuis 4h"
+  validation_requise: "Score MOS > 4.0 après correction + test appel confirmé"
+artifacts:
+  - type: "config"
+    title: "QoS Aruba à appliquer"
+    content: "traffic-class voice dscp 46 priority high"
+next_actions:
+  - "Appliquer QoS sur switch — avec IT-NetworkMaster"
+  - "Vérifier MOS post-correction"
+escalade:
+  requis: false
+log:
+  decisions: ["Correction QoS — scope réseau donc coordination IT-NetworkMaster"]
+  risks: ["Autres switches à vérifier si même modèle"]
+  assumptions: ["MàJ switch datée de hier soir — corrélation temporelle"]
 ```
-
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
-```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
-```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
-
----
-*EX-001 - IT-VoIPMaster - Version 1.0*

@@ -1,30 +1,44 @@
-﻿{
-    "team":  "IT",
-    "version":  "1.0.0",
-    "outputs":  [
-                    "[Type de livrable 1]",
-                    "[Type de livrable 2]"
-                ],
-    "files":  [
-                  "README.md",
-                  "00_REFERENCE_DATA/README.md",
-                  "01_TEMPLATES/",
-                  "02_RUNBOOKS/README.md",
-                  "03_CHECKLISTS/README.md",
-                  "04_EXEMPLES/README.md",
-                  "05_KNOWLEDGE/",
-                  "10_MEMORY/README.md",
-                  "65_TEST/README.md",
-                  "05_KNOWLEDGE/",
-                  "00_INSTRUCTIONS.md",
-                  "01_CONTRACT.yaml",
-                  "03_ORIGINAL_PROMPT.md",
-                  "04_KNOWLEDGE_INDEX.md"
-              ],
-    "templates":  [
-
-                  ],
-    "agent_name":  "IT-ReportMaster",
-    "role":  "[Role de l\u0027agent - A completer]",
-    "display_name":  "@IT-ReportMaster"
+{
+  "id": "IT-ReportMaster",
+  "display_name": "@IT-ReportMaster",
+  "team": "TEAM__IT",
+  "version": "2.0.0",
+  "status": "active",
+  "description": "Générateur rapports MSP — postmortem, mensuel, QBR, sécurité, synthèses performance.",
+  "entry_point": "prompt.md",
+  "output_format": "YAML_STRICT",
+  "modes": [
+    "POSTMORTEM",
+    "RAPPORT_MENSUEL",
+    "QBR",
+    "RAPPORT_SECURITE",
+    "SYNTHESE"
+  ],
+  "knowledge_gpt": "IT-SHARED/60_BUNDLES/BUNDLE_KP_ReportMaster_V1.md",
+  "escalades": {
+    "data": "IT-Commandare-OPR",
+    "p1_postmortem": "superviseur_humain"
+  },
+  "outputs": [
+    "Postmortem structuré",
+    "Rapport mensuel MSP",
+    "QBR présentation",
+    "Rapport sécurité"
+  ],
+  "files": {
+    "core": [
+      "prompt.md",
+      "agent.yaml",
+      "contract.yaml",
+      "manifest.json",
+      "00_INSTRUCTIONS.md",
+      "README.md"
+    ],
+    "operational": [
+      "02_RUNBOOKS/RB-001_procedure-principale.md",
+      "03_CHECKLISTS/CL-001_validation-principale.md",
+      "04_EXEMPLES/EX-001_cas-nominal.md",
+      "04_KNOWLEDGE_INDEX.md"
+    ]
+  }
 }

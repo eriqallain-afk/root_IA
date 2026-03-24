@@ -1,52 +1,29 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-SecurityMaster | **Type:** IT Infrastructure
+# RB-001 — Réponse Incident Sécurité P1/P2
+**Agent :** IT-SecurityMaster | **Usage :** Incident sécurité actif
 
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
+## Phase 1 — Containment (< 15 min P1)
+1. Isoler via EDR (SentinelOne → Isolate) — NE PAS éteindre (préserver RAM)
+2. Désactiver compte : `Disable-ADAccount [user]` + `Update-MgUser -AccountEnabled $false`
+3. Révoquer sessions M365 : `Revoke-MgUserSignInSession -UserId $userId`
+4. Notifier superviseur humain immédiatement
 
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
+## Phase 2 — Investigation
+5. Collecter artefacts (read-only)
+6. Identifier IOCs : processus suspects, Run keys, connexions anormales
+7. Établir timeline
 
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
+## Commandes forensics (lecture seule)
+```powershell
+# Processus suspects
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 20 Name,CPU,Id,Path
+# Connexions réseau actives
+Get-NetTCPConnection -State Established | Select-Object LocalAddress,LocalPort,RemoteAddress
+# Run keys
+Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+```
 
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
-
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
-
----
-*RB-001 - IT-SecurityMaster - Version 1.0*
+## Phase 3 — Remédiation
+8. Supprimer malware / restaurer depuis backup sain
+9. Patcher la vulnérabilité exploitée
+10. Réinitialiser credentials dans le périmètre
+11. Post-mortem + KB + ajustement monitoring

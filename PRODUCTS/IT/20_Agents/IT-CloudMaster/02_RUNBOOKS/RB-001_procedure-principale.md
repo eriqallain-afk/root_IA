@@ -1,52 +1,27 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-CloudMaster | **Type:** IT Infrastructure
+# RB-001 — Diagnostic Exchange Online et Entra ID
+**Agent :** IT-CloudMaster | **Usage :** Incident M365 entrant
 
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
+## Exchange — Tracer un message
+```powershell
+Connect-ExchangeOnline -UserPrincipalName admin@domaine.com
+Get-MessageTrace -SenderAddress "exp@dom.com" -RecipientAddress "dest@dom.com" `
+    -StartDate (Get-Date).AddDays(-2) -EndDate (Get-Date) | Select-Object Received,Status
+# Règles Outlook suspectes — escalade SOC si transfert externe
+Get-InboxRule -Mailbox "user@domaine.com" |
+    Select-Object Name,Enabled,ForwardTo,DeleteMessage | Format-List
+```
 
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
+## Entra ID — Connexions suspectes
+```powershell
+Connect-MgGraph -Scopes "User.ReadWrite.All"
+Get-MgAuditLogSignIn -Filter "userPrincipalName eq 'user@dom.com'" -Top 20 |
+    Select-Object CreatedDateTime,IpAddress,Location | Format-Table
+# Désactiver + révoquer (compte compromis)
+Update-MgUser -UserId $userId -AccountEnabled $false
+Revoke-MgUserSignInSession -UserId $userId
+```
 
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
-
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
-
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
-
----
-*RB-001 - IT-CloudMaster - Version 1.0*
+## Réinitialiser OneDrive
+```powershell
+& "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe" /reset
+```

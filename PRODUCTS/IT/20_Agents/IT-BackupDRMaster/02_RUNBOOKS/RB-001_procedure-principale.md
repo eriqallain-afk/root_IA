@@ -1,52 +1,84 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-BackupDRMaster | **Type:** IT Infrastructure
-
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
-
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
-
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
-
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
-
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
+# RB-001 — Vérification Journalière et Triage Backup
+**Agent :** IT-BackupDRMaster | **Fréquence :** Quotidienne (matin) + sur incident
 
 ---
-*RB-001 - IT-BackupDRMaster - Version 1.0*
+
+## VEEAM — Vérification journalière
+
+```powershell
+# Connexion VBR
+Connect-VBRServer -Server localhost
+
+# Statut dernières sessions (24h)
+$jobs = Get-VBRJob
+foreach ($job in $jobs) {
+    $s = $job.FindLastSession()
+    if ($s) {
+        [pscustomobject]@{
+            Job    = $job.Name
+            Result = $s.Result
+            End    = $s.EndTime.ToString('yyyy-MM-dd HH:mm')
+        }
+    }
+} | Format-Table -AutoSize
+
+# Espace repositories
+Get-VBRBackupRepository | Select-Object Name,
+    @{N='Free_GB';E={[math]::Round($_.Info.CachedFreeSpace/1GB,1)}},
+    @{N='Free_PCT';E={[math]::Round($_.Info.CachedFreeSpace/$_.Info.CachedTotalSpace*100,0)}} |
+    Format-Table -AutoSize
+```
+
+**Erreurs fréquentes et actions :**
+
+| Erreur | Cause probable | Action |
+|---|---|---|
+| Unable to connect | VeeamGuestHelper arrêté sur la VM | `Get-Service VeeamGuestHelper \| Start-Service` sur la VM |
+| Snapshot not found | Snapshot orphelin dans vSphere/Hyper-V | Supprimer les snapshots orphelins |
+| Insufficient space | Repository plein | Purger les restore points anciens |
+| Access denied | Compte service VEEAM | Vérifier credentials → Passportal |
+| VSS snapshot failed | VSS writer KO sur la VM | `vssadmin list writers` → redémarrer le writer |
+| Network error | Connectivité port 445/6160 | `Test-NetConnection [VM] -Port 445` |
+
+---
+
+## DATTO BCDR — Vérification journalière
+
+1. Partner Portal → Devices → [Appareil] → Backups
+2. ✅ Screenshot présent pour chaque VM critique → backup bootable
+3. Stockage local > 20% libre
+4. Synchronisation cloud OK (pas d'erreur > 24h)
+
+**Agent Datto arrêté sur machine protégée :**
+```powershell
+Get-Service | Where-Object {$_.Name -match "Datto|Backup Agent"} |
+    Select-Object Name, Status | Format-Table
+# Si arrêté :
+Get-Service | Where-Object {$_.Name -match "Datto"} | Start-Service
+```
+
+---
+
+## KEEPIT — Vérification mensuelle
+
+1. app.keepit.com → Connectors → [Client] → Microsoft 365
+2. Status = **Connected** ✅ | **Disconnected** ❌ → Reconnecter immédiatement
+3. Dernière sync Exchange < 24h ✅
+4. Dernière sync SharePoint/OneDrive < 24h ✅
+5. Nb utilisateurs protégés = nb utilisateurs actifs M365
+
+**Reconnexion Keepit :**
+- Cliquer Reconnect → compte Global Admin M365 du tenant
+- Autoriser permissions OAuth → vérifier reconnexion (5 min)
+- ⚠️ Déconnexion > 24h = données M365 non sauvegardées → alerter client
+
+---
+
+## SEUILS D'ALERTE
+
+| Indicateur | Attention | Critique | Action |
+|---|---|---|---|
+| Repository libre | < 20% | < 10% | Purge / escalade IT-Commandare-Infra |
+| Job en échec | 1 jour | 2 jours consécutifs | Triage / escalade |
+| Screenshot Datto | Absent 1 VM | Absent VM critique | Escalade IT-Commandare-Infra |
+| Keepit sync | > 12h | > 24h | Reconnecter / escalade IT-CloudMaster |

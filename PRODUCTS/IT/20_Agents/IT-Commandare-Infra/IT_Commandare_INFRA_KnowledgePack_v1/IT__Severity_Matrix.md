@@ -4,27 +4,27 @@
 
 | Domaine | Exemples | Mobilisation immédiate |
 |---------|---------|----------------------|
-| server | Serveur de production down, BSOD non récupéré | IT-InfrastructureMaster + IT-Commandare-TECH |
-| dc | Domain Controller principal down, AD inaccessible | IT-InfrastructureMaster |
+| server | Serveur de production down, BSOD non récupéré | IT-Commandare-Infra + IT-Commandare-TECH |
+| dc | Domain Controller principal down, AD inaccessible | IT-Commandare-Infra |
 | cloud | Azure tenant inaccessible, Exchange Online down (tous users) | IT-CloudMaster |
 | network | Réseau core site complet down, lien WAN principal coupé | IT-NetworkMaster |
-| storage | SAN/NAS corrompu, données inaccessibles, corruption détectée | IT-InfrastructureMaster + IT-BackupDRMaster |
-| vm | Cluster VMware/Hyper-V en failover, HA triggered | IT-InfrastructureMaster |
+| storage | SAN/NAS corrompu, données inaccessibles, corruption détectée | IT-Commandare-Infra + IT-BackupDRMaster |
+| vm | Cluster VMware/Hyper-V en failover, HA triggered | IT-Commandare-Infra |
 | backup | Backup DR invalide + incident actif simultané | IT-BackupDRMaster |
-| multi | ≥ 2 domaines P1 simultanés | IT-CTOMaster + tous spécialistes concernés |
+| multi | ≥ 2 domaines P1 simultanés | IT-Commandare-TECH + tous spécialistes concernés |
 
 ## P2 — Élevé (réponse < 15 min)
 
 | Domaine | Exemples | Action |
 |---------|---------|--------|
-| dc | Réplication AD échouée, SYSVOL désynchronisé | IT-InfrastructureMaster |
+| dc | Réplication AD échouée, SYSVOL désynchronisé | IT-Commandare-Infra |
 | cloud | Azure AD Conditional Access bloquant utilisateurs | IT-CloudMaster |
 | cloud | M365 service dégradé (Teams/SharePoint lent) | IT-CloudMaster |
-| server | Serveur secondaire down, service non critique arrêté | IT-InfrastructureMaster |
-| storage | Espace disque ≥ 95% sur serveur critique | IT-InfrastructureMaster |
+| server | Serveur secondaire down, service non critique arrêté | IT-Commandare-Infra |
+| storage | Espace disque ≥ 95% sur serveur critique | IT-Commandare-Infra |
 | backup | Job backup en échec depuis > 24h | IT-BackupDRMaster |
 | network | Lien WAN redondant down (primaire OK) | IT-NetworkMaster |
-| vm | VM dégradée (snapshot bloqué, VMware tools down) | IT-InfrastructureMaster |
+| vm | VM dégradée (snapshot bloqué, VMware tools down) | IT-Commandare-Infra |
 
 ## P3 — Moyen (réponse < 1h)
 
@@ -53,4 +53,4 @@
 | Alerte indéterminée, domaine inconnu | **IT-Commandare-NOC** → reroute |
 | RCA général, bug applicatif, remédiation complexe | **IT-Commandare-TECH** |
 | Incident sécurité (malware, breach) | **IT-SecurityMaster** (INFRA en support) |
-| Workstation / user | **IT-SupportMaster** |
+| Workstation / user | **IT-AssistanTI_N3** |

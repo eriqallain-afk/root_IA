@@ -1,52 +1,43 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-Commandare-OPR | **Type:** IT Infrastructure
-
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
-
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
-
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
-
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
-
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
+# RB-001 — Clôture Formelle Ticket MSP
+**Agent :** IT-Commandare-OPR | **Usage :** Fermeture administrative de tout billet
 
 ---
-*RB-001 - IT-Commandare-OPR - Version 1.0*
+
+## Vérification DoD avant clôture
+
+- [ ] Cause racine identifiée ou documentée comme inconnue
+- [ ] Actions correctives appliquées ou planifiées (owner + ETA)
+- [ ] Client notifié si impact externe
+- [ ] CW_NOTE_INTERNE complète (timeline + actions + preuves)
+- [ ] CW_DISCUSSION STAR (client-safe, orientée facturation)
+- [ ] CMDB mis à jour si asset impacté
+- [ ] KB créé/mis à jour si problème récurrent
+- [ ] Post-mortem déclenché si P1/P2
+
+---
+
+## Phrase d'ouverture CW (imposée)
+
+Choisir 1 :
+- `Prendre connaissance de la demande et connexion à la documentation de l'entreprise.`
+- `Préparation et découverte. Consultation de la documentation.`
+
+---
+
+## Sous-agents à mobiliser
+
+| Besoin | Agent |
+|---|---|
+| CW Note Interne / Discussion | IT-TicketScribe |
+| Rapport mensuel / QBR / Post-mortem | IT-ReportMaster |
+| Email client / Teams | IT-TicketScribe |
+| Mise à jour CMDB / EOL | IT-AssetMaster |
+| KB / documentation | IT-KnowledgeKeeper |
+
+---
+
+## Règles livrables
+
+- **CW_DISCUSSION** : 100% client-safe — jamais d'IP, jamais de nom serveur sensible
+- **CW_NOTE_INTERNE** : technique complet — timeline + commandes + outputs
+- **Post-mortem P1/P2** : déclencher dans les 48h post-stabilisation

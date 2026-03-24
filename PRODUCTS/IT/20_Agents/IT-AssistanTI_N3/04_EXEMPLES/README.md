@@ -1,8 +1,8 @@
-﻿# Exemples de Reference - IT-AssistanceTechnique-N3
+﻿# Exemples de Reference - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier contient des **exemples concrets** illustrant les inputs acceptes et les outputs produits par IT-AssistanceTechnique-N3.
+Ce dossier contient des **exemples concrets** illustrant les inputs acceptes et les outputs produits par IT-AssistanTI_N3-N3.
 
 ## Nomenclature des fichiers
 
@@ -13,4 +13,4 @@ Exemple : EX-001_nominal_rapport-patching-mensuel.md
 
 ---
 
-*Exemples - IT-AssistanceTechnique-N3 v1.0*
+*Exemples - IT-AssistanTI_N3-N3 v1.0*

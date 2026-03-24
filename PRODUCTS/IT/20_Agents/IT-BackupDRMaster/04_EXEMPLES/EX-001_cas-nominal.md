@@ -1,40 +1,60 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-BackupDRMaster | **Type:** IT | **Statut:** PASS (cas nominal)
+# EX-001 — Cas nominal : Triage job Veeam en échec VSS
+**Agent :** IT-BackupDRMaster | **Mode :** VEEAM_TRIAGE | **Statut :** PASS
+
+---
 
 ## INPUT
 ```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
+mode: VEEAM_TRIAGE
+client: "Acme Corp"
+billet: "T1601500"
+systeme: "SRV-SQL01"
+erreur: "Failed to create VSS snapshot. VSS snapshot failed."
 ```
 
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
+## OUTPUT
 ```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
+result:
+  mode: VEEAM_TRIAGE
+  severity: P2
+  summary: "Job Veeam en échec — VSS writer SQL défaillant sur SRV-SQL01"
+  details: |
+    Cause identifiée : service SQL Server VSS Writer arrêté sur SRV-SQL01.
+    Ce writer est requis pour créer un snapshot application-consistent des bases SQL.
+    Vérification :
+      vssadmin list writers  →  SQL Server Writer : Failed [LastError: 0x800423f4]
+    Actions :
+      1. net stop SQLWriter
+      2. net start SQLWriter
+      3. Relancer le job Veeam manuellement
+      4. Vérifier le résultat — attendu : Success
+  impact: "Backup SQL non application-consistent depuis hier soir"
+  validation_requise: "Confirmer que le job relancé est Success avant fermeture"
+
+artifacts:
+  - type: powershell
+    title: "Vérification et redémarrage VSS Writer SQL"
+    content: |
+      # ⚠️ Impact : redémarrage du service SQLWriter — interruption < 30s
+      vssadmin list writers | Select-String -Pattern "SQL Server Writer" -Context 0,3
+      # Si Failed :
+      net stop SQLWriter; net start SQLWriter
+      # Relancer le job Veeam (remplacer par le nom exact du job)
+      Start-VBRJob -Job (Get-VBRJob -Name "BACKUP-SRV-SQL01")
+
+next_actions:
+  - "Surveiller le job relancé — doit terminer en Success"
+  - "Ajouter surveillance service SQLWriter dans RMM (alerte si arrêté)"
+  - "Créer article KB si premier incident de ce type"
+
+escalade:
+  requis: false
+
+log:
+  decisions:
+    - "Relancer le writer sans escalade — correction standard N3"
+  risks:
+    - "Si job échoue à nouveau → escalade IT-Commandare-Infra"
+  assumptions:
+    - "Bases SQL non corrompues — backup avant-hier était Success"
 ```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
-
----
-*EX-001 - IT-BackupDRMaster - Version 1.0*

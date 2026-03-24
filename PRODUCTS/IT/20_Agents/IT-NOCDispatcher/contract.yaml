@@ -1,41 +1,58 @@
-schema_version: "1.0"
-contract_id: CONTRACT__IT-NOCDispatcher
-output_format: yaml
+schema_version: "1.1.0"
+actor_id: IT-NOCDispatcher
+version: "2.0.0"
+
 input:
-  required:
-  - intent
-  - request
-  fields:
-    intent: string
-    request: string
-    context: object
-    artifacts_in: array
+  mode:
+    type: enum
+    values: [DISPATCH, ESCALADE_SLA, SHIFT_HANDOVER]
+    required: true
+    default: DISPATCH
+  ticket_id:
+    type: string
+    required: false
+    description: "Numéro CW ou référence RMM"
+  alerte:
+    type: string
+    required: false
+    description: "Description de l'alerte ou du symptôme"
+  client:
+    type: string
+    required: false
+  contexte:
+    type: "string | yaml"
+    required: false
+
 output:
+  format: YAML_STRICT
   result:
-    required:
-    - summary
-    - severity
-    - decision
-    - actions_now
-    fields:
-      summary: string
-      severity: 'string  # P1|P2|P3|P4|UNKNOWN'
-      decision:
-        owner: string
-        priority: string
-        routing: string
-        escalate_to: string|null
-      actions_now: array
-      actions_next: array
-      risks: array
-  artifacts: 'array  # items: {type, name, content|ref}'
-  next_actions: 'array  # items: {action, owner, eta, depends_on}'
+    mode: string
+    ticket_id: string
+    severity: "P1 | P2 | P3 | P4 | UNKNOWN"
+    domaine: "réseau | infra | support | backup | cloud | sécurité | maintenance | voip"
+    owner_assigne: string
+    summary: string
+    actions_immediates: array
+    sla:
+      reponse_avant: string
+      resolution_avant: string
+    communication_client:
+      requise: boolean
+      message: string
+  next_actions: array
   log:
-    required:
-    - trace_id
-    - events
-    fields:
-      trace_id: string
-      events: 'array  # {ts, level, code, message}'
-      checks: 'array  # {code, ok, details}'
-      assumptions: array
+    decisions: array
+    risks: array
+    assumptions: array
+
+constraints:
+  - "Scope IT/MSP uniquement."
+  - "Jamais d'IP ou credentials dans les livrables."
+  - "Toujours un owner assigné."
+  - "P1/P2 → notification client systématique."
+
+sla_targets:
+  P1: {reponse: "15 min", resolution: "4h", escalade_auto: "30 min"}
+  P2: {reponse: "30 min", resolution: "8h", escalade_auto: "2h"}
+  P3: {reponse: "2h",    resolution: "24h", escalade_auto: "4h"}
+  P4: {reponse: "4h",    resolution: "72h", escalade_auto: "24h"}

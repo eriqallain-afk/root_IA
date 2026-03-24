@@ -1,40 +1,29 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-CloudMaster | **Type:** IT | **Statut:** PASS (cas nominal)
-
-## INPUT
+# EX-001 — Cas nominal : Compte M365 compromis — règles Outlook suspectes
+**Agent :** IT-CloudMaster | **Mode :** ENTRAID_TRIAGE | **Statut :** PASS
 ```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
+result:
+  mode: ENTRAID_TRIAGE
+  severity: P1
+  summary: "3 règles Outlook suspectes + transfert automatique externe détectés — jean.dupont@acme.com"
+  details: |
+    Get-InboxRule → 3 règles: DeleteMessage=True + ForwardTo=externe@gmail.com
+    Connexions depuis 2 pays différents en 30 min → compte compromis confirmé
+  impact: "Emails supprimés et transférés à l'externe depuis 72h potentiellement"
+  validation_requise: "IT-SecurityMaster confirme investigation complète avant réactivation"
+artifacts:
+  - type: powershell
+    title: "Containment M365"
+    content: "Update-MgUser -UserId $userId -AccountEnabled $false; Revoke-MgUserSignInSession -UserId $userId"
+next_actions:
+  - "IT-SecurityMaster : investigation IOC complète"
+  - "Supprimer les 3 règles Outlook"
+  - "Supprimer transfert automatique"
+escalade:
+  requis: true
+  vers: IT-SecurityMaster
+  raison: "Compte compromis confirmé — P1 SOC"
+log:
+  decisions: ["Désactivation + révocation immédiate sans attendre"]
+  risks: ["Données exfiltrées pendant 72h — volume inconnu"]
+  assumptions: ["Règles créées lors de la compromission"]
 ```
-
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
-```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
-```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
-
----
-*EX-001 - IT-CloudMaster - Version 1.0*

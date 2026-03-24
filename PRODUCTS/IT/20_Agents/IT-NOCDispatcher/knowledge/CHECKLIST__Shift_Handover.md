@@ -1,92 +1,36 @@
-# CHECKLIST - Shift Handover
+# CHECKLIST — Shift Handover NOC
+**Agent :** IT-NOCDispatcher | **Usage :** Passation de quart
 
-**Agent:** IT-NOCDispatcher  
-**Rôle:** NOC  
-**Date:** 2024-02-14
+## Technicien SORTANT — À compléter avant de partir
 
----
+### Tickets actifs P1/P2
+| Billet CW | Client | Priorité | Statut | Prochaine action | ETA |
+|---|---|---|---|---|---|
+| #_______ | _______ | P__ | _______ | _______ | _____ |
 
-## Vue d'ensemble
+### Alertes RMM non acquittées
+- [ ] Vérifier dashboard RMM (N-able / CW RMM / Auvik)
+- [ ] Alertes acquittées et documentées dans CW
+- [ ] Alertes laissées en attente : documenter la raison
 
-Ce document fournit les procédures et références essentielles pour IT-NOCDispatcher.
+### Maintenances prévues dans le quart suivant
+| Client | Type | Fenêtre | Billet | Technicien |
+|---|---|---|---|---|
+| _______ | _______ | ___–___ | #_______ | _______ |
 
-## Procédures
+### Points d'attention
+- [ ] Clients en surveillance renforcée : _______
+- [ ] Serveurs instables à surveiller : _______
+- [ ] Escalades en cours : _______
 
-### 1. Procédure standard
+### Vérifications finales
+- [ ] Tous les P1/P2 ont un owner pour le quart suivant
+- [ ] Mode maintenance RMM désactivé sur tous les actifs (sauf maintenance en cours)
+- [ ] Notes de passation écrites dans CW sur chaque billet actif
+- [ ] Technicien entrant briefé verbalement
 
-**Objectif:** [Décrire l'objectif]
-
-**Étapes:**
-1. Vérifier les pré-requis
-2. Exécuter l'action principale
-3. Valider le résultat
-4. Documenter dans ConnectWise
-
-### 2. Cas d'usage courants
-
-#### Scénario A
-**Situation:** [Description]  
-**Action:** [Steps]  
-**Résultat attendu:** [Expected outcome]
-
-#### Scénario B
-**Situation:** [Description]  
-**Action:** [Steps]  
-**Résultat attendu:** [Expected outcome]
-
-## Checklist
-
-- [ ] Pré-requis validés
-- [ ] Configuration vérifiée
-- [ ] Tests effectués
-- [ ] Documentation mise à jour
-- [ ] Client informé (si applicable)
-
-## Commandes utiles
-
-```powershell
-# PowerShell examples
-Get-Service | Where Status -eq 'Running'
-Get-EventLog -LogName System -Newest 50
-```
-
-```bash
-# Bash examples  
-systemctl status servicename
-tail -f /var/log/syslog
-```
-
-## Références
-
-### Documentation interne
-- Knowledge Base: [Lien]
-- Runbooks: [Lien]
-- Standards: [Lien]
-
-### Documentation externe
-- Vendor documentation
-- Microsoft Docs
-- Community forums
-
-## Troubleshooting
-
-### Problème courant 1
-**Symptômes:** [Description]  
-**Cause:** [Root cause]  
-**Solution:** [Fix]
-
-### Problème courant 2
-**Symptômes:** [Description]  
-**Cause:** [Root cause]  
-**Solution:** [Fix]
-
-## Notes
-
-- Important: [Note importante]
-- Attention: [Point d'attention]
-- Best practice: [Recommandation]
-
----
-
-**Dernière mise à jour:** 2024-02-14  
-**Prochaine révision:** 2024-03-14
+## Technicien ENTRANT — À valider à la prise de quart
+- [ ] Tickets actifs lus et compris
+- [ ] Alertes RMM vérifiées (dashboard NOC)
+- [ ] Maintenances prévues notées
+- [ ] Questions posées au technicien sortant

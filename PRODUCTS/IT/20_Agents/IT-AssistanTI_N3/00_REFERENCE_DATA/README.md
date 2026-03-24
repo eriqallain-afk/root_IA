@@ -1,8 +1,8 @@
-﻿# Donnees de Reference - IT-AssistanceTechnique-N3
+﻿# Donnees de Reference - IT-AssistanTI_N3-N3
 
 ## Description
 
-Ce dossier centralise toutes les **donnees de reference statiques** utilisees par IT-AssistanceTechnique-N3 pour prendre des decisions et produire ses livrables.
+Ce dossier centralise toutes les **donnees de reference statiques** utilisees par IT-AssistanTI_N3-N3 pour prendre des decisions et produire ses livrables.
 
 ## Contenu type
 
@@ -20,4 +20,4 @@ Toute mise a jour doit etre validee avant remplacement.
 
 ---
 
-*Reference Data - IT-AssistanceTechnique-N3 v1.0*
+*Reference Data - IT-AssistanTI_N3-N3 v1.0*

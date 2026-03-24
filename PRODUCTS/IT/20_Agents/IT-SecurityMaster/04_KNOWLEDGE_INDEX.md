@@ -1,24 +1,12 @@
-﻿# Knowledge Index - IT-SecurityMaster
+# Knowledge Index — IT-SecurityMaster (v2.0)
+## Knowledge GPT
+| Fichier | Source |
+|---|---|
+| `BUNDLE_KP_SecurityMaster_V1.md` | `IT-SHARED/60_BUNDLES/` |
 
-## Vue d'Ensemble
+## Fichiers locaux knowledge/
+`knowledge/RUNBOOK__Security_Audit.md` — Procédures audit sécurité
 
-Cet agent dispose des ressources de connaissances suivantes:
-
-## Fichiers de Connaissances
-
-### Standards et Procedures
-- [A ajouter]
-
-### Exemples et Templates
-- [A ajouter]
-
-## Utilisation
-
-Ces fichiers doivent etre consultes pour:
-- Comprendre les standards et best practices
-- Trouver des exemples de travaux similaires
-- Verifier les procedures etablies
-
----
-
-*Index genere automatiquement*
+## Runbooks IT-SHARED (via BUNDLE_KP)
+Security Incident Response, Alert Response, M365 Compte Compromis, IT-SHARED/10_RUNBOOKS/SECURITY/
+*v2.0 — 2026-03-22*

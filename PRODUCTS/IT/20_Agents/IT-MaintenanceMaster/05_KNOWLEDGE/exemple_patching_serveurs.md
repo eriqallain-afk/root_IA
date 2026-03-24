@@ -381,7 +381,7 @@ RECOMMANDATIONS:
 
 # === EMAIL_BRIEF ===
 
-DESTINATAIRE: IT-CommsMSP
+DESTINATAIRE: IT-TicketScribe
 POUR: Email client ACME Corp
 
 SUJET: Maintenance serveurs complétée avec succès
@@ -436,7 +436,7 @@ Les serveurs sont sécurisés et pleinement opérationnels.
 PROCHAINES ÉTAPES:
 1. Copie CW_DISCUSSION dans ticket #12345
 2. Copie CW_INTERNAL_NOTE dans notes internes
-3. Envoie EMAIL_BRIEF à IT-CommsMSP pour envoi client
+3. Envoie EMAIL_BRIEF à IT-TicketScribe pour envoi client
 ```
 
 ---

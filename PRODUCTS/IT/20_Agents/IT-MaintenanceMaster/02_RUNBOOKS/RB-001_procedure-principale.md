@@ -1,52 +1,64 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-KnowledgeKeeper | **Type:** IT Infrastructure
-
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
-
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
-
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
-
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
-
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
+# RB-001 — Intervention Complète : De /start à /close
+**Agent :** IT-MaintenanceMaster | **Usage :** Guide de référence pour chaque intervention
 
 ---
-*RB-001 - IT-KnowledgeKeeper - Version 1.0*
+
+## Flux type d'une intervention
+
+```
+1. /start  →  triage + plan + scripts precheck
+2. Exécuter les scripts → coller les résultats
+3. /check  →  analyser résultats → prochaine action
+4. Itérer (step 2-3) jusqu'à résolution
+5. /close  →  sélectionner les livrables
+6. /kb     →  si P1/P2 ou nouveau type (automatique)
+7. /db     →  si P1/P2 ou > 30 min (automatique)
+```
+
+---
+
+## Flux maintenance planifiée
+
+```
+1. /start_maint  →  pack complet : ordre, snapshots, precheck, notice Teams
+2. Activer mode maintenance RMM  →  proposer notice Teams début
+3. Exécuter patching serveur par serveur
+4. Après chaque serveur : /check résultats
+5. Fin fenêtre : désactiver mode maintenance RMM
+6. Notice Teams fin de maintenance
+7. /close  →  Note Interne + Discussion
+```
+
+---
+
+## Flux estimation/devis
+
+```
+1. /estimé  →  produire estimation structurée
+2. Ajuster selon retours du tech
+3. Exporter en format client-safe
+```
+
+---
+
+## Référence commandes par domaine
+
+| Domaine | Commande |
+|---|---|
+| AD / DC | `/runbook dc` ou `/runbook ad` |
+| SQL Server | `/runbook sql` |
+| Veeam Backup | `/runbook veeam` |
+| RDS | `/runbook rds` |
+| M365 / Exchange | `/runbook m365` |
+| Réseau / Firewall | `/runbook reseau` |
+| Post-panne électrique | `/runbook panne` |
+| Imprimantes | `/runbook print` |
+| Linux / XCP-ng | `/runbook linux` |
+
+---
+
+## Standards obligatoires
+
+**Snapshots :** `@TBILLET_PHASE_SERVEUR_SNAP_YYYYMMDD_HHMM`
+**Scripts :** `CATEGORIE_ACTION_CIBLE_v1.ps1`
+**Logs :** `C:\IT_LOGS\CATEGORIE\CATEGORIE_SERVEUR_TICKET_DATE.log`

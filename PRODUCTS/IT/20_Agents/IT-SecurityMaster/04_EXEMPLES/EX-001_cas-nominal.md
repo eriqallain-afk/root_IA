@@ -1,40 +1,34 @@
-﻿# EX-001 - Exemple : Rapport de Patching Mensuel
-**Agent:** @IT-SecurityMaster | **Type:** IT | **Statut:** PASS (cas nominal)
-
-## INPUT
+# EX-001 — Cas nominal : Compromission compte phishing P1
+**Agent :** IT-SecurityMaster | **Mode :** CONTAINMENT | **Statut :** PASS
 ```yaml
-Objectif: Patching mensuel - Fenetre Mars 2026
-Client: EC Solutions Inc.
-Environnement: 12 serveurs Windows Server 2019/2022
-Fenetre: Samedi 2026-03-15 02h00-06h00
-Priorite: high
+result:
+  mode: CONTAINMENT
+  severity: P1
+  summary: "Compromission compte jean.dupont@acme.com via phishing — containment effectué"
+  details: |
+    02:15 — Compte désactivé Entra ID
+    02:16 — Sessions M365 révoquées
+    02:18 — 3 règles Outlook suspectes supprimées
+    02:20 — Transfert automatique vers externe supprimé
+    Machine non éteinte — artefacts RAM préservés
+  impact: "Emails potentiellement exfiltrés sur 72h — volume en investigation"
+  validation_requise: "Forensics RAM + logs EDR avant réactivation compte"
+artifacts:
+  - type: powershell
+    title: "Containment M365"
+    content: |
+      Update-MgUser -UserId $userId -AccountEnabled $false
+      Revoke-MgUserSignInSession -UserId $userId
+next_actions:
+  - "Forensics EDR : analyser processus et connexions au moment de la compromission"
+  - "IT-BackupDRMaster : vérifier intégrité backup data exfiltrée potentielle"
+  - "Post-mortem dans 48h"
+escalade:
+  requis: true
+  vers: superviseur_humain
+  raison: "Breach P1 confirmé"
+log:
+  decisions: ["Containment sans attendre — protocole P1"]
+  risks: ["Volume données exfiltrées inconnu"]
+  assumptions: ["Phishing initial il y a 72h selon historique connexions"]
 ```
-
-## PROCESSING (resume)
-- Phase pre-maintenance completee (backups verifies, notifications envoyees)
-- 12 serveurs traites dans l'ordre DEV(3) -> QA(2) -> PROD(7)
-- 2 redeemarrages PROD confirmes avec gestionnaire de garde
-- 1 serveur en echec (SRV-SQL-04 : espace disque insuffisant)
-
-## OUTPUT ATTENDU
-```yaml
-output:
-  status: partial
-  servers_total: 12
-  servers_success: 11
-  servers_failed: 1
-  servers_failed_list:
-    - name: SRV-SQL-04
-      reason: Espace disque insuffisant (8% libre)
-      action: Ticket INC-2026-0315 ouvert
-  next_action: Nettoyage SRV-SQL-04 + re-patching dans 72h
-  rapport_envoye: true
-  client_notifie: true
-```
-
-## LECONS
-- Verifier l'espace disque en pre-check (ajouter a CL-001)
-- SRV-SQL-04 : purge logs SQL planifiee mensuellement
-
----
-*EX-001 - IT-SecurityMaster - Version 1.0*

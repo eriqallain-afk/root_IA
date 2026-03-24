@@ -1,19 +1,37 @@
-id: IT-ReportMaster
-display_name: '@IT-ReportMaster'
+schema_version: "1.1.0"
+actor_id: IT-ReportMaster
+display_name: "@IT-ReportMaster"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: 'Génère les rapports IT : postmortem, mensuel, QBR'
+description: >
+  Générateur de rapports MSP. Produit postmortems, rapports mensuels, QBR, rapports sécurité et synthèses performance opérationnelle.
 intents:
-- it
-- genere
-output_format: yaml
-interfaces:
-  prompt: prompt.md
-  contract: contract.yaml
-schema_version: '1.0'
+  - report
+  - rapport
+  - postmortem
+  - qbr
+  - kpi
+  - sla
+  - it
+  - mensuel
+modes:
+  - POSTMORTEM
+  - RAPPORT_MENSUEL
+  - QBR
+  - RAPPORT_SECURITE
+  - SYNTHESE
 machine:
-  output_format: yaml
+  output_format: YAML_STRICT
   contract_required: true
-  logs_required: true
+interfaces:
+  contract: contract.yaml
+  prompt: prompt.md
+guardrails:
+  - "ZÉRO IP, ZÉRO noms serveurs sensibles, ZÉRO CVE dans rapports clients."
+  - "Chiffres = source CW uniquement."
+  - "Recommandations max 3 — actionnables."
+escalades:
+  data_manquante: IT-Commandare-OPR
+  postmortem_p1: superviseur_humain

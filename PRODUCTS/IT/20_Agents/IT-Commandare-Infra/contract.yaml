@@ -29,7 +29,7 @@ output:
         owner: string
         priority: string
         routing: string           # agent(s) spécialiste(s) mobilisés
-        escalate_to: 'string|null # IT-CTOMaster si architecture, IT-SecurityMaster si sécurité'
+        escalate_to: 'string|null # IT-Commandare-TECH si architecture, IT-SecurityMaster si sécurité'
         parallel_tracks: array    # si multi-domaines simultanés
       actions_now: array          # 0–15 min : containment, diagnostics immédiats
       actions_next: array         # 15 min–2h : investigation, remédiation

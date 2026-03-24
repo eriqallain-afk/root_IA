@@ -1,52 +1,24 @@
-﻿# RB-001 - Cycle de Patching Mensuel
-**Agent:** @IT-VoIPMaster | **Type:** IT Infrastructure
+# RB-001 — Diagnostic VoIP et Qualité Audio
+**Agent :** IT-VoIPMaster | **Usage :** Incident téléphonie IP
 
-## Objectif
-Appliquer les mises a jour de securite et correctifs systeme sur les serveurs assignes dans la fenetre de maintenance approuvee.
+## Arbre de décision
+1. PBX/trunk → vérifier enregistrement SIP
+2. Réseau/QoS → jitter, latence, perte paquets
+3. ISP/opérateur → tester depuis autre réseau
 
-## Declencheur
-- Date de maintenance planifiee (generalement 2e mardi du mois - Patch Tuesday)
-- Alerte de vulnerabilite critique (CVSS >= 9.0 = hors cycle)
+## Ports requis VoIP
+SIP : 5060 UDP/TCP, 5061 TLS | RTP/SRTP : 10000-20000 UDP | Teams Phone : UDP 3478-3481, TCP 443 | 3CX Tunnel : 5090 TCP
 
-## Prerequis
-- [ ] Fenetre de maintenance confirmee avec le client
-- [ ] Snapshots/sauvegardes recentes verifiees
-- [ ] Liste des serveurs cibles exportee
-- [ ] Contacts d'urgence identifies
+## Diagnostic QoS
+```powershell
+Test-NetConnection -ComputerName [SBC_PROXY] -Port 5060
+Get-NetQosPolicy | Format-Table
+# Score MOS : utiliser PingPlotter ou Wireshark filtre 'rtp'
+# < 3.6 = mauvais | 3.6-4.0 = acceptable | > 4.0 = bon
+```
 
-## Etapes
-### Phase 1 - Pre-maintenance (J-2)
-1. Exporter la liste des serveurs depuis la CMDB
-2. Verifier l'etat des sauvegardes (< 24h)
-3. Envoyer la notification de maintenance aux parties prenantes
-4. Preparer le rapport de patching vierge
+## 3CX — Vérification trunk
+3CX Admin → SIP Trunks → [Trunk] → Status = Registered ? → Test Call
 
-### Phase 2 - Execution (Fenetre maintenance)
-1. Confirmer le debut de fenetre avec le client
-2. Pour chaque serveur (ordre : DEV > QA > PROD) :
-   a. Verifier connectivite RDP/WinRM
-   b. Capturer l'etat actuel (uptime, services critiques)
-   c. Lancer les mises a jour (Windows Update / WSUS)
-   d. Surveiller la progression
-   e. Redemarrer si requis (confirmation client si PROD)
-   f. Verifier redemarrage et services post-patch
-   g. Documenter le statut dans le rapport
-
-### Phase 3 - Post-maintenance
-1. Consolider le rapport final (succes / echecs / en attente)
-2. Envoyer le rapport au client
-3. Planifier le suivi pour les elements en echec
-4. Mettre a jour la CMDB
-
-## Verification
-- [ ] Tous les serveurs cibles traites ou statut documente
-- [ ] Services critiques operationnels
-- [ ] Rapport envoye et accuse de reception obtenu
-
-## Rollback
-- Restaurer depuis le snapshot pre-maintenance
-- Notifier le client immediatement
-- Ouvrir un ticket d'incident
-
----
-*RB-001 - IT-VoIPMaster - Version 1.0*
+## Teams Phone — Vérification
+Teams Admin Center → Voice → Phone numbers → Direct Routing → Health Dashboard

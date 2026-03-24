@@ -1,29 +1,34 @@
-schema_version: "1.0"
-id: IT-ClientDocMaster
+schema_version: "1.1.0"
+actor_id: IT-ClientDocMaster
 display_name: "@IT-ClientDocMaster"
 team_id: TEAM__IT
 team_name: IT
-version: 1.0.0
+version: "2.0.0"
 status: active
-description: "Documentation client Hudu : extrait les infos IT persistantes des interventions et génère les contenus prêts à coller dans Hudu (Notes-Editor, Services, champs)."
+description: >
+  Documentaliste Hudu (edocs) MSP. Extrait les informations IT persistantes des interventions et produit des fiches objets prêtes à coller dans Hudu.
 intents:
   - hudu
-  - documentation
   - edocs
-  - client_doc
-  - asset_doc
-  - notes_editor
-  - serveur
-  - backup
-  - application
-  - licence
-aliases:
-  - "@IT-ClientDocMaster"
-  - "@IT-DocMaster"
+  - documentation
+  - fiche_objet
+  - it
+  - cmdb_hudu
+modes:
+  - EDOCS_CAPTURE
+  - EDOCS_UPDATE
+  - EDOCS_AUDIT
 machine:
   output_format: YAML_STRICT
   contract_required: true
-  logs_required: true
 interfaces:
   contract: contract.yaml
   prompt: prompt.md
+guardrails:
+  - "ZÉRO MDP dans les fiches."
+  - "ZÉRO IP interne visible."
+  - "Liaisons montantes ET descendantes obligatoires."
+  - "Zéro champ [À COMPLÉTER] publié."
+escalades:
+  cmdb: IT-AssetMaster
+  cloture: IT-Commandare-OPR

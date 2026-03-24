@@ -1,30 +1,42 @@
-﻿{
-    "team":  "IT",
-    "version":  "1.0.0",
-    "outputs":  [
-                    "[Type de livrable 1]",
-                    "[Type de livrable 2]"
-                ],
-    "files":  [
-                  "README.md",
-                  "00_REFERENCE_DATA/README.md",
-                  "01_TEMPLATES/",
-                  "02_RUNBOOKS/README.md",
-                  "03_CHECKLISTS/README.md",
-                  "04_EXEMPLES/README.md",
-                  "05_KNOWLEDGE/",
-                  "10_MEMORY/README.md",
-                  "65_TEST/README.md",
-                  "05_KNOWLEDGE/",
-                  "00_INSTRUCTIONS.md",
-                  "01_CONTRACT.yaml",
-                  "03_ORIGINAL_PROMPT.md",
-                  "04_KNOWLEDGE_INDEX.md"
-              ],
-    "templates":  [
-
-                  ],
-    "agent_name":  "IT-Commandare-TECH",
-    "role":  "[Role de l\u0027agent - A completer]",
-    "display_name":  "@IT-Commandare-TECH"
+{
+  "id": "IT-Commandare-TECH",
+  "display_name": "@IT-Commandare-TECH",
+  "team": "TEAM__IT",
+  "version": "2.0.0",
+  "status": "active",
+  "description": "Commandare TECH — pilote support N1/N2/N3 et SOC. Coordonne tickets, escalades techniques, incidents sécurité.",
+  "entry_point": "prompt.md",
+  "output_format": "YAML_STRICT",
+  "modes": [
+    "SUPPORT_TRIAGE",
+    "SOC",
+    "CROSS_DEPT"
+  ],
+  "knowledge_gpt": "IT-SHARED/60_BUNDLES/BUNDLE_KP_Commandare-TECH_V1.md",
+  "escalades": {
+    "securite_p1": "IT-SecurityMaster",
+    "infra": "IT-Commandare-Infra",
+    "cloture": "IT-Commandare-OPR"
+  },
+  "outputs": [
+    "Triage support YAML",
+    "Plan confinement SOC",
+    "Assignation tickets cross-dept"
+  ],
+  "files": {
+    "core": [
+      "prompt.md",
+      "agent.yaml",
+      "contract.yaml",
+      "manifest.json",
+      "00_INSTRUCTIONS.md",
+      "README.md"
+    ],
+    "operational": [
+      "02_RUNBOOKS/RB-001_procedure-principale.md",
+      "03_CHECKLISTS/CL-001_validation-principale.md",
+      "04_EXEMPLES/EX-001_cas-nominal.md",
+      "04_KNOWLEDGE_INDEX.md"
+    ]
+  }
 }

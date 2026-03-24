@@ -1,7 +1,7 @@
 # BUNDLE — IT Sécurité MSP
 **ID :** BUNDLE__IT_SECURITY  
 **Version :** 1.0 | **Usage :** Agents sécurité et NOC  
-**Agents consommateurs :** IT-SecurityMaster, IT-Commandare-NOC, IT-MonitoringMaster, IT-CTOMaster
+**Agents consommateurs :** IT-SecurityMaster, IT-Commandare-NOC, IT-MonitoringMaster, IT-Commandare-TECH
 
 ---
 
